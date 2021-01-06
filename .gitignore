@@ -196,6 +196,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+nb-configuration.xml
 
 #Include the interfaces jar, so that your project continues to compile.
 !third-parties/ride-sharing-assessment-interfaces*.jar
