@@ -82,6 +82,7 @@ local.properties
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/**/misc.xml
 
 # Generated files
 .idea/**/contentModel.xml
@@ -195,6 +196,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+nb-configuration.xml
 
 #Include the interfaces jar, so that your project continues to compile.
 !third-parties/ride-sharing-assessment-interfaces*.jar
