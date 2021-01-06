@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,6 +9,7 @@ import java.sql.*;
  * Exemplo de classe cujas instâncias manipulam dados de BD Oracle.
  */
 public class DataHandler {
+
     /**
      * O URL da BD.
      */
@@ -44,6 +44,7 @@ public class DataHandler {
      * Use connection properties set on file application.properties
      */
     public DataHandler() {
+
         this.jdbcUrl = System.getProperty("database.url");
         this.username = System.getProperty("database.username");
         this.password = System.getProperty("database.password");
@@ -53,11 +54,12 @@ public class DataHandler {
      * Constrói uma instância de "DataHandler" recebendo, por parâmetro, o URL
      * da BD e as credenciais do utilizador.
      *
-     * @param jdbcUrl  o URL da BD.
+     * @param jdbcUrl o URL da BD.
      * @param username o nome do utilizador.
      * @param password a password do utilizador.
      */
     public DataHandler(String jdbcUrl, String username, String password) {
+
         this.jdbcUrl = jdbcUrl;
         this.username = username;
         this.password = password;
@@ -89,9 +91,10 @@ public class DataHandler {
      * Estabelece a ligação à BD.
      */
     protected void openConnection() {
+
         try {
-            connection = DriverManager.getConnection(
-                    jdbcUrl, username, password);
+            connection = DriverManager.getConnection(jdbcUrl, username, password);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,8 +110,10 @@ public class DataHandler {
         StringBuilder message = new StringBuilder();
 
         if (rSet != null) {
+
             try {
                 rSet.close();
+
             } catch (SQLException ex) {
                 message.append(ex.getMessage());
                 message.append("\n");
@@ -117,8 +122,10 @@ public class DataHandler {
         }
 
         if (callStmt != null) {
+
             try {
                 callStmt.close();
+
             } catch (SQLException ex) {
                 message.append(ex.getMessage());
                 message.append("\n");
@@ -127,8 +134,10 @@ public class DataHandler {
         }
 
         if (connection != null) {
+
             try {
                 connection.close();
+
             } catch (SQLException ex) {
                 message.append(ex.getMessage());
                 message.append("\n");
@@ -138,12 +147,11 @@ public class DataHandler {
         return message.toString();
     }
 
-
     protected Connection getConnection() {
-        if (connection == null)
+
+        if (connection == null) {
             openConnection();
+        }
         return connection;
     }
-
-
 }
