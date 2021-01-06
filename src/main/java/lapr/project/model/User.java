@@ -22,14 +22,14 @@ public class User {
     }
 
     public void setEmail(String email) {
-        if ((email == null) || email.isBlank()) {
+        if ((email == null) || email.isEmpty()) {
             throw new IllegalArgumentException("Email field is not valid or blank.");
         }
         this.email = email;
     }
 
     private void setPassword(String password) {
-        if ((password == null) || password.isBlank() || (password.length() < 8)) //TODO: Maybe configurable?
+        if ((password == null) || password.isEmpty() || (password.length() < 8)) //TODO: Maybe configurable?
         {
             throw new IllegalArgumentException("Password field is not valid, blank or has less than 8 characters.");
         }
@@ -37,7 +37,7 @@ public class User {
     }
 
     public void setRole(String role) {
-        if ((role == null) || role.isBlank()) {
+        if ((role == null) || role.isEmpty()) {
             throw new IllegalArgumentException("Role field is not valid or blank.");
 
         }
