@@ -1,5 +1,7 @@
 package lapr.project.model;
 
+import java.util.Date;
+
 public class Order {
 
     private int id;

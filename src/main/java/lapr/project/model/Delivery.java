@@ -1,5 +1,7 @@
 package lapr.project.model;
 
+import java.util.Date;
+
 public class Delivery {
 
     private int order_id;
