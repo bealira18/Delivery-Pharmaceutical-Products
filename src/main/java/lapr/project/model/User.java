@@ -5,6 +5,8 @@
  */
 package lapr.project.model;
 
+import lapr.project.data.UserDB;
+
 /**
  *
  * @author Ricardo
@@ -53,11 +55,11 @@ public class User {
     }
     
     public static User findUser(String strEmail) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new UserDB().findUser(strEmail, strEmail);
     }
 
     public static boolean addUser(User usr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new UserDB().addUser(usr.email, usr.password, usr.role);
     }
 
 }
