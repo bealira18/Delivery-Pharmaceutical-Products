@@ -4,6 +4,10 @@ import lapr.project.model.RegisteredUser;
 
 public class AuthFacade {
 
+    public AuthFacade() {
+    }
+    
+
     /**
      * Holds the information about the user that is currently logged in.
      */
