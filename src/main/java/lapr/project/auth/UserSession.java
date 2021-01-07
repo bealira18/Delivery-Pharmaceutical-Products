@@ -1,18 +1,19 @@
 package lapr.project.auth;
 
-import lapr.project.model.User;
+import lapr.project.model.RegisteredUser;
 
 public class UserSession {
 
     /**
      * The session's user.
      */
-    private User user = null;
+    private RegisteredUser user = null;
 
     /**
      * Creates an instance of a user session with no arguments given.
      */
     private UserSession() {
+
     }
 
     /**
@@ -22,7 +23,7 @@ public class UserSession {
      *
      * @param user the user.
      */
-    public UserSession(User user) {
+    public UserSession(RegisteredUser user) {
 
         if (user == null) {
             throw new IllegalArgumentException("Session's User cannot be null!");

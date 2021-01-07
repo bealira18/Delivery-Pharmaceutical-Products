@@ -6,16 +6,16 @@ public class Administrator {
 
     private String email;
     private int pharmacy_id;
-    private int nif;
     private String name;
+    private int nif;
     private int social_security;
 
-    public Administrator(String email, int pharmacy_id, int nif, String name, int social_security) {
+    public Administrator(String email, int pharmacy_id, String name, int nif, int social_security) {
 
         this.email = email;
         this.pharmacy_id = pharmacy_id;
-        this.nif = nif;
         this.name = name;
+        this.nif = nif;
         this.social_security = social_security;
     }
 
@@ -33,14 +33,14 @@ public class Administrator {
         return pharmacy_id;
     }
 
-    public int getNif() {
-
-        return nif;
-    }
-
     public String getName() {
 
         return name;
+    }
+
+    public int getNif() {
+
+        return nif;
     }
 
     public int getSocial_security() {
@@ -58,14 +58,14 @@ public class Administrator {
         this.pharmacy_id = pharmacy_id;
     }
 
-    public void setNif(int nif) {
-
-        this.nif = nif;
-    }
-
     public void setName(String name) {
 
         this.name = name;
+    }
+
+    public void setNif(int nif) {
+
+        this.nif = nif;
     }
 
     public void setSocial_security(int social_security) {
@@ -76,7 +76,7 @@ public class Administrator {
     @Override
     public String toString() {
 
-        return "Administrator{" + "email=" + email + ", pharmacy_id=" + pharmacy_id + ", nif=" + nif + ", name=" + name + ", social_security=" + social_security + '}';
+        return "Administrator{" + "email=" + email + ", pharmacy_id=" + pharmacy_id + ", name=" + name + ", nif=" + nif + ", social_security=" + social_security + '}';
     }
 
     @Override

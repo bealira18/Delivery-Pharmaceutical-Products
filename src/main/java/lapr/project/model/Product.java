@@ -4,82 +4,100 @@ import java.util.Objects;
 
 public class Product {
 
-    private int productId;
+    private int id;
     private String name;
     private double price;
     private double weight;
+    private int category_id;
 
-    public Product(){
-        this.productId=0;
-        this.name=null;
-        this.price=0;
-        this.weight=0;
-    }
+    public Product(int id, String name, double price, double weight, int category_id) {
 
-    public Product(int productId, String name, double price, double weight) {
-        this.productId = productId;
+        this.id = id;
         this.name = name;
         this.price = price;
         this.weight = weight;
+        this.category_id = category_id;
     }
 
-    public int getProductId() {
-        return productId;
+    public Product() {
+
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public int getId() {
+
+        return id;
     }
 
     public String getName() {
+
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public double getPrice() {
+
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public double getWeight() {
+
         return weight;
     }
 
+    public int getCategory_id() {
+
+        return category_id;
+    }
+
+    public void setId(int id) {
+
+        this.id = id;
+    }
+
+    public void setName(String name) {
+
+        this.name = name;
+    }
+
+    public void setPrice(double price) {
+
+        this.price = price;
+    }
+
     public void setWeight(double weight) {
+
         this.weight = weight;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Product product = (Product) obj;
-        return productId == product.productId;
-    }
+    public void setCategory_id(int category_id) {
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(productId, name, price, weight);
+        this.category_id = category_id;
     }
 
     @Override
     public String toString() {
-        return "productId=" + productId +
-                ", name='" + name +
-                ", price=" + price +
-                ", weight=" + weight;
+
+        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", weight=" + weight + ", category_id=" + category_id + '}';
+    }
+
+    @Override
+    public int hashCode() {
+
+        int hash = 7;
+        hash = 59 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final Product other = (Product) obj;
+
+        return this.id == other.id;
     }
 }

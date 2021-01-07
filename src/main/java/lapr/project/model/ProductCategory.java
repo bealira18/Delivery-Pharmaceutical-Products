@@ -1,19 +1,17 @@
 package lapr.project.model;
 
-public class Pharmacy {
+public class ProductCategory {
 
     private int id;
     private String name;
-    private String address;
 
-    public Pharmacy(int id, String name, String address) {
+    public ProductCategory(int id, String name) {
 
         this.id = id;
         this.name = name;
-        this.address = address;
     }
 
-    public Pharmacy() {
+    public ProductCategory() {
 
     }
 
@@ -27,11 +25,6 @@ public class Pharmacy {
         return name;
     }
 
-    public String getAddress() {
-
-        return address;
-    }
-
     public void setId(int id) {
 
         this.id = id;
@@ -42,22 +35,17 @@ public class Pharmacy {
         this.name = name;
     }
 
-    public void setAddress(String address) {
-
-        this.address = address;
-    }
-
     @Override
     public String toString() {
 
-        return "Pharmacy{" + "id=" + id + ", name=" + name + ", address=" + address + '}';
+        return "ProductCategory{" + "id=" + id + ", name=" + name + '}';
     }
 
     @Override
     public int hashCode() {
 
-        int hash = 5;
-        hash = 83 * hash + this.id;
+        int hash = 7;
+        hash = 71 * hash + this.id;
         return hash;
     }
 
@@ -70,7 +58,7 @@ public class Pharmacy {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final Pharmacy other = (Pharmacy) obj;
+        final ProductCategory other = (ProductCategory) obj;
 
         return this.id == other.id;
     }

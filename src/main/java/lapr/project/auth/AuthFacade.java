@@ -1,6 +1,6 @@
 package lapr.project.auth;
 
-import lapr.project.model.User;
+import lapr.project.model.RegisteredUser;
 
 public class AuthFacade {
 
@@ -14,7 +14,6 @@ public class AuthFacade {
      * password and role. Then proceeds to register the user, returning the
      * outcome of the operation.
      *
-     * @param strName the user's name.
      * @param strEmail the user's email.
      * @param strPassword the user's password.
      * @param usrRole the user's role.
@@ -23,9 +22,9 @@ public class AuthFacade {
      */
     public boolean registerUser(String strEmail, String strPassword, String usrRole) {
 
-        User usr = new User(strEmail, strPassword, usrRole);
+        RegisteredUser usr = new RegisteredUser(strEmail, strPassword, usrRole);
 
-        return User.addUser(usr);
+        return RegisteredUser.addUser(usr);
     }
 
     /**
@@ -38,7 +37,7 @@ public class AuthFacade {
      */
     public UserSession doLogin(String strEmail, String strPwd) {
 
-        User utlz = User.findUser(strEmail);
+        RegisteredUser utlz = RegisteredUser.findUser(strEmail);
 
         if (utlz != null) {
             this.session = new UserSession(utlz);

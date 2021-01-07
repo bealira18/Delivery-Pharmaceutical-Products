@@ -2,14 +2,14 @@ package lapr.project.model;
 
 import java.util.Date;
 
-public class Order {
+public class PurchaseOrder {
 
     private int id;
     private int pharmacy_id;
     private String client_email;
     private Date emission_date;
 
-    public Order(int id, int pharmacy_id, String client_email, Date emission_date) {
+    public PurchaseOrder(int id, int pharmacy_id, String client_email, Date emission_date) {
 
         this.id = id;
         this.pharmacy_id = pharmacy_id;
@@ -17,11 +17,12 @@ public class Order {
         this.emission_date = emission_date;
     }
 
-    public Order() {
+    public PurchaseOrder() {
 
     }
 
     public int getId() {
+
         return id;
     }
 
@@ -83,7 +84,7 @@ public class Order {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final Order other = (Order) obj;
+        final PurchaseOrder other = (PurchaseOrder) obj;
 
         return this.id == other.id;
     }

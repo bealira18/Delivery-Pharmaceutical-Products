@@ -5,20 +5,18 @@ import java.util.Objects;
 public class Courier {
 
     private String email;
-    private int pharmacy_id;
-    private int scooter_id;
-    private int nif;
     private String name;
+    private int nif;
     private int social_security;
+    private int pharmacy_id;
 
-    public Courier(String email, int pharmacy_id, int scooter_id, int nif, String name, int social_security) {
+    public Courier(String email, String name, int nif, int social_security, int pharmacy_id) {
 
         this.email = email;
-        this.pharmacy_id = pharmacy_id;
-        this.scooter_id = scooter_id;
-        this.nif = nif;
         this.name = name;
+        this.nif = nif;
         this.social_security = social_security;
+        this.pharmacy_id = pharmacy_id;
     }
 
     public Courier() {
@@ -30,14 +28,9 @@ public class Courier {
         return email;
     }
 
-    public int getPharmacy_id() {
+    public String getName() {
 
-        return pharmacy_id;
-    }
-
-    public int getScooter_id() {
-
-        return scooter_id;
+        return name;
     }
 
     public int getNif() {
@@ -45,14 +38,14 @@ public class Courier {
         return nif;
     }
 
-    public String getName() {
-
-        return name;
-    }
-
     public int getSocial_security() {
 
         return social_security;
+    }
+
+    public int getPharmacy_id() {
+
+        return pharmacy_id;
     }
 
     public void setEmail(String email) {
@@ -60,14 +53,9 @@ public class Courier {
         this.email = email;
     }
 
-    public void setPharmacy_id(int pharmacy_id) {
+    public void setName(String name) {
 
-        this.pharmacy_id = pharmacy_id;
-    }
-
-    public void setScooter_id(int scooter_id) {
-
-        this.scooter_id = scooter_id;
+        this.name = name;
     }
 
     public void setNif(int nif) {
@@ -75,27 +63,27 @@ public class Courier {
         this.nif = nif;
     }
 
-    public void setName(String name) {
-
-        this.name = name;
-    }
-
     public void setSocial_security(int social_security) {
 
         this.social_security = social_security;
     }
 
+    public void setPharmacy_id(int pharmacy_id) {
+
+        this.pharmacy_id = pharmacy_id;
+    }
+
     @Override
     public String toString() {
 
-        return "Courrier{" + "email=" + email + ", pharmacy_id=" + pharmacy_id + ", scooter_id=" + scooter_id + ", nif=" + nif + ", name=" + name + ", social_security=" + social_security + '}';
+        return "Courier{" + "email=" + email + ", name=" + name + ", nif=" + nif + ", social_security=" + social_security + ", pharmacy_id=" + pharmacy_id + '}';
     }
 
     @Override
     public int hashCode() {
 
-        int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.email);
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.email);
         return hash;
     }
 
