@@ -107,7 +107,84 @@ CREATE TABLE parkingSpace (
     CONSTRAINT pkParkingSpaceIdParkingSpaceIdPark   PRIMARY KEY(id_parking_space, id_park)
 );
 
+CREATE TABLE product (
+    id_product      INTEGER GENERATED AS IDENTITY      CONSTRAINT pkProductIdProduct            PRIMARY KEY,
+    name            VARCHAR2(255)                      CONSTRAINT nnProductName                 NOT NULL
+                                                       CONSTRAINT ukProductName                 UNIQUE,
+    price           NUMERIC(9,2)                       CONSTRAINT nnProductPrice                NOT NULL
+                                                       CONSTRAINT ckProductPrice                CHECK(price>0),
+    weight          NUMERIC(9,2)                       CONSTRAINT nnProductWeight               NOT NULL
+                                                       CONSTRAINT ckProductWeight               CHECK(weight>0)                                                   
+);
 
+CREATE TABLE stock (
+    id_pharmacy           INTEGER,              
+    id_product            INTEGER,                 
+    quantity              INTEGER        CONSTRAINT nnStockQuantity               NOT NULL
+                                         CONSTRAINT ckStockQuantity               CHECK(quantity>=0),
+                                         
+    CONSTRAINT pkStockIdPharmacyProduct   PRIMARY KEY(id_pharmacy, id_product)
+);
+
+CREATE TABLE scooterStatus (
+ id_scooter_status     INTEGER GENERATED AS IDENTITY     CONSTRAINT pkScooterStatusId               PRIMARY KEY,            
+ name                  VARCHAR2(255)                     CONSTRAINT nnScooterStatusName             NOT NULL
+                                                         CONSTRAINT ukScooterStatusName             UNIQUE
+                                                         CONSTRAINT ckScooterStatusName             CHECK(name IN ('available','maintenance','occupied','charging'))                                                 
+);
+
+CREATE TABLE deliveryStatus (
+    id_delivery_status    INTEGER GENERATED AS IDENTITY     CONSTRAINT pkDeliveryStatusId              PRIMARY KEY,            
+    name                  VARCHAR2(255)                     CONSTRAINT nnDeliveryStatusName            NOT NULL
+                                                            CONSTRAINT ukDeliveryStatusName            UNIQUE
+                                                            CONSTRAINT ckDeliveryStatusName            CHECK(name IN ('processing','pending','delivered'))                                                 
+);
+
+CREATE TABLE scooter (
+    id_scooter            INTEGER GENERATED AS IDENTITY     CONSTRAINT pkScooterId              PRIMARY KEY,            
+    id_pharmacy           INTEGER,                 
+    id_scooter_status     INTEGER,
+    current_battery       NUMERIC(9,2)                      CONSTRAINT nnScooterCurrentBattery  NOT NULL
+                                                            CONSTRAINT ckScooterCurrentBattery  CHECK(current_battery>=0),
+    max_battery           NUMERIC(9,2)                      CONSTRAINT nnScooterMaxBattery      NOT NULL 
+                                                            CONSTRAINT ckScooterMaxBattery      CHECK(max_battery>0)
+);
+
+CREATE TABLE purchaseOrder (
+    id_order              INTEGER GENERATED AS IDENTITY     CONSTRAINT pkOrderId             PRIMARY KEY,            
+    id_pharmacy           INTEGER,                 
+    email_client          VARCHAR2(255),
+    emission_date         DATE              
+);
+
+CREATE TABLE productLine (
+    id_order              INTEGER,              
+    id_product            INTEGER,                 
+    product_quantity      INTEGER        CONSTRAINT nnProductLineProductQuantity  NOT NULL,
+    price                 NUMERIC(9,2)   CONSTRAINT nnProductLinePrice            NOT NULL,  
+    
+    CONSTRAINT pkProductLineIdOrderProduct   PRIMARY KEY(id_order, id_product)
+);
+
+CREATE TABLE delivery (
+    id_order              INTEGER              CONSTRAINT pkDeliveryIdOrder               PRIMARY KEY,      
+    id_scooter            INTEGER,         
+    email_courier         VARCHAR2(255),
+    id_delivery_status    INTEGER,
+    delivery_start        DATE,           
+    delivery_end          DATE,           
+    
+    CONSTRAINT ckDeliveryEndDeliveryStart      CHECK(delivery_end > delivery_start)   
+);
+
+CREATE TABLE invoice (
+    id_invoice      INTEGER GENERATED AS IDENTITY         CONSTRAINT pkInvoiceIDInvoice            PRIMARY KEY,
+    id_order        INTEGER,         
+    id_pharmacy     INTEGER,
+    email_client    VARCHAR2(255),
+    total_price     NUMERIC(9,2)    CONSTRAINT nnInvoiceTotalPrice           NOT NULL
+                                    CONSTRAINT ckInvoiceTotalPriceNotZero    CHECK(total_price>=0)
+);
 
 
 -- Foreign Keys
@@ -130,3 +207,23 @@ ALTER TABLE scooterPark         ADD CONSTRAINT fkScooterParkAddress             
 ALTER TABLE parkingSpace        ADD CONSTRAINT fkParkingSpaceIdPark             FOREIGN KEY(id_park)            REFERENCES scooterPark (id_park);
 ALTER TABLE parkingSpace        ADD CONSTRAINT fkParkingSpaceIdScooter          FOREIGN KEY(id_scooter)         REFERENCES scooter (id_scooter);
 
+ALTER TABLE stock               ADD CONSTRAINT fkStockPharmacyId                FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
+ALTER TABLE stock               ADD CONSTRAINT fkStockProductId                 FOREIGN KEY(id_product)         REFERENCES product (id_product);
+
+ALTER TABLE scooter             ADD CONSTRAINT fkScooterPharmacyId              FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
+ALTER TABLE scooter             ADD CONSTRAINT fkScooterStatusId                FOREIGN KEY(id_scooter_status)  REFERENCES scooterStatus (id_scooter_status);
+
+ALTER TABLE purchaseOrder       ADD CONSTRAINT fkPurchaseOrderPharmacyId        FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
+ALTER TABLE purchaseOrder       ADD CONSTRAINT fkPurchaseOrderClientEmail       FOREIGN KEY(email_client)       REFERENCES client (email);
+
+ALTER TABLE productLine         ADD CONSTRAINT fkProductLineOrderId             FOREIGN KEY(id_order)           REFERENCES purchaseOrder (id_order);
+ALTER TABLE productLine         ADD CONSTRAINT fkProductLineProductId           FOREIGN KEY(id_product)         REFERENCES product (id_product);
+
+ALTER TABLE delivery            ADD CONSTRAINT fkDeliveryOrderId                FOREIGN KEY(id_order)           REFERENCES purchaseOrder (id_order);
+ALTER TABLE delivery            ADD CONSTRAINT fkDeliveryScooterId              FOREIGN KEY(id_scooter)         REFERENCES scooter (id_scooter);
+ALTER TABLE delivery            ADD CONSTRAINT fkDeliveryCourierEmail           FOREIGN KEY(email_courier)      REFERENCES courier (email);
+ALTER TABLE delivery            ADD CONSTRAINT fkDeliveryDeliveryStatusId       FOREIGN KEY(id_delivery_status) REFERENCES deliveryStatus (id_delivery_status);
+
+ALTER TABLE invoice             ADD CONSTRAINT fkInvoiceOrderId                 FOREIGN KEY(id_order)           REFERENCES purchaseOrder (id_order);
+ALTER TABLE invoice             ADD CONSTRAINT fkInvoicePharmacyId              FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
+ALTER TABLE invoice             ADD CONSTRAINT fkInvoiceClientEmail             FOREIGN KEY(email_client)       REFERENCES client (email);
