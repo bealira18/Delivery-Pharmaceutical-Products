@@ -7,14 +7,16 @@ public class Delivery {
     private int order_id;
     private int scooter_id;
     private String courier_email;
+    private int delivery_status_id;
     private Date delivery_start;
     private Date delivery_end;
 
-    public Delivery(int order_id, int scooter_id, String courier_email, Date delivery_start, Date delivery_end) {
+    public Delivery(int order_id, int scooter_id, String courier_email, int delivery_status_id, Date delivery_start, Date delivery_end) {
 
         this.order_id = order_id;
         this.scooter_id = scooter_id;
         this.courier_email = courier_email;
+        this.delivery_status_id = delivery_status_id;
         this.delivery_start = delivery_start;
         this.delivery_end = delivery_end;
     }
@@ -36,6 +38,11 @@ public class Delivery {
     public String getCourier_email() {
 
         return courier_email;
+    }
+
+    public int getDelivery_status_id() {
+
+        return delivery_status_id;
     }
 
     public Date getDelivery_start() {
@@ -63,6 +70,11 @@ public class Delivery {
         this.courier_email = courier_email;
     }
 
+    public void setDelivery_status_id(int delivery_status_id) {
+
+        this.delivery_status_id = delivery_status_id;
+    }
+
     public void setDelivery_start(Date delivery_start) {
 
         this.delivery_start = delivery_start;
@@ -76,14 +88,14 @@ public class Delivery {
     @Override
     public String toString() {
 
-        return "Delivery{" + "order_id=" + order_id + ", scooter_id=" + scooter_id + ", courier_email=" + courier_email + ", delivery_start=" + delivery_start + ", delivery_end=" + delivery_end + '}';
+        return "Delivery{" + "order_id=" + order_id + ", scooter_id=" + scooter_id + ", courier_email=" + courier_email + ", delivery_status_id=" + delivery_status_id + ", delivery_start=" + delivery_start + ", delivery_end=" + delivery_end + '}';
     }
 
     @Override
     public int hashCode() {
 
-        int hash = 5;
-        hash = 37 * hash + this.order_id;
+        int hash = 3;
+        hash = 71 * hash + this.order_id;
         return hash;
     }
 

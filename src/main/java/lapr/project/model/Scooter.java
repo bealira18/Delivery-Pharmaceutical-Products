@@ -4,17 +4,17 @@ public class Scooter {
 
     private int id;
     private int pharmacy_id;
-    private double max_battery;
+    private int scooter_status_id;
     private double current_battery;
-    private String status;
+    private double max_battery;
 
-    public Scooter(int id, int pharmacy_id, double max_battery, double current_battery, String status) {
+    public Scooter(int id, int pharmacy_id, int scooter_status_id, double current_battery, double max_battery) {
 
         this.id = id;
         this.pharmacy_id = pharmacy_id;
-        this.max_battery = max_battery;
+        this.scooter_status_id = scooter_status_id;
         this.current_battery = current_battery;
-        this.status = status;
+        this.max_battery = max_battery;
     }
 
     public Scooter() {
@@ -31,9 +31,9 @@ public class Scooter {
         return pharmacy_id;
     }
 
-    public double getMax_battery() {
+    public int getScooter_status_id() {
 
-        return max_battery;
+        return scooter_status_id;
     }
 
     public double getCurrent_battery() {
@@ -41,9 +41,9 @@ public class Scooter {
         return current_battery;
     }
 
-    public String getStatus() {
+    public double getMax_battery() {
 
-        return status;
+        return max_battery;
     }
 
     public void setId(int id) {
@@ -56,9 +56,9 @@ public class Scooter {
         this.pharmacy_id = pharmacy_id;
     }
 
-    public void setMax_battery(double max_battery) {
+    public void setScooter_status_id(int scooter_status_id) {
 
-        this.max_battery = max_battery;
+        this.scooter_status_id = scooter_status_id;
     }
 
     public void setCurrent_battery(double current_battery) {
@@ -66,22 +66,22 @@ public class Scooter {
         this.current_battery = current_battery;
     }
 
-    public void setStatus(String status) {
+    public void setMax_battery(double max_battery) {
 
-        this.status = status;
+        this.max_battery = max_battery;
     }
 
     @Override
     public String toString() {
 
-        return "Scooter{" + "id=" + id + ", pharmacy_id=" + pharmacy_id + ", max_battery=" + max_battery + ", current_battery=" + current_battery + ", status=" + status + '}';
+        return "Scooter{" + "id=" + id + ", pharmacy_id=" + pharmacy_id + ", scooter_status_id=" + scooter_status_id + ", current_battery=" + current_battery + ", max_battery=" + max_battery + '}';
     }
 
     @Override
     public int hashCode() {
 
-        int hash = 7;
-        hash = 83 * hash + this.id;
+        int hash = 5;
+        hash = 67 * hash + this.id;
         return hash;
     }
 

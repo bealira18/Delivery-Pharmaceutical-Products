@@ -1,86 +1,79 @@
 package lapr.project.model;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class CreditCard {
 
-    private int creditCard;
-    private String clientEmail;
-    private Date ccValidityDate;
-    private short ccCCV;
+    private int credit_card;
+    private Date validity_date;
+    private short ccv;
 
-    public CreditCard(){
-        this.creditCard=0;
-        this.clientEmail=null;
-        this.ccValidityDate=null;
-        this.ccCCV=0;
+    public CreditCard(int credit_card, Date validity_date, short ccv) {
+
+        this.credit_card = credit_card;
+        this.validity_date = validity_date;
+        this.ccv = ccv;
     }
 
-    public CreditCard(int creditCard, String clientEmail, Date ccValidityDate, short ccCCV) {
-        this.creditCard = creditCard;
-        this.clientEmail = clientEmail;
-        this.ccValidityDate = ccValidityDate;
-        this.ccCCV = ccCCV;
+    public CreditCard() {
+
     }
 
-    public int getCreditCard() {
-        return creditCard;
+    public int getCredit_card() {
+
+        return credit_card;
     }
 
-    public void setCreditCard(int creditCard) {
-        this.creditCard = creditCard;
+    public Date getValidity_date() {
+
+        return validity_date;
     }
 
-    public String getClientEmail() {
-        return clientEmail;
+    public short getCcv() {
+
+        return ccv;
     }
 
-    public void setClientEmail(String clientEmail) {
-        this.clientEmail = clientEmail;
+    public void setCredit_card(int credit_card) {
+
+        this.credit_card = credit_card;
     }
 
-    public Date getCcValidityDate() {
-        return ccValidityDate;
+    public void setValidity_date(Date validity_date) {
+
+        this.validity_date = validity_date;
     }
 
-    public void setCcValidityDate(Date ccValidityDate) {
-        this.ccValidityDate = ccValidityDate;
-    }
+    public void setCcv(short ccv) {
 
-    public short getCcCCV() {
-        return ccCCV;
-    }
-
-    public void setCcCCV(short ccCCV) {
-        this.ccCCV = ccCCV;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        CreditCard cc = (CreditCard) obj;
-        return creditCard == cc.creditCard;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(creditCard, clientEmail, ccValidityDate, ccCCV);
+        this.ccv = ccv;
     }
 
     @Override
     public String toString() {
-        return "creditCard=" + creditCard +
-                ", clientEmail='" + clientEmail +
-                ", ccValidityDate=" + ccValidityDate +
-                ", ccCCV=" + ccCCV;
+
+        return "CreditCard{" + "credit_card=" + credit_card + ", validity_date=" + validity_date + ", ccv=" + ccv + '}';
+    }
+
+    @Override
+    public int hashCode() {
+
+        int hash = 3;
+        hash = 97 * hash + this.credit_card;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final CreditCard other = (CreditCard) obj;
+
+        return this.credit_card == other.credit_card;
     }
 }

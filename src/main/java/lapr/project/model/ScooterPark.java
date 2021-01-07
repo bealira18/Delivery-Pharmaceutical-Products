@@ -1,109 +1,101 @@
 package lapr.project.model;
 
-import java.util.Objects;
-
 public class ScooterPark {
 
-    private int parkId;
-    private int pharmacyId;
+    private int id;
+    private int pharmacy_id;
     private int limit;
-    private int nrChargingStations;
-    private double latitude;
-    private double longitude;
+    private int num_charging_stations;
+    private String address;
 
-    public ScooterPark(){
-        this.parkId=0;
-        this.pharmacyId=0;
-        this.limit=0;
-        this.nrChargingStations=0;
-        this.latitude=0;
-        this.longitude=0;
-    }
+    public ScooterPark(int id, int pharmacy_id, int limit, int num_charging_stations, String address) {
 
-    public ScooterPark(int parkId, int pharmacyId, int limit, int nrChargingStations, double latitude, double longitude) {
-        this.parkId = parkId;
-        this.pharmacyId = pharmacyId;
+        this.id = id;
+        this.pharmacy_id = pharmacy_id;
         this.limit = limit;
-        this.nrChargingStations = nrChargingStations;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.num_charging_stations = num_charging_stations;
+        this.address = address;
     }
 
-    public int getParkId() {
-        return parkId;
+    public ScooterPark() {
+
     }
 
-    public void setParkId(int parkId) {
-        this.parkId = parkId;
+    public int getId() {
+
+        return id;
     }
 
-    public int getPharmacyId() {
-        return pharmacyId;
-    }
+    public int getPharmacy_id() {
 
-    public void setPharmacyId(int pharmacyId) {
-        this.pharmacyId = pharmacyId;
+        return pharmacy_id;
     }
 
     public int getLimit() {
+
         return limit;
     }
 
+    public int getNum_charging_stations() {
+
+        return num_charging_stations;
+    }
+
+    public String getAddress() {
+
+        return address;
+    }
+
+    public void setId(int id) {
+
+        this.id = id;
+    }
+
+    public void setPharmacy_id(int pharmacy_id) {
+
+        this.pharmacy_id = pharmacy_id;
+    }
+
     public void setLimit(int limit) {
+
         this.limit = limit;
     }
 
-    public int getNrChargingStations() {
-        return nrChargingStations;
+    public void setNum_charging_stations(int num_charging_stations) {
+
+        this.num_charging_stations = num_charging_stations;
     }
 
-    public void setNrChargingStations(int nrChargingStations) {
-        this.nrChargingStations = nrChargingStations;
-    }
+    public void setAddress(String address) {
 
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        ScooterPark sp = (ScooterPark) obj;
-        return parkId == sp.parkId;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(parkId,pharmacyId,limit,nrChargingStations,latitude,longitude);
+        this.address = address;
     }
 
     @Override
     public String toString() {
-        return "parkId=" + parkId +
-                ", pharmacyId=" + pharmacyId +
-                ", limit=" + limit +
-                ", nrChargingStations=" + nrChargingStations +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude;
+
+        return "ScooterPark{" + "id=" + id + ", pharmacy_id=" + pharmacy_id + ", limit=" + limit + ", num_charging_stations=" + num_charging_stations + ", address=" + address + '}';
+    }
+
+    @Override
+    public int hashCode() {
+
+        int hash = 3;
+        hash = 61 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final ScooterPark other = (ScooterPark) obj;
+
+        return this.id == other.id;
     }
 }
