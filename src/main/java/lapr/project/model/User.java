@@ -14,13 +14,13 @@ import lapr.project.data.UserDB;
 public class User {
 
     private String email;
-    private String password;
+    private final String password;
     private String role;
 
     public User(String email, String password, String role) {
-        this.setEmail(email);
-        this.setPassword(password);
-        this.setRole(role);
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
     public void setEmail(String email) {
@@ -30,19 +30,7 @@ public class User {
         this.email = email;
     }
 
-    private void setPassword(String password) {
-        if ((password == null) || password.isEmpty() || (password.length() < 8)) //TODO: Maybe configurable?
-        {
-            throw new IllegalArgumentException("Password field is not valid, blank or has less than 8 characters.");
-        }
-        this.password = password;
-    }
-
     public void setRole(String role) {
-        if ((role == null) || role.isEmpty()) {
-            throw new IllegalArgumentException("Role field is not valid or blank.");
-
-        }
         this.role = role;
     }
 
