@@ -2,7 +2,7 @@ package lapr.project.model;
 
 import java.util.Objects;
 
-public class Courrier {
+public class Courier {
 
     private String email;
     private int pharmacy_id;
@@ -11,7 +11,7 @@ public class Courrier {
     private String name;
     private int social_security;
 
-    public Courrier(String email, int pharmacy_id, int scooter_id, int nif, String name, int social_security) {
+    public Courier(String email, int pharmacy_id, int scooter_id, int nif, String name, int social_security) {
 
         this.email = email;
         this.pharmacy_id = pharmacy_id;
@@ -21,7 +21,7 @@ public class Courrier {
         this.social_security = social_security;
     }
 
-    public Courrier() {
+    public Courier() {
 
     }
 
@@ -108,7 +108,7 @@ public class Courrier {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final Courrier other = (Courrier) obj;
+        final Courier other = (Courier) obj;
 
         return this.email.equals(other.email);
     }
