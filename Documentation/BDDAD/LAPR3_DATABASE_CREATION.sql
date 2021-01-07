@@ -11,6 +11,7 @@ DROP TABLE creditCard		    CASCADE CONSTRAINTS PURGE;
 DROP TABLE client		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE scooterPark		    CASCADE CONSTRAINTS PURGE;
 DROP TABLE parkingSpace		    CASCADE CONSTRAINTS PURGE;
+DROP TABLE productCategory      CASCADE CONSTRAINTS PURGE;
 DROP TABLE product		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE stock		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE scooterStatus		CASCADE CONSTRAINTS PURGE;
@@ -43,7 +44,7 @@ CREATE TABLE address (
 CREATE TABLE pharmacy (
     id_pharmacy     INTEGER GENERATED AS IDENTITY   CONSTRAINT pkPharmacyIdPharmacy         PRIMARY KEY,
     name            VARCHAR2(255)                   CONSTRAINT nnPharmacyName               NOT NULL,
-    address         VARCHAR2(255)
+    address         VARCHAR2(255)                   CONSTRAINT nnPharmacyAddress            NOT NULL
 );
 
 CREATE TABLE administrator (
@@ -67,7 +68,7 @@ CREATE TABLE courier (
     social_security     INTEGER             CONSTRAINT nnCourierSocialSecurity  NOT NULL
                                             CONSTRAINT ukCourierSocialSecurity  UNIQUE
                                             CONSTRAINT ckCourierSocialSecurity  CHECK(REGEXP_LIKE(social_security, '^\d{11}$')),
-    id_pharmacy         INTEGER
+    id_pharmacy         INTEGER             CONSTRAINT nnCourierIdPharmacy      NOT NULL
 );
                     
 CREATE TABLE creditCard (
@@ -84,27 +85,33 @@ CREATE TABLE client (
     nif             INTEGER                  CONSTRAINT nnClientNif              NOT NULL
                                              CONSTRAINT ukClientNif              UNIQUE
                                              CONSTRAINT ckClientNif              CHECK(REGEXP_LIKE(nif, '^\d{9}$')),
-    credit_card     INTEGER,
-    credits         INTEGER DEFAULT 0,
-    address         VARCHAR2(255)
+    credit_card     INTEGER                  CONSTRAINT nnClientCreditCard       NOT NULL,
+    address         VARCHAR2(255)            CONSTRAINT nnClientAdress           NOT NULL,
+    credits         INTEGER DEFAULT 0        CONSTRAINT nnClientCredits          NOT NULL
 );
 
 CREATE TABLE scooterPark (
     id_park                 INTEGER GENERATED AS IDENTITY   CONSTRAINT pkScooterParkIdPark              PRIMARY KEY,
-    id_pharmacy             INTEGER,
+    id_pharmacy             INTEGER                         CONSTRAINT nnScooterParkIdPharmacy          NOT NULL,
     limit                   INTEGER                         CONSTRAINT nnScooterParkLimit               NOT NULL,
     num_charging_stations   INTEGER                         CONSTRAINT nnNumChargingStations            NOT NULL,
-    address                 VARCHAR2(255)
+    address                 VARCHAR2(255)                   CONSTRAINT nnScooterParkAdress              NOT NULL
 );
 
 CREATE TABLE parkingSpace (
     id_parking_space        INTEGER,
-    id_park                 INTEGER,
+    id_park                 INTEGER                 CONSTRAINT nnParkingSpaceIdPark             NOT NULL,
     id_scooter              INTEGER,
     is_charging_station     NUMBER(1) DEFAULT 0     CONSTRAINT nnParkingSpaceIsChargingStation  NOT NULL
                                                     CONSTRAINT ckParkingSpaceIsChargingStation  CHECK(is_charging_station IN(0,1)), 
                                                     
     CONSTRAINT pkParkingSpaceIdParkingSpaceIdPark   PRIMARY KEY(id_parking_space, id_park)
+);
+
+CREATE TABLE productCategory (
+    id_category     INTEGER GENERATED AS IDENTITY      CONSTRAINT pkProductCategoryIdCategory   PRIMARY KEY,
+    name            VARCHAR2(255)                      CONSTRAINT nnProductCategoryName         NOT NULL
+                                                       CONSTRAINT ukProductCategoryName         UNIQUE                                                  
 );
 
 CREATE TABLE product (
@@ -114,12 +121,13 @@ CREATE TABLE product (
     price           NUMERIC(9,2)                       CONSTRAINT nnProductPrice                NOT NULL
                                                        CONSTRAINT ckProductPrice                CHECK(price>0),
     weight          NUMERIC(9,2)                       CONSTRAINT nnProductWeight               NOT NULL
-                                                       CONSTRAINT ckProductWeight               CHECK(weight>0)                                                   
+                                                       CONSTRAINT ckProductWeight               CHECK(weight>0),
+    id_category     INTEGER                            CONSTRAINT nnProductIdCategory           NOT NULL           
 );
 
 CREATE TABLE stock (
-    id_pharmacy           INTEGER,              
-    id_product            INTEGER,                 
+    id_pharmacy           INTEGER        CONSTRAINT nnStockIdPharmacy             NOT NULL,              
+    id_product            INTEGER        CONSTRAINT nnStockIdProduct              NOT NULL,                 
     quantity              INTEGER        CONSTRAINT nnStockQuantity               NOT NULL
                                          CONSTRAINT ckStockQuantity               CHECK(quantity>=0),
                                          
@@ -142,8 +150,8 @@ CREATE TABLE deliveryStatus (
 
 CREATE TABLE scooter (
     id_scooter            INTEGER GENERATED AS IDENTITY     CONSTRAINT pkScooterId              PRIMARY KEY,            
-    id_pharmacy           INTEGER,                 
-    id_scooter_status     INTEGER,
+    id_pharmacy           INTEGER                           CONSTRAINT nnScooterIdPharmacy      NOT NULL,                 
+    id_scooter_status     INTEGER                           CONSTRAINT nnScooterIdScooterStatus NOT NULL,
     current_battery       NUMERIC(9,2)                      CONSTRAINT nnScooterCurrentBattery  NOT NULL
                                                             CONSTRAINT ckScooterCurrentBattery  CHECK(current_battery>=0),
     max_battery           NUMERIC(9,2)                      CONSTRAINT nnScooterMaxBattery      NOT NULL 
@@ -151,15 +159,15 @@ CREATE TABLE scooter (
 );
 
 CREATE TABLE purchaseOrder (
-    id_order              INTEGER GENERATED AS IDENTITY     CONSTRAINT pkOrderId             PRIMARY KEY,            
-    id_pharmacy           INTEGER,                 
-    email_client          VARCHAR2(255),
+    id_order              INTEGER GENERATED AS IDENTITY     CONSTRAINT pkOrderId                   PRIMARY KEY,            
+    id_pharmacy           INTEGER                           CONSTRAINT nnPurchaseOrderIdPharmacy   NOT NULL,                 
+    email_client          VARCHAR2(255)                     CONSTRAINT nnPurchaseOrderEmailClient  NOT NULL,
     emission_date         DATE              
 );
 
 CREATE TABLE productLine (
-    id_order              INTEGER,              
-    id_product            INTEGER,                 
+    id_order              INTEGER        CONSTRAINT nnProductLineIdOrder          NOT NULL,              
+    id_product            INTEGER        CONSTRAINT nnProductLineIdProduct        NOT NULL,                 
     product_quantity      INTEGER        CONSTRAINT nnProductLineProductQuantity  NOT NULL,
     price                 NUMERIC(9,2)   CONSTRAINT nnProductLinePrice            NOT NULL,  
     
@@ -167,10 +175,11 @@ CREATE TABLE productLine (
 );
 
 CREATE TABLE delivery (
-    id_order              INTEGER              CONSTRAINT pkDeliveryIdOrder               PRIMARY KEY,      
-    id_scooter            INTEGER,         
-    email_courier         VARCHAR2(255),
-    id_delivery_status    INTEGER,
+    id_order              INTEGER              CONSTRAINT pkDeliveryIdOrder               PRIMARY KEY
+                                               CONSTRAINT nnDeliveryIdOrder               NOT NULL,
+    id_scooter            INTEGER              CONSTRAINT nnDeliveryIdScooter             NOT NULL,       
+    email_courier         VARCHAR2(255)        CONSTRAINT nnDeliveryEmailCourier          NOT NULL,
+    id_delivery_status    INTEGER              CONSTRAINT nnDeliveryIdDeliveryStatus      NOT NULL,
     delivery_start        DATE,           
     delivery_end          DATE,           
     
@@ -179,11 +188,11 @@ CREATE TABLE delivery (
 
 CREATE TABLE invoice (
     id_invoice      INTEGER GENERATED AS IDENTITY         CONSTRAINT pkInvoiceIDInvoice            PRIMARY KEY,
-    id_order        INTEGER,         
-    id_pharmacy     INTEGER,
-    email_client    VARCHAR2(255),
-    total_price     NUMERIC(9,2)    CONSTRAINT nnInvoiceTotalPrice           NOT NULL
-                                    CONSTRAINT ckInvoiceTotalPriceNotZero    CHECK(total_price>=0)
+    id_order        INTEGER                               CONSTRAINT nnInvoiceIdOrder              NOT NULL,
+    id_pharmacy     INTEGER                               CONSTRAINT nnInvoiceIdPharmacy           NOT NULL,
+    email_client    VARCHAR2(255)                         CONSTRAINT nnInvoiceEmailClient          NOT NULL,
+    total_price     NUMERIC(9,2)                          CONSTRAINT nnInvoiceTotalPrice           NOT NULL
+                                                          CONSTRAINT ckInvoiceTotalPriceNotZero    CHECK(total_price>=0)
 );
 
 
@@ -206,6 +215,8 @@ ALTER TABLE scooterPark         ADD CONSTRAINT fkScooterParkAddress             
 
 ALTER TABLE parkingSpace        ADD CONSTRAINT fkParkingSpaceIdPark             FOREIGN KEY(id_park)            REFERENCES scooterPark (id_park);
 ALTER TABLE parkingSpace        ADD CONSTRAINT fkParkingSpaceIdScooter          FOREIGN KEY(id_scooter)         REFERENCES scooter (id_scooter);
+
+ALTER TABLE product             ADD CONSTRAINT fkProductCategoryId              FOREIGN KEY(id_category)        REFERENCES productCategory (id_category);
 
 ALTER TABLE stock               ADD CONSTRAINT fkStockPharmacyId                FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
 ALTER TABLE stock               ADD CONSTRAINT fkStockProductId                 FOREIGN KEY(id_product)         REFERENCES product (id_product);
