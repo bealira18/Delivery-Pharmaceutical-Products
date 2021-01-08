@@ -6,10 +6,10 @@ public class Courier extends RegisteredUser{
 
     private String name;
     private int nif;
-    private int socialSecurity;
+    private long socialSecurity;
     private int pharmacyId;
 
-    public Courier(String email, String password, String role, String name, int nif, int socialSecurity, int pharmacyId) {
+    public Courier(String email, String password, String role, String name, int nif, long socialSecurity, int pharmacyId) {
 
         super(email, password, role);
         this.name = name;
@@ -18,7 +18,7 @@ public class Courier extends RegisteredUser{
         this.pharmacyId = pharmacyId;
     }
     
-    public Courier(RegisteredUser user, String name, int nif, int socialSecurity, int pharmacyId) {
+    public Courier(RegisteredUser user, String name, int nif, long socialSecurity, int pharmacyId) {
 
         super(user);
         this.name = name;
@@ -37,7 +37,7 @@ public class Courier extends RegisteredUser{
         return nif;
     }
 
-    public int getSocialSecurity() {
+    public long getSocialSecurity() {
 
         return socialSecurity;
     }
@@ -61,7 +61,7 @@ public class Courier extends RegisteredUser{
         this.nif = nif;
     }
 
-    public void setSocialSecurity(int socialSecurity) {
+    public void setSocialSecurity(long socialSecurity) {
 
         this.socialSecurity = socialSecurity;
     }
