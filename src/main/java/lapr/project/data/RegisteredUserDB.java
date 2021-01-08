@@ -12,8 +12,7 @@ public class RegisteredUserDB extends DataHandler {
 
         /* Objeto "callStmt" para invocar a função "findUser" armazenada na BD.
          *
-         * FUNCTION getSailor(id NUMBER) RETURN pkgSailors.ref_cursor
-         * PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors; //TODO STUFF
+         * FUNCTION findUser(email_pr VARCHAR2, password_pr VARCHAR2) RETURN MATCHING_USER.ref_cursor
          */
         CallableStatement callStmt = null;
 
@@ -43,32 +42,5 @@ public class RegisteredUserDB extends DataHandler {
             e.printStackTrace();
         }
         throw new IllegalArgumentException("Could not find a user matching this user and password");
-    }
-
-    public boolean addUser(String email, String password, String role) {
-
-        try {
-
-            openConnection();
-            /*
-             *  Objeto "callStmt" para invocar o procedimento "addUser" armazenado
-             *  na BD.
-             *
-             *  PROCEDURE addSailor(sid NUMBER, sname VARCHAR, rating NUMBER, age NUMBER) //TODO: REWRITE
-             *  PACKAGE pkgSailors AS TYPE ref_cursor IS REF CURSOR; END pkgSailors;
-             */
-            CallableStatement callStmt = getConnection().prepareCall("{ call addUser(?,?,?,?) }");
-            callStmt.setString(1, email);
-            callStmt.setString(2, password);
-            callStmt.setString(3, role);
-            callStmt.execute();
-
-            closeAll();
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-            return false;
-        }
-        return true;
     }
 }

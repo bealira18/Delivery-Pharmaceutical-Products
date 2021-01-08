@@ -14,24 +14,6 @@ public class AuthFacade {
     private UserSession session = null;
 
     /**
-     * Creates an instance of a User, receiving as arguments its name, email,
-     * password and role. Then proceeds to register the user, returning the
-     * outcome of the operation.
-     *
-     * @param strEmail the user's email.
-     * @param strPassword the user's password.
-     * @param usrRole the user's role.
-     * @return true, if the user is registered successfully. Otherwise, it
-     * returns false.
-     */
-    public boolean registerUser(String strEmail, String strPassword, String usrRole) {
-
-        RegisteredUser usr = new RegisteredUser(strEmail, strPassword, usrRole);
-
-        return RegisteredUser.addUser(usr);
-    }
-
-    /**
      * Performs the login process to allow the user to access the Platform.
      *
      * @param strEmail the user's email.

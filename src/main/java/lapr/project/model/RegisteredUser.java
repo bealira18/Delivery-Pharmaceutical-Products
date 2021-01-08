@@ -37,11 +37,6 @@ public class RegisteredUser {
 
         return new RegisteredUserDB().findUser(strEmail, strPassword);
     }
-
-    public static boolean addUser(RegisteredUser usr) {
-
-        return new RegisteredUserDB().addUser(usr.email, usr.password, usr.role);
-    }
     
     @Override
     public int hashCode() {
