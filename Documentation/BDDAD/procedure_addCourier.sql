@@ -3,7 +3,7 @@ CREATE OR REPLACE PROCEDURE addCourier(
     p_email IN VARCHAR2, 
     p_name IN VARCHAR2, 
     p_nif IN INTEGER,
-    p_social_security IN INTEGER) 
+    p_social_security IN LONG) 
 IS
     int_already_registered INTEGER;
 BEGIN

@@ -1,5 +1,6 @@
 package lapr.project.model;
 
+import java.sql.Blob;
 import java.util.Objects;
 
 public class Courier {
@@ -9,10 +10,10 @@ public class Courier {
     private String email;
     private String name;
     private int nif;
-    private int socialSecurity;
+    private long socialSecurity;
     private int pharmacyId;
 
-    public Courier(String email, String name, int nif, int socialSecurity, int pharmacyId) {
+    public Courier(String email, String name, int nif, long socialSecurity, int pharmacyId) {
 
         this.email = email;
         this.name = name;
@@ -40,7 +41,7 @@ public class Courier {
         return nif;
     }
 
-    public int getSocialSecurity() {
+    public long getSocialSecurity() {
 
         return socialSecurity;
     }
@@ -70,7 +71,7 @@ public class Courier {
         this.nif = nif;
     }
 
-    public void setSocialSecurity(int socialSecurity) {
+    public void setSocialSecurity(long socialSecurity) {
 
         this.socialSecurity = socialSecurity;
     }

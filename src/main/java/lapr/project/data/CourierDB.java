@@ -23,7 +23,7 @@ public class CourierDB extends DataHandler {
         }
     }
 
-    private boolean addCourier(String email, String name, int nif, int socialSecurity, int pharmacyId) throws SQLException {
+    private boolean addCourier(String email, String name, int nif, long socialSecurity, int pharmacyId) throws SQLException {
 
         CallableStatement callStmt = null;
 
@@ -34,7 +34,7 @@ public class CourierDB extends DataHandler {
             callStmt.setString(2, email);
             callStmt.setString(3, name);
             callStmt.setInt(4, nif);
-            callStmt.setInt(5, socialSecurity);
+            callStmt.setLong(5, socialSecurity);
 
             callStmt.execute();
             return true;

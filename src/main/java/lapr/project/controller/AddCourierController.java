@@ -18,11 +18,16 @@ public class AddCourierController {
         pDB = new PharmacyDB();
     }
 
+    public AddCourierController(CourierDB cDB, PharmacyDB pDB) {
+        this.cDB = cDB;
+        this.pDB = pDB;
+    }
+
     public List<Pharmacy> findPharmacies() {
         return pDB.getAllPharmacies();
     }
 
-    public boolean addCourier(String email, String name, int nif, int socialSecurity, int pharmacyId) throws SQLException {
+    public boolean addCourier(String email, String name, int nif, long socialSecurity, int pharmacyId) throws SQLException {
         Courier courier = new Courier(email, name, nif, socialSecurity, pharmacyId);
         return cDB.addCourier(courier);
     }
