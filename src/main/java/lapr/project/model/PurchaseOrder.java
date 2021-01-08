@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class PurchaseOrder {
 
+    private static double deliveryFee = 0;
+
     private int id;
     private int pharmacyId;
     private String clientEmail;
@@ -41,6 +43,11 @@ public class PurchaseOrder {
         return (Date) emissionDate.clone();
     }
 
+    public static double getDeliveryFee() {
+
+        return deliveryFee;
+    }
+
     public void setId(int id) {
 
         this.id = id;
@@ -56,9 +63,17 @@ public class PurchaseOrder {
         this.clientEmail = clientEmail;
     }
 
-    public void setEmissionDate(Date emissionDate) {
+    public final void setEmissionDate(Date emissionDate) {
 
         this.emissionDate = (Date) emissionDate.clone();
+    }
+
+    public static void setDeliveryFee(double deliveryFee) {
+
+        if (deliveryFee < 0) {
+            throw new IllegalArgumentException("Invalid Numeric Value (Negative Delivery Fee)");
+        }
+        PurchaseOrder.deliveryFee = deliveryFee;
     }
 
     @Override

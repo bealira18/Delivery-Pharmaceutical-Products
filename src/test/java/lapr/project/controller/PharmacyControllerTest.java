@@ -6,7 +6,6 @@ import lapr.project.model.Pharmacy;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -32,6 +31,7 @@ public class PharmacyControllerTest {
 
     /**
      * Test of addPharmacy method, of class PharmacyController.
+     *
      * @throws java.lang.Exception
      */
     @Test
