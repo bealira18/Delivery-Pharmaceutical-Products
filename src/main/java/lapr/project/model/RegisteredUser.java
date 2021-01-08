@@ -24,16 +24,7 @@ public class RegisteredUser {
 
         return role;
     }
-
-    public final void setEmail(String email) {
-
-        this.email = email;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
+    
     public static RegisteredUser findUser(String strEmail) {
 
         return new RegisteredUserDB().findUser(strEmail, strEmail);
