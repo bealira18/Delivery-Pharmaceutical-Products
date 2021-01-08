@@ -4,16 +4,16 @@ import java.sql.SQLException;
 import lapr.project.data.PharmacyDB;
 import lapr.project.model.Pharmacy;
 
-public class PharmacyController {
+public class AddPharmacyController {
 
     private final PharmacyDB pDB;
 
-    public PharmacyController() {
+    public AddPharmacyController() {
 
         pDB = new PharmacyDB();
     }
 
-    public PharmacyController(PharmacyDB pDB) {
+    public AddPharmacyController(PharmacyDB pDB) {
 
         this.pDB = pDB;
     }
