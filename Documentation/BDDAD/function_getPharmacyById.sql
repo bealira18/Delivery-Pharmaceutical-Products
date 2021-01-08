@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION getPharmacyById(pharmacy_id IN VARCHAR) 
+CREATE OR REPLACE FUNCTION getPharmacyById(pharmacy_id IN VARCHAR2) 
 RETURN SYS_REFCURSOR IS matching_pharmacy SYS_REFCURSOR;
 BEGIN
 
@@ -9,4 +9,3 @@ BEGIN
     
 RETURN (matching_pharmacy);
 END;
-/

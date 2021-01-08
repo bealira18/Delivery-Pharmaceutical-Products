@@ -52,7 +52,7 @@ public class PharmacyDB extends DataHandler {
         return false;
     }
 
-    public static Pharmacy callGetPharmacy(String identifier, CallableStatement callStmt) throws SQLException {
+    private static Pharmacy callGetPharmacy(String identifier, CallableStatement callStmt) throws SQLException {
         callStmt.registerOutParameter(1, OracleTypes.CURSOR); //standard para o output
 
         callStmt.setString(2, identifier);
