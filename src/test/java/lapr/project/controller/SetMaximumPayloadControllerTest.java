@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-public class CourierControllerTest {
+public class SetMaximumPayloadControllerTest {
 
-    private static CourierController cCont;
+    private static SetMaximumPayloadController cCont;
 
-    public CourierControllerTest() {
+    public SetMaximumPayloadControllerTest() {
     }
 
     @BeforeAll
@@ -18,8 +18,8 @@ public class CourierControllerTest {
 
         CourierDB cDB = mock(CourierDB.class);
 
-        cCont = new CourierController();
-        cCont = new CourierController(cDB);
+        cCont = new SetMaximumPayloadController();
+        cCont = new SetMaximumPayloadController(cDB);
     }
 
     /**
@@ -30,7 +30,7 @@ public class CourierControllerTest {
 
         System.out.println("setMaximumPayload");
         int maximumPayload = 5000;
-        cCont = new CourierController();
+        cCont = new SetMaximumPayloadController();
 
         boolean expResult = true;
         boolean result = cCont.setMaximumPayload(maximumPayload);

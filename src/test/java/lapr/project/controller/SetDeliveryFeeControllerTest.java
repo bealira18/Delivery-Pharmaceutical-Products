@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-public class PurchaseOrderControllerTest {
+public class SetDeliveryFeeControllerTest {
 
-    private static PurchaseOrderController pOrdCont;
+    private static SetDeliveryFeeController sDelFCont;
 
-    public PurchaseOrderControllerTest() {
+    public SetDeliveryFeeControllerTest() {
     }
 
     @BeforeAll
@@ -18,8 +18,8 @@ public class PurchaseOrderControllerTest {
 
         PurchaseOrderDB pOrdDB = mock(PurchaseOrderDB.class);
 
-        pOrdCont = new PurchaseOrderController();
-        pOrdCont = new PurchaseOrderController(pOrdDB);
+        sDelFCont = new SetDeliveryFeeController();
+        sDelFCont = new SetDeliveryFeeController(pOrdDB);
     }
 
     /**
@@ -31,16 +31,16 @@ public class PurchaseOrderControllerTest {
         System.out.println("setDeliveryFee");
 
         double deliveryFee = 20.0;
-        pOrdCont = new PurchaseOrderController();
+        sDelFCont = new SetDeliveryFeeController();
 
         boolean expResult = true;
-        boolean result = pOrdCont.setDeliveryFee(deliveryFee);
+        boolean result = sDelFCont.setDeliveryFee(deliveryFee);
         assertEquals(expResult, result);
 
         deliveryFee = -2.0;
 
         expResult = false;
-        result = pOrdCont.setDeliveryFee(deliveryFee);
+        result = sDelFCont.setDeliveryFee(deliveryFee);
         assertEquals(expResult, result);
     }
 }

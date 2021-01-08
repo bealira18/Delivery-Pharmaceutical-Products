@@ -5,16 +5,16 @@ import java.util.logging.Logger;
 import lapr.project.data.CourierDB;
 import lapr.project.model.Courier;
 
-public class CourierController {
+public class SetMaximumPayloadController {
 
     private final CourierDB cDB;
 
-    public CourierController() {
+    public SetMaximumPayloadController() {
 
         cDB = new CourierDB();
     }
 
-    public CourierController(CourierDB cDB) {
+    public SetMaximumPayloadController(CourierDB cDB) {
 
         this.cDB = cDB;
     }

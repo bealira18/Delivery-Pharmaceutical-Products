@@ -54,7 +54,7 @@ CREATE TABLE administrator (
     nif                 INTEGER             CONSTRAINT nnAdministratorNif               NOT NULL
                                             CONSTRAINT ukAdministratorNif               UNIQUE
                                             CONSTRAINT ckAdministratorNif               CHECK(REGEXP_LIKE(nif, '^\d{9}$')),
-    social_security     VARCHAR2(15)        CONSTRAINT nnAdministratorSocialSecurity    NOT NULL
+    social_security     NUMERIC(12,0)       CONSTRAINT nnAdministratorSocialSecurity    NOT NULL
                                             CONSTRAINT ukAdministratorSocialSecurity    UNIQUE
                                             CONSTRAINT ckAdministratorSocialSecurity    CHECK(REGEXP_LIKE(social_security, '^\d{11}$'))
 );
@@ -65,7 +65,7 @@ CREATE TABLE courier (
     nif                 NUMBER(10)          CONSTRAINT nnCourierNif             NOT NULL
                                             CONSTRAINT ukCourierNif             UNIQUE
                                             CONSTRAINT ckCourierNif             CHECK(REGEXP_LIKE(nif, '^\d{9}$')),
-    social_security     VARCHAR2(15)        CONSTRAINT nnCourierSocialSecurity  NOT NULL
+    social_security     NUMERIC(12,0)       CONSTRAINT nnCourierSocialSecurity  NOT NULL
                                             CONSTRAINT ukCourierSocialSecurity  UNIQUE
                                             CONSTRAINT ckCourierSocialSecurity  CHECK(REGEXP_LIKE(social_security, '^\d{11}$')),
     id_pharmacy         INTEGER             CONSTRAINT nnCourierIdPharmacy      NOT NULL

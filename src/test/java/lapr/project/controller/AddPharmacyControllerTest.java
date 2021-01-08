@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class PharmacyControllerTest {
+public class AddPharmacyControllerTest {
 
-    private static PharmacyController pCont;
+    private static AddPharmacyController pCont;
 
-    public PharmacyControllerTest() {
+    public AddPharmacyControllerTest() {
     }
 
     @BeforeAll
@@ -25,8 +25,8 @@ public class PharmacyControllerTest {
 
         when(pDB.addPharmacy(p, limit)).thenReturn(Boolean.TRUE);
 
-        pCont = new PharmacyController();
-        pCont = new PharmacyController(pDB);
+        pCont = new AddPharmacyController();
+        pCont = new AddPharmacyController(pDB);
     }
 
     /**
@@ -48,7 +48,7 @@ public class PharmacyControllerTest {
 
         PharmacyDB pDB = mock(PharmacyDB.class);
         when(pDB.addPharmacy(new Pharmacy(0, "TestPharma", "TestAddress"), limit)).thenReturn(Boolean.FALSE);
-        PharmacyController pCont1 = new PharmacyController(pDB);
+        AddPharmacyController pCont1 = new AddPharmacyController(pDB);
 
         expResult = false;
         result = pCont1.addPharmacy(p, limit);
@@ -56,7 +56,7 @@ public class PharmacyControllerTest {
 
         PharmacyDB pDB1 = mock(PharmacyDB.class);
         when(pDB1.addPharmacy(new Pharmacy(0, "TestPharma", "TestAddress"), limit)).thenThrow(new SQLException());
-        PharmacyController pCont2 = new PharmacyController(pDB);
+        AddPharmacyController pCont2 = new AddPharmacyController(pDB);
 
         expResult = false;
         result = pCont2.addPharmacy(p, limit);

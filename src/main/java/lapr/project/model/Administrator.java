@@ -7,9 +7,9 @@ public class Administrator extends RegisteredUser{
     private int pharmacyId;
     private String name;
     private int nif;
-    private int socialSecurity;
+    private long socialSecurity;
 
-    public Administrator(String email, String password, String role, int pharmacyId, String name, int nif, int socialSecurity) {
+    public Administrator(String email, String password, String role, int pharmacyId, String name, int nif, long socialSecurity) {
 
         super(email, password, role);
         this.pharmacyId = pharmacyId;
@@ -18,7 +18,7 @@ public class Administrator extends RegisteredUser{
         this.socialSecurity = socialSecurity;
     }
 
-    public Administrator(RegisteredUser user, int pharmacyId, String name, int nif, int socialSecurity) {
+    public Administrator(RegisteredUser user, int pharmacyId, String name, int nif, long socialSecurity) {
 
         super(user);
         this.pharmacyId = pharmacyId;
@@ -42,7 +42,7 @@ public class Administrator extends RegisteredUser{
         return nif;
     }
 
-    public int getSocialSecurity() {
+    public long getSocialSecurity() {
 
         return socialSecurity;
     }
@@ -62,7 +62,7 @@ public class Administrator extends RegisteredUser{
         this.nif = nif;
     }
 
-    public void setSocialSecurity(int socialSecurity) {
+    public void setSocialSecurity(long socialSecurity) {
 
         this.socialSecurity = socialSecurity;
     }
