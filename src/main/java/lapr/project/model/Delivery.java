@@ -4,98 +4,98 @@ import java.util.Date;
 
 public class Delivery {
 
-    private int order_id;
-    private int scooter_id;
-    private String courier_email;
-    private int delivery_status_id;
-    private Date delivery_start;
-    private Date delivery_end;
+    private int orderId;
+    private int scooterId;
+    private String courierEmail;
+    private int deliveryStatusId;
+    private Date deliveryStart;
+    private Date deliveryEnd;
 
-    public Delivery(int order_id, int scooter_id, String courier_email, int delivery_status_id, Date delivery_start, Date delivery_end) {
+    public Delivery(int orderId, int scooterId, String courierEmail, int deliveryStatusId, Date deliveryStart, Date deliveryEnd) {
 
-        this.order_id = order_id;
-        this.scooter_id = scooter_id;
-        this.courier_email = courier_email;
-        this.delivery_status_id = delivery_status_id;
-        this.delivery_start = delivery_start;
-        this.delivery_end = delivery_end;
+        this.orderId = orderId;
+        this.scooterId = scooterId;
+        this.courierEmail = courierEmail;
+        this.deliveryStatusId = deliveryStatusId;
+        this.deliveryStart = deliveryStart;
+        this.deliveryEnd = deliveryEnd;
     }
 
     public Delivery() {
 
     }
 
-    public int getOrder_id() {
+    public int getOrderId() {
 
-        return order_id;
+        return orderId;
     }
 
-    public int getScooter_id() {
+    public int getScooterId() {
 
-        return scooter_id;
+        return scooterId;
     }
 
-    public String getCourier_email() {
+    public String getCourierEmail() {
 
-        return courier_email;
+        return courierEmail;
     }
 
-    public int getDelivery_status_id() {
+    public int getDeliveryStatusId() {
 
-        return delivery_status_id;
+        return deliveryStatusId;
     }
 
-    public Date getDelivery_start() {
+    public Date getDeliveryStart() {
 
-        return delivery_start;
+        return deliveryStart;
     }
 
-    public Date getDelivery_end() {
+    public Date getDeliveryEnd() {
 
-        return delivery_end;
+        return deliveryEnd;
     }
 
-    public void setOrder_id(int order_id) {
+    public void setOrderId(int orderId) {
 
-        this.order_id = order_id;
+        this.orderId = orderId;
     }
 
-    public void setScooter_id(int scooter_id) {
+    public void setScooterId(int scooterId) {
 
-        this.scooter_id = scooter_id;
+        this.scooterId = scooterId;
     }
 
-    public void setCourier_email(String courier_email) {
+    public void setCourierEmail(String courierEmail) {
 
-        this.courier_email = courier_email;
+        this.courierEmail = courierEmail;
     }
 
-    public void setDelivery_status_id(int delivery_status_id) {
+    public void setDeliveryStatusId(int deliveryStatusId) {
 
-        this.delivery_status_id = delivery_status_id;
+        this.deliveryStatusId = deliveryStatusId;
     }
 
-    public void setDelivery_start(Date delivery_start) {
+    public void setDeliveryStart(Date deliveryStart) {
 
-        this.delivery_start = delivery_start;
+        this.deliveryStart = deliveryStart;
     }
 
-    public void setDelivery_end(Date delivery_end) {
+    public void setDeliveryEnd(Date deliveryEnd) {
 
-        this.delivery_end = delivery_end;
+        this.deliveryEnd = deliveryEnd;
     }
 
     @Override
     public String toString() {
 
-        return "Delivery{" + "order_id=" + order_id + ", scooter_id=" + scooter_id + ", courier_email=" + courier_email + ", delivery_status_id=" + delivery_status_id + ", delivery_start=" + delivery_start + ", delivery_end=" + delivery_end + '}';
+        return "Delivery{" + "orderId=" + orderId + ", scooterId=" + scooterId + ", courierEmail=" + courierEmail + ", deliveryStatusId=" + deliveryStatusId + ", deliveryStart=" + deliveryStart + ", deliveryEnd=" + deliveryEnd + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 3;
-        hash = 71 * hash + this.order_id;
+        hash = 71 * hash + this.orderId;
         return hash;
     }
 
@@ -110,6 +110,6 @@ public class Delivery {
         }
         final Delivery other = (Delivery) obj;
 
-        return this.order_id == other.order_id;
+        return this.orderId == other.orderId;
     }
 }

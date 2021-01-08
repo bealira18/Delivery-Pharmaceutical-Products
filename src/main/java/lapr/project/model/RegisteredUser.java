@@ -4,9 +4,9 @@ import lapr.project.data.RegisteredUserDB;
 
 public class RegisteredUser {
 
-    private String email;
+    private final String email;
     private final String password;
-    private String role;
+    private final String role;
 
     public RegisteredUser(String email, String password, String role) {
 
@@ -24,7 +24,7 @@ public class RegisteredUser {
 
         return role;
     }
-    
+
     public static RegisteredUser findUser(String strEmail) {
 
         return new RegisteredUserDB().findUser(strEmail, strEmail);

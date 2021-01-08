@@ -5,16 +5,16 @@ import java.util.Date;
 public class PurchaseOrder {
 
     private int id;
-    private int pharmacy_id;
-    private String client_email;
-    private Date emission_date;
+    private int pharmacyId;
+    private String clientEmail;
+    private Date emissionDate;
 
-    public PurchaseOrder(int id, int pharmacy_id, String client_email, Date emission_date) {
+    public PurchaseOrder(int id, int pharmacyId, String clientEmail, Date emissionDate) {
 
         this.id = id;
-        this.pharmacy_id = pharmacy_id;
-        this.client_email = client_email;
-        this.emission_date = emission_date;
+        this.pharmacyId = pharmacyId;
+        this.clientEmail = clientEmail;
+        this.emissionDate = emissionDate;
     }
 
     public PurchaseOrder() {
@@ -26,19 +26,19 @@ public class PurchaseOrder {
         return id;
     }
 
-    public int getPharmacy_id() {
+    public int getPharmacyId() {
 
-        return pharmacy_id;
+        return pharmacyId;
     }
 
-    public String getClient_email() {
+    public String getClientEmail() {
 
-        return client_email;
+        return clientEmail;
     }
 
-    public Date getEmission_date() {
+    public Date getEmissionDate() {
 
-        return emission_date;
+        return emissionDate;
     }
 
     public void setId(int id) {
@@ -46,25 +46,25 @@ public class PurchaseOrder {
         this.id = id;
     }
 
-    public void setPharmacy_id(int pharmacy_id) {
+    public void setPharmacyId(int pharmacyId) {
 
-        this.pharmacy_id = pharmacy_id;
+        this.pharmacyId = pharmacyId;
     }
 
-    public void setClient_email(String client_email) {
+    public void setClientEmail(String clientEmail) {
 
-        this.client_email = client_email;
+        this.clientEmail = clientEmail;
     }
 
-    public void setEmission_date(Date emission_date) {
+    public void setEmissionDate(Date emissionDate) {
 
-        this.emission_date = emission_date;
+        this.emissionDate = emissionDate;
     }
 
     @Override
     public String toString() {
 
-        return "Order{" + "id=" + id + ", pharmacy_id=" + pharmacy_id + ", client_email=" + client_email + ", emission_date=" + emission_date + '}';
+        return "Order{" + "id=" + id + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", emissionDate=" + emissionDate + '}';
     }
 
     @Override

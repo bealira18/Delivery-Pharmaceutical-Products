@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class CreditCard {
 
-    private int credit_card;
-    private Date validity_date;
+    private int creditCard;
+    private Date validityDate;
     private short ccv;
 
-    public CreditCard(int credit_card, Date validity_date, short ccv) {
+    public CreditCard(int creditCard, Date validityDate, short ccv) {
 
-        this.credit_card = credit_card;
-        this.validity_date = validity_date;
+        this.creditCard = creditCard;
+        this.validityDate = validityDate;
         this.ccv = ccv;
     }
 
@@ -19,14 +19,14 @@ public class CreditCard {
 
     }
 
-    public int getCredit_card() {
+    public int getCreditCard() {
 
-        return credit_card;
+        return creditCard;
     }
 
-    public Date getValidity_date() {
+    public Date getValidityDate() {
 
-        return validity_date;
+        return validityDate;
     }
 
     public short getCcv() {
@@ -34,14 +34,14 @@ public class CreditCard {
         return ccv;
     }
 
-    public void setCredit_card(int credit_card) {
+    public void setCreditCard(int creditCard) {
 
-        this.credit_card = credit_card;
+        this.creditCard = creditCard;
     }
 
-    public void setValidity_date(Date validity_date) {
+    public void setValidityDate(Date validityDate) {
 
-        this.validity_date = validity_date;
+        this.validityDate = validityDate;
     }
 
     public void setCcv(short ccv) {
@@ -52,14 +52,14 @@ public class CreditCard {
     @Override
     public String toString() {
 
-        return "CreditCard{" + "credit_card=" + credit_card + ", validity_date=" + validity_date + ", ccv=" + ccv + '}';
+        return "CreditCard{" + "creditCard=" + creditCard + ", validityDate=" + validityDate + ", ccv=" + ccv + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 3;
-        hash = 97 * hash + this.credit_card;
+        hash = 97 * hash + this.creditCard;
         return hash;
     }
 
@@ -74,6 +74,6 @@ public class CreditCard {
         }
         final CreditCard other = (CreditCard) obj;
 
-        return this.credit_card == other.credit_card;
+        return this.creditCard == other.creditCard;
     }
 }

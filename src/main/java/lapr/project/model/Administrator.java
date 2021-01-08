@@ -5,18 +5,18 @@ import java.util.Objects;
 public class Administrator {
 
     private String email;
-    private int pharmacy_id;
+    private int pharmacyId;
     private String name;
     private int nif;
-    private int social_security;
+    private int socialSecurity;
 
-    public Administrator(String email, int pharmacy_id, String name, int nif, int social_security) {
+    public Administrator(String email, int pharmacyId, String name, int nif, int socialSecurity) {
 
         this.email = email;
-        this.pharmacy_id = pharmacy_id;
+        this.pharmacyId = pharmacyId;
         this.name = name;
         this.nif = nif;
-        this.social_security = social_security;
+        this.socialSecurity = socialSecurity;
     }
 
     public Administrator() {
@@ -28,9 +28,9 @@ public class Administrator {
         return email;
     }
 
-    public int getPharmacy_id() {
+    public int getPharmacyId() {
 
-        return pharmacy_id;
+        return pharmacyId;
     }
 
     public String getName() {
@@ -43,9 +43,9 @@ public class Administrator {
         return nif;
     }
 
-    public int getSocial_security() {
+    public int getSocialSecurity() {
 
-        return social_security;
+        return socialSecurity;
     }
 
     public void setEmail(String email) {
@@ -53,9 +53,9 @@ public class Administrator {
         this.email = email;
     }
 
-    public void setPharmacy_id(int pharmacy_id) {
+    public void setPharmacyId(int pharmacyId) {
 
-        this.pharmacy_id = pharmacy_id;
+        this.pharmacyId = pharmacyId;
     }
 
     public void setName(String name) {
@@ -68,15 +68,15 @@ public class Administrator {
         this.nif = nif;
     }
 
-    public void setSocial_security(int social_security) {
+    public void setSocialSecurity(int socialSecurity) {
 
-        this.social_security = social_security;
+        this.socialSecurity = socialSecurity;
     }
 
     @Override
     public String toString() {
 
-        return "Administrator{" + "email=" + email + ", pharmacy_id=" + pharmacy_id + ", name=" + name + ", nif=" + nif + ", social_security=" + social_security + '}';
+        return "Administrator{" + "email=" + email + ", pharmacyId=" + pharmacyId + ", name=" + name + ", nif=" + nif + ", social_security=" + socialSecurity + '}';
     }
 
     @Override
@@ -89,6 +89,7 @@ public class Administrator {
 
     @Override
     public boolean equals(Object obj) {
+
         if (this == obj) {
             return true;
         }

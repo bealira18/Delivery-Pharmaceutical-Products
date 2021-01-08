@@ -3,17 +3,17 @@ package lapr.project.model;
 public class ScooterPark {
 
     private int id;
-    private int pharmacy_id;
+    private int pharmacyId;
     private int limit;
-    private int num_charging_stations;
+    private int numChargingStations;
     private String address;
 
-    public ScooterPark(int id, int pharmacy_id, int limit, int num_charging_stations, String address) {
+    public ScooterPark(int id, int pharmacyId, int limit, int numChargingStations, String address) {
 
         this.id = id;
-        this.pharmacy_id = pharmacy_id;
+        this.pharmacyId = pharmacyId;
         this.limit = limit;
-        this.num_charging_stations = num_charging_stations;
+        this.numChargingStations = numChargingStations;
         this.address = address;
     }
 
@@ -26,9 +26,9 @@ public class ScooterPark {
         return id;
     }
 
-    public int getPharmacy_id() {
+    public int getPharmacyId() {
 
-        return pharmacy_id;
+        return pharmacyId;
     }
 
     public int getLimit() {
@@ -36,9 +36,9 @@ public class ScooterPark {
         return limit;
     }
 
-    public int getNum_charging_stations() {
+    public int getNumChargingStations() {
 
-        return num_charging_stations;
+        return numChargingStations;
     }
 
     public String getAddress() {
@@ -51,9 +51,9 @@ public class ScooterPark {
         this.id = id;
     }
 
-    public void setPharmacy_id(int pharmacy_id) {
+    public void setPharmacyId(int pharmacyId) {
 
-        this.pharmacy_id = pharmacy_id;
+        this.pharmacyId = pharmacyId;
     }
 
     public void setLimit(int limit) {
@@ -61,9 +61,9 @@ public class ScooterPark {
         this.limit = limit;
     }
 
-    public void setNum_charging_stations(int num_charging_stations) {
+    public void setNumChargingStations(int numChargingStations) {
 
-        this.num_charging_stations = num_charging_stations;
+        this.numChargingStations = numChargingStations;
     }
 
     public void setAddress(String address) {
@@ -74,7 +74,7 @@ public class ScooterPark {
     @Override
     public String toString() {
 
-        return "ScooterPark{" + "id=" + id + ", pharmacy_id=" + pharmacy_id + ", limit=" + limit + ", num_charging_stations=" + num_charging_stations + ", address=" + address + '}';
+        return "ScooterPark{" + "id=" + id + ", pharmacyId=" + pharmacyId + ", limit=" + limit + ", numChargingStations=" + numChargingStations + ", address=" + address + '}';
     }
 
     @Override

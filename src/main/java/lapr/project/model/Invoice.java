@@ -4,18 +4,18 @@ package lapr.project.model;
 public class Invoice {
 
     private int id;
-    private int order_id;
-    private int pharmacy_id;
-    private String client_email;
-    private double total_price;
+    private int orderId;
+    private int pharmacyId;
+    private String clientEmail;
+    private double totalPrice;
 
-    public Invoice(int id, int order_id, int pharmacy_id, String client_email, double total_price) {
+    public Invoice(int id, int orderId, int pharmacyId, String clientEmail, double totalPrice) {
 
         this.id = id;
-        this.order_id = order_id;
-        this.pharmacy_id = pharmacy_id;
-        this.client_email = client_email;
-        this.total_price = total_price;
+        this.orderId = orderId;
+        this.pharmacyId = pharmacyId;
+        this.clientEmail = clientEmail;
+        this.totalPrice = totalPrice;
     }
 
     public int getId() {
@@ -23,24 +23,24 @@ public class Invoice {
         return id;
     }
 
-    public int getOrder_id() {
+    public int getOrderId() {
 
-        return order_id;
+        return orderId;
     }
 
-    public int getPharmacy_id() {
+    public int getPharmacyId() {
 
-        return pharmacy_id;
+        return pharmacyId;
     }
 
-    public String getClient_email() {
+    public String getClientEmail() {
 
-        return client_email;
+        return clientEmail;
     }
 
-    public double getTotal_price() {
+    public double getTotalPrice() {
 
-        return total_price;
+        return totalPrice;
     }
 
     public void setId(int id) {
@@ -48,30 +48,30 @@ public class Invoice {
         this.id = id;
     }
 
-    public void setOrder_id(int order_id) {
+    public void setOrderId(int orderId) {
 
-        this.order_id = order_id;
+        this.orderId = orderId;
     }
 
-    public void setPharmacy_id(int pharmacy_id) {
+    public void setPharmacyId(int pharmacyId) {
 
-        this.pharmacy_id = pharmacy_id;
+        this.pharmacyId = pharmacyId;
     }
 
-    public void setClient_email(String client_email) {
+    public void setClientEmail(String clientEmail) {
 
-        this.client_email = client_email;
+        this.clientEmail = clientEmail;
     }
 
-    public void setTotal_price(double total_price) {
+    public void setTotalPrice(double totalPrice) {
 
-        this.total_price = total_price;
+        this.totalPrice = totalPrice;
     }
 
     @Override
     public String toString() {
 
-        return "Invoice{" + "id=" + id + ", order_id=" + order_id + ", pharmacy_id=" + pharmacy_id + ", client_email=" + client_email + ", total_price=" + total_price + '}';
+        return "Invoice{" + "id=" + id + ", orderId=" + orderId + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", totalPrice=" + totalPrice + '}';
     }
 
     @Override

@@ -3,18 +3,18 @@ package lapr.project.model;
 public class Scooter {
 
     private int id;
-    private int pharmacy_id;
-    private int scooter_status_id;
-    private double current_battery;
-    private double max_battery;
+    private int pharmacyId;
+    private int scooterStatusId;
+    private double currentBattery;
+    private double maxBattery;
 
-    public Scooter(int id, int pharmacy_id, int scooter_status_id, double current_battery, double max_battery) {
+    public Scooter(int id, int pharmacyId, int scooterStatusId, double currentBattery, double maxBattery) {
 
         this.id = id;
-        this.pharmacy_id = pharmacy_id;
-        this.scooter_status_id = scooter_status_id;
-        this.current_battery = current_battery;
-        this.max_battery = max_battery;
+        this.pharmacyId = pharmacyId;
+        this.scooterStatusId = scooterStatusId;
+        this.currentBattery = currentBattery;
+        this.maxBattery = maxBattery;
     }
 
     public Scooter() {
@@ -26,24 +26,24 @@ public class Scooter {
         return id;
     }
 
-    public int getPharmacy_id() {
+    public int getPharmacyId() {
 
-        return pharmacy_id;
+        return pharmacyId;
     }
 
-    public int getScooter_status_id() {
+    public int getScooterStatusId() {
 
-        return scooter_status_id;
+        return scooterStatusId;
     }
 
-    public double getCurrent_battery() {
+    public double getCurrentBattery() {
 
-        return current_battery;
+        return currentBattery;
     }
 
-    public double getMax_battery() {
+    public double getMaxBattery() {
 
-        return max_battery;
+        return maxBattery;
     }
 
     public void setId(int id) {
@@ -51,30 +51,30 @@ public class Scooter {
         this.id = id;
     }
 
-    public void setPharmacy_id(int pharmacy_id) {
+    public void setPharmacyId(int pharmacyId) {
 
-        this.pharmacy_id = pharmacy_id;
+        this.pharmacyId = pharmacyId;
     }
 
-    public void setScooter_status_id(int scooter_status_id) {
+    public void setScooterStatusId(int scooterStatusId) {
 
-        this.scooter_status_id = scooter_status_id;
+        this.scooterStatusId = scooterStatusId;
     }
 
-    public void setCurrent_battery(double current_battery) {
+    public void setCurrentBattery(double currentBattery) {
 
-        this.current_battery = current_battery;
+        this.currentBattery = currentBattery;
     }
 
-    public void setMax_battery(double max_battery) {
+    public void setMaxBattery(double maxBattery) {
 
-        this.max_battery = max_battery;
+        this.maxBattery = maxBattery;
     }
 
     @Override
     public String toString() {
 
-        return "Scooter{" + "id=" + id + ", pharmacy_id=" + pharmacy_id + ", scooter_status_id=" + scooter_status_id + ", current_battery=" + current_battery + ", max_battery=" + max_battery + '}';
+        return "Scooter{" + "id=" + id + ", pharmacyId=" + pharmacyId + ", scooterStatusId=" + scooterStatusId + ", currentBattery=" + currentBattery + ", maxBattery=" + maxBattery + '}';
     }
 
     @Override

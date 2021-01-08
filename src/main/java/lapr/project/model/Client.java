@@ -7,16 +7,16 @@ public class Client {
     private String email;
     private String name;
     private int nif;
-    private int credit_card;
+    private int creditCard;
     private String address;
     private int credits;
 
-    public Client(String email, String name, int nif, int credit_card, String address, int credits) {
+    public Client(String email, String name, int nif, int creditCard, String address, int credits) {
 
         this.email = email;
         this.name = name;
         this.nif = nif;
-        this.credit_card = credit_card;
+        this.creditCard = creditCard;
         this.address = address;
         this.credits = credits;
     }
@@ -40,9 +40,9 @@ public class Client {
         return nif;
     }
 
-    public int getCredit_card() {
+    public int getCreditCard() {
 
-        return credit_card;
+        return creditCard;
     }
 
     public String getAddress() {
@@ -70,9 +70,9 @@ public class Client {
         this.nif = nif;
     }
 
-    public void setCredit_card(int credit_card) {
+    public void setCreditCard(int creditCard) {
 
-        this.credit_card = credit_card;
+        this.creditCard = creditCard;
     }
 
     public void setAddress(String address) {
@@ -88,7 +88,7 @@ public class Client {
     @Override
     public String toString() {
 
-        return "Client{" + "email=" + email + ", name=" + name + ", nif=" + nif + ", credit_card=" + credit_card + ", address=" + address + ", credits=" + credits + '}';
+        return "Client{" + "email=" + email + ", name=" + name + ", nif=" + nif + ", creditCard=" + creditCard + ", address=" + address + ", credits=" + credits + '}';
     }
 
     @Override

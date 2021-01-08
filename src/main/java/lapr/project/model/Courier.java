@@ -7,16 +7,16 @@ public class Courier {
     private String email;
     private String name;
     private int nif;
-    private int social_security;
-    private int pharmacy_id;
+    private int socialSecurity;
+    private int pharmacyId;
 
-    public Courier(String email, String name, int nif, int social_security, int pharmacy_id) {
+    public Courier(String email, String name, int nif, int socialSecurity, int pharmacyId) {
 
         this.email = email;
         this.name = name;
         this.nif = nif;
-        this.social_security = social_security;
-        this.pharmacy_id = pharmacy_id;
+        this.socialSecurity = socialSecurity;
+        this.pharmacyId = pharmacyId;
     }
 
     public Courier() {
@@ -38,14 +38,14 @@ public class Courier {
         return nif;
     }
 
-    public int getSocial_security() {
+    public int getSocialSecurity() {
 
-        return social_security;
+        return socialSecurity;
     }
 
-    public int getPharmacy_id() {
+    public int getPharmacyId() {
 
-        return pharmacy_id;
+        return pharmacyId;
     }
 
     public void setEmail(String email) {
@@ -63,20 +63,20 @@ public class Courier {
         this.nif = nif;
     }
 
-    public void setSocial_security(int social_security) {
+    public void setSocialSecurity(int socialSecurity) {
 
-        this.social_security = social_security;
+        this.socialSecurity = socialSecurity;
     }
 
-    public void setPharmacy_id(int pharmacy_id) {
+    public void setPharmacy_id(int pharmacyId) {
 
-        this.pharmacy_id = pharmacy_id;
+        this.pharmacyId = pharmacyId;
     }
 
     @Override
     public String toString() {
 
-        return "Courier{" + "email=" + email + ", name=" + name + ", nif=" + nif + ", social_security=" + social_security + ", pharmacy_id=" + pharmacy_id + '}';
+        return "Courier{" + "email=" + email + ", name=" + name + ", nif=" + nif + ", socialSecurity=" + socialSecurity + ", pharmacyId=" + pharmacyId + '}';
     }
 
     @Override

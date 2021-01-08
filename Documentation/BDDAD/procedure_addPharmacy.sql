@@ -11,5 +11,5 @@ BEGIN
 
     -- By default, on Pharmacy creation, only 1 charging station will exist.
     ADDSCOOTERPARK(v_pharmacy_id, p_limit, 1, p_address);
-
+    --COMMIT;
 END;
