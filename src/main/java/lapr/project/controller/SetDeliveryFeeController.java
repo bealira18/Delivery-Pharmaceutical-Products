@@ -5,16 +5,16 @@ import java.util.logging.Logger;
 import lapr.project.data.PurchaseOrderDB;
 import lapr.project.model.PurchaseOrder;
 
-public class PurchaseOrderController {
+public class SetDeliveryFeeController {
 
     private final PurchaseOrderDB pOrdDB;
 
-    public PurchaseOrderController() {
+    public SetDeliveryFeeController() {
 
         pOrdDB = new PurchaseOrderDB();
     }
 
-    public PurchaseOrderController(PurchaseOrderDB pOrdDB) {
+    public SetDeliveryFeeController(PurchaseOrderDB pOrdDB) {
 
         this.pOrdDB = pOrdDB;
     }
