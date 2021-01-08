@@ -1,34 +1,30 @@
 package lapr.project.model;
 
-import java.sql.Blob;
-import java.util.Objects;
-
-public class Courier {
+public class Courier extends RegisteredUser{
 
     private static int maximumPayload = 0;
 
-    private String email;
     private String name;
     private int nif;
-    private long socialSecurity;
+    private int socialSecurity;
     private int pharmacyId;
 
-    public Courier(String email, String name, int nif, long socialSecurity, int pharmacyId) {
+    public Courier(String email, String password, String role, String name, int nif, int socialSecurity, int pharmacyId) {
 
-        this.email = email;
+        super(email, password, role);
         this.name = name;
         this.nif = nif;
         this.socialSecurity = socialSecurity;
         this.pharmacyId = pharmacyId;
     }
+    
+    public Courier(RegisteredUser user, String name, int nif, int socialSecurity, int pharmacyId) {
 
-    public Courier() {
-
-    }
-
-    public String getEmail() {
-
-        return email;
+        super(user);
+        this.name = name;
+        this.nif = nif;
+        this.socialSecurity = socialSecurity;
+        this.pharmacyId = pharmacyId;
     }
 
     public String getName() {
@@ -41,7 +37,7 @@ public class Courier {
         return nif;
     }
 
-    public long getSocialSecurity() {
+    public int getSocialSecurity() {
 
         return socialSecurity;
     }
@@ -55,12 +51,6 @@ public class Courier {
 
         return maximumPayload;
     }
-
-    public void setEmail(String email) {
-
-        this.email = email;
-    }
-
     public void setName(String name) {
 
         this.name = name;
@@ -71,7 +61,7 @@ public class Courier {
         this.nif = nif;
     }
 
-    public void setSocialSecurity(long socialSecurity) {
+    public void setSocialSecurity(int socialSecurity) {
 
         this.socialSecurity = socialSecurity;
     }
@@ -92,28 +82,6 @@ public class Courier {
     @Override
     public String toString() {
 
-        return "Courier{" + "email=" + email + ", name=" + name + ", nif=" + nif + ", socialSecurity=" + socialSecurity + ", pharmacyId=" + pharmacyId + '}';
-    }
-
-    @Override
-    public int hashCode() {
-
-        int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.email);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        final Courier other = (Courier) obj;
-
-        return this.email.equals(other.email);
+        return "Courier{" + "email=" + getEmail() + ", name=" + name + ", nif=" + nif + ", socialSecurity=" + socialSecurity + ", pharmacyId=" + pharmacyId + '}';
     }
 }

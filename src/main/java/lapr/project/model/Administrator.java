@@ -2,30 +2,29 @@ package lapr.project.model;
 
 import java.util.Objects;
 
-public class Administrator {
+public class Administrator extends RegisteredUser{
 
-    private String email;
     private int pharmacyId;
     private String name;
     private int nif;
-    private long socialSecurity;
+    private int socialSecurity;
 
-    public Administrator(String email, int pharmacyId, String name, int nif, long socialSecurity) {
+    public Administrator(String email, String password, String role, int pharmacyId, String name, int nif, int socialSecurity) {
 
-        this.email = email;
+        super(email, password, role);
         this.pharmacyId = pharmacyId;
         this.name = name;
         this.nif = nif;
         this.socialSecurity = socialSecurity;
     }
 
-    public Administrator() {
+    public Administrator(RegisteredUser user, int pharmacyId, String name, int nif, int socialSecurity) {
 
-    }
-
-    public String getEmail() {
-
-        return email;
+        super(user);
+        this.pharmacyId = pharmacyId;
+        this.name = name;
+        this.nif = nif;
+        this.socialSecurity = socialSecurity;
     }
 
     public int getPharmacyId() {
@@ -43,14 +42,9 @@ public class Administrator {
         return nif;
     }
 
-    public long getSocialSecurity() {
+    public int getSocialSecurity() {
 
         return socialSecurity;
-    }
-
-    public void setEmail(String email) {
-
-        this.email = email;
     }
 
     public void setPharmacyId(int pharmacyId) {
@@ -68,7 +62,7 @@ public class Administrator {
         this.nif = nif;
     }
 
-    public void setSocialSecurity(long socialSecurity) {
+    public void setSocialSecurity(int socialSecurity) {
 
         this.socialSecurity = socialSecurity;
     }
@@ -76,28 +70,7 @@ public class Administrator {
     @Override
     public String toString() {
 
-        return "Administrator{" + "email=" + email + ", pharmacyId=" + pharmacyId + ", name=" + name + ", nif=" + nif + ", social_security=" + socialSecurity + '}';
+        return "Administrator{" + "email=" + getEmail() + ", pharmacyId=" + pharmacyId + ", name=" + name + ", nif=" + nif + ", social_security=" + socialSecurity + '}';
     }
 
-    @Override
-    public int hashCode() {
-
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.email);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        final Administrator other = (Administrator) obj;
-
-        return this.email.equals(other.email);
-    }
 }

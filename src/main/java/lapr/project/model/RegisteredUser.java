@@ -1,5 +1,6 @@
 package lapr.project.model;
 
+import java.util.Objects;
 import lapr.project.data.RegisteredUserDB;
 
 public class RegisteredUser {
@@ -13,6 +14,13 @@ public class RegisteredUser {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+    
+    public RegisteredUser(RegisteredUser user)
+    {
+        this.email = user.email;
+        this.password = user.password;
+        this.role = user.role;
     }
 
     public String getEmail() {
@@ -33,5 +41,27 @@ public class RegisteredUser {
     public static boolean addUser(RegisteredUser usr) {
 
         return new RegisteredUserDB().addUser(usr.email, usr.password, usr.role);
+    }
+    
+    @Override
+    public int hashCode() {
+
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.email);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final RegisteredUser other = (RegisteredUser) obj;
+
+        return this.email.equals(other.email);
     }
 }
