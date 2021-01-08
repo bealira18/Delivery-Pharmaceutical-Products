@@ -19,6 +19,11 @@ public class AddCourierController {
         pDB = new PharmacyDB();
     }
 
+    public AddCourierController(CourierDB cDB, PharmacyDB pDB) {
+        this.cDB = cDB;
+        this.pDB = pDB;
+    }
+
     public List<Pharmacy> findPharmacies() {
         return pDB.getAllPharmacies();
     }

@@ -9,9 +9,9 @@ public class Courier extends RegisteredUser{
     private long socialSecurity;
     private int pharmacyId;
 
-    public Courier(String email, String password, String role, String name, int nif, long socialSecurity, int pharmacyId) {
+    public Courier(String email, String password, String name, int nif, long socialSecurity, int pharmacyId) {
 
-        super(email, password, role);
+        super(email, password, "courier");
         this.name = name;
         this.nif = nif;
         this.socialSecurity = socialSecurity;

@@ -8,6 +8,7 @@ import lapr.project.data.CourierDB;
 import lapr.project.data.PharmacyDB;
 import lapr.project.model.Courier;
 import lapr.project.model.Pharmacy;
+import lapr.project.model.RegisteredUser;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,7 +27,8 @@ class AddCourierControllerTest {
     @BeforeAll
     public static void setUpClass() throws SQLException {
 
-        Courier courier = new Courier("c1@gmail.com", "John", 958752502, 11254852166L, 1);
+        RegisteredUser user = new RegisteredUser("c1@gmail.com", "qwerty", "courier");
+        Courier courier = new Courier(user, "John", 958752502, 11254852166L, 1);
 
         auxListPharmacies = new ArrayList<>();
         auxListPharmacies.add(new Pharmacy(1, "TestPharma", "TestAddress"));
@@ -71,17 +73,18 @@ class AddCourierControllerTest {
 
         System.out.println("addCourier");
 
+        RegisteredUser user = new RegisteredUser("c1@gmail.com", "qwerty", "courier");
         boolean expResult = true;
-        boolean result = controller.addCourier("c1@gmail.com", "John", 958752502, 11254852166L, 1);
+        boolean result = controller.addCourier(user, "John", 958752502, 11254852166L, 1);
         assertEquals(expResult, result);
 
         CourierDB cDB = mock(CourierDB.class);
         PharmacyDB pDB = mock(PharmacyDB.class);
-        when(cDB.addCourier(new Courier("c1@gmail.com", "John", 958752502, 11254852166L, 1))).thenReturn(Boolean.FALSE);
+        when(cDB.addCourier(new Courier(user, "John", 958752502, 11254852166L, 1))).thenReturn(Boolean.FALSE);
         AddCourierController controller1 = new AddCourierController(cDB, pDB);
 
         expResult = false;
-        result = controller1.addCourier("c1@gmail.com", "John", 958752502, 11254852166L, 1);
+        result = controller1.addCourier(user, "John", 958752502, 11254852166L, 1);
         assertEquals(expResult, result);
 
     }
