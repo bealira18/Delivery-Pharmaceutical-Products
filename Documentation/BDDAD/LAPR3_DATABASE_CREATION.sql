@@ -36,9 +36,9 @@ CREATE TABLE registeredUser (
 
 CREATE TABLE address (
     address     VARCHAR2(255)       CONSTRAINT pkAddressAddress     PRIMARY KEY,
-    longitude   VARCHAR2(255)       CONSTRAINT nnAddressLongitude   NOT NULL,
-    latitude    VARCHAR2(255)       CONSTRAINT nnAddressLatitude    NOT NULL,
-    altitude    VARCHAR2(255)       CONSTRAINT nnAddressAltitude    NOT NULL
+    latitude    NUMERIC(19,10)      CONSTRAINT nnAddressLatitude    NOT NULL,
+    longitude   NUMERIC(19,10)      CONSTRAINT nnAddressLongitude   NOT NULL,
+    altitude    NUMERIC(19,10)      CONSTRAINT nnAddressAltitude    NOT NULL
 );
 
 CREATE TABLE pharmacy (
@@ -62,7 +62,7 @@ CREATE TABLE administrator (
 CREATE TABLE courier (
     email               VARCHAR2(255)       CONSTRAINT pkCourierEmail           PRIMARY KEY,
     name                VARCHAR2(255)       CONSTRAINT nnCourierName            NOT NULL,
-    nif                 INTEGER             CONSTRAINT nnCourierNif             NOT NULL
+    nif                 NUMBER(10)          CONSTRAINT nnCourierNif             NOT NULL
                                             CONSTRAINT ukCourierNif             UNIQUE
                                             CONSTRAINT ckCourierNif             CHECK(REGEXP_LIKE(nif, '^\d{9}$')),
     social_security     VARCHAR2(15)        CONSTRAINT nnCourierSocialSecurity  NOT NULL
@@ -72,7 +72,7 @@ CREATE TABLE courier (
 );
                     
 CREATE TABLE creditCard (
-    credit_card         INTEGER             CONSTRAINT pkCreditCardCreditCard           PRIMARY KEY
+    credit_card         NUMBER(16)          CONSTRAINT pkCreditCardCreditCard           PRIMARY KEY
                                             CONSTRAINT ckCreditCard                     CHECK(REGEXP_LIKE(credit_card, '^\d{16}$')),
     validity_date       DATE                CONSTRAINT nnCreditCardValidityDate         NOT NULL,
     ccv                 INTEGER             CONSTRAINT pkCreditCardCCV                  NOT NULL
@@ -85,7 +85,7 @@ CREATE TABLE client (
     nif             INTEGER                  CONSTRAINT nnClientNif              NOT NULL
                                              CONSTRAINT ukClientNif              UNIQUE
                                              CONSTRAINT ckClientNif              CHECK(REGEXP_LIKE(nif, '^\d{9}$')),
-    credit_card     INTEGER                  CONSTRAINT nnClientCreditCard       NOT NULL,
+    credit_card     NUMBER(16)               CONSTRAINT nnClientCreditCard       NOT NULL,
     address         VARCHAR2(255)            CONSTRAINT nnClientAdress           NOT NULL,
     credits         INTEGER DEFAULT 0        CONSTRAINT nnClientCredits          NOT NULL
 );
