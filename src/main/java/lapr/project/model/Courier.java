@@ -2,8 +2,6 @@ package lapr.project.model;
 
 public class Courier extends RegisteredUser{
 
-public class Courier {
-
     private static int maximumPayload = 0;
 
     private String name;
