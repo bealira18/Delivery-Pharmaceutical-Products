@@ -1,19 +1,16 @@
 package lapr.project.model;
 
-import java.util.Objects;
+public class Client extends RegisteredUser {
 
-public class Client {
-
-    private String email;
     private String name;
     private int nif;
     private int creditCard;
     private String address;
     private int credits;
 
-    public Client(String email, String name, int nif, int creditCard, String address, int credits) {
-
-        this.email = email;
+    public Client(String email, String password, String role, String name, int nif, int creditCard, String address, int credits) {
+        
+        super(email, password, role);
         this.name = name;
         this.nif = nif;
         this.creditCard = creditCard;
@@ -21,13 +18,14 @@ public class Client {
         this.credits = credits;
     }
 
-    public Client() {
-
-    }
-
-    public String getEmail() {
-
-        return email;
+    public Client(RegisteredUser user, String name, int nif, int creditCard, String address, int credits) {
+        
+        super(user);
+        this.name = name;
+        this.nif = nif;
+        this.creditCard = creditCard;
+        this.address = address;
+        this.credits = credits;
     }
 
     public String getName() {
@@ -53,11 +51,6 @@ public class Client {
     public int getCredits() {
 
         return credits;
-    }
-
-    public void setEmail(String email) {
-
-        this.email = email;
     }
 
     public void setName(String name) {
@@ -88,28 +81,6 @@ public class Client {
     @Override
     public String toString() {
 
-        return "Client{" + "email=" + email + ", name=" + name + ", nif=" + nif + ", creditCard=" + creditCard + ", address=" + address + ", credits=" + credits + '}';
-    }
-
-    @Override
-    public int hashCode() {
-
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.email);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        final Client other = (Client) obj;
-
-        return this.email.equals(other.email);
+        return "Client{" + "email=" + super.getEmail() + ", name=" + name + ", nif=" + nif + ", creditCard=" + creditCard + ", address=" + address + ", credits=" + credits + '}';
     }
 }

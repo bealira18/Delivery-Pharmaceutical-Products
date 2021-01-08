@@ -1,31 +1,19 @@
 package lapr.project.model;
 
-import java.util.Objects;
+public class Courier extends RegisteredUser{
 
-public class Courier {
-
-    private String email;
     private String name;
     private int nif;
     private int socialSecurity;
     private int pharmacyId;
 
-    public Courier(String email, String name, int nif, int socialSecurity, int pharmacyId) {
+    public Courier(RegisteredUser user, String password, String role, String name, int nif, int socialSecurity, int pharmacyId) {
 
-        this.email = email;
+        super(user);
         this.name = name;
         this.nif = nif;
         this.socialSecurity = socialSecurity;
         this.pharmacyId = pharmacyId;
-    }
-
-    public Courier() {
-
-    }
-
-    public String getEmail() {
-
-        return email;
     }
 
     public String getName() {
@@ -46,11 +34,6 @@ public class Courier {
     public int getPharmacyId() {
 
         return pharmacyId;
-    }
-
-    public void setEmail(String email) {
-
-        this.email = email;
     }
 
     public void setName(String name) {
@@ -76,28 +59,6 @@ public class Courier {
     @Override
     public String toString() {
 
-        return "Courier{" + "email=" + email + ", name=" + name + ", nif=" + nif + ", socialSecurity=" + socialSecurity + ", pharmacyId=" + pharmacyId + '}';
-    }
-
-    @Override
-    public int hashCode() {
-
-        int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.email);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        final Courier other = (Courier) obj;
-
-        return this.email.equals(other.email);
+        return "Courier{" + "email=" + getEmail() + ", name=" + name + ", nif=" + nif + ", socialSecurity=" + socialSecurity + ", pharmacyId=" + pharmacyId + '}';
     }
 }
