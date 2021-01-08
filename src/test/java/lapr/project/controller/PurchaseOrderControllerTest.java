@@ -1,8 +1,10 @@
 package lapr.project.controller;
 
+import lapr.project.data.PurchaseOrderDB;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 public class PurchaseOrderControllerTest {
 
@@ -14,7 +16,10 @@ public class PurchaseOrderControllerTest {
     @BeforeAll
     public static void setUpClass() {
 
+        PurchaseOrderDB pOrdDB = mock(PurchaseOrderDB.class);
+
         pOrdCont = new PurchaseOrderController();
+        pOrdCont = new PurchaseOrderController(pOrdDB);
     }
 
     /**
