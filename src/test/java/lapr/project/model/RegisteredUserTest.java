@@ -5,7 +5,6 @@
  */
 package lapr.project.model;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,12 +23,12 @@ public class RegisteredUserTest {
     @Test
     public void testGetEmail() {
         System.out.println("getEmail");
-        RegisteredUser instance = new RegisteredUser("a@b.c", "qwerty", "Administrator");
+        RegisteredUser instance = new RegisteredUser("a@b.c", "qwerty", "administrator");
         String expResult = "a@b.c";
         String result = instance.getEmail();
         assertEquals(expResult, result);
         
-        instance = new RegisteredUser("c@d.e", "qwerty1", "Client");
+        instance = new RegisteredUser("c@d.e", "qwerty1", "client");
         expResult = "c@d.e";
         result = instance.getEmail();
         assertEquals(expResult, result);
@@ -41,13 +40,13 @@ public class RegisteredUserTest {
     @Test
     public void testGetRole() {
         System.out.println("getRole");
-        RegisteredUser instance = new RegisteredUser("a@b.c", "qwerty", "Administrator");
-        String expResult = "Administrator";
+        RegisteredUser instance = new RegisteredUser("a@b.c", "qwerty", "administrator");
+        String expResult = "administrator";
         String result = instance.getRole();
         assertEquals(expResult, result);
         
-        instance = new RegisteredUser("c@d.e", "qwerty1", "Client");
-        expResult = "Client";
+        instance = new RegisteredUser("c@d.e", "qwerty1", "client");
+        expResult = "client";
         result = instance.getRole();
         assertEquals(expResult, result);
     }
