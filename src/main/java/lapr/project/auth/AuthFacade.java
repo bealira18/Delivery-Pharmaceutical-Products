@@ -41,7 +41,7 @@ public class AuthFacade {
      */
     public UserSession doLogin(String strEmail, String strPwd) {
 
-        RegisteredUser utlz = RegisteredUser.findUser(strEmail);
+        RegisteredUser utlz = RegisteredUser.findUser(strEmail, strPwd);
 
         if (utlz != null) {
             this.session = new UserSession(utlz);
