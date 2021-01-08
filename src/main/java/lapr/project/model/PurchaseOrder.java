@@ -14,7 +14,7 @@ public class PurchaseOrder {
         this.id = id;
         this.pharmacyId = pharmacyId;
         this.clientEmail = clientEmail;
-        this.emissionDate = emissionDate;
+        setEmissionDate(emissionDate);
     }
 
     public PurchaseOrder() {
@@ -38,7 +38,7 @@ public class PurchaseOrder {
 
     public Date getEmissionDate() {
 
-        return emissionDate;
+        return (Date) emissionDate.clone();
     }
 
     public void setId(int id) {
@@ -58,7 +58,7 @@ public class PurchaseOrder {
 
     public void setEmissionDate(Date emissionDate) {
 
-        this.emissionDate = emissionDate;
+        this.emissionDate = (Date) emissionDate.clone();
     }
 
     @Override

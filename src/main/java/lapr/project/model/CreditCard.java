@@ -11,7 +11,7 @@ public class CreditCard {
     public CreditCard(int creditCard, Date validityDate, short ccv) {
 
         this.creditCard = creditCard;
-        this.validityDate = validityDate;
+        setValidityDate(validityDate);
         this.ccv = ccv;
     }
 
@@ -26,7 +26,7 @@ public class CreditCard {
 
     public Date getValidityDate() {
 
-        return validityDate;
+        return (Date) validityDate.clone();
     }
 
     public short getCcv() {
@@ -39,9 +39,9 @@ public class CreditCard {
         this.creditCard = creditCard;
     }
 
-    public void setValidityDate(Date validityDate) {
+    public final void setValidityDate(Date validityDate) {
 
-        this.validityDate = validityDate;
+        this.validityDate = (Date) validityDate.clone();
     }
 
     public void setCcv(short ccv) {

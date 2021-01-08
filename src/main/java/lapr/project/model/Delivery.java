@@ -17,8 +17,8 @@ public class Delivery {
         this.scooterId = scooterId;
         this.courierEmail = courierEmail;
         this.deliveryStatusId = deliveryStatusId;
-        this.deliveryStart = deliveryStart;
-        this.deliveryEnd = deliveryEnd;
+        setDeliveryStart(deliveryStart);
+        setDeliveryEnd(deliveryEnd);
     }
 
     public Delivery() {
@@ -47,12 +47,12 @@ public class Delivery {
 
     public Date getDeliveryStart() {
 
-        return deliveryStart;
+        return (Date) deliveryStart.clone();
     }
 
     public Date getDeliveryEnd() {
 
-        return deliveryEnd;
+        return (Date) deliveryEnd.clone();
     }
 
     public void setOrderId(int orderId) {
@@ -75,14 +75,14 @@ public class Delivery {
         this.deliveryStatusId = deliveryStatusId;
     }
 
-    public void setDeliveryStart(Date deliveryStart) {
+    public final void setDeliveryStart(Date deliveryStart) {
 
-        this.deliveryStart = deliveryStart;
+        this.deliveryStart = (Date) deliveryStart.clone();
     }
 
-    public void setDeliveryEnd(Date deliveryEnd) {
+    public final void setDeliveryEnd(Date deliveryEnd) {
 
-        this.deliveryEnd = deliveryEnd;
+        this.deliveryEnd = (Date) deliveryEnd.clone();
     }
 
     @Override

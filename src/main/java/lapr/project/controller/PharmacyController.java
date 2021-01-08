@@ -6,20 +6,20 @@ import lapr.project.model.Pharmacy;
 
 public class PharmacyController {
 
-    private final PharmacyDB p_db;
+    private final PharmacyDB pDB;
 
     public PharmacyController() {
 
-        p_db = new PharmacyDB();
+        pDB = new PharmacyDB();
     }
 
-    public PharmacyController(PharmacyDB p_db) {
+    public PharmacyController(PharmacyDB pDB) {
 
-        this.p_db = p_db;
+        this.pDB = pDB;
     }
 
     public boolean addPharmacy(Pharmacy p, int limit) throws SQLException {
 
-        return p_db.addPharmacy(p, limit);
+        return pDB.addPharmacy(p, limit);
     }
 }
