@@ -68,7 +68,7 @@ public class Courier {
         this.socialSecurity = socialSecurity;
     }
 
-    public void setPharmacy_id(int pharmacyId) {
+    public void setPharmacyId(int pharmacyId) {
 
         this.pharmacyId = pharmacyId;
     }

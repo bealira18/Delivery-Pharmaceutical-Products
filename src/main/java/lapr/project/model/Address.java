@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class Address {
 
-    private String address;
+    private String description;
     private double longitude;
     private double latitude;
     private double altitude;
 
-    public Address(String address, double longitude, double latitude, double altitude) {
+    public Address(String description, double longitude, double latitude, double altitude) {
 
-        this.address = address;
+        this.description = description;
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude = altitude;
@@ -21,9 +21,9 @@ public class Address {
 
     }
 
-    public String getAddress() {
+    public String getDescription() {
 
-        return address;
+        return description;
     }
 
     public double getLongitude() {
@@ -41,9 +41,9 @@ public class Address {
         return altitude;
     }
 
-    public void setAddress(String address) {
+    public void setDescription(String description) {
 
-        this.address = address;
+        this.description = description;
     }
 
     public void setLongitude(double longitude) {
@@ -64,14 +64,14 @@ public class Address {
     @Override
     public String toString() {
 
-        return "Address{" + "address=" + address + ", longitude=" + longitude + ", latitude=" + latitude + ", altitude=" + altitude + '}';
+        return "Address{" + "description=" + description + ", longitude=" + longitude + ", latitude=" + latitude + ", altitude=" + altitude + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.address);
+        hash = 47 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -86,6 +86,6 @@ public class Address {
         }
         final Address other = (Address) obj;
 
-        return this.address.equals(other.address);
+        return this.description.equals(other.description);
     }
 }

@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class CreditCard {
 
-    private int creditCard;
+    private int creditCardNumber;
     private Date validityDate;
     private short ccv;
 
-    public CreditCard(int creditCard, Date validityDate, short ccv) {
+    public CreditCard(int creditCardNumber, Date validityDate, short ccv) {
 
-        this.creditCard = creditCard;
+        this.creditCardNumber = creditCardNumber;
         setValidityDate(validityDate);
         this.ccv = ccv;
     }
@@ -19,9 +19,9 @@ public class CreditCard {
 
     }
 
-    public int getCreditCard() {
+    public int getCreditCardNumber() {
 
-        return creditCard;
+        return creditCardNumber;
     }
 
     public Date getValidityDate() {
@@ -34,9 +34,9 @@ public class CreditCard {
         return ccv;
     }
 
-    public void setCreditCard(int creditCard) {
+    public void setCreditCardNumber(int creditCardNumber) {
 
-        this.creditCard = creditCard;
+        this.creditCardNumber = creditCardNumber;
     }
 
     public final void setValidityDate(Date validityDate) {
@@ -52,14 +52,14 @@ public class CreditCard {
     @Override
     public String toString() {
 
-        return "CreditCard{" + "creditCard=" + creditCard + ", validityDate=" + validityDate + ", ccv=" + ccv + '}';
+        return "CreditCard{" + "creditCardNumber=" + creditCardNumber + ", validityDate=" + validityDate + ", ccv=" + ccv + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 3;
-        hash = 97 * hash + this.creditCard;
+        hash = 97 * hash + this.creditCardNumber;
         return hash;
     }
 
@@ -74,6 +74,6 @@ public class CreditCard {
         }
         final CreditCard other = (CreditCard) obj;
 
-        return this.creditCard == other.creditCard;
+        return this.creditCardNumber == other.creditCardNumber;
     }
 }
