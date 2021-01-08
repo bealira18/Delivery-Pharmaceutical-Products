@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.*;
 
 class AddCourierControllerTest {
 
@@ -39,6 +38,7 @@ class AddCourierControllerTest {
         when(pDB.getAllPharmacies()).thenReturn(auxListPharmacies);
         when(cDB.addCourier(courier)).thenReturn(Boolean.TRUE);
 
+        controller = new AddCourierController();
         controller = new AddCourierController(cDB, pDB);
     }
 
