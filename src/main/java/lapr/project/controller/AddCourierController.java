@@ -23,7 +23,7 @@ public class AddCourierController {
         return pDB.getAllPharmacies();
     }
 
-    public boolean addCourier(RegisteredUser user, String name, int nif, int socialSecurity, int pharmacyId) throws SQLException {
+    public boolean addCourier(RegisteredUser user, String name, int nif, long socialSecurity, int pharmacyId) throws SQLException {
         Courier courier = new Courier(user, name, nif, socialSecurity, pharmacyId);
         return cDB.addCourier(courier);
     }
