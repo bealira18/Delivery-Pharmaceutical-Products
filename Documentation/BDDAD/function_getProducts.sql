@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION GETPRODUCTS
+RETURN SYS_REFCURSOR AS
+
+    result      SYS_REFCURSOR;
+
+BEGIN
+
+    OPEN result FOR
+        SELECT *
+        FROM PRODUCT;
+
+    RETURN (result);
+
+END;
