@@ -147,11 +147,15 @@ public class AddressTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object obj = "Meme";
+        Object obj = null;
         Address instance = new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411);
         boolean result = instance.equals(instance);
         assertEquals(true, result);
         
+        result = instance.equals(obj);
+        assertEquals(false, result);
+        
+        obj = "Meme";
         result = instance.equals(obj);
         assertEquals(false, result);
         

@@ -1,32 +1,28 @@
 package lapr.project.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CreditCard {
 
-    private int creditCardNumber;
-    private Date validityDate;
+    private long creditCardNumber;
+    private LocalDate validityDate;
     private short ccv;
 
-    public CreditCard(int creditCardNumber, Date validityDate, short ccv) {
+    public CreditCard(long creditCardNumber, LocalDate validityDate, short ccv) {
 
         this.creditCardNumber = creditCardNumber;
         setValidityDate(validityDate);
         this.ccv = ccv;
     }
 
-    public CreditCard() {
-
-    }
-
-    public int getCreditCardNumber() {
+    public long getCreditCardNumber() {
 
         return creditCardNumber;
     }
 
-    public Date getValidityDate() {
+    public LocalDate getValidityDate() {
 
-        return (Date) validityDate.clone();
+        return validityDate;
     }
 
     public short getCcv() {
@@ -34,14 +30,14 @@ public class CreditCard {
         return ccv;
     }
 
-    public void setCreditCardNumber(int creditCardNumber) {
+    public void setCreditCardNumber(long creditCardNumber) {
 
         this.creditCardNumber = creditCardNumber;
     }
 
-    public final void setValidityDate(Date validityDate) {
+    public final void setValidityDate(LocalDate validityDate) {
 
-        this.validityDate = (Date) validityDate.clone();
+        this.validityDate = validityDate;
     }
 
     public void setCcv(short ccv) {
@@ -59,7 +55,7 @@ public class CreditCard {
     public int hashCode() {
 
         int hash = 3;
-        hash = 97 * hash + this.creditCardNumber;
+        hash = 97 * hash + (int)(this.creditCardNumber ^ (this.creditCardNumber >>> 32));
         return hash;
     }
 
