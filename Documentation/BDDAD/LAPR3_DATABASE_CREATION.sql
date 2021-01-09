@@ -162,7 +162,7 @@ CREATE TABLE deliveryStatus (
 );
 
 CREATE TABLE vehicle (
-    id_vehicle              INTEGER GENERATED AS IDENTITY     CONSTRAINT pkVehicleId                     PRIMARY KEY,            
+    id_vehicle              INTEGER                           CONSTRAINT pkVehicleId                     PRIMARY KEY,            
     id_pharmacy             INTEGER                           CONSTRAINT nnVehicleIdPharmacy             NOT NULL, 
     weight                  NUMERIC(5,2)                      CONSTRAINT nnVehicleWeight                 NOT NULL
                                                               CONSTRAINT ckVehicleWeight                 CHECK(weight>0),
