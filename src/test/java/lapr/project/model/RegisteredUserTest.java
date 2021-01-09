@@ -50,5 +50,44 @@ public class RegisteredUserTest {
         result = instance.getRole();
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of hashCode method, of class RegisteredUser.
+     */
+    @Test
+    public void testHashCode() {
+        System.out.println("hashCode");
+        RegisteredUser instance = new RegisteredUser("a@b.c", "qwerty", "administrator");
+        int expResult = 91584277;
+        int result = instance.hashCode();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of equals method, of class RegisteredUser.
+     */
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        Object obj = null;
+        RegisteredUser instance = new RegisteredUser("a@b.c", "qwerty", "administrator");
+        boolean result = instance.equals(instance);
+        assertEquals(true, result);
+        
+        result = instance.equals(obj);
+        assertEquals(false, result);
+        
+        obj = "Meme";
+        result = instance.equals(obj);
+        assertEquals(false, result);
+        
+        obj = new RegisteredUser("c@d.c", "qwerty", "administrator");
+        result = instance.equals(obj);
+        assertEquals(false, result);
+        
+        obj = new RegisteredUser("a@b.c", "qwerty", "administrator");
+        result = instance.equals(obj);
+        assertEquals(true, result);
+    }
     
 }

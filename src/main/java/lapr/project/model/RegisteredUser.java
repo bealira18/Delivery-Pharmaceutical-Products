@@ -32,11 +32,6 @@ public class RegisteredUser {
 
         return role;
     }
-
-    public static RegisteredUser findUser(String strEmail, String strPassword) {
-
-        return new RegisteredUserDB().findUser(strEmail, strPassword);
-    }
     
     @Override
     public int hashCode() {

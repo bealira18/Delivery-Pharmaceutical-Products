@@ -1,10 +1,14 @@
 package lapr.project.auth;
 
+import lapr.project.data.RegisteredUserDB;
 import lapr.project.model.RegisteredUser;
 
 public class AuthFacade {
+    
+    private final RegisteredUserDB ruDB;
 
     public AuthFacade() {
+        ruDB = new RegisteredUserDB();
     }
     
 
@@ -23,7 +27,7 @@ public class AuthFacade {
      */
     public UserSession doLogin(String strEmail, String strPwd) {
 
-        RegisteredUser utlz = RegisteredUser.findUser(strEmail, strPwd);
+        RegisteredUser utlz = ruDB.findUser(strEmail, strPwd);
 
         if (utlz != null) {
             this.session = new UserSession(utlz);
