@@ -8,19 +8,9 @@ public class Client extends RegisteredUser {
     private Address address;
     private int credits;
 
-    public Client(String email, String password, String role, String name, int nif, CreditCard creditCard, Address address, int credits) {
+    public Client(String email, String password, String name, int nif, CreditCard creditCard, Address address, int credits) {
         
-        super(email, password, role);
-        this.name = name;
-        this.nif = nif;
-        this.creditCard = creditCard;
-        this.address = address;
-        this.credits = credits;
-    }
-
-    public Client(RegisteredUser user, String name, int nif, CreditCard creditCard, Address address, int credits) {
-        
-        super(user);
+        super(email, password, "client");
         this.name = name;
         this.nif = nif;
         this.creditCard = creditCard;
