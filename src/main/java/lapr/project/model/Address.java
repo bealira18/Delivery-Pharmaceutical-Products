@@ -9,16 +9,12 @@ public class Address {
     private double latitude;
     private double altitude;
 
-    public Address(String description, double longitude, double latitude, double altitude) {
+    public Address(String description, double latitude, double longitude, double altitude) {
 
         this.description = description;
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude = altitude;
-    }
-
-    public Address() {
-
     }
 
     public String getDescription() {
