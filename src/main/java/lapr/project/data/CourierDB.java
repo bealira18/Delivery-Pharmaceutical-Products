@@ -1,8 +1,10 @@
 package lapr.project.data;
 
 import lapr.project.model.Courier;
+import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,5 +51,64 @@ public class CourierDB extends DataHandler {
             }
         }
         return false;
+    }
+
+    public Courier getCourier(String email) throws SQLException{
+        Courier c=null;
+        CallableStatement callStmt = null;
+
+        try{
+            callStmt = getConnection().prepareCall("{ ? = call getCourier(?) }");
+
+            // Regista o tipo de dados SQL para interpretar o resultado obtido.
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            // Especifica o parâmetro de entrada da função "getSailor".
+            callStmt.setString(1, email);
+            // Executa a invocação da função "getSailor".
+            callStmt.execute();
+            // Guarda o cursor retornado num objeto "ResultSet".
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                //Courier(String email, String password, String name, int nif, long socialSecurity, int pharmacyId, double weight)
+                String em=rSet.getString(1);
+                String password=rSet.getString(2);
+                String name=rSet.getString(3);
+                int nif=rSet.getInt(4);
+                long socialSecurity=rSet.getLong(5);
+                int pharmacyId=rSet.getInt(6);
+                double weight=rSet.getDouble(7);
+
+                c=new Courier(em,password,name,nif,socialSecurity,pharmacyId,weight);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("No Courier with email:" + email);
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return c;
+    }
+
+    public boolean updateCourier(String email,Courier c){
+        Courier a;
+
+        try{
+            a=getCourier(email);
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+
+        try{
+            a.setName(c.getName());
+            a.setPharmacyId(c.getPharmacyId());
+            a.setWeight(c.getWeight());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
