@@ -97,7 +97,7 @@ public class ProductDB extends DataHandler {
         Product a;
 
         try{
-            a=getProducts().get(id);
+            a=getProduct(id);
         }catch (SQLException e){
             e.printStackTrace();
             return false;
@@ -112,6 +112,44 @@ public class ProductDB extends DataHandler {
         }catch (Exception e) {
             return false;
         }
+    }
+
+    public Product getProduct (int id) throws  SQLException {
+        Product p = null;
+        CallableStatement callStmt = null;
+
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getProduct(?) }");
+
+            // Regista o tipo de dados SQL para interpretar o resultado obtido.
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            // Especifica o parâmetro de entrada da função "getSailor".
+            callStmt.setInt(1, id);
+            // Executa a invocação da função "getSailor".
+            callStmt.execute();
+            // Guarda o cursor retornado num objeto "ResultSet".
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                //Product(int id, String name, double price, double weight, int categoryId)
+                int idP = rSet.getInt(1);
+                String name = rSet.getString(2);
+                double price = rSet.getDouble(3);
+                double weight = rSet.getDouble(4);
+                int categoryId = rSet.getInt(5);
+
+                p = new Product(idP, name, price, weight, categoryId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("No Product with id:" + id);
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+            //return p;
+        }
+        return p;
     }
 
 }
