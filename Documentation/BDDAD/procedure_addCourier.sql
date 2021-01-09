@@ -3,7 +3,8 @@ CREATE OR REPLACE PROCEDURE addCourier(
     p_email IN VARCHAR2, 
     p_name IN VARCHAR2, 
     p_nif IN INTEGER,
-    p_social_security IN NUMERIC) 
+    p_social_security IN NUMERIC,
+    p_weight IN NUMERIC) 
 IS
     int_already_registered INTEGER;
 BEGIN
@@ -20,7 +21,7 @@ BEGIN
     INSERT INTO registeredUser (email, password, role)
     VALUES (p_email, 'qwerty', 'courier');
     
-    INSERT INTO courier(email, name, nif, social_security, id_pharmacy)
-    VALUES(p_email, p_name, p_nif, p_social_security, p_id_pharmacy);
+    INSERT INTO courier(email, name, nif, social_security, id_pharmacy, weight)
+    VALUES(p_email, p_name, p_nif, p_social_security, p_id_pharmacy, p_weight);
 
 END;

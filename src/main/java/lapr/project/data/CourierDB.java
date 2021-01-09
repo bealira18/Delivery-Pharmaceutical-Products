@@ -14,7 +14,7 @@ public class CourierDB extends DataHandler {
         openConnection();
 
         try {
-            return addCourier(c.getEmail(), c.getName(), c.getNif(), c.getSocialSecurity(), c.getPharmacyId());
+            return addCourier(c.getEmail(), c.getName(), c.getNif(), c.getSocialSecurity(), c.getPharmacyId(), c.getWeight());
 
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -23,7 +23,7 @@ public class CourierDB extends DataHandler {
         }
     }
 
-    private boolean addCourier(String email, String name, int nif, long socialSecurity, int pharmacyId) throws SQLException {
+    private boolean addCourier(String email, String name, int nif, long socialSecurity, int pharmacyId, double weight) throws SQLException {
 
         CallableStatement callStmt = null;
 
@@ -35,6 +35,7 @@ public class CourierDB extends DataHandler {
             callStmt.setString(3, name);
             callStmt.setInt(4, nif);
             callStmt.setLong(5, socialSecurity);
+            callStmt.setDouble(6, weight);
 
             callStmt.execute();
             return true;
