@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lapr.project.model.Address;
 
 /**
  * @author Nuno Bettencourt <nmb@isep.ipp.pt> on 24/05/16.
@@ -35,6 +36,10 @@ class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException, SQLException {
+        Address adr = new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411);
+        System.out.println(adr);
+        
+        
         CalculatorExample calculatorExample = new CalculatorExample();
         int value = calculatorExample.sum(3, 5);
 

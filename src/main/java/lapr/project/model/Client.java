@@ -4,11 +4,11 @@ public class Client extends RegisteredUser {
 
     private String name;
     private int nif;
-    private int creditCard;
-    private String address;
+    private CreditCard creditCard;
+    private Address address;
     private int credits;
 
-    public Client(String email, String password, String role, String name, int nif, int creditCard, String address, int credits) {
+    public Client(String email, String password, String role, String name, int nif, CreditCard creditCard, Address address, int credits) {
         
         super(email, password, role);
         this.name = name;
@@ -18,7 +18,7 @@ public class Client extends RegisteredUser {
         this.credits = credits;
     }
 
-    public Client(RegisteredUser user, String name, int nif, int creditCard, String address, int credits) {
+    public Client(RegisteredUser user, String name, int nif, CreditCard creditCard, Address address, int credits) {
         
         super(user);
         this.name = name;
@@ -38,12 +38,12 @@ public class Client extends RegisteredUser {
         return nif;
     }
 
-    public int getCreditCard() {
+    public CreditCard getCreditCard() {
 
         return creditCard;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
 
         return address;
     }
@@ -63,12 +63,12 @@ public class Client extends RegisteredUser {
         this.nif = nif;
     }
 
-    public void setCreditCard(int creditCard) {
+    public void setCreditCard(CreditCard creditCard) {
 
         this.creditCard = creditCard;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
 
         this.address = address;
     }
