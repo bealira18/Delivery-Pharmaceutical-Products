@@ -17,6 +17,7 @@ public class Courier extends RegisteredUser{
         this.nif = nif;
         this.socialSecurity = socialSecurity;
         this.pharmacyId = pharmacyId;
+        this.weight = weight;
     }
     
     public Courier(RegisteredUser user, String name, int nif, long socialSecurity, int pharmacyId, double weight) {
@@ -26,6 +27,7 @@ public class Courier extends RegisteredUser{
         this.nif = nif;
         this.socialSecurity = socialSecurity;
         this.pharmacyId = pharmacyId;
+        this.weight = weight;
     }
 
     public String getName() {
