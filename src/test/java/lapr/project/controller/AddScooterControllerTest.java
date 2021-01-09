@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class AddScooterControllerTest {
-
+/*
     private static AddScooterController controller;
 
     public AddScooterControllerTest(){
@@ -44,7 +44,7 @@ class AddScooterControllerTest {
      *
      * @throws java.lang.Exception
      */
-    @Test
+   /* @Test
     public void testAddScooter() throws Exception {
 
         System.out.println("addScooter");
@@ -68,5 +68,5 @@ class AddScooterControllerTest {
         assertEquals(expResult, result);
 
     }
-
+*/
 }

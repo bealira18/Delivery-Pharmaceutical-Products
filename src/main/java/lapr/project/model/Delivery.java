@@ -5,16 +5,16 @@ import java.util.Date;
 public class Delivery {
 
     private int orderId;
-    private int scooterId;
+    private int vehicleId;
     private String courierEmail;
     private int deliveryStatusId;
     private Date deliveryStart;
     private Date deliveryEnd;
 
-    public Delivery(int orderId, int scooterId, String courierEmail, int deliveryStatusId, Date deliveryStart, Date deliveryEnd) {
+    public Delivery(int orderId, int vehicleId, String courierEmail, int deliveryStatusId, Date deliveryStart, Date deliveryEnd) {
 
         this.orderId = orderId;
-        this.scooterId = scooterId;
+        this.vehicleId = vehicleId;
         this.courierEmail = courierEmail;
         this.deliveryStatusId = deliveryStatusId;
         setDeliveryStart(deliveryStart);
@@ -32,7 +32,7 @@ public class Delivery {
 
     public int getScooterId() {
 
-        return scooterId;
+        return vehicleId;
     }
 
     public String getCourierEmail() {
@@ -62,7 +62,7 @@ public class Delivery {
 
     public void setScooterId(int scooterId) {
 
-        this.scooterId = scooterId;
+        this.vehicleId = scooterId;
     }
 
     public void setCourierEmail(String courierEmail) {
@@ -88,7 +88,7 @@ public class Delivery {
     @Override
     public String toString() {
 
-        return "Delivery{" + "orderId=" + orderId + ", scooterId=" + scooterId + ", courierEmail=" + courierEmail + ", deliveryStatusId=" + deliveryStatusId + ", deliveryStart=" + deliveryStart + ", deliveryEnd=" + deliveryEnd + '}';
+        return "Delivery{" + "orderId=" + orderId + ", scooterId=" + vehicleId + ", courierEmail=" + courierEmail + ", deliveryStatusId=" + deliveryStatusId + ", deliveryStart=" + deliveryStart + ", deliveryEnd=" + deliveryEnd + '}';
     }
 
     @Override

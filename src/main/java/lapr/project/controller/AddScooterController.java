@@ -21,7 +21,7 @@ public class AddScooterController {
 
     public boolean addScooter(Scooter scooter) throws SQLException {
 
-        if(scooterParkDB.getNumberOfScootersInPharmacy(scooter.getPharmacyId()) < scooterParkDB.getLimitScooterPark(scooter.getPharmacyId())) {
+        if(scooterParkDB.getNumberOfScootersInPharmacy(scooter.getIdPharmacy()) < scooterParkDB.getLimitScooterPark(scooter.getIdPharmacy())) {
             return scooterDB.addScooter(scooter);
         }
         return false;
