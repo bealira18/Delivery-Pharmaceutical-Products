@@ -8,8 +8,9 @@ public class Courier extends RegisteredUser{
     private int nif;
     private long socialSecurity;
     private int pharmacyId;
+    private double weight;
 
-    public Courier(String email, String password, String name, int nif, long socialSecurity, int pharmacyId) {
+    public Courier(String email, String password, String name, int nif, long socialSecurity, int pharmacyId, double weight) {
 
         super(email, password, "courier");
         this.name = name;
@@ -18,7 +19,7 @@ public class Courier extends RegisteredUser{
         this.pharmacyId = pharmacyId;
     }
     
-    public Courier(RegisteredUser user, String name, int nif, long socialSecurity, int pharmacyId) {
+    public Courier(RegisteredUser user, String name, int nif, long socialSecurity, int pharmacyId, double weight) {
 
         super(user);
         this.name = name;
@@ -51,6 +52,11 @@ public class Courier extends RegisteredUser{
 
         return maximumPayload;
     }
+
+    public double getWeight() {
+        return weight;
+    }
+
     public void setName(String name) {
 
         this.name = name;
@@ -77,6 +83,10 @@ public class Courier extends RegisteredUser{
             throw new IllegalArgumentException("Invalid Numeric Value (Negative Maximum Payload)");
         }
         Courier.maximumPayload = maximumPayload;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override
