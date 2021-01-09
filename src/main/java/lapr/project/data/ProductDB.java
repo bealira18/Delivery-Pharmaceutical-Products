@@ -92,4 +92,26 @@ public class ProductDB extends DataHandler {
         }
         return false;
     }
+
+    public boolean updateProduct(int id,Product p){
+        Product a;
+
+        try{
+            a=getProducts().get(id);
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+
+        try{
+            a.setName(p.getName());
+            a.setCategoryId(p.getCategoryId());
+            a.setPrice(p.getPrice());
+            a.setWeight(p.getWeight());
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
+    }
+
 }
