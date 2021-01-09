@@ -4,6 +4,7 @@
 
 DROP TABLE registeredUser       CASCADE CONSTRAINTS PURGE;
 DROP TABLE address		        CASCADE CONSTRAINTS PURGE;
+DROP TABLE path		            CASCADE CONSTRAINTS PURGE;
 DROP TABLE pharmacy		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE administrator		CASCADE CONSTRAINTS PURGE;
 DROP TABLE courier		        CASCADE CONSTRAINTS PURGE;
@@ -16,6 +17,7 @@ DROP TABLE product		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE stock		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE scooterStatus		CASCADE CONSTRAINTS PURGE;
 DROP TABLE deliveryStatus		CASCADE CONSTRAINTS PURGE;
+DROP TABLE vehicle		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE scooter		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE purchaseOrder		CASCADE CONSTRAINTS PURGE;
 DROP TABLE productLine		    CASCADE CONSTRAINTS PURGE;
@@ -39,6 +41,15 @@ CREATE TABLE address (
     latitude    NUMERIC(19,10)      CONSTRAINT nnAddressLatitude    NOT NULL,
     longitude   NUMERIC(19,10)      CONSTRAINT nnAddressLongitude   NOT NULL,
     altitude    NUMERIC(19,10)      CONSTRAINT nnAddressAltitude    NOT NULL
+);
+
+CREATE TABLE path (
+    address1                VARCHAR2(255)         CONSTRAINT nnPathAddress1             NOT NULL,
+    address2                VARCHAR2(255)         CONSTRAINT nnPathAddress2             NOT NULL,
+    kinetic_coefficient     NUMERIC(5,2)          CONSTRAINT nnPathKineticCoefficient   NOT NULL
+                                                  CONSTRAINT ckPathKineticCoefficient   CHECK(kinetic_coefficient>=0),
+                                                  
+    CONSTRAINT pkPathAddress1Address2   PRIMARY KEY(address1, address2)   
 );
 
 CREATE TABLE pharmacy (
@@ -68,7 +79,9 @@ CREATE TABLE courier (
     social_security     NUMERIC(12,0)       CONSTRAINT nnCourierSocialSecurity  NOT NULL
                                             CONSTRAINT ukCourierSocialSecurity  UNIQUE
                                             CONSTRAINT ckCourierSocialSecurity  CHECK(REGEXP_LIKE(social_security, '^\d{11}$')),
-    id_pharmacy         INTEGER             CONSTRAINT nnCourierIdPharmacy      NOT NULL
+    id_pharmacy         INTEGER             CONSTRAINT nnCourierIdPharmacy      NOT NULL,
+    weight              NUMERIC(5,2)        CONSTRAINT nnCourierWeight          NOT NULL
+                                            CONSTRAINT ckCourierWeight          CHECK(weight>0)
 );
                     
 CREATE TABLE creditCard (
@@ -148,14 +161,28 @@ CREATE TABLE deliveryStatus (
                                                             CONSTRAINT ckDeliveryStatusName            CHECK(name IN ('processing','pending','delivered'))                                                 
 );
 
+CREATE TABLE vehicle (
+    id_vehicle              INTEGER GENERATED AS IDENTITY     CONSTRAINT pkVehicleId                     PRIMARY KEY,            
+    id_pharmacy             INTEGER                           CONSTRAINT nnVehicleIdPharmacy             NOT NULL, 
+    weight                  NUMERIC(5,2)                      CONSTRAINT nnVehicleWeight                 NOT NULL
+                                                              CONSTRAINT ckVehicleWeight                 CHECK(weight>0),
+    aerodynamic_coefficient NUMERIC(5,2)                      CONSTRAINT nnVehicleAerodynamicCoefficient NOT NULL
+                                                              CONSTRAINT ckVehicleAerodynamicCoefficient CHECK(aerodynamic_coefficient>=0),
+    frontal_area            NUMERIC(5,2)                      CONSTRAINT nnVehicleFrontalArea            NOT NULL
+                                                              CONSTRAINT ckVehicleFrontalArea            CHECK(frontal_area>0), 
+    motor                   NUMERIC(9,2)                      CONSTRAINT nnVehicleMotor                  NOT NULL
+                                                              CONSTRAINT ckVehicleMotor                  CHECK(motor>0), 
+    current_battery         NUMERIC(9,2)                      CONSTRAINT nnVehicleCurrentBattery         NOT NULL
+                                                              CONSTRAINT ckVehicleCurrentBattery         CHECK(current_battery>=0),
+    max_battery             NUMERIC(9,2)                      CONSTRAINT nnVehicleMaxBattery             NOT NULL 
+                                                              CONSTRAINT ckVehicleMaxBattery             CHECK(max_battery>0)
+);
+
+
+
 CREATE TABLE scooter (
-    id_scooter            INTEGER GENERATED AS IDENTITY     CONSTRAINT pkScooterId              PRIMARY KEY,            
-    id_pharmacy           INTEGER                           CONSTRAINT nnScooterIdPharmacy      NOT NULL,                 
-    id_scooter_status     INTEGER                           CONSTRAINT nnScooterIdScooterStatus NOT NULL,
-    current_battery       NUMERIC(9,2)                      CONSTRAINT nnScooterCurrentBattery  NOT NULL
-                                                            CONSTRAINT ckScooterCurrentBattery  CHECK(current_battery>=0),
-    max_battery           NUMERIC(9,2)                      CONSTRAINT nnScooterMaxBattery      NOT NULL 
-                                                            CONSTRAINT ckScooterMaxBattery      CHECK(max_battery>0)
+    id_scooter            INTEGER                           CONSTRAINT pkScooterIdScooter       PRIMARY KEY,                             
+    id_scooter_status     INTEGER                           CONSTRAINT nnScooterIdScooterStatus NOT NULL
 );
 
 CREATE TABLE purchaseOrder (
@@ -177,7 +204,7 @@ CREATE TABLE productLine (
 CREATE TABLE delivery (
     id_order              INTEGER              CONSTRAINT pkDeliveryIdOrder               PRIMARY KEY
                                                CONSTRAINT nnDeliveryIdOrder               NOT NULL,
-    id_scooter            INTEGER              CONSTRAINT nnDeliveryIdScooter             NOT NULL,       
+    id_vehicle            INTEGER              CONSTRAINT nnDeliveryIdVehicle             NOT NULL,       
     email_courier         VARCHAR2(255)        CONSTRAINT nnDeliveryEmailCourier          NOT NULL,
     id_delivery_status    INTEGER              CONSTRAINT nnDeliveryIdDeliveryStatus      NOT NULL,
     delivery_start        DATE,           
@@ -197,6 +224,9 @@ CREATE TABLE invoice (
 
 
 -- Foreign Keys
+
+ALTER TABLE path                ADD CONSTRAINT fkPathAddress1                   FOREIGN KEY(address1)           REFERENCES address (address);
+ALTER TABLE path                ADD CONSTRAINT fkPathAddress2                   FOREIGN KEY(address2)           REFERENCES address (address);
 
 ALTER TABLE pharmacy            ADD CONSTRAINT fkPharmacyAddress                FOREIGN KEY(address)            REFERENCES address (address);
 
@@ -221,7 +251,9 @@ ALTER TABLE product             ADD CONSTRAINT fkProductCategoryId              
 ALTER TABLE stock               ADD CONSTRAINT fkStockPharmacyId                FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
 ALTER TABLE stock               ADD CONSTRAINT fkStockProductId                 FOREIGN KEY(id_product)         REFERENCES product (id_product);
 
-ALTER TABLE scooter             ADD CONSTRAINT fkScooterPharmacyId              FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
+ALTER TABLE vehicle             ADD CONSTRAINT fkVehiclePharmacyId              FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
+
+ALTER TABLE scooter             ADD CONSTRAINT fkScooterScooterId               FOREIGN KEY(id_scooter)         REFERENCES vehicle (id_vehicle);
 ALTER TABLE scooter             ADD CONSTRAINT fkScooterStatusId                FOREIGN KEY(id_scooter_status)  REFERENCES scooterStatus (id_scooter_status);
 
 ALTER TABLE purchaseOrder       ADD CONSTRAINT fkPurchaseOrderPharmacyId        FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
@@ -231,7 +263,7 @@ ALTER TABLE productLine         ADD CONSTRAINT fkProductLineOrderId             
 ALTER TABLE productLine         ADD CONSTRAINT fkProductLineProductId           FOREIGN KEY(id_product)         REFERENCES product (id_product);
 
 ALTER TABLE delivery            ADD CONSTRAINT fkDeliveryOrderId                FOREIGN KEY(id_order)           REFERENCES purchaseOrder (id_order);
-ALTER TABLE delivery            ADD CONSTRAINT fkDeliveryScooterId              FOREIGN KEY(id_scooter)         REFERENCES scooter (id_scooter);
+ALTER TABLE delivery            ADD CONSTRAINT fkDeliveryVehicleId              FOREIGN KEY(id_vehicle)         REFERENCES vehicle (id_vehicle);
 ALTER TABLE delivery            ADD CONSTRAINT fkDeliveryCourierEmail           FOREIGN KEY(email_courier)      REFERENCES courier (email);
 ALTER TABLE delivery            ADD CONSTRAINT fkDeliveryDeliveryStatusId       FOREIGN KEY(id_delivery_status) REFERENCES deliveryStatus (id_delivery_status);
 
