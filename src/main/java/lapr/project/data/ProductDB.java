@@ -52,4 +52,44 @@ public class ProductDB extends DataHandler {
             closeAll();
         }
     }
+
+    public boolean addProduct(Product product)throws SQLException {
+
+        openConnection();
+
+        try{
+            return addProduct(product.getName(), product.getPrice(), product.getWeight(), product.getCategoryId());
+
+        }catch (NullPointerException | SQLException ex){
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+            return false;
+        }
+    }
+
+    public boolean addProduct(String name, double price, double weight, int category)throws SQLException {
+
+        CallableStatement callStmt = null;
+
+        try {
+            callStmt.getConnection().prepareCall("{ call addProduct(?,?,?,?) }");
+
+            callStmt.setString(1, name);
+            callStmt.setDouble(2, price);
+            callStmt.setDouble(3, weight);
+            callStmt.setInt(4, category);
+
+            callStmt.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+    }
 }
