@@ -128,4 +128,39 @@ public class AddressTest {
         String result = instance.toString();
         assertEquals(expResult, result);
     }    
+
+    /**
+     * Test of hashCode method, of class Address.
+     */
+    @Test
+    public void testHashCode() {
+        System.out.println("hashCode");
+        Address instance = new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411);
+        int expResult = 1791652326;
+        int result = instance.hashCode();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of equals method, of class Address.
+     */
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        Object obj = "Meme";
+        Address instance = new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411);
+        boolean result = instance.equals(instance);
+        assertEquals(true, result);
+        
+        result = instance.equals(obj);
+        assertEquals(false, result);
+        
+        obj = new Address("Rua João, 542", 41.15796537787468, -8.62910514603121, 5.200514144411);
+        result = instance.equals(obj);
+        assertEquals(false, result);
+        
+        obj = new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411);
+        result = instance.equals(obj);
+        assertEquals(true, result);
+    }
 }
