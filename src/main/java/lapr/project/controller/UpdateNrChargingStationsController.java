@@ -3,7 +3,8 @@ package lapr.project.controller;
 import lapr.project.data.ScooterParkDB;
 import lapr.project.model.ScooterPark;
 
-import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UpdateNrChargingStationsController {
 
@@ -17,7 +18,14 @@ public class UpdateNrChargingStationsController {
         this.spDB = spDB;
     }
 
-    public void updateNrChargingStations(ScooterPark sp) throws SQLException {
-        spDB.updateNrChargingStations(sp);
+    public boolean updateNrChargingStations(int nr){
+        try {
+            ScooterPark.setNumChargingStations(nr);
+            return true;
+
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(ScooterPark.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 }

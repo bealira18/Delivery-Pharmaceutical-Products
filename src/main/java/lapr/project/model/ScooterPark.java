@@ -2,10 +2,11 @@ package lapr.project.model;
 
 public class ScooterPark {
 
+    private static int numChargingStations=0;
+
     private int id;
     private int pharmacyId;
     private int limit;
-    private int numChargingStations;
     private String address;
 
     public ScooterPark(int id, int pharmacyId, int limit, int numChargingStations, String address) {
@@ -13,7 +14,7 @@ public class ScooterPark {
         this.id = id;
         this.pharmacyId = pharmacyId;
         this.limit = limit;
-        this.numChargingStations = numChargingStations;
+        setNumChargingStations(numChargingStations);
         this.address = address;
     }
 
@@ -61,9 +62,12 @@ public class ScooterPark {
         this.limit = limit;
     }
 
-    public void setNumChargingStations(int numChargingStations) {
+    public static void setNumChargingStations(int numChargingStations) {
 
-        this.numChargingStations = numChargingStations;
+        if (numChargingStations < 0) {
+            throw new IllegalArgumentException("Invalid Numeric Value (Negative Number of Charging Stations)");
+        }
+        ScooterPark.numChargingStations=numChargingStations;
     }
 
     public void setAddress(String address) {
