@@ -17,10 +17,6 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public Product() {
-
-    }
-
     public int getId() {
 
         return id;
@@ -80,7 +76,7 @@ public class Product {
     @Override
     public int hashCode() {
 
-        int hash = 7;
+        int hash = 13;
         hash = 59 * hash + this.id;
         return hash;
     }
