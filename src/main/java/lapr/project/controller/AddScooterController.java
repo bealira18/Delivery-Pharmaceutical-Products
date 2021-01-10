@@ -6,10 +6,11 @@ import lapr.project.data.ScooterParkDB;
 import lapr.project.model.Scooter;
 
 public class AddScooterController {
+
     private final ScooterDB scooterDB;
     private final ScooterParkDB scooterParkDB;
 
-    public AddScooterController(){
+    public AddScooterController() {
         scooterDB = new ScooterDB();
         scooterParkDB = new ScooterParkDB();
     }
@@ -21,7 +22,7 @@ public class AddScooterController {
 
     public boolean addScooter(Scooter scooter) throws SQLException {
 
-        if(scooterParkDB.getNumberOfScootersInPharmacy(scooter.getIdPharmacy()) < scooterParkDB.getLimitScooterPark(scooter.getIdPharmacy())) {
+        if (scooterParkDB.getNumberOfScootersInPharmacy(scooter.getIdPharmacy()) < scooterParkDB.getLimitScooterPark(scooter.getIdPharmacy())) {
             return scooterDB.addScooter(scooter);
         }
         return false;

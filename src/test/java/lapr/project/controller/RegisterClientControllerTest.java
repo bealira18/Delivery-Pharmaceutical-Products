@@ -68,6 +68,5 @@ public class RegisterClientControllerTest {
         creditCard.setValidityDate(LocalDate.of(2003, Month.MARCH, 1));
         result = instance.addClient(email, password, name, nif, creditCard, address);
         assertEquals(expResult, result);
-    }
-    
+    }  
 }

@@ -1,12 +1,12 @@
-create or replace FUNCTION getCourier(emailC VARCHAR) RETURN
-SYS_REFCURSOR is resultado sys_refcursor;
+CREATE OR REPLACE FUNCTION getCourier(emailC IN VARCHAR) RETURN
+SYS_REFCURSOR IS matching_courier sys_refcursor;
 
 BEGIN
-    OPEN resultado FOR
+    OPEN matching_courier FOR
 
     SELECT * FROM courier
     WHERE courier.email = emailC;
 
-RETURN (resultado);
+RETURN (matching_courier);
 END;
 /

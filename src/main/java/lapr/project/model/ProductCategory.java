@@ -11,10 +11,6 @@ public class ProductCategory {
         this.name = name;
     }
 
-    public ProductCategory() {
-
-    }
-
     public int getId() {
 
         return id;
@@ -44,7 +40,7 @@ public class ProductCategory {
     @Override
     public int hashCode() {
 
-        int hash = 7;
+        int hash = 21;
         hash = 71 * hash + this.id;
         return hash;
     }

@@ -6,6 +6,8 @@ import oracle.jdbc.OracleTypes;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -90,6 +92,34 @@ public class CourierDB extends DataHandler {
             }
         }
         return c;
+    }
+
+    public List<Courier> getAllAvailableCouriers(int orderId) {
+        ArrayList<Courier> couriers = new ArrayList<>();
+        CallableStatement callStmt = null;
+        ResultSet rSet = null;
+        try {
+            openConnection();
+
+            callStmt = getConnection().prepareCall("{ ? = call getAllAvailableCouriers(?) }");;
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+
+            callStmt.setInt(2, orderId);
+
+            callStmt.execute();
+
+            rSet = (ResultSet) callStmt.getObject(1);
+
+            while (rSet.next()) {
+                couriers.add(getCourier(rSet.getString(1)));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeAll();
+        }
+        return couriers;
     }
 
     public boolean updateCourier(String email,Courier c){

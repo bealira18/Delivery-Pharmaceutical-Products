@@ -7,7 +7,6 @@ import lapr.project.model.Pharmacy;
 
 import java.sql.SQLException;
 import java.util.List;
-import lapr.project.model.RegisteredUser;
 
 public class AddCourierController {
 
@@ -28,9 +27,8 @@ public class AddCourierController {
         return pDB.getAllPharmacies();
     }
 
-    public boolean addCourier(RegisteredUser user, String name, int nif, long socialSecurity, int pharmacyId, double weight) throws SQLException {
-        Courier courier = new Courier(user, name, nif, socialSecurity, pharmacyId, weight);
+    public boolean addCourier(String email, String password, String name, int nif, long socialSecurity, int pharmacyId, double weight) throws SQLException {
+        Courier courier = new Courier(email, password, name, nif, socialSecurity, pharmacyId, weight);
         return cDB.addCourier(courier);
     }
-
 }

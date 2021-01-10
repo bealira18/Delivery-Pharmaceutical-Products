@@ -26,8 +26,7 @@ class AddCourierControllerTest {
     @BeforeAll
     public static void setUpClass() throws SQLException {
 
-        RegisteredUser user = new RegisteredUser("c1@gmail.com", "qwerty", "courier");
-        Courier courier = new Courier(user, "John", 958752502, 11254852166L, 1, 85);
+        Courier courier = new Courier("c1@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85);
 
         auxListPharmacies = new ArrayList<>();
         auxListPharmacies.add(new Pharmacy(1, "TestPharma", "TestAddress"));
@@ -62,7 +61,6 @@ class AddCourierControllerTest {
         assertNotEquals(null, controller.findPharmacies());
     }
 
-
     /**
      * Test of addCourier method, of class AddCourierController.
      *
@@ -73,19 +71,17 @@ class AddCourierControllerTest {
 
         System.out.println("addCourier");
 
-        RegisteredUser user = new RegisteredUser("c1@gmail.com", "qwerty", "courier");
         boolean expResult = true;
-        boolean result = controller.addCourier(user, "John", 958752502, 11254852166L, 1, 85);
+        boolean result = controller.addCourier("c1@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85);
         assertEquals(expResult, result);
 
         CourierDB cDB = mock(CourierDB.class);
         PharmacyDB pDB = mock(PharmacyDB.class);
-        when(cDB.addCourier(new Courier(user, "John", 958752502, 11254852166L, 1, 85))).thenReturn(Boolean.FALSE);
+        when(cDB.addCourier(new Courier("cl@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85))).thenReturn(Boolean.FALSE);
         AddCourierController controller1 = new AddCourierController(cDB, pDB);
 
         expResult = false;
-        result = controller1.addCourier(user, "John", 958752502, 11254852166L, 1, 85);
+        result = controller1.addCourier("cl@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85);
         assertEquals(expResult, result);
-
     }
 }

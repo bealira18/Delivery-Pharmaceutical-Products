@@ -1,0 +1,13 @@
+CREATE OR REPLACE FUNCTION GETPATHS
+RETURN SYS_REFCURSOR AS
+
+    result      SYS_REFCURSOR;
+
+BEGIN
+
+    OPEN result FOR
+        SELECT *
+        FROM PATH;
+
+    RETURN result;
+END;
