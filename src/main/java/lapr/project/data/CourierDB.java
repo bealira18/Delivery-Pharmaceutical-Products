@@ -63,7 +63,7 @@ public class CourierDB extends DataHandler {
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setString(1, email);
+            callStmt.setString(2, email);
             // Executa a invocação da função "getSailor".
             callStmt.execute();
             // Guarda o cursor retornado num objeto "ResultSet".
