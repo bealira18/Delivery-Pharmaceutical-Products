@@ -24,6 +24,10 @@ public class Vehicle {
         this.maxBattery = maxBattery;
     }
 
+    public Vehicle(int idVehicle) {
+        this.idVehicle = idVehicle;
+    }
+
     public int getIdVehicle() {
         return idVehicle;
     }
