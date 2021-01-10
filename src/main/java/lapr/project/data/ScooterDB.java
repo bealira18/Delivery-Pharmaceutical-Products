@@ -1,9 +1,14 @@
 package lapr.project.data;
 
+import lapr.project.model.Courier;
 import lapr.project.model.Scooter;
+import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -55,6 +60,67 @@ public class ScooterDB extends DataHandler {
             }
         }
         return false;
+    }
+
+    public Scooter getScooter(int idScooter) throws SQLException{
+        Scooter s = null;
+        CallableStatement callStmt = null;
+
+        try{
+            callStmt = getConnection().prepareCall("{ ? = call getScooterById(?) }");
+
+            // Regista o tipo de dados SQL para interpretar o resultado obtido.
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            // Especifica o parâmetro de entrada da função "getSailor".
+            callStmt.setInt(2, idScooter);
+            // Executa a invocação da função "getSailor".
+            callStmt.execute();
+            // Guarda o cursor retornado num objeto "ResultSet".
+            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                int id = rSet.getInt(1);
+                int scooterStatus = rSet.getInt(2);
+
+                s = new Scooter(id, scooterStatus);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("No Scooter with id:" + idScooter);
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return s;
+    }
+
+    public List<Scooter> getAllAvailableScooters(int orderId) {
+        ArrayList<Scooter> scooters = new ArrayList<>();
+        CallableStatement callStmt = null;
+        ResultSet rSet = null;
+        try {
+            openConnection();
+
+            callStmt = getConnection().prepareCall("{ ? = call getAllAvailableScooters(?) }");;
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+
+            callStmt.setInt(2, orderId);
+
+            callStmt.execute();
+
+            rSet = (ResultSet) callStmt.getObject(1);
+
+            while (rSet.next()) {
+                scooters.add(getScooter(rSet.getInt(1)));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeAll();
+        }
+        return scooters;
     }
 
 }

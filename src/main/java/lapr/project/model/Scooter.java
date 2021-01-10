@@ -9,6 +9,11 @@ public class Scooter extends Vehicle {
         this.scooterStatusId = scooterStatusId;
     }
 
+    public Scooter(int idVehicle, int scooterStatusId) {
+        super(idVehicle);
+        this.scooterStatusId = scooterStatusId;
+    }
+
     public int getScooterStatusId() {
         return scooterStatusId;
     }

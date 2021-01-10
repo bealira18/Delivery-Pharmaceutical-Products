@@ -115,7 +115,7 @@ public class CourierDB extends DataHandler {
                 couriers.add(getCourier(rSet.getString(1)));
             }
         } catch (SQLException e) {
-            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             closeAll();
         }
