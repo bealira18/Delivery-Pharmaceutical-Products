@@ -11,7 +11,10 @@ public class AuthFacade {
         ruDB = new RegisteredUserDB();
     }
     
-
+    public AuthFacade(RegisteredUserDB db){
+        ruDB = db;
+    }
+    
     /**
      * Holds the information about the user that is currently logged in.
      */
