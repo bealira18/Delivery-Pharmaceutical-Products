@@ -1,6 +1,5 @@
 package lapr.project.model;
 
-// Does this class need to exist?
 public class Invoice {
 
     private int id;
@@ -91,7 +90,7 @@ public class Invoice {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final Invoice other = (Invoice) obj;
+        Invoice other = (Invoice) obj;
 
         return this.id == other.id;
     }
