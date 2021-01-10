@@ -5,9 +5,9 @@ import lapr.project.data.PathDB;
 import lapr.project.model.Address;
 import lapr.project.model.Path;
 import lapr.project.utils.Graph;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
 import static org.mockito.Mockito.mock;
 
 public class GraphControllerTest {
@@ -17,7 +17,7 @@ public class GraphControllerTest {
     public GraphControllerTest() {
     }
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
 
         AddressDB aDB = mock(AddressDB.class);
