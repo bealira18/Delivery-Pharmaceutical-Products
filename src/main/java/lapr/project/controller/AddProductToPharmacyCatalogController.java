@@ -19,7 +19,7 @@ public class AddProductToPharmacyCatalogController {
 
     public boolean addProductToPharmacyCatalog(Stock stock) throws SQLException {
 
-        if(stockDB.checkIfProductExistsInCatalog(stock.getPharmacyId(), stock.getProductId())) {
+        if(!stockDB.checkIfProductExistsInCatalog(stock.getPharmacyId(), stock.getProductId())) {
             return stockDB.addProductToPharmacyCatalog(stock);
         }
         return false;
