@@ -8,7 +8,7 @@ public class AddProductController {
 
     private final ProductDB productDB;
 
-    public AddProductController(){
+    public AddProductController() {
         productDB = new ProductDB();
     }
 

@@ -7,19 +7,19 @@ public class UpdateCourierController {
 
     private final CourierDB cDB;
 
-    public UpdateCourierController(){
-        cDB=new CourierDB();
+    public UpdateCourierController() {
+        cDB = new CourierDB();
     }
 
-    public UpdateCourierController(CourierDB cDB){
-        this.cDB=cDB;
+    public UpdateCourierController(CourierDB cDB) {
+        this.cDB = cDB;
     }
 
-    public boolean updateCourier(String email, Courier c){
-        if(c==null){
+    public boolean updateCourier(String email, Courier c) {
+        if (c == null) {
             return false;
         }
-        return cDB.updateCourier(email,c);
+        return cDB.updateCourier(email, c);
     }
 
 }

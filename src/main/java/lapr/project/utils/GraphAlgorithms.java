@@ -2,11 +2,49 @@ package lapr.project.utils;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import lapr.project.model.Address;
+import lapr.project.model.Path;
 
 /**
  * @author DEI-ESINF
  */
 public class GraphAlgorithms {
+
+    public static void fillGraph(Graph<Address, Path> g, List<Address> la, List<Path> lp) {
+
+        if (la != null && !la.isEmpty()) {
+
+            for (Address a : la) {
+                g.insertVertex(a);
+            }
+            if (lp != null && !lp.isEmpty()) {
+
+                Address a1 = null;
+                Address a2 = null;
+
+                for (Path p : lp) {
+
+                    for (Address a : la) {
+
+                        Address aAux1 = p.getAddress1();
+                        Address aAux2 = p.getAddress2();
+
+                        if (Double.compare(aAux1.getLatitude(), a.getLatitude()) == 0
+                                && Double.compare(aAux1.getLongitude(), a.getLongitude()) == 0) {
+                            a1 = a;
+                        }
+                        if (Double.compare(aAux2.getLatitude(), a.getLatitude()) == 0
+                                && Double.compare(aAux2.getLongitude(), a.getLongitude()) == 0) {
+                            a2 = a;
+                        }
+                    }
+                    if (a1 != null && a2 != null) {
+                        g.insertEdge(a1, a2, p, PathAlgorithms.calcDistance(a1, a2));
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Performs breadth-first search of a Graph starting in a Vertex
