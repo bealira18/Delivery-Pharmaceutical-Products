@@ -208,7 +208,8 @@ CREATE TABLE delivery (
     email_courier         VARCHAR2(255)        CONSTRAINT nnDeliveryEmailCourier          NOT NULL,
     id_delivery_status    INTEGER              CONSTRAINT nnDeliveryIdDeliveryStatus      NOT NULL,
     delivery_start        DATE,           
-    delivery_end          DATE,           
+    delivery_end          DATE,
+    delivery_run          INTEGER,
     
     CONSTRAINT ckDeliveryEndDeliveryStart      CHECK(delivery_end > delivery_start)   
 );
