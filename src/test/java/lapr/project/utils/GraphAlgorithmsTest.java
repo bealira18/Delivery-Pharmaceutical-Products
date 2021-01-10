@@ -4,9 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import lapr.project.model.Address;
+import lapr.project.model.Path;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  *
@@ -247,5 +253,39 @@ public class GraphAlgorithmsTest {
         GraphAlgorithms.shortestPaths(incompleteMap, "Braga", paths, dists);
         assertEquals(255, dists.get(completeMap.getKey("Leiria")), 0.01, "Path between Braga and Leiria should be 255 Km");
         assertEquals(Arrays.asList("Braga", "Porto", "Aveiro", "Leiria"), paths.get(completeMap.getKey("Leiria")), "Path to Leiria");
+    }
+
+    /**
+     * Test of fillGraph method, of class GraphAlgorithms.
+     */
+    @Test
+    public void testFillGraph() {
+
+        System.out.println("fillGraph");
+        Graph<Address, Path> g = new Graph<>(true);
+
+        Address a1 = new Address("Test", 0, 0, 0);
+        Address a2 = new Address("Test2", 0, 0, 0);
+        Path p = new Path(a1, a2, 0);
+
+        List<Address> la = new ArrayList<>();
+        List<Path> lp = new ArrayList<>();
+
+        la.add(a1);
+        la.add(a2);
+        lp.add(p);
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        lp = new ArrayList<>();
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        la = new ArrayList<>();
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        lp = null;
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        la = null;
+        GraphAlgorithms.fillGraph(g, la, lp);
     }
 }

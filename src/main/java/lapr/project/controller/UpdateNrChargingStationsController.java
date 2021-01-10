@@ -10,15 +10,15 @@ public class UpdateNrChargingStationsController {
 
     private final ScooterParkDB spDB;
 
-    public UpdateNrChargingStationsController(){
-        spDB=new ScooterParkDB();
+    public UpdateNrChargingStationsController() {
+        spDB = new ScooterParkDB();
     }
 
     public UpdateNrChargingStationsController(ScooterParkDB spDB) {
         this.spDB = spDB;
     }
 
-    public boolean updateNrChargingStations(int nr){
+    public boolean updateNrChargingStations(int nr) {
         try {
             ScooterPark.setNumChargingStations(nr);
             return true;

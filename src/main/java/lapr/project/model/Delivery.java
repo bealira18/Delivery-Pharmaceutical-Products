@@ -1,6 +1,6 @@
 package lapr.project.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Delivery {
 
@@ -8,10 +8,10 @@ public class Delivery {
     private int vehicleId;
     private String courierEmail;
     private int deliveryStatusId;
-    private Date deliveryStart;
-    private Date deliveryEnd;
+    private LocalDate deliveryStart;
+    private LocalDate deliveryEnd;
 
-    public Delivery(int orderId, int vehicleId, String courierEmail, int deliveryStatusId, Date deliveryStart, Date deliveryEnd) {
+    public Delivery(int orderId, int vehicleId, String courierEmail, int deliveryStatusId, LocalDate deliveryStart, LocalDate deliveryEnd) {
 
         this.orderId = orderId;
         this.vehicleId = vehicleId;
@@ -21,16 +21,12 @@ public class Delivery {
         setDeliveryEnd(deliveryEnd);
     }
 
-    public Delivery() {
-
-    }
-
     public int getOrderId() {
 
         return orderId;
     }
 
-    public int getScooterId() {
+    public int getVehicleId() {
 
         return vehicleId;
     }
@@ -45,14 +41,14 @@ public class Delivery {
         return deliveryStatusId;
     }
 
-    public Date getDeliveryStart() {
+    public LocalDate getDeliveryStart() {
 
-        return (Date) deliveryStart.clone();
+        return deliveryStart;
     }
 
-    public Date getDeliveryEnd() {
+    public LocalDate getDeliveryEnd() {
 
-        return (Date) deliveryEnd.clone();
+        return deliveryEnd;
     }
 
     public void setOrderId(int orderId) {
@@ -60,7 +56,7 @@ public class Delivery {
         this.orderId = orderId;
     }
 
-    public void setScooterId(int scooterId) {
+    public void setVehicleId(int scooterId) {
 
         this.vehicleId = scooterId;
     }
@@ -75,20 +71,20 @@ public class Delivery {
         this.deliveryStatusId = deliveryStatusId;
     }
 
-    public final void setDeliveryStart(Date deliveryStart) {
+    public final void setDeliveryStart(LocalDate deliveryStart) {
 
-        this.deliveryStart = (Date) deliveryStart.clone();
+        this.deliveryStart = deliveryStart;
     }
 
-    public final void setDeliveryEnd(Date deliveryEnd) {
+    public final void setDeliveryEnd(LocalDate deliveryEnd) {
 
-        this.deliveryEnd = (Date) deliveryEnd.clone();
+        this.deliveryEnd = deliveryEnd;
     }
 
     @Override
     public String toString() {
 
-        return "Delivery{" + "orderId=" + orderId + ", scooterId=" + vehicleId + ", courierEmail=" + courierEmail + ", deliveryStatusId=" + deliveryStatusId + ", deliveryStart=" + deliveryStart + ", deliveryEnd=" + deliveryEnd + '}';
+        return "Delivery{" + "orderId=" + orderId + ", vehicleId=" + vehicleId + ", courierEmail=" + courierEmail + ", deliveryStatusId=" + deliveryStatusId + ", deliveryStart=" + deliveryStart + ", deliveryEnd=" + deliveryEnd + '}';
     }
 
     @Override

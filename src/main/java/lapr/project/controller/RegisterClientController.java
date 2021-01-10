@@ -15,7 +15,7 @@ import lapr.project.model.CreditCard;
  * @author Ricardo
  */
 public class RegisterClientController {
-    
+
     private final ClientDB cDB;
 
     public RegisterClientController(ClientDB cDB) {
@@ -25,10 +25,9 @@ public class RegisterClientController {
     public RegisterClientController() {
         cDB = new ClientDB();
     }
-    
-    public boolean addClient(String email, String password, String name, int nif, CreditCard creditCard, Address address)
-    {
+
+    public boolean addClient(String email, String password, String name, int nif, CreditCard creditCard, Address address) {
         return cDB.addClient(email, password, name, nif, creditCard.getCreditCardNumber(), creditCard.getValidityDate(), creditCard.getCcv(), address.getDescription(), address.getLatitude(), address.getLongitude(), address.getAltitude());
     }
-    
+
 }

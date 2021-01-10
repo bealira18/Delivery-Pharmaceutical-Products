@@ -1,8 +1,6 @@
 package lapr.project.model;
 
-import java.util.Objects;
-
-public class Scooter extends Vehicle{
+public class Scooter extends Vehicle {
 
     private int scooterStatusId;
 
@@ -21,8 +19,8 @@ public class Scooter extends Vehicle{
 
     @Override
     public String toString() {
-        return "Scooter{" +
-                "scooterStatusId=" + scooterStatusId +
-                '}';
+        return "Scooter{"
+                + "scooterStatusId=" + scooterStatusId
+                + '}';
     }
 }

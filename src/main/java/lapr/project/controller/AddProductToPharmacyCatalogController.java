@@ -9,11 +9,11 @@ public class AddProductToPharmacyCatalogController {
 
     private final StockDB stockDB;
 
-    public AddProductToPharmacyCatalogController(){
+    public AddProductToPharmacyCatalogController() {
         stockDB = new StockDB();
     }
 
-    public AddProductToPharmacyCatalogController( StockDB stockDB) {
+    public AddProductToPharmacyCatalogController(StockDB stockDB) {
         this.stockDB = stockDB;
     }
 

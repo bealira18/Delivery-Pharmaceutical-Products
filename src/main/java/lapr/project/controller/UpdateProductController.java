@@ -8,14 +8,14 @@ public class UpdateProductController {
     private final ProductDB pDB;
 
     public UpdateProductController() {
-        pDB=new ProductDB();
+        pDB = new ProductDB();
     }
 
-    public UpdateProductController(ProductDB pDB){
-        this.pDB=pDB;
+    public UpdateProductController(ProductDB pDB) {
+        this.pDB = pDB;
     }
 
-    public boolean updateProduct(int id,Product p){
+    public boolean updateProduct(int id, Product p) {
         if (p == null) {
             return false;
         }

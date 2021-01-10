@@ -1,26 +1,15 @@
 package lapr.project.model;
 
-import java.util.Objects;
-
-public class Administrator extends RegisteredUser{
+public class Administrator extends RegisteredUser {
 
     private int pharmacyId;
     private String name;
     private int nif;
     private long socialSecurity;
 
-    public Administrator(String email, String password, String role, int pharmacyId, String name, int nif, long socialSecurity) {
+    public Administrator(String email, String password, int pharmacyId, String name, int nif, long socialSecurity) {
 
-        super(email, password, role);
-        this.pharmacyId = pharmacyId;
-        this.name = name;
-        this.nif = nif;
-        this.socialSecurity = socialSecurity;
-    }
-
-    public Administrator(RegisteredUser user, int pharmacyId, String name, int nif, long socialSecurity) {
-
-        super(user);
+        super(email, password, "Administrator");
         this.pharmacyId = pharmacyId;
         this.name = name;
         this.nif = nif;
@@ -69,8 +58,23 @@ public class Administrator extends RegisteredUser{
 
     @Override
     public String toString() {
-
-        return "Administrator{" + "email=" + getEmail() + ", pharmacyId=" + pharmacyId + ", name=" + name + ", nif=" + nif + ", social_security=" + socialSecurity + '}';
+        return "Administrator{" + "pharmacyId=" + pharmacyId + ", name=" + name + ", nif=" + nif + ", socialSecurity=" + socialSecurity + '}';
     }
 
+    @Override
+    public int hashCode() {
+
+        int hash = 7;
+        hash = 53 * hash + this.nif;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj instanceof Administrator) {
+            return super.equals(obj) && nif == ((Administrator) obj).nif;
+        }
+        return false;
+    }
 }
