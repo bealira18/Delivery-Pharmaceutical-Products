@@ -1,6 +1,6 @@
 package lapr.project.model;
 
-public class Courier extends RegisteredUser{
+public class Courier extends RegisteredUser {
 
     private static int maximumPayload = 0;
 
@@ -12,22 +12,20 @@ public class Courier extends RegisteredUser{
 
     public Courier(String email, String password, String name, int nif, long socialSecurity, int pharmacyId, double weight) {
 
-        super(email, password, "courier");
+        super(email, password, "Courier");
         this.name = name;
         this.nif = nif;
         this.socialSecurity = socialSecurity;
         this.pharmacyId = pharmacyId;
         this.weight = weight;
     }
-    
+
     public Courier(RegisteredUser user, String name, int nif, long socialSecurity, int pharmacyId, double weight) {
 
         super(user);
         this.name = name;
         this.nif = nif;
         this.socialSecurity = socialSecurity;
-        this.pharmacyId = pharmacyId;
-        this.weight = weight;
     }
 
     public String getName() {
@@ -50,13 +48,14 @@ public class Courier extends RegisteredUser{
         return pharmacyId;
     }
 
+    public double getWeight() {
+
+        return weight;
+    }
+
     public static int getMaximumPayload() {
 
         return maximumPayload;
-    }
-
-    public double getWeight() {
-        return weight;
     }
 
     public void setName(String name) {
@@ -79,6 +78,11 @@ public class Courier extends RegisteredUser{
         this.pharmacyId = pharmacyId;
     }
 
+    public void setWeight(double weight) {
+
+        this.weight = weight;
+    }
+
     public static void setMaximumPayload(int maximumPayload) {
 
         if (maximumPayload < 0) {
@@ -87,13 +91,27 @@ public class Courier extends RegisteredUser{
         Courier.maximumPayload = maximumPayload;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
     @Override
     public String toString() {
 
         return "Courier{" + "email=" + getEmail() + ", name=" + name + ", nif=" + nif + ", socialSecurity=" + socialSecurity + ", pharmacyId=" + pharmacyId + '}';
     }
+
+    @Override
+    public int hashCode() {
+
+        int hash = 5;
+        hash = 37 * hash + this.nif;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj instanceof Courier) {
+            return super.equals(obj) && nif == ((Courier) obj).nif;
+        }
+        return false;
+    }
+
 }
