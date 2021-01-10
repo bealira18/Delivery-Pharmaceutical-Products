@@ -7,18 +7,9 @@ public class Administrator extends RegisteredUser {
     private int nif;
     private long socialSecurity;
 
-    public Administrator(String email, String password, String role, int pharmacyId, String name, int nif, long socialSecurity) {
+    public Administrator(String email, String password, int pharmacyId, String name, int nif, long socialSecurity) {
 
-        super(email, password, role);
-        this.pharmacyId = pharmacyId;
-        this.name = name;
-        this.nif = nif;
-        this.socialSecurity = socialSecurity;
-    }
-
-    public Administrator(RegisteredUser user, int pharmacyId, String name, int nif, long socialSecurity) {
-
-        super(user);
+        super(email, password, "Administrator");
         this.pharmacyId = pharmacyId;
         this.name = name;
         this.nif = nif;
