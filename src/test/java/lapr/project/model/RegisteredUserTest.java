@@ -77,7 +77,7 @@ public class RegisteredUserTest {
         result = instance.equals(obj);
         assertEquals(false, result);
         
-        obj = "Meme";
+        obj = "test";
         result = instance.equals(obj);
         assertEquals(false, result);
         

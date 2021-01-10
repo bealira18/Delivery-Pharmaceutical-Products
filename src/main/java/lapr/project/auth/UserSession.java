@@ -1,5 +1,6 @@
 package lapr.project.auth;
 
+import java.util.Objects;
 import lapr.project.model.RegisteredUser;
 
 public class UserSession {
@@ -75,5 +76,30 @@ public class UserSession {
     public boolean isLoggedIn() {
 
         return this.user != null;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.user);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UserSession other = (UserSession) obj;
+        if (!Objects.equals(this.user, other.user)) {
+            return false;
+        }
+        return true;
     }
 }
