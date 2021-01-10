@@ -45,8 +45,9 @@ public class ScooterDB extends DataHandler {
             callStmt.execute();
             return true;
 
-        } catch (SQLException ex) {
+        } catch (NullPointerException | SQLException ex){
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
 
         } finally {
             if (callStmt != null) {

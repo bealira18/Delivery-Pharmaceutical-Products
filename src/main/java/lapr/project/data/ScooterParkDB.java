@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 public class ScooterParkDB extends DataHandler {
 
+    //Para duplicação receber o call por string e juntar as duas funções em uma
     public int getLimitScooterPark(int idPharmacy) throws SQLException {
         CallableStatement callStmt = null;
 

@@ -82,10 +82,11 @@ public class ProductDB extends DataHandler {
             callStmt.execute();
             return true;
 
-        } catch (SQLException ex) {
+        } catch (NullPointerException | SQLException ex){
             Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
 
-        } finally {
+        }finally {
             if (callStmt != null) {
                 callStmt.close();
             }
