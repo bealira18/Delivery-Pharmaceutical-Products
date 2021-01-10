@@ -193,5 +193,8 @@ public class InvoiceTest {
 
         result = instance.equals(new Invoice(2, 1, 1, "Test", 1));
         assertEquals(false, result);
+
+        result = instance.equals(new Invoice(1, 2, 3, "Test2", 4));
+        assertEquals(true, result);
     }
 }
