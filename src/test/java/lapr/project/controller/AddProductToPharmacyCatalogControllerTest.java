@@ -61,6 +61,12 @@ class AddProductToPharmacyCatalogControllerTest {
 
         result = controller1.addProductToPharmacyCatalog(stock1);
         assertEquals(false, result);
+
+        when(stockDB.addProductToPharmacyCatalog(stock1)).thenReturn(Boolean.FALSE);
+        when(stockDB.checkIfProductExistsInCatalog(stock1.getPharmacyId(), stock1.getProductId())).thenReturn(Boolean.TRUE);
+
+        result = controller1.addProductToPharmacyCatalog(stock1);
+        assertEquals(false, result);
     }
 
 }
