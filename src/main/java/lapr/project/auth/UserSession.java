@@ -11,13 +11,6 @@ public class UserSession {
     private RegisteredUser user = null;
 
     /**
-     * Creates an instance of a user session with no arguments given.
-     */
-    private UserSession() {
-
-    }
-
-    /**
      * Creates an instance of a user session with a user given as argument.
      * Throws an exception (IllegalArgumentException) if the user given as
      * argument equals null.

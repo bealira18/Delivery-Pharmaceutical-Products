@@ -7,6 +7,8 @@ package lapr.project.controller;
 
 import java.time.LocalDate;
 import lapr.project.data.ClientDB;
+import lapr.project.model.Address;
+import lapr.project.model.CreditCard;
 
 /**
  *
@@ -24,9 +26,9 @@ public class RegisterClientController {
         cDB = new ClientDB();
     }
     
-    public boolean addClient(String email, String password, String name, int nif, long creditCard, LocalDate expirationDate, short ccv, String address, double latitude, double longitude, double altitude)
+    public boolean addClient(String email, String password, String name, int nif, CreditCard creditCard, Address address)
     {
-        return cDB.addClient(email, password, name, nif, creditCard, expirationDate, ccv, address, latitude, longitude, altitude);
+        return cDB.addClient(email, password, name, nif, creditCard.getCreditCardNumber(), creditCard.getValidityDate(), creditCard.getCcv(), address.getDescription(), address.getLatitude(), address.getLongitude(), address.getAltitude());
     }
     
 }

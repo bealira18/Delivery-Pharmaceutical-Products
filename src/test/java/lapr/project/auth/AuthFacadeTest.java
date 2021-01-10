@@ -34,6 +34,7 @@ public class AuthFacadeTest {
         when(ruDB.findUser("c@d.e", "qwerty1")).thenReturn(ru2);
         when(ruDB.findUser("c@d.e", "qwerty")).thenReturn(null);
         
+        AuthFacade af = new AuthFacade();        
     }
 
     /**
@@ -95,6 +96,9 @@ public class AuthFacadeTest {
         UserSession result = instance.doLogin("c@d.e", "qwerty1");
         assertEquals(expResult, result);
              
+        instance.doLogout();
+        assertEquals(null, instance.getCurrentSession());
+        
         instance.doLogout();
         assertEquals(null, instance.getCurrentSession());
     }

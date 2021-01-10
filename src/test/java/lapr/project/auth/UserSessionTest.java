@@ -17,6 +17,25 @@ public class UserSessionTest {
     
     public UserSessionTest() {
     }
+    
+    /**
+     * Test of UserSession Constructor IllegalArgument method, of class UserSession.
+     */
+    @Test
+    public void testUserSessionConstructorIllegal() {
+        String expResult = "Session's User cannot be null!";
+        String result = "";
+        try{
+            UserSession instance = new UserSession(null);
+        }
+        catch (IllegalArgumentException iae)
+        {
+            result = iae.getMessage();
+        }
+        
+        assertEquals(expResult, result);
+        
+    }
 
     /**
      * Test of getUserEmail method, of class UserSession.
@@ -27,6 +46,11 @@ public class UserSessionTest {
         UserSession instance = new UserSession(new RegisteredUser("a@b.c", "qwerty", "administrator"));
         String expResult = "a@b.c";
         String result = instance.getUserEmail();
+        assertEquals(expResult, result);
+        
+        instance.doLogout();
+        expResult = null;
+        result = instance.getUserEmail();
         assertEquals(expResult, result);
     }
 
@@ -39,6 +63,11 @@ public class UserSessionTest {
         UserSession instance = new UserSession(new RegisteredUser("a@b.c", "qwerty", "administrator"));
         String expResult = "administrator";
         String result = instance.getUserRole();
+        assertEquals(expResult, result);
+        
+        instance.doLogout();
+        expResult = null;
+        result = instance.getUserRole();
         assertEquals(expResult, result);
     }
 
