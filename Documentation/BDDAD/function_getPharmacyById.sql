@@ -5,7 +5,6 @@ BEGIN
     OPEN matching_pharmacy FOR
         SELECT * FROM pharmacy
         WHERE id_pharmacy = pharmacy_id;
-    CLOSE matching_pharmacy;
     
 RETURN (matching_pharmacy);
 END;
