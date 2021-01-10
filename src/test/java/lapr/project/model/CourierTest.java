@@ -167,6 +167,11 @@ public class CourierTest {
         int result = Courier.getMaximumPayload();
         assertEquals(maximumPayload, result);
 
+        maximumPayload = 0;
+        Courier.setMaximumPayload(maximumPayload);
+        result = Courier.getMaximumPayload();
+        assertEquals(maximumPayload, result);
+
         final int maximumPayload2 = -1;
         Exception ex = assertThrows(IllegalArgumentException.class, () -> {
             Courier.setMaximumPayload(maximumPayload2);

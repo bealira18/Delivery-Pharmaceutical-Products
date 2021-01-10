@@ -1,21 +1,11 @@
 package lapr.project.model;
 
-import java.util.Objects;
-
 public class ParkingSpace {
 
     private int parkingSpaceId;
     private int parkId;
     private int scooterId;
     private boolean isChargingStation;
-
-    public ParkingSpace() {
-
-        this.parkingSpaceId = 0;
-        this.parkId = 0;
-        this.scooterId = 0;
-        this.isChargingStation = false;
-    }
 
     public ParkingSpace(int parkingSpaceId, int parkId, int scooterId, boolean isChargingStation) {
 
@@ -77,7 +67,10 @@ public class ParkingSpace {
     @Override
     public int hashCode() {
 
-        return Objects.hash(parkingSpaceId, parkId, scooterId, isChargingStation);
+        int hash = 3;
+        hash = 43 * hash + this.parkingSpaceId;
+        hash = 43 * hash + this.parkId;
+        return hash;
     }
 
     @Override
@@ -89,8 +82,9 @@ public class ParkingSpace {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        ParkingSpace ps = (ParkingSpace) obj;
+        ParkingSpace other = (ParkingSpace) obj;
 
-        return parkingSpaceId == ps.parkingSpaceId;
+        return parkingSpaceId == other.parkingSpaceId
+                && parkId == other.parkId;
     }
 }
