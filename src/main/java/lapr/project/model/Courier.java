@@ -20,14 +20,6 @@ public class Courier extends RegisteredUser {
         this.weight = weight;
     }
 
-    public Courier(RegisteredUser user, String name, int nif, long socialSecurity, int pharmacyId, double weight) {
-
-        super(user);
-        this.name = name;
-        this.nif = nif;
-        this.socialSecurity = socialSecurity;
-    }
-
     public String getName() {
 
         return name;
@@ -93,9 +85,8 @@ public class Courier extends RegisteredUser {
 
     @Override
     public String toString() {
-
-        return "Courier{" + "email=" + getEmail() + ", name=" + name + ", nif=" + nif + ", socialSecurity=" + socialSecurity + ", pharmacyId=" + pharmacyId + '}';
-    }
+        return "Courier{" + "name=" + name + ", nif=" + nif + ", socialSecurity=" + socialSecurity + ", pharmacyId=" + pharmacyId + ", weight=" + weight + '}';
+    }   
 
     @Override
     public int hashCode() {
@@ -113,5 +104,4 @@ public class Courier extends RegisteredUser {
         }
         return false;
     }
-
 }
