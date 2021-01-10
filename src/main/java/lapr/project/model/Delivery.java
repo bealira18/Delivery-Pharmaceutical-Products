@@ -21,10 +21,6 @@ public class Delivery {
         setDeliveryEnd(deliveryEnd);
     }
 
-    public Delivery() {
-
-    }
-
     public int getOrderId() {
 
         return orderId;
