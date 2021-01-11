@@ -18,7 +18,7 @@ public class DeliveryTest {
 
         System.out.println("getOrderId");
         Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
-                                        LocalDate.of(2077, Month.MARCH, 2), 1);
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         int expResult = 1;
         int result = instance.getOrderId();
         assertEquals(expResult, result);
@@ -32,7 +32,7 @@ public class DeliveryTest {
 
         System.out.println("getVehicleId");
         Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
-                                            LocalDate.of(2077, Month.MARCH, 2), 1);
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         int expResult = 1;
         int result = instance.getVehicleId();
         assertEquals(expResult, result);
@@ -46,7 +46,8 @@ public class DeliveryTest {
 
         System.out.println("getCourierEmail");
         Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
-                                            LocalDate.of(2077, Month.MARCH, 2), 1);        String expResult = "Test";
+                LocalDate.of(2077, Month.MARCH, 2), 1);
+        String expResult = "Test";
         String result = instance.getCourierEmail();
         assertEquals(expResult, result);
     }
@@ -59,7 +60,8 @@ public class DeliveryTest {
 
         System.out.println("getDeliveryStatusId");
         Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
-                                        LocalDate.of(2077, Month.MARCH, 2), 1);        int expResult = 1;
+                LocalDate.of(2077, Month.MARCH, 2), 1);
+        int expResult = 1;
         int result = instance.getDeliveryStatusId();
         assertEquals(expResult, result);
     }
@@ -72,7 +74,8 @@ public class DeliveryTest {
 
         System.out.println("getDeliveryStart");
         Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
-                LocalDate.of(2077, Month.MARCH, 2), 1);        LocalDate expResult = LocalDate.of(2077, Month.MARCH, 1);
+                LocalDate.of(2077, Month.MARCH, 2), 1);
+        LocalDate expResult = LocalDate.of(2077, Month.MARCH, 1);
         LocalDate result = instance.getDeliveryStart();
         assertEquals(expResult, result);
     }
@@ -85,7 +88,8 @@ public class DeliveryTest {
 
         System.out.println("getDeliveryEnd");
         Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
-                LocalDate.of(2077, Month.MARCH, 2), 1);        LocalDate expResult = LocalDate.of(2077, Month.MARCH, 2);
+                LocalDate.of(2077, Month.MARCH, 2), 1);
+        LocalDate expResult = LocalDate.of(2077, Month.MARCH, 2);
         LocalDate result = instance.getDeliveryEnd();
         assertEquals(expResult, result);
     }
@@ -237,5 +241,33 @@ public class DeliveryTest {
                 LocalDate.of(2077, Month.MARCH, 2), 1);
         result = instance.equals(obj);
         assertEquals(true, result);
+    }
+
+    /**
+     * Test of getDeliveryRun method, of class Delivery.
+     */
+    @Test
+    public void testGetDeliveryRun() {
+
+        System.out.println("getDeliveryRun");
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
+        int expResult = 1;
+        int result = instance.getDeliveryRun();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setDeliveryRun method, of class Delivery.
+     */
+    @Test
+    public void testSetDeliveryRun() {
+        System.out.println("setDeliveryRun");
+        int deliveryRun = 2;
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
+        instance.setDeliveryRun(deliveryRun);
+        int result = instance.getDeliveryRun();
+        assertEquals(deliveryRun, result);
     }
 }

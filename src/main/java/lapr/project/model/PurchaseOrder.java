@@ -1,6 +1,6 @@
 package lapr.project.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class PurchaseOrder {
 
@@ -9,18 +9,14 @@ public class PurchaseOrder {
     private int id;
     private int pharmacyId;
     private String clientEmail;
-    private Date emissionDate;
+    private LocalDate emissionDate;
 
-    public PurchaseOrder(int id, int pharmacyId, String clientEmail, Date emissionDate) {
+    public PurchaseOrder(int id, int pharmacyId, String clientEmail, LocalDate emissionDate) {
 
         this.id = id;
         this.pharmacyId = pharmacyId;
         this.clientEmail = clientEmail;
         setEmissionDate(emissionDate);
-    }
-
-    public PurchaseOrder() {
-
     }
 
     public int getId() {
@@ -38,9 +34,9 @@ public class PurchaseOrder {
         return clientEmail;
     }
 
-    public Date getEmissionDate() {
+    public LocalDate getEmissionDate() {
 
-        return (Date) emissionDate.clone();
+        return emissionDate;
     }
 
     public static double getDeliveryFee() {
@@ -63,9 +59,9 @@ public class PurchaseOrder {
         this.clientEmail = clientEmail;
     }
 
-    public final void setEmissionDate(Date emissionDate) {
+    public final void setEmissionDate(LocalDate emissionDate) {
 
-        this.emissionDate = (Date) emissionDate.clone();
+        this.emissionDate = emissionDate;
     }
 
     public static void setDeliveryFee(double deliveryFee) {
@@ -79,7 +75,7 @@ public class PurchaseOrder {
     @Override
     public String toString() {
 
-        return "Order{" + "id=" + id + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", emissionDate=" + emissionDate + '}';
+        return "PurchaseOrder{" + "id=" + id + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", emissionDate=" + emissionDate + '}';
     }
 
     @Override
