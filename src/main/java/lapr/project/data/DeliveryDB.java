@@ -6,14 +6,32 @@ import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DeliveryDB extends DataHandler {
 
-    public boolean addDelivery(Delivery d) throws SQLException {
+    public boolean addDeliveries(List<Delivery> deliveryList) throws SQLException {
+        boolean check = true;
+        try {
+            openConnection();
+            for(Delivery d : deliveryList) {
+                if(!addDelivery(d)) {
+                    check = false;
+                }
+            }
 
-        openConnection();
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+            return false;
+        }
+        return check;
+    }
+
+
+    public boolean addDelivery(Delivery d) throws SQLException {
 
         try {
             return addDelivery(d.getOrderId(), d.getVehicleId(), d.getCourierEmail(), d.getDeliveryStatusId(), d.getDeliveryStart(),
