@@ -4,17 +4,13 @@ public class Pharmacy {
 
     private int pharmacyId;
     private String name;
-    private String address;
+    private Address address;
 
-    public Pharmacy(int id, String name, String address) {
+    public Pharmacy(int id, String name, Address address) {
 
         this.pharmacyId = id;
         this.name = name;
         this.address = address;
-    }
-
-    public Pharmacy() {
-
     }
 
     public int getId() {
@@ -27,7 +23,7 @@ public class Pharmacy {
         return name;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
 
         return address;
     }
@@ -42,7 +38,7 @@ public class Pharmacy {
         this.name = name;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
 
         this.address = address;
     }

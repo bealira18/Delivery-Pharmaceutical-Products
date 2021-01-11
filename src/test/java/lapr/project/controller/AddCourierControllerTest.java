@@ -6,6 +6,7 @@ import java.util.List;
 
 import lapr.project.data.CourierDB;
 import lapr.project.data.PharmacyDB;
+import lapr.project.model.Address;
 import lapr.project.model.Courier;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.RegisteredUser;
@@ -29,8 +30,8 @@ class AddCourierControllerTest {
         Courier courier = new Courier("c1@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85);
 
         auxListPharmacies = new ArrayList<>();
-        auxListPharmacies.add(new Pharmacy(1, "TestPharma", "TestAddress"));
-        auxListPharmacies.add(new Pharmacy(2, "TestPharma2", "TestAddress2"));
+        auxListPharmacies.add(new Pharmacy(1, "TestPharma", new Address("TestAddress", 0, 0, 0)));
+        auxListPharmacies.add(new Pharmacy(2, "TestPharma", new Address("TestAddress", 0, 0, 0)));
         CourierDB cDB = mock(CourierDB.class);
         PharmacyDB pDB = mock(PharmacyDB.class);
 

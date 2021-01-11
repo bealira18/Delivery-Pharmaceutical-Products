@@ -8,17 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lapr.project.model.Address;
 import lapr.project.model.Pharmacy;
 import oracle.jdbc.OracleTypes;
 
 public class PharmacyDB extends DataHandler {
 
+    //TODO REWRITE EVERYTHING BECAUSE OF ADDRESS
     public boolean addPharmacy(Pharmacy p, int limit) throws SQLException {
 
         openConnection();
 
         try {
-            return addPharmacy(p.getName(), p.getAddress(), limit);
+            return addPharmacy(p.getName(), "", limit);
 
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,7 +72,7 @@ public class PharmacyDB extends DataHandler {
             String pName = rSet.getString(2);
             String pAddress = rSet.getString(3);
 
-            return new Pharmacy(pID, pName, pAddress);
+            return new Pharmacy(pID, pName, new Address(pAddress, 0, 0, 0));
         }
         return null;
     }
