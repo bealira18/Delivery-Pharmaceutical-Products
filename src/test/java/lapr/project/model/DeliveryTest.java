@@ -17,7 +17,8 @@ public class DeliveryTest {
     public void testGetOrderId() {
 
         System.out.println("getOrderId");
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                                        LocalDate.of(2077, Month.MARCH, 2), 1);
         int expResult = 1;
         int result = instance.getOrderId();
         assertEquals(expResult, result);
@@ -30,7 +31,8 @@ public class DeliveryTest {
     public void testGetVehicleId() {
 
         System.out.println("getVehicleId");
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                                            LocalDate.of(2077, Month.MARCH, 2), 1);
         int expResult = 1;
         int result = instance.getVehicleId();
         assertEquals(expResult, result);
@@ -43,8 +45,8 @@ public class DeliveryTest {
     public void testGetCourierEmail() {
 
         System.out.println("getCourierEmail");
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
-        String expResult = "Test";
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                                            LocalDate.of(2077, Month.MARCH, 2), 1);        String expResult = "Test";
         String result = instance.getCourierEmail();
         assertEquals(expResult, result);
     }
@@ -56,8 +58,8 @@ public class DeliveryTest {
     public void testGetDeliveryStatusId() {
 
         System.out.println("getDeliveryStatusId");
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
-        int expResult = 1;
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                                        LocalDate.of(2077, Month.MARCH, 2), 1);        int expResult = 1;
         int result = instance.getDeliveryStatusId();
         assertEquals(expResult, result);
     }
@@ -69,8 +71,8 @@ public class DeliveryTest {
     public void testGetDeliveryStart() {
 
         System.out.println("getDeliveryStart");
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
-        LocalDate expResult = LocalDate.of(2077, Month.MARCH, 1);
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);        LocalDate expResult = LocalDate.of(2077, Month.MARCH, 1);
         LocalDate result = instance.getDeliveryStart();
         assertEquals(expResult, result);
     }
@@ -82,8 +84,8 @@ public class DeliveryTest {
     public void testGetDeliveryEnd() {
 
         System.out.println("getDeliveryEnd");
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
-        LocalDate expResult = LocalDate.of(2077, Month.MARCH, 2);
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);        LocalDate expResult = LocalDate.of(2077, Month.MARCH, 2);
         LocalDate result = instance.getDeliveryEnd();
         assertEquals(expResult, result);
     }
@@ -96,7 +98,8 @@ public class DeliveryTest {
 
         System.out.println("setOrderId");
         int orderId = 2;
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         instance.setOrderId(orderId);
         int result = instance.getOrderId();
         assertEquals(orderId, result);
@@ -110,7 +113,8 @@ public class DeliveryTest {
 
         System.out.println("setVehicleId");
         int vehicleId = 2;
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         instance.setVehicleId(vehicleId);
         int result = instance.getVehicleId();
         assertEquals(vehicleId, result);
@@ -124,7 +128,8 @@ public class DeliveryTest {
 
         System.out.println("setCourierEmail");
         String courierEmail = "Test2";
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         instance.setCourierEmail(courierEmail);
         String result = instance.getCourierEmail();
         assertEquals(courierEmail, result);
@@ -138,7 +143,8 @@ public class DeliveryTest {
 
         System.out.println("setDeliveryStatusId");
         int deliveryStatusId = 2;
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         instance.setDeliveryStatusId(deliveryStatusId);
         int result = instance.getDeliveryStatusId();
         assertEquals(deliveryStatusId, result);
@@ -152,7 +158,8 @@ public class DeliveryTest {
 
         System.out.println("setDeliveryStart");
         LocalDate deliveryStart = LocalDate.of(2077, Month.MARCH, 2);
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         instance.setDeliveryStart(deliveryStart);
         LocalDate result = instance.getDeliveryStart();
         assertEquals(deliveryStart, result);
@@ -166,7 +173,8 @@ public class DeliveryTest {
 
         System.out.println("setDeliveryEnd");
         LocalDate deliveryEnd = LocalDate.of(2077, Month.MARCH, 3);
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         instance.setDeliveryEnd(deliveryEnd);
         LocalDate result = instance.getDeliveryEnd();
         assertEquals(deliveryEnd, result);
@@ -179,7 +187,8 @@ public class DeliveryTest {
     public void testToString() {
 
         System.out.println("toString");
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         String expResult = "Delivery{orderId=1, vehicleId=1, courierEmail=Test, deliveryStatusId=1, deliveryStart=2077-03-01, deliveryEnd=2077-03-02}";
         String result = instance.toString();
         assertEquals(expResult, result);
@@ -192,7 +201,8 @@ public class DeliveryTest {
     public void testHashCode() {
 
         System.out.println("hashCode");
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         int expResult = 214;
         int result = instance.hashCode();
         assertEquals(expResult, result);
@@ -206,7 +216,8 @@ public class DeliveryTest {
 
         System.out.println("equals");
         Object obj = null;
-        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        Delivery instance = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         boolean result = instance.equals(instance);
         assertEquals(true, result);
 
@@ -217,11 +228,13 @@ public class DeliveryTest {
         result = instance.equals(obj);
         assertEquals(false, result);
 
-        obj = new Delivery(2, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        obj = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         result = instance.equals(obj);
         assertEquals(false, result);
 
-        obj = new Delivery(1, 2, "Test", 2, LocalDate.of(2077, Month.MARCH, 1), LocalDate.of(2077, Month.MARCH, 2));
+        obj = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+                LocalDate.of(2077, Month.MARCH, 2), 1);
         result = instance.equals(obj);
         assertEquals(true, result);
     }
