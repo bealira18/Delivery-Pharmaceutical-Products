@@ -11,7 +11,6 @@ import lapr.project.model.Scooter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class AssignOrderToCourierScooterController {
@@ -42,7 +41,6 @@ public class AssignOrderToCourierScooterController {
     }
 
     /*
-       descobrir qual e quando o proximo courier/scooter available
        calcular endDate
      */
     public boolean addDelivery(List<PurchaseOrder> orderList) throws SQLException {
@@ -55,9 +53,12 @@ public class AssignOrderToCourierScooterController {
         ArrayList<Delivery> deliveries = new ArrayList<>();
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = null;
+        Delivery nextAvailable;
 
         if(listCouriers.isEmpty()) {
-            chosenCourier = null;
+            nextAvailable = dDB.getNextAvailableCourier(orderList.get(0).getPharmacyId());
+            chosenCourier = nextAvailable.getCourierEmail();
+            startDate = nextAvailable.getDeliveryEnd();
             idDeliveryStatus = 2;
         }
         else {
@@ -65,8 +66,12 @@ public class AssignOrderToCourierScooterController {
         }
 
         if(listScooters.isEmpty()) {
-            chosenScooter = 0;
+            nextAvailable = dDB.getNextAvailableScooter(orderList.get(0).getPharmacyId());
+            chosenScooter = nextAvailable.getVehicleId();
             idDeliveryStatus = 2;
+            if(nextAvailable.getDeliveryEnd().isAfter(startDate)) {
+                startDate = nextAvailable.getDeliveryEnd();
+            }
         }
         else {
             chosenScooter = listScooters.get(0).getIdVehicle();

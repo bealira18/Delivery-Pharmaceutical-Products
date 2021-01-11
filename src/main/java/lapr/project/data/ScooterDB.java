@@ -8,6 +8,7 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -116,7 +117,7 @@ public class ScooterDB extends DataHandler {
                 scooters.add(getIdScooter(rSet.getInt(1)));
             }
         } catch (SQLException e) {
-            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             closeAll();
         }

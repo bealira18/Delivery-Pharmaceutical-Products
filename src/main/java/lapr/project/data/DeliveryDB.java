@@ -1,9 +1,12 @@
 package lapr.project.data;
 
 import lapr.project.model.Delivery;
+import lapr.project.model.Scooter;
+import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -71,6 +74,80 @@ public class DeliveryDB extends DataHandler {
             }
         }
         return false;
+    }
+
+    public Delivery getNextAvailableScooter(int pharmacyId) {
+        Delivery delivery = null;
+        CallableStatement callStmt = null;
+        ResultSet rSet = null;
+
+        try {
+            openConnection();
+
+            callStmt = getConnection().prepareCall("{ ? = call getNextAvailableScooter(?) }");;
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+
+            callStmt.setInt(2, pharmacyId);
+
+            callStmt.execute();
+
+            rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                int idOrder = rSet.getInt(1);
+                int idScooter = rSet.getInt(2);
+                String emailCourier = rSet.getString(3);
+                int idDeliveryStatus = rSet.getInt(4);
+                Date deleveryStart = rSet.getDate(5);
+                Date deliveryEnd = rSet.getDate(6);
+                int deliveryRun = rSet.getInt(7);
+
+                delivery = new Delivery(idOrder, idScooter, emailCourier, idDeliveryStatus, deleveryStart.toLocalDate(), deliveryEnd.toLocalDate(), deliveryRun);
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeAll();
+        }
+        return delivery;
+    }
+
+    public Delivery getNextAvailableCourier(int idPharmacy) {
+        Delivery delivery = null;
+        CallableStatement callStmt = null;
+        ResultSet resultSetSet = null;
+
+        try {
+            openConnection();
+
+            callStmt = getConnection().prepareCall("{ ? = call getNextAvailableCourier(?) }");;
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setInt(2, idPharmacy);
+            callStmt.execute();
+
+            resultSetSet = (ResultSet) callStmt.getObject(1);
+
+            if (resultSetSet.next()) {
+                int orderId = resultSetSet.getInt(1);
+                int idScooter = resultSetSet.getInt(2);
+                String emailCourier = resultSetSet.getString(3);
+                int idDeliveryStatus = resultSetSet.getInt(4);
+                Date deleveryStart = resultSetSet.getDate(5);
+                Date deliveryEnd = resultSetSet.getDate(6);
+                int deliveryRun = resultSetSet.getInt(7);
+
+                delivery = new Delivery(orderId, idScooter, emailCourier, idDeliveryStatus, deleveryStart.toLocalDate(), deliveryEnd.toLocalDate(), deliveryRun);
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeAll();
+        }
+        return delivery;
     }
 
 }
