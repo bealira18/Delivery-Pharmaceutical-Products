@@ -2,10 +2,17 @@ package lapr.project.model;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
 
 public class ScooterTest {
 
     public ScooterTest() {
+    }
+
+    @BeforeAll
+    public static void setUpClass() throws Exception {
+
+        Scooter s = new Scooter(1, 1);
     }
 
     /**
