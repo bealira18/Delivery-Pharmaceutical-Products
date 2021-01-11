@@ -10,8 +10,9 @@ public class Delivery {
     private int deliveryStatusId;
     private LocalDate deliveryStart;
     private LocalDate deliveryEnd;
+    private int deliveryRun;
 
-    public Delivery(int orderId, int vehicleId, String courierEmail, int deliveryStatusId, LocalDate deliveryStart, LocalDate deliveryEnd) {
+    public Delivery(int orderId, int vehicleId, String courierEmail, int deliveryStatusId, LocalDate deliveryStart, LocalDate deliveryEnd, int deliveryRun) {
 
         this.orderId = orderId;
         this.vehicleId = vehicleId;
@@ -19,6 +20,7 @@ public class Delivery {
         this.deliveryStatusId = deliveryStatusId;
         setDeliveryStart(deliveryStart);
         setDeliveryEnd(deliveryEnd);
+        this.deliveryRun = deliveryRun;
     }
 
     public int getOrderId() {
@@ -51,6 +53,10 @@ public class Delivery {
         return deliveryEnd;
     }
 
+    public int getDeliveryRun() {
+        return deliveryRun;
+    }
+
     public void setOrderId(int orderId) {
 
         this.orderId = orderId;
@@ -79,6 +85,10 @@ public class Delivery {
     public final void setDeliveryEnd(LocalDate deliveryEnd) {
 
         this.deliveryEnd = deliveryEnd;
+    }
+
+    public void setDeliveryRun(int deliveryRun) {
+        this.deliveryRun = deliveryRun;
     }
 
     @Override
