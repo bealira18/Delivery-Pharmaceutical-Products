@@ -69,10 +69,7 @@ public class Path {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Path other = (Path) obj;
+        Path other = (Path) obj;
 
         return address1.equals(other.address1) && address2.equals(other.address2);
     }
