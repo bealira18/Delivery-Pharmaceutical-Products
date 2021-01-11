@@ -2,6 +2,7 @@ package lapr.project.controller;
 
 import java.sql.SQLException;
 import lapr.project.data.PharmacyDB;
+import lapr.project.model.Address;
 import lapr.project.model.Pharmacy;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ public class AddPharmacyControllerTest {
     @BeforeAll
     public static void setUpClass() throws SQLException {
 
-        Pharmacy p = new Pharmacy(0, "TestPharma", "TestAddress");
+        Pharmacy p = new Pharmacy(0, "TestPharma", new Address("TestAddress", 0, 0, 0));
         PharmacyDB pDB = mock(PharmacyDB.class);
         int limit = 2;
 
@@ -39,7 +40,7 @@ public class AddPharmacyControllerTest {
 
         System.out.println("addPharmacy");
 
-        Pharmacy p = new Pharmacy(0, "TestPharma", "TestAddress");
+        Pharmacy p = new Pharmacy(0, "TestPharma", new Address("TestAddress", 0, 0, 0));
         int limit = 2;
 
         boolean expResult = true;
@@ -47,7 +48,7 @@ public class AddPharmacyControllerTest {
         assertEquals(expResult, result);
 
         PharmacyDB pDB = mock(PharmacyDB.class);
-        when(pDB.addPharmacy(new Pharmacy(0, "TestPharma", "TestAddress"), limit)).thenReturn(Boolean.FALSE);
+        when(pDB.addPharmacy(new Pharmacy(0, "TestPharma", new Address("TestAddress", 0, 0, 0)), limit)).thenReturn(Boolean.FALSE);
         AddPharmacyController pCont1 = new AddPharmacyController(pDB);
 
         expResult = false;
@@ -55,7 +56,7 @@ public class AddPharmacyControllerTest {
         assertEquals(expResult, result);
 
         PharmacyDB pDB1 = mock(PharmacyDB.class);
-        when(pDB1.addPharmacy(new Pharmacy(0, "TestPharma", "TestAddress"), limit)).thenThrow(new SQLException());
+        when(pDB1.addPharmacy(new Pharmacy(0, "TestPharma", new Address("TestAddress", 0, 0, 0)), limit)).thenThrow(new SQLException());
         AddPharmacyController pCont2 = new AddPharmacyController(pDB);
 
         expResult = false;

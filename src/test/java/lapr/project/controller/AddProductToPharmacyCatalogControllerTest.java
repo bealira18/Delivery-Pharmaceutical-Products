@@ -13,17 +13,17 @@ class AddProductToPharmacyCatalogControllerTest {
 
     private static AddProductToPharmacyCatalogController controller;
 
-    public AddProductToPharmacyCatalogControllerTest(){
+    public AddProductToPharmacyCatalogControllerTest() {
     }
 
     @BeforeAll
     public static void setUpClass() throws SQLException {
 
-        Pharmacy pharmacy = new Pharmacy(1, "Coimbrões", "R. Domingos de Matos 680, 4405 Vila Nova de Gaia");
+        Pharmacy pharmacy = new Pharmacy(1, "Coimbrões", new Address("TestAddress", 0, 0, 0));
         ProductCategory productCategory = new ProductCategory(1, "NameTest");
         Product product = new Product(1, "NameTest", 10, 20, 1);
 
-        Stock stock1 = new Stock(1,1, 0);
+        Stock stock1 = new Stock(1, 1, 0);
 
         StockDB stockDB = mock(StockDB.class);
 
@@ -44,11 +44,11 @@ class AddProductToPharmacyCatalogControllerTest {
 
         System.out.println("addProductToPharmacyCatalog");
 
-        Pharmacy pharmacy = new Pharmacy(1, "Coimbrões", "R. Domingos de Matos 680, 4405 Vila Nova de Gaia");
+        Pharmacy pharmacy = new Pharmacy(1, "Coimbrões", new Address("TestAddress", 0, 0, 0));
         ProductCategory productCategory = new ProductCategory(1, "NameTest");
         Product product = new Product(1, "NameTest", 10, 20, 1);
 
-        Stock stock1 = new Stock(1,1, 0);
+        Stock stock1 = new Stock(1, 1, 0);
 
         boolean result = controller.addProductToPharmacyCatalog(stock1);
         assertEquals(true, result);
