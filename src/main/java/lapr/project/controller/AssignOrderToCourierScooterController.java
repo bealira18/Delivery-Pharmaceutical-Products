@@ -41,7 +41,10 @@ public class AssignOrderToCourierScooterController {
         return sDB.getAllAvailableScooters(order.getId());
     }
 
-    //calcular endDate
+    /*
+       descobrir qual e quando o proximo courier/scooter available
+       calcular endDate
+     */
     public boolean addDelivery(List<PurchaseOrder> orderList) throws SQLException {
         deleveryRun++;
         String chosenCourier;
@@ -72,7 +75,7 @@ public class AssignOrderToCourierScooterController {
         for(PurchaseOrder order : orderList) {
             deliveries.add(new Delivery(order.getId(), chosenScooter, chosenCourier, idDeliveryStatus, startDate, endDate, deleveryRun));
         }
-        return true;
+        return dDB.addDeliveries(deliveries);
     }
 
 }
