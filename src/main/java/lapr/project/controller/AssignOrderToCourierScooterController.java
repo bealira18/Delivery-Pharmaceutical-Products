@@ -41,6 +41,7 @@ public class AssignOrderToCourierScooterController {
         return sDB.getAllAvailableScooters(order.getId());
     }
 
+    //calcular endDate
     public boolean addDelivery(List<PurchaseOrder> orderList) throws SQLException {
         deleveryRun++;
         String chosenCourier;
@@ -49,6 +50,8 @@ public class AssignOrderToCourierScooterController {
         List<Courier> listCouriers = getAllAvailableCouriers(orderList.get(0));
         List<Scooter> listScooters = getAllAvailableScooters(orderList.get(0));
         ArrayList<Delivery> deliveries = new ArrayList<>();
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = null;
 
         if(listCouriers.isEmpty()) {
             chosenCourier = null;
@@ -67,7 +70,7 @@ public class AssignOrderToCourierScooterController {
         }
 
         for(PurchaseOrder order : orderList) {
-            deliveries.add(order.getId(), chosenScooter, chosenCourier, idDeliveryStatus, startDate, endDate, deleveryRun);
+            deliveries.add(new Delivery(order.getId(), chosenScooter, chosenCourier, idDeliveryStatus, startDate, endDate, deleveryRun));
         }
         return true;
     }
