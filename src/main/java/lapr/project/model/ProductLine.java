@@ -1,21 +1,11 @@
 package lapr.project.model;
 
-import java.util.Objects;
-
 public class ProductLine {
 
     private int orderId;
     private int productId;
     private int productQuantity;
     private double price;
-
-    public ProductLine() {
-
-        this.orderId = 0;
-        this.productId = 0;
-        this.productQuantity = 0;
-        this.price = 0;
-    }
 
     public ProductLine(int orderId, int productId, int productQuantity, double price) {
 
@@ -30,19 +20,9 @@ public class ProductLine {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
-
-        this.orderId = orderId;
-    }
-
     public int getProductId() {
 
         return productId;
-    }
-
-    public void setProductId(int productId) {
-
-        this.productId = productId;
     }
 
     public int getProductQuantity() {
@@ -50,14 +30,24 @@ public class ProductLine {
         return productQuantity;
     }
 
-    public void setProductQuantity(int productQuantity) {
-
-        this.productQuantity = productQuantity;
-    }
-
     public double getPrice() {
 
         return price;
+    }
+
+    public void setOrderId(int orderId) {
+
+        this.orderId = orderId;
+    }
+
+    public void setProductId(int productId) {
+
+        this.productId = productId;
+    }
+
+    public void setProductQuantity(int productQuantity) {
+
+        this.productQuantity = productQuantity;
     }
 
     public void setPrice(double price) {
@@ -68,16 +58,16 @@ public class ProductLine {
     @Override
     public String toString() {
 
-        return "orderId=" + orderId
-                + ", productId=" + productId
-                + ", productQuantity=" + productQuantity
-                + ", price=" + price;
+        return "ProductLine{" + "orderId=" + orderId + ", productId=" + productId + ", productQuantity=" + productQuantity + ", price=" + price + '}';
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(orderId, productId, productQuantity, price);
+        int hash = 3;
+        hash = 67 * hash + this.orderId;
+        hash = 67 * hash + this.productId;
+        return hash;
     }
 
     @Override
