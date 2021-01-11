@@ -20,19 +20,9 @@ public class ParkingSpace {
         return parkingSpaceId;
     }
 
-    public void setParkingSpaceId(int parkingSpaceId) {
-
-        this.parkingSpaceId = parkingSpaceId;
-    }
-
     public int getParkId() {
 
         return parkId;
-    }
-
-    public void setParkId(int parkId) {
-
-        this.parkId = parkId;
     }
 
     public int getScooterId() {
@@ -40,28 +30,34 @@ public class ParkingSpace {
         return scooterId;
     }
 
+    public boolean isIsChargingStation() {
+
+        return isChargingStation;
+    }
+
+    public void setParkingSpaceId(int parkingSpaceId) {
+
+        this.parkingSpaceId = parkingSpaceId;
+    }
+
+    public void setParkId(int parkId) {
+
+        this.parkId = parkId;
+    }
+
     public void setScooterId(int scooterId) {
 
         this.scooterId = scooterId;
     }
 
-    public boolean isChargingStation() {
+    public void setIsChargingStation(boolean isChargingStation) {
 
-        return isChargingStation;
-    }
-
-    public void setChargingStation(boolean chargingStation) {
-
-        isChargingStation = chargingStation;
+        this.isChargingStation = isChargingStation;
     }
 
     @Override
     public String toString() {
-
-        return "parkingSpaceId=" + parkingSpaceId
-                + ", parkId=" + parkId
-                + ", scooterId=" + scooterId
-                + ", isChargingStation=" + isChargingStation;
+        return "ParkingSpace{" + "parkingSpaceId=" + parkingSpaceId + ", parkId=" + parkId + ", scooterId=" + scooterId + ", isChargingStation=" + isChargingStation + '}';
     }
 
     @Override
