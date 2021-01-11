@@ -67,9 +67,6 @@ public class Stock {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         Stock other = (Stock) obj;
 
         return pharmacyId == other.pharmacyId && productId == other.productId;
