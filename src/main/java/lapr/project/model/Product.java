@@ -2,7 +2,7 @@ package lapr.project.model;
 
 public class Product {
 
-    private int id;
+    private int productId;
     private String name;
     private double price;
     private double weight;
@@ -10,7 +10,7 @@ public class Product {
 
     public Product(int id, String name, double price, double weight, int categoryId) {
 
-        this.id = id;
+        this.productId = id;
         this.name = name;
         this.price = price;
         this.weight = weight;
@@ -19,7 +19,7 @@ public class Product {
 
     public int getId() {
 
-        return id;
+        return productId;
     }
 
     public String getName() {
@@ -44,7 +44,7 @@ public class Product {
 
     public void setId(int id) {
 
-        this.id = id;
+        this.productId = id;
     }
 
     public void setName(String name) {
@@ -70,14 +70,14 @@ public class Product {
     @Override
     public String toString() {
 
-        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", weight=" + weight + ", categoryId=" + categoryId + '}';
+        return "Product{" + "id=" + productId + ", name=" + name + ", price=" + price + ", weight=" + weight + ", categoryId=" + categoryId + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 13;
-        hash = 59 * hash + this.id;
+        hash = 59 * hash + this.productId;
         return hash;
     }
 
@@ -92,6 +92,6 @@ public class Product {
         }
         final Product other = (Product) obj;
 
-        return this.id == other.id;
+        return this.productId == other.productId;
     }
 }

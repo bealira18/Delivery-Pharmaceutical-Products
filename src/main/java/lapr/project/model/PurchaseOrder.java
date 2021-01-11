@@ -6,14 +6,14 @@ public class PurchaseOrder {
 
     private static double deliveryFee = 0;
 
-    private int id;
+    private int purchaseOrderId;
     private int pharmacyId;
     private String clientEmail;
     private LocalDate emissionDate;
 
     public PurchaseOrder(int id, int pharmacyId, String clientEmail, LocalDate emissionDate) {
 
-        this.id = id;
+        this.purchaseOrderId = id;
         this.pharmacyId = pharmacyId;
         this.clientEmail = clientEmail;
         setEmissionDate(emissionDate);
@@ -21,7 +21,7 @@ public class PurchaseOrder {
 
     public int getId() {
 
-        return id;
+        return purchaseOrderId;
     }
 
     public int getPharmacyId() {
@@ -46,7 +46,7 @@ public class PurchaseOrder {
 
     public void setId(int id) {
 
-        this.id = id;
+        this.purchaseOrderId = id;
     }
 
     public void setPharmacyId(int pharmacyId) {
@@ -75,14 +75,14 @@ public class PurchaseOrder {
     @Override
     public String toString() {
 
-        return "PurchaseOrder{" + "id=" + id + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", emissionDate=" + emissionDate + '}';
+        return "PurchaseOrder{" + "id=" + purchaseOrderId + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", emissionDate=" + emissionDate + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 7;
-        hash = 29 * hash + this.id;
+        hash = 29 * hash + this.purchaseOrderId;
         return hash;
     }
 
@@ -97,6 +97,6 @@ public class PurchaseOrder {
         }
         final PurchaseOrder other = (PurchaseOrder) obj;
 
-        return this.id == other.id;
+        return this.purchaseOrderId == other.purchaseOrderId;
     }
 }

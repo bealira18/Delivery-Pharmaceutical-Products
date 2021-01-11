@@ -1,19 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lapr.project.model;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Ricardo
- */
 public class ProductCategoryTest {
-    
+
     public ProductCategoryTest() {
     }
 
@@ -25,7 +16,7 @@ public class ProductCategoryTest {
         System.out.println("getId");
         ProductCategory instance = new ProductCategory(3, "Vacinas");
         int expResult = 3;
-        int result = instance.getId();
+        int result = instance.getProductCategoryId();
         assertEquals(expResult, result);
     }
 
@@ -37,7 +28,7 @@ public class ProductCategoryTest {
         System.out.println("getName");
         ProductCategory instance = new ProductCategory(3, "Vacinas");
         String expResult = "Vacinas";
-        String result = instance.getName();
+        String result = instance.getProductCategoryName();
         assertEquals(expResult, result);
     }
 
@@ -49,8 +40,8 @@ public class ProductCategoryTest {
         System.out.println("setId");
         int id = 72;
         ProductCategory instance = new ProductCategory(3, "Vacinas");
-        instance.setId(id);
-        int result = instance.getId();
+        instance.setProductCategoryId(id);
+        int result = instance.getProductCategoryId();
         assertEquals(id, result);
     }
 
@@ -62,8 +53,8 @@ public class ProductCategoryTest {
         System.out.println("setName");
         String name = "Óleos";
         ProductCategory instance = new ProductCategory(3, "Vacinas");
-        instance.setName(name);
-        String result = instance.getName();
+        instance.setProductCategoryName(name);
+        String result = instance.getProductCategoryName();
         assertEquals(name, result);
     }
 
@@ -74,7 +65,7 @@ public class ProductCategoryTest {
     public void testToString() {
         System.out.println("toString");
         ProductCategory instance = new ProductCategory(3, "Vacinas");
-        String expResult = "ProductCategory{id=3, name=Vacinas}";
+        String expResult = "ProductCategory{productCategoryId=3, productCategoryName=Vacinas}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -101,21 +92,20 @@ public class ProductCategoryTest {
         ProductCategory instance = new ProductCategory(3, "Vacinas");
         boolean result = instance.equals(instance);
         assertEquals(true, result);
-        
+
         result = instance.equals(obj);
         assertEquals(false, result);
-        
+
         obj = "test";
         result = instance.equals(obj);
         assertEquals(false, result);
-        
+
         obj = new ProductCategory(5, "Vacinas");
         result = instance.equals(obj);
         assertEquals(false, result);
-        
+
         obj = new ProductCategory(3, "Vacinas");
         result = instance.equals(obj);
         assertEquals(true, result);
     }
-    
 }

@@ -2,50 +2,46 @@ package lapr.project.model;
 
 public class ScooterStatus {
 
-    private int id;
-    private String name;
+    private int scooterStatusId;
+    private String scooterStatusName;
 
     public ScooterStatus(int id, String name) {
 
-        this.id = id;
-        this.name = name;
+        this.scooterStatusId = id;
+        this.scooterStatusName = name;
     }
 
-    public ScooterStatus() {
+    public int getScooterStatusId() {
 
+        return scooterStatusId;
     }
 
-    public int getId() {
+    public String getScooterStatusName() {
 
-        return id;
+        return scooterStatusName;
     }
 
-    public String getName() {
+    public void setScooterStatusId(int scooterStatusId) {
 
-        return name;
+        this.scooterStatusId = scooterStatusId;
     }
 
-    public void setId(int id) {
+    public void setScooterStatusName(String scooterStatusName) {
 
-        this.id = id;
-    }
-
-    public void setName(String name) {
-
-        this.name = name;
+        this.scooterStatusName = scooterStatusName;
     }
 
     @Override
     public String toString() {
 
-        return "ScooterStatus{" + "id=" + id + ", name=" + name + '}';
+        return "ScooterStatus{" + "scooterStatusId=" + scooterStatusId + ", scooterStatusName=" + scooterStatusName + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 7;
-        hash = 79 * hash + this.id;
+        hash = 79 * hash + this.scooterStatusId;
         return hash;
     }
 
@@ -60,6 +56,6 @@ public class ScooterStatus {
         }
         final ScooterStatus other = (ScooterStatus) obj;
 
-        return this.id == other.id;
+        return this.scooterStatusId == other.scooterStatusId;
     }
 }

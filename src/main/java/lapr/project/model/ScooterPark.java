@@ -4,14 +4,14 @@ public class ScooterPark {
 
     private static int numChargingStations=0;
 
-    private int id;
+    private int scooterParkId;
     private int pharmacyId;
     private int limit;
     private String address;
 
     public ScooterPark(int id, int pharmacyId, int limit, int numChargingStations, String address) {
 
-        this.id = id;
+        this.scooterParkId = id;
         this.pharmacyId = pharmacyId;
         this.limit = limit;
         setNumChargingStations(numChargingStations);
@@ -24,7 +24,7 @@ public class ScooterPark {
 
     public int getId() {
 
-        return id;
+        return scooterParkId;
     }
 
     public int getPharmacyId() {
@@ -49,7 +49,7 @@ public class ScooterPark {
 
     public void setId(int id) {
 
-        this.id = id;
+        this.scooterParkId = id;
     }
 
     public void setPharmacyId(int pharmacyId) {
@@ -78,14 +78,14 @@ public class ScooterPark {
     @Override
     public String toString() {
 
-        return "ScooterPark{" + "id=" + id + ", pharmacyId=" + pharmacyId + ", limit=" + limit + ", numChargingStations=" + numChargingStations + ", address=" + address + '}';
+        return "ScooterPark{" + "id=" + scooterParkId + ", pharmacyId=" + pharmacyId + ", limit=" + limit + ", numChargingStations=" + numChargingStations + ", address=" + address + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 3;
-        hash = 61 * hash + this.id;
+        hash = 61 * hash + this.scooterParkId;
         return hash;
     }
 
@@ -100,6 +100,6 @@ public class ScooterPark {
         }
         final ScooterPark other = (ScooterPark) obj;
 
-        return this.id == other.id;
+        return this.scooterParkId == other.scooterParkId;
     }
 }

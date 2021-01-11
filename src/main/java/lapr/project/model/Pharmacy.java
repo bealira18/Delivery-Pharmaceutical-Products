@@ -2,13 +2,13 @@ package lapr.project.model;
 
 public class Pharmacy {
 
-    private int id;
+    private int pharmacyId;
     private String name;
     private String address;
 
     public Pharmacy(int id, String name, String address) {
 
-        this.id = id;
+        this.pharmacyId = id;
         this.name = name;
         this.address = address;
     }
@@ -19,7 +19,7 @@ public class Pharmacy {
 
     public int getId() {
 
-        return id;
+        return pharmacyId;
     }
 
     public String getName() {
@@ -34,7 +34,7 @@ public class Pharmacy {
 
     public void setId(int id) {
 
-        this.id = id;
+        this.pharmacyId = id;
     }
 
     public void setName(String name) {
@@ -50,14 +50,14 @@ public class Pharmacy {
     @Override
     public String toString() {
 
-        return "Pharmacy{" + "id=" + id + ", name=" + name + ", address=" + address + '}';
+        return "Pharmacy{" + "id=" + pharmacyId + ", name=" + name + ", address=" + address + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 5;
-        hash = 83 * hash + this.id;
+        hash = 83 * hash + this.pharmacyId;
         return hash;
     }
 
@@ -72,6 +72,6 @@ public class Pharmacy {
         }
         final Pharmacy other = (Pharmacy) obj;
 
-        return this.id == other.id;
+        return this.pharmacyId == other.pharmacyId;
     }
 }

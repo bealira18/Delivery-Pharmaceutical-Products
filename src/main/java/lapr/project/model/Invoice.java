@@ -2,7 +2,7 @@ package lapr.project.model;
 
 public class Invoice {
 
-    private int id;
+    private int invoiceId;
     private int orderId;
     private int pharmacyId;
     private String clientEmail;
@@ -10,7 +10,7 @@ public class Invoice {
 
     public Invoice(int id, int orderId, int pharmacyId, String clientEmail, double totalPrice) {
 
-        this.id = id;
+        this.invoiceId = id;
         this.orderId = orderId;
         this.pharmacyId = pharmacyId;
         this.clientEmail = clientEmail;
@@ -19,7 +19,7 @@ public class Invoice {
 
     public int getId() {
 
-        return id;
+        return invoiceId;
     }
 
     public int getOrderId() {
@@ -44,7 +44,7 @@ public class Invoice {
 
     public void setId(int id) {
 
-        this.id = id;
+        this.invoiceId = id;
     }
 
     public void setOrderId(int orderId) {
@@ -70,14 +70,14 @@ public class Invoice {
     @Override
     public String toString() {
 
-        return "Invoice{" + "id=" + id + ", orderId=" + orderId + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", totalPrice=" + totalPrice + '}';
+        return "Invoice{" + "id=" + invoiceId + ", orderId=" + orderId + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", totalPrice=" + totalPrice + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 7;
-        hash = 47 * hash + this.id;
+        hash = 47 * hash + this.invoiceId;
         return hash;
     }
 
@@ -92,6 +92,6 @@ public class Invoice {
         }
         Invoice other = (Invoice) obj;
 
-        return this.id == other.id;
+        return this.invoiceId == other.invoiceId;
     }
 }
