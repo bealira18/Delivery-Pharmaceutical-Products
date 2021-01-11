@@ -124,4 +124,26 @@ public class ScooterDB extends DataHandler {
         return scooters;
     }
 
+    public boolean updateScooter(int ids,int idp,Scooter s){
+        Scooter a;
+
+        try{
+            a=getIdScooter(ids);
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+
+        try{
+            a.setWeight(s.getWeight());
+            a.setFrontalArea(s.getFrontalArea());
+            a.setMotor(s.getMotor());
+            a.setCurrentBattery(s.getCurrentBattery());
+            a.setMaxBattery(s.getMaxBattery());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }
