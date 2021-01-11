@@ -54,7 +54,7 @@ public class DeliveryStatus {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final DeliveryStatus other = (DeliveryStatus) obj;
+        DeliveryStatus other = (DeliveryStatus) obj;
 
         return this.deliveryStatusId == other.deliveryStatusId;
     }
