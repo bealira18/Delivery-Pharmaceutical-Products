@@ -35,7 +35,7 @@ public class ScooterDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
-            callStmt.getConnection().prepareCall("{ call addScooter(?,?,?,?) }");
+            callStmt.getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1, idScooter);
             callStmt.setInt(2, idPharmacy);
@@ -62,7 +62,7 @@ public class ScooterDB extends DataHandler {
         return false;
     }
 
-    public Scooter getScooter(int idScooter) throws SQLException{
+    public Scooter getIdScooter(int idScooter) throws SQLException{
         Scooter s = null;
         CallableStatement callStmt = null;
 
@@ -113,7 +113,7 @@ public class ScooterDB extends DataHandler {
             rSet = (ResultSet) callStmt.getObject(1);
 
             while (rSet.next()) {
-                scooters.add(getScooter(rSet.getInt(1)));
+                scooters.add(getIdScooter(rSet.getInt(1)));
             }
         } catch (SQLException e) {
             Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, e);

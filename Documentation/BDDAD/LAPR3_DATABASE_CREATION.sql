@@ -148,14 +148,14 @@ CREATE TABLE stock (
 );
 
 CREATE TABLE scooterStatus (
- id_scooter_status     INTEGER GENERATED AS IDENTITY     CONSTRAINT pkScooterStatusId               PRIMARY KEY,            
+ id_scooter_status     INTEGER                           CONSTRAINT pkScooterStatusId               PRIMARY KEY,            
  name                  VARCHAR2(255)                     CONSTRAINT nnScooterStatusName             NOT NULL
                                                          CONSTRAINT ukScooterStatusName             UNIQUE
                                                          CONSTRAINT ckScooterStatusName             CHECK(name IN ('available','maintenance','occupied','charging'))                                                 
 );
 
 CREATE TABLE deliveryStatus (
-    id_delivery_status    INTEGER GENERATED AS IDENTITY     CONSTRAINT pkDeliveryStatusId              PRIMARY KEY,            
+    id_delivery_status    INTEGER                           CONSTRAINT pkDeliveryStatusId              PRIMARY KEY,            
     name                  VARCHAR2(255)                     CONSTRAINT nnDeliveryStatusName            NOT NULL
                                                             CONSTRAINT ukDeliveryStatusName            UNIQUE
                                                             CONSTRAINT ckDeliveryStatusName            CHECK(name IN ('processing','pending','delivered'))                                                 
