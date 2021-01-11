@@ -43,7 +43,7 @@ public class AssignOrderToCourierScooterController {
     /*
        calcular endDate
      */
-    public boolean addDelivery(List<PurchaseOrder> orderList) throws SQLException {
+    public boolean addDeliveries(List<PurchaseOrder> orderList) throws SQLException {
         deleveryRun++;
         String chosenCourier;
         int chosenScooter;

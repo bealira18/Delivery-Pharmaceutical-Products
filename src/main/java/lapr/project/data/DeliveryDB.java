@@ -34,7 +34,7 @@ public class DeliveryDB extends DataHandler {
     }
 
 
-    public boolean addDelivery(Delivery d) throws SQLException {
+    private boolean addDelivery(Delivery d) throws SQLException {
 
         try {
             return addDelivery(d.getOrderId(), d.getVehicleId(), d.getCourierEmail(), d.getDeliveryStatusId(), d.getDeliveryStart(),
@@ -84,7 +84,7 @@ public class DeliveryDB extends DataHandler {
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call getNextAvailableScooter(?) }");;
+            callStmt = getConnection().prepareCall("{ ? = call getNextAvailableScooter(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
 
