@@ -2,50 +2,46 @@ package lapr.project.model;
 
 public class DeliveryStatus {
 
-    private int id;
-    private String name;
+    private int deliveryStatusId;
+    private String deliveryStatusName;
 
     public DeliveryStatus(int id, String name) {
 
-        this.id = id;
-        this.name = name;
+        this.deliveryStatusId = id;
+        this.deliveryStatusName = name;
     }
 
-    public DeliveryStatus() {
+    public int getDeliveryStatusId() {
 
+        return deliveryStatusId;
     }
 
-    public int getId() {
+    public String getDeliveryStatusName() {
 
-        return id;
+        return deliveryStatusName;
     }
 
-    public String getName() {
+    public void setDeliveryStatusId(int deliveryStatusId) {
 
-        return name;
+        this.deliveryStatusId = deliveryStatusId;
     }
 
-    public void setId(int id) {
+    public void setDeliveryStatusName(String deliveryStatusName) {
 
-        this.id = id;
-    }
-
-    public void setName(String name) {
-
-        this.name = name;
+        this.deliveryStatusName = deliveryStatusName;
     }
 
     @Override
     public String toString() {
 
-        return "DeliveryStatus{" + "id=" + id + ", name=" + name + '}';
+        return "DeliveryStatus{" + "deliveryStatusId=" + deliveryStatusId + ", deliveryStatusName=" + deliveryStatusName + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 7;
-        hash = 83 * hash + this.id;
+        hash = 83 * hash + this.deliveryStatusId;
         return hash;
     }
 
@@ -60,6 +56,6 @@ public class DeliveryStatus {
         }
         final DeliveryStatus other = (DeliveryStatus) obj;
 
-        return this.id == other.id;
+        return this.deliveryStatusId == other.deliveryStatusId;
     }
 }

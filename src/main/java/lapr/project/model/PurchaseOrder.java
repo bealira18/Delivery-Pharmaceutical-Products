@@ -1,31 +1,27 @@
 package lapr.project.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class PurchaseOrder {
 
     private static double deliveryFee = 0;
 
-    private int id;
+    private int purchaseOrderId;
     private int pharmacyId;
     private String clientEmail;
-    private Date emissionDate;
+    private LocalDate emissionDate;
 
-    public PurchaseOrder(int id, int pharmacyId, String clientEmail, Date emissionDate) {
+    public PurchaseOrder(int id, int pharmacyId, String clientEmail, LocalDate emissionDate) {
 
-        this.id = id;
+        this.purchaseOrderId = id;
         this.pharmacyId = pharmacyId;
         this.clientEmail = clientEmail;
         setEmissionDate(emissionDate);
     }
 
-    public PurchaseOrder() {
-
-    }
-
     public int getId() {
 
-        return id;
+        return purchaseOrderId;
     }
 
     public int getPharmacyId() {
@@ -38,9 +34,9 @@ public class PurchaseOrder {
         return clientEmail;
     }
 
-    public Date getEmissionDate() {
+    public LocalDate getEmissionDate() {
 
-        return (Date) emissionDate.clone();
+        return emissionDate;
     }
 
     public static double getDeliveryFee() {
@@ -50,7 +46,7 @@ public class PurchaseOrder {
 
     public void setId(int id) {
 
-        this.id = id;
+        this.purchaseOrderId = id;
     }
 
     public void setPharmacyId(int pharmacyId) {
@@ -63,9 +59,9 @@ public class PurchaseOrder {
         this.clientEmail = clientEmail;
     }
 
-    public final void setEmissionDate(Date emissionDate) {
+    public final void setEmissionDate(LocalDate emissionDate) {
 
-        this.emissionDate = (Date) emissionDate.clone();
+        this.emissionDate = emissionDate;
     }
 
     public static void setDeliveryFee(double deliveryFee) {
@@ -79,14 +75,14 @@ public class PurchaseOrder {
     @Override
     public String toString() {
 
-        return "Order{" + "id=" + id + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", emissionDate=" + emissionDate + '}';
+        return "PurchaseOrder{" + "id=" + purchaseOrderId + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", emissionDate=" + emissionDate + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 7;
-        hash = 29 * hash + this.id;
+        hash = 29 * hash + this.purchaseOrderId;
         return hash;
     }
 
@@ -101,6 +97,6 @@ public class PurchaseOrder {
         }
         final PurchaseOrder other = (PurchaseOrder) obj;
 
-        return this.id == other.id;
+        return this.purchaseOrderId == other.purchaseOrderId;
     }
 }

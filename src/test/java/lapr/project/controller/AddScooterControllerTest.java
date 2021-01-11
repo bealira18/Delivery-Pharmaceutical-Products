@@ -16,15 +16,11 @@ class AddScooterControllerTest {
 
     private static AddScooterController controller;
 
-    public AddScooterControllerTest(){
+    public AddScooterControllerTest() {
     }
 
     @BeforeAll
     public static void setUpClass() throws SQLException {
-
-        Pharmacy pharmacy = new Pharmacy(1, "Coimbrões", "R. Domingos de Matos 680, 4405 Vila Nova de Gaia");
-        ScooterStatus scooterStatus = new ScooterStatus(1, "TestName");
-        ScooterPark scooterPark = new ScooterPark(1,1,1,1,"R. Domingos de Matos 680, 4405 Vila Nova de Gaia");
 
         Scooter scooter1 = new Scooter(1, 1, 20, 40, 50, 60, 10, 100, 1);
 
@@ -48,10 +44,6 @@ class AddScooterControllerTest {
     public void testAddScooter() throws Exception {
 
         System.out.println("addScooter");
-
-        Pharmacy pharmacy = new Pharmacy(1, "Coimbrões", "R. Domingos de Matos 680, 4405 Vila Nova de Gaia");
-        ScooterStatus scooterStatus = new ScooterStatus(1, "TestName");
-        ScooterPark scooterPark = new ScooterPark(1,1,1,1,"R. Domingos de Matos 680, 4405 Vila Nova de Gaia");
 
         Scooter scooter1 = new Scooter(1, 1, 20, 40, 50, 60, 10, 100, 1);
 

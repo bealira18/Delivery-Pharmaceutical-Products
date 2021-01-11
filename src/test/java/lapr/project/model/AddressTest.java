@@ -124,7 +124,7 @@ public class AddressTest {
     public void testToString() {
         System.out.println("toString");
         Address instance = new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411);
-        String expResult = "Address{description=Rua Joaquim, 542, longitude=-8.62910514603121, latitude=41.15796537787468, altitude=5.200514144411}";
+        String expResult = "Address{description=Rua Joaquim, 542, latitude=41.15796537787468, longitude=-8.62910514603121, altitude=5.200514144411}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }    

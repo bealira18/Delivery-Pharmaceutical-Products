@@ -2,46 +2,46 @@ package lapr.project.model;
 
 public class ProductCategory {
 
-    private int id;
-    private String name;
+    private int productCategoryId;
+    private String productCategoryName;
 
     public ProductCategory(int id, String name) {
 
-        this.id = id;
-        this.name = name;
+        this.productCategoryId = id;
+        this.productCategoryName = name;
     }
 
-    public int getId() {
+    public int getProductCategoryId() {
 
-        return id;
+        return productCategoryId;
     }
 
-    public String getName() {
+    public String getProductCategoryName() {
 
-        return name;
+        return productCategoryName;
     }
 
-    public void setId(int id) {
+    public void setProductCategoryId(int productCategoryId) {
 
-        this.id = id;
+        this.productCategoryId = productCategoryId;
     }
 
-    public void setName(String name) {
+    public void setProductCategoryName(String productCategoryName) {
 
-        this.name = name;
+        this.productCategoryName = productCategoryName;
     }
 
     @Override
     public String toString() {
 
-        return "ProductCategory{" + "id=" + id + ", name=" + name + '}';
+        return "ProductCategory{" + "productCategoryId=" + productCategoryId + ", productCategoryName=" + productCategoryName + '}';
     }
 
     @Override
     public int hashCode() {
 
         int hash = 21;
-        hash = 71 * hash + this.id;
+        hash = 71 * hash + this.productCategoryId;
         return hash;
     }
 
@@ -56,6 +56,6 @@ public class ProductCategory {
         }
         final ProductCategory other = (ProductCategory) obj;
 
-        return this.id == other.id;
+        return this.productCategoryId == other.productCategoryId;
     }
 }

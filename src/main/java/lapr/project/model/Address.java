@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Address {
 
     private String description;
-    private double longitude;
     private double latitude;
+    private double longitude;
     private double altitude;
 
     public Address(String description, double latitude, double longitude, double altitude) {
@@ -22,14 +22,14 @@ public class Address {
         return description;
     }
 
-    public double getLongitude() {
-
-        return longitude;
-    }
-
     public double getLatitude() {
 
         return latitude;
+    }
+
+    public double getLongitude() {
+
+        return longitude;
     }
 
     public double getAltitude() {
@@ -42,14 +42,14 @@ public class Address {
         this.description = description;
     }
 
-    public void setLongitude(double longitude) {
-
-        this.longitude = longitude;
-    }
-
     public void setLatitude(double latitude) {
 
         this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+
+        this.longitude = longitude;
     }
 
     public void setAltitude(double altitude) {
@@ -60,7 +60,7 @@ public class Address {
     @Override
     public String toString() {
 
-        return "Address{" + "description=" + description + ", longitude=" + longitude + ", latitude=" + latitude + ", altitude=" + altitude + '}';
+        return "Address{" + "description=" + description + ", latitude=" + latitude + ", longitude=" + longitude + ", altitude=" + altitude + '}';
     }
 
     @Override
