@@ -228,12 +228,12 @@ public class DeliveryTest {
         result = instance.equals(obj);
         assertEquals(false, result);
 
-        obj = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+        obj = new Delivery(2, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
                 LocalDate.of(2077, Month.MARCH, 2), 1);
         result = instance.equals(obj);
         assertEquals(false, result);
 
-        obj = new Delivery(1, 1, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
+        obj = new Delivery(1, 2, "Test", 1, LocalDate.of(2077, Month.MARCH, 1),
                 LocalDate.of(2077, Month.MARCH, 2), 1);
         result = instance.equals(obj);
         assertEquals(true, result);
