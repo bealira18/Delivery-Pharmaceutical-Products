@@ -196,6 +196,10 @@ public class PurchaseOrderTest {
         result = instance.equals(obj);
         assertEquals(false, result);
 
+        obj = "";
+        result = instance.equals(obj);
+        assertEquals(false, result);
+
         result = instance.equals(new PurchaseOrder(2, 1, "Test", LocalDate.of(2077, Month.MARCH, 1)));
         assertEquals(false, result);
 
