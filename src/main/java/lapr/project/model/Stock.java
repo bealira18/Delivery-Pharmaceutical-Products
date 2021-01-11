@@ -1,19 +1,10 @@
 package lapr.project.model;
 
-import java.util.Objects;
-
 public class Stock {
 
     private int pharmacyId;
     private int productId;
     private int quantity;
-
-    public Stock() {
-
-        this.pharmacyId = 0;
-        this.productId = 0;
-        this.quantity = 0;
-    }
 
     public Stock(int pharmacyId, int productId, int quantity) {
 
@@ -27,24 +18,24 @@ public class Stock {
         return pharmacyId;
     }
 
-    public void setPharmacyId(int pharmacyId) {
-
-        this.pharmacyId = pharmacyId;
-    }
-
     public int getProductId() {
 
         return productId;
     }
 
-    public void setProductId(int productId) {
-
-        this.productId = productId;
-    }
-
     public int getQuantity() {
 
         return quantity;
+    }
+
+    public void setPharmacyId(int pharmacyId) {
+
+        this.pharmacyId = pharmacyId;
+    }
+
+    public void setProductId(int productId) {
+
+        this.productId = productId;
     }
 
     public void setQuantity(int quantity) {
@@ -54,15 +45,17 @@ public class Stock {
 
     @Override
     public String toString() {
-        return "pharmacyId=" + pharmacyId
-                + ", productId=" + productId
-                + ", quantity=" + quantity;
+
+        return "Stock{" + "pharmacyId=" + pharmacyId + ", productId=" + productId + ", quantity=" + quantity + '}';
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(pharmacyId, productId, quantity);
+        int hash = 7;
+        hash = 83 * hash + this.pharmacyId;
+        hash = 83 * hash + this.productId;
+        return hash;
     }
 
     @Override
@@ -74,9 +67,8 @@ public class Stock {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Stock stock = (Stock) obj;
+        Stock other = (Stock) obj;
 
-        return pharmacyId == stock.pharmacyId
-                && productId == stock.productId;
+        return pharmacyId == other.pharmacyId && productId == other.productId;
     }
 }
