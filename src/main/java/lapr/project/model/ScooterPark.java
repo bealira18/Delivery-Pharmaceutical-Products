@@ -2,27 +2,22 @@ package lapr.project.model;
 
 public class ScooterPark {
 
-    private static int numChargingStations=0;
-
     private int scooterParkId;
     private int pharmacyId;
     private int limit;
-    private String address;
+    private int numChargingStations;
+    private Address address;
 
-    public ScooterPark(int id, int pharmacyId, int limit, int numChargingStations, String address) {
+    public ScooterPark(int scooterParkId, int pharmacyId, int limit, int numChargingStations, Address address) {
 
-        this.scooterParkId = id;
+        this.scooterParkId = scooterParkId;
         this.pharmacyId = pharmacyId;
         this.limit = limit;
-        setNumChargingStations(numChargingStations);
+        this.numChargingStations = numChargingStations;
         this.address = address;
     }
 
-    public ScooterPark() {
-
-    }
-
-    public int getId() {
+    public int getScooterParkId() {
 
         return scooterParkId;
     }
@@ -42,14 +37,14 @@ public class ScooterPark {
         return numChargingStations;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
 
         return address;
     }
 
-    public void setId(int id) {
+    public void setScooterParkId(int scooterParkId) {
 
-        this.scooterParkId = id;
+        this.scooterParkId = scooterParkId;
     }
 
     public void setPharmacyId(int pharmacyId) {
@@ -62,15 +57,12 @@ public class ScooterPark {
         this.limit = limit;
     }
 
-    public static void setNumChargingStations(int numChargingStations) {
+    public void setNumChargingStations(int numChargingStations) {
 
-        if (numChargingStations < 0) {
-            throw new IllegalArgumentException("Invalid Numeric Value (Negative Number of Charging Stations)");
-        }
-        ScooterPark.numChargingStations=numChargingStations;
+        this.numChargingStations = numChargingStations;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
 
         this.address = address;
     }
@@ -78,7 +70,7 @@ public class ScooterPark {
     @Override
     public String toString() {
 
-        return "ScooterPark{" + "id=" + scooterParkId + ", pharmacyId=" + pharmacyId + ", limit=" + limit + ", numChargingStations=" + numChargingStations + ", address=" + address + '}';
+        return "ScooterPark{" + "scooterParkId=" + scooterParkId + ", pharmacyId=" + pharmacyId + ", limit=" + limit + ", numChargingStations=" + numChargingStations + ", address=" + address + '}';
     }
 
     @Override

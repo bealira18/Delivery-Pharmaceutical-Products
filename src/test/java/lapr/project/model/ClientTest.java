@@ -151,7 +151,7 @@ public class ClientTest {
     public void testToString() {
         System.out.println("toString");
         Client instance = new Client("a@b.c", "qwerty", "Joaquim Alberto", 123456789, new CreditCard(5295360011327825L, LocalDate.of(2077, Month.MARCH, 1), (short) 454), new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411), 66);
-        String expResult = "Client{email=a@b.c, name=Joaquim Alberto, nif=123456789, creditCard=CreditCard{creditCardNumber=5295360011327825, validityDate=2077-03-01, ccv=454}, address=Address{description=Rua Joaquim, 542, longitude=-8.62910514603121, latitude=41.15796537787468, altitude=5.200514144411}, credits=66}";
+        String expResult = "Client{email=a@b.c, name=Joaquim Alberto, nif=123456789, creditCard=CreditCard{creditCardNumber=5295360011327825, validityDate=2077-03-01, ccv=454}, address=Address{description=Rua Joaquim, 542, latitude=41.15796537787468, longitude=-8.62910514603121, altitude=5.200514144411}, credits=66}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }

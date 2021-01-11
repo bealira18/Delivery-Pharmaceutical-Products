@@ -53,21 +53,21 @@ public class ProductDB extends DataHandler {
         }
     }
 
-    public boolean addProduct(Product product)throws SQLException {
+    public boolean addProduct(Product product) throws SQLException {
 
         openConnection();
 
-        try{
+        try {
             return addProduct(product.getName(), product.getPrice(), product.getWeight(), product.getCategoryId());
 
-        }catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
             return false;
         }
     }
 
-    public boolean addProduct(String name, double price, double weight, int category)throws SQLException {
+    public boolean addProduct(String name, double price, double weight, int category) throws SQLException {
 
         CallableStatement callStmt = null;
 
@@ -82,11 +82,11 @@ public class ProductDB extends DataHandler {
             callStmt.execute();
             return true;
 
-        } catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
-        }finally {
+        } finally {
             if (callStmt != null) {
                 callStmt.close();
             }
@@ -94,28 +94,28 @@ public class ProductDB extends DataHandler {
         return false;
     }
 
-    public boolean updateProduct(int id,Product p){
+    public boolean updateProduct(int id, Product p) {
         Product a;
 
-        try{
-            a=getProduct(id);
-        }catch (SQLException e){
+        try {
+            a = getProduct(id);
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
 
-        try{
+        try {
             a.setName(p.getName());
             a.setCategoryId(p.getCategoryId());
             a.setPrice(p.getPrice());
             a.setWeight(p.getWeight());
             return true;
-        }catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
 
-    public Product getProduct (int id) throws  SQLException {
+    public Product getProduct(int id) throws SQLException {
         Product p = null;
         CallableStatement callStmt = null;
 

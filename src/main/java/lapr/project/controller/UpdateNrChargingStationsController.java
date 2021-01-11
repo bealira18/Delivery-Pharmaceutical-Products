@@ -3,9 +3,6 @@ package lapr.project.controller;
 import lapr.project.data.ScooterParkDB;
 import lapr.project.model.ScooterPark;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class UpdateNrChargingStationsController {
 
     private final ScooterParkDB spDB;
@@ -18,14 +15,15 @@ public class UpdateNrChargingStationsController {
         this.spDB = spDB;
     }
 
-    public boolean updateNrChargingStations(int nr) {
-        try {
-            ScooterPark.setNumChargingStations(nr);
-            return true;
+    @SuppressWarnings("null")
+    public boolean updateNrChargingStations(int parkId, int nr) {
 
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(ScooterPark.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
+        //SQL Para ir buscar parque em questão.
+        //Verificar se nr + atual numChargingStations não excede limite.
+        //Se sim, petáculo.
+        //Após isso, percorrer os parking spaces e torná-los em charging stations na BDDAD.
+        ScooterPark sp = null; //Função para ir buscar o sp em questão
+        sp.setNumChargingStations(nr);
+        return true;
     }
 }
