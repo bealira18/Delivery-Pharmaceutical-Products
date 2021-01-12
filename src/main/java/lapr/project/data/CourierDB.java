@@ -122,7 +122,7 @@ public class CourierDB extends DataHandler {
         return couriers;
     }
 
-    public boolean updateCourier(String email,Courier c){
+    public boolean updateCourier(String email,Courier c) throws SQLException {
         Courier a;
 
         try{
@@ -132,13 +132,25 @@ public class CourierDB extends DataHandler {
             return false;
         }
 
+        CallableStatement callStmt = null;
+
         try{
-            a.setName(c.getName());
-            a.setPharmacyId(c.getPharmacyId());
-            a.setWeight(c.getWeight());
-            return true;
-        } catch (Exception e) {
-            return false;
+            callStmt.getConnection().prepareCall("{ call updateCourier(?,?,?,?) }");
+
+            callStmt.setString(1,c.getEmail());
+            callStmt.setInt(2,c.getPharmacyId());
+            callStmt.setString(3,c.getName());
+            callStmt.setDouble(4,c.getWeight());
+
+        } catch (NullPointerException | SQLException ex){
+            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
         }
+        return false;
     }
 }

@@ -94,27 +94,6 @@ public class ProductDB extends DataHandler {
         return false;
     }
 
-    public boolean updateProduct(int id, Product p) {
-        Product a;
-
-        try {
-            a = getProduct(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        try {
-            a.setName(p.getName());
-            a.setCategoryId(p.getCategoryId());
-            a.setPrice(p.getPrice());
-            a.setWeight(p.getWeight());
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public Product getProduct(int id) throws SQLException {
         Product p = null;
         CallableStatement callStmt = null;
@@ -153,4 +132,36 @@ public class ProductDB extends DataHandler {
         return p;
     }
 
+    public boolean updateProduct(int id, Product p) throws SQLException {
+        Product a;
+
+        try {
+            a = getProduct(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        CallableStatement callStmt = null;
+
+        try{
+            callStmt.getConnection().prepareCall("{ call updateCourier(?,?,?,?,?) }");
+
+            callStmt.setInt(1,p.getId());
+            callStmt.setString(2,p.getName());
+            callStmt.setInt(3,p.getCategoryId());
+            callStmt.setDouble(4,p.getPrice());
+            callStmt.setDouble(5,p.getWeight());
+
+        } catch (NullPointerException | SQLException ex){
+            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+    }
 }
