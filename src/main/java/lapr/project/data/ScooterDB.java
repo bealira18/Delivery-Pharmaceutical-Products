@@ -124,7 +124,7 @@ public class ScooterDB extends DataHandler {
         return scooters;
     }
 
-    public boolean updateScooter(int ids,int idp,Scooter s){
+    public boolean updateScooter(int ids,Scooter s) throws SQLException {
         Scooter a;
 
         try{
@@ -134,16 +134,30 @@ public class ScooterDB extends DataHandler {
             return false;
         }
 
+        CallableStatement callStmt = null;
+
         try{
-            a.setWeight(s.getWeight());
-            a.setFrontalArea(s.getFrontalArea());
-            a.setMotor(s.getMotor());
-            a.setCurrentBattery(s.getCurrentBattery());
-            a.setMaxBattery(s.getMaxBattery());
+            callStmt.getConnection().prepareCall("{ call updateScooter(?,?,?,?,?,?,?) }");
+
+            callStmt.setInt(1,s.getIdVehicle());
+            callStmt.setInt(2,s.getIdPharmacy());
+            callStmt.setDouble(3,s.getWeight());
+            callStmt.setDouble(4,s.getFrontalArea());
+            callStmt.setDouble(5,s.getMotor());
+            callStmt.setDouble(6,s.getCurrentBattery());
+            callStmt.setDouble(7,s.getMaxBattery());
             return true;
-        } catch (Exception e) {
-            return false;
+        } catch (NullPointerException | SQLException ex){
+            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
         }
+        return false;
+
     }
 
 }

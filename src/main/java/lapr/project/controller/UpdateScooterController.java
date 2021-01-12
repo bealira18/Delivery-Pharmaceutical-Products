@@ -3,6 +3,8 @@ package lapr.project.controller;
 import lapr.project.data.ScooterDB;
 import lapr.project.model.Scooter;
 
+import java.sql.SQLException;
+
 public class UpdateScooterController {
 
     private final ScooterDB sDB;
@@ -15,11 +17,11 @@ public class UpdateScooterController {
         this.sDB = sDB;
     }
 
-    public boolean updateScooter(int ids,int idp,Scooter s) {
+    public boolean updateScooter(int ids,Scooter s) throws SQLException {
         if (s == null) {
             return false;
         }
-        return sDB.updateScooter(ids,idp,s);
+        return sDB.updateScooter(ids,s);
     }
 
 }
