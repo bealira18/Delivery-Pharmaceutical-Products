@@ -40,8 +40,8 @@ public class PurchaseOrder {
     }
 
     public static double getDeliveryFee() {
-
-        return deliveryFee;
+        
+        return Double.parseDouble(System.getProperty("purchase.order.delivery.fee", "0.0"));
     }
 
     public void setId(int id) {
@@ -69,7 +69,7 @@ public class PurchaseOrder {
         if (deliveryFee < 0) {
             throw new IllegalArgumentException("Invalid Numeric Value (Negative Delivery Fee)");
         }
-        PurchaseOrder.deliveryFee = deliveryFee;
+        System.setProperty("purchase.order.delivery.fee", String.valueOf(deliveryFee));
     }
 
     @Override
