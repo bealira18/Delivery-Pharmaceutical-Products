@@ -85,7 +85,7 @@ public class RegisteredUserTest {
         result = instance.equals(obj);
         assertEquals(false, result);
         
-        obj = new RegisteredUser("a@b.c", "qwerty", "administrator");
+        obj = new RegisteredUser(instance);
         result = instance.equals(obj);
         assertEquals(true, result);
     }

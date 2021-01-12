@@ -137,14 +137,15 @@ public class PurchaseOrderTest {
     public void testSetDeliveryFee() {
 
         System.out.println("setDeliveryFee");
+        System.setProperty("purchase.order.delivery.fee", "5.4");
         double deliveryFee = 1.0;
         PurchaseOrder.setDeliveryFee(deliveryFee);
-        double result = PurchaseOrder.getDeliveryFee();
+        double result = Double.parseDouble(System.getProperty("purchase.order.delivery.fee"));
         assertEquals(deliveryFee, result, 0.0);
 
         deliveryFee = 0;
         PurchaseOrder.setDeliveryFee(deliveryFee);
-        result = PurchaseOrder.getDeliveryFee();
+        result = Double.parseDouble(System.getProperty("purchase.order.delivery.fee"));
         assertEquals(deliveryFee, result, 0.0);
 
         final double deliveryFee2 = -1.0;
