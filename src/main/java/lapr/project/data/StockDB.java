@@ -69,4 +69,27 @@ public class StockDB extends DataHandler {
             }
         }
     }
+
+    public boolean updateProductStockAfterSale(int idOrder) throws SQLException {
+        CallableStatement callStmt = null;
+
+        try {
+            callStmt.getConnection().prepareCall("{ call updateProductStockAfterSale(?) }");
+
+            callStmt.setInt(1, idOrder);
+
+            callStmt.execute();
+            return true;
+
+        } catch (NullPointerException | SQLException ex){
+            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+
+        }finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+    }
 }

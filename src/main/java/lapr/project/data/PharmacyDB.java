@@ -132,4 +132,35 @@ public class PharmacyDB extends DataHandler {
         }
         return pharmacies;
     }
+
+    public boolean updatePharmacy(int id,String name) throws SQLException {
+        Pharmacy a;
+
+        String i=Integer.toString(id);
+
+        try{
+            a=getPhamacyByID(i);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        CallableStatement callStmt = null;
+
+        try{
+            callStmt.getConnection().prepareCall("{ call updatePharmacy(?,?) }");
+
+            callStmt.setInt(1,id);
+            callStmt.setString(2,name);
+        } catch (NullPointerException | SQLException ex){
+            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+    }
 }
