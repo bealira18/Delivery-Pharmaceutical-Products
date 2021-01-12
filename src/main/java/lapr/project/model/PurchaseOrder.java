@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 public class PurchaseOrder {
 
-    private static double deliveryFee = 0;
-
     private int purchaseOrderId;
     private int pharmacyId;
     private String clientEmail;
