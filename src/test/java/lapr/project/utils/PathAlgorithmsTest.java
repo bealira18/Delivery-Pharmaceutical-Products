@@ -34,39 +34,46 @@ public class PathAlgorithmsTest {
         double result = PathAlgorithms.calcDistance(a1, a2);
         assertEquals(expResult, result, 4);
 
-        Address a3 = new Address("Test1", 69.203, 69.201, 3);
-        Address a4 = new Address("Test2", 69.203, 67.201, 3);
+        a1 = new Address("Test1", 69.203, 69.201, 3);
+        a2 = new Address("Test2", 69.203, 67.201, 3);
 
         expResult = 78.95;
-        result = PathAlgorithms.calcDistance(a3, a4);
+        result = PathAlgorithms.calcDistance(a1, a2);
         assertEquals(expResult, result, 4);
 
-        Address a5 = new Address("Test1", 60.203, 69.201, 3);
-        Address a6 = new Address("Test2", 69.203, 69.201, 3);
+        a1 = new Address("Test1", 60.203, 69.201, 3);
+        a2 = new Address("Test2", 69.203, 69.201, 3);
 
         expResult = 1000.75;
-        result = PathAlgorithms.calcDistance(a5, a6);
+        result = PathAlgorithms.calcDistance(a1, a2);
         assertEquals(expResult, result, 4);
-
-        Address a7 = new Address("Test1", 60.203, 69.201, 3);
-        Address a8 = new Address("Test2", 69.203, 67.201, -2);
+        
+        a1 = new Address("Test1", 69.203, 67.203, 3);
+        a2 = new Address("Test2", 69.203, 69.201, 3);
+        
+        expResult = 78.87;
+        result = PathAlgorithms.calcDistance(a1, a2);
+        assertEquals(expResult, result, 4);
+        
+        a1 = new Address("Test1", 60.203, 69.201, -3);
+        a2 = new Address("Test2", 69.203, 67.201, -2);
 
         expResult = 1005.12;
-        result = PathAlgorithms.calcDistance(a7, a8);
+        result = PathAlgorithms.calcDistance(a1, a2);
         assertEquals(expResult, result, 4);
 
-        Address a9 = new Address("Test1", 69.203, 69.201, 2);
-        Address a10 = new Address("Test2", 69.203, 69.201, 3);
+        a1 = new Address("Test1", 69.203, 69.201, 2);
+        a2 = new Address("Test2", 69.203, 69.201, 3);
 
         expResult = 0;
-        result = PathAlgorithms.calcDistance(a9, a10);
+        result = PathAlgorithms.calcDistance(a1, a2);
         assertEquals(expResult, result, 4);
 
-        Address a11 = new Address("Test1", 69.203, 69.201, 3);
-        Address a12 = new Address("Test2", 69.203, 69.201, 3);
+        a1 = new Address("Test1", 69.203, 69.201, 3);
+        a2 = new Address("Test2", 69.203, 69.201, 3);
 
         expResult = 0;
-        result = PathAlgorithms.calcDistance(a11, a12);
+        result = PathAlgorithms.calcDistance(a1, a2);
         assertEquals(expResult, result, 0);
     }
 
