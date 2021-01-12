@@ -5,6 +5,8 @@ import lapr.project.model.Product;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 
@@ -25,14 +27,14 @@ public class UpdateProductControllerTest {
     }
 
     @Test
-    void testUpdateProduct1(){
+    void testUpdateProduct1() throws SQLException {
         Product p=new Product(0,"name1",2.0,2.5,1);
         boolean actual=uPC.updateProduct(0,p);
         assertFalse(actual); //porque não existem produtos
     }
 
     @Test
-    void testUpdateProduct2(){
+    void testUpdateProduct2() throws SQLException {
         boolean actual=uPC.updateProduct(1,null);
         assertFalse(actual);
     }
