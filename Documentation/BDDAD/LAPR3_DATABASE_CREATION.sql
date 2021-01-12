@@ -23,7 +23,8 @@ DROP TABLE purchaseOrder		CASCADE CONSTRAINTS PURGE;
 DROP TABLE productLine		    CASCADE CONSTRAINTS PURGE;
 DROP TABLE delivery		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE invoice		        CASCADE CONSTRAINTS PURGE;
-
+DROP TABLE drone                CASCADE CONSTRAINTS PURGE;
+DROP TABLE dronestatus          CASCADE CONSTRAINTS PURGE;
 
 
 -- Table Creation
@@ -223,6 +224,18 @@ CREATE TABLE invoice (
                                                           CONSTRAINT ckInvoiceTotalPriceNotZero    CHECK(total_price>=0)
 );
 
+CREATE TABLE drone (
+    id_drone                INTEGER                       CONSTRAINT pkDroneIdDrone         PRIMARY KEY,                             
+    id_drone_status         INTEGER                       CONSTRAINT nnDroneIdDroneStatus   NOT NULL
+);
+
+CREATE TABLE droneStatus (
+ id_drone_status      INTEGER                           CONSTRAINT pkDroneStatusId               PRIMARY KEY,            
+ name                 VARCHAR2(255)                     CONSTRAINT nnDroneStatusName             NOT NULL
+                                                        CONSTRAINT ukDroneStatusName             UNIQUE
+                                                        CONSTRAINT ckDroneStatusName             CHECK(name IN ('available','maintenance','occupied','charging'))                                                 
+);
+
 
 -- Foreign Keys
 
@@ -271,3 +284,6 @@ ALTER TABLE delivery            ADD CONSTRAINT fkDeliveryDeliveryStatusId       
 ALTER TABLE invoice             ADD CONSTRAINT fkInvoiceOrderId                 FOREIGN KEY(id_order)           REFERENCES purchaseOrder (id_order);
 ALTER TABLE invoice             ADD CONSTRAINT fkInvoicePharmacyId              FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
 ALTER TABLE invoice             ADD CONSTRAINT fkInvoiceClientEmail             FOREIGN KEY(email_client)       REFERENCES client (email);
+
+ALTER TABLE drone               ADD CONSTRAINT fkDroneDroneId                   FOREIGN KEY(id_drone)           REFERENCES vehicle (id_vehicle);
+ALTER TABLE drone               ADD CONSTRAINT fkDroneStatusId                  FOREIGN KEY(id_drone_status)    REFERENCES droneStatus (id_drone_status);
