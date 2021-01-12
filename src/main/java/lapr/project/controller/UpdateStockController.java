@@ -1,7 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.data.StockDB;
-import lapr.project.model.Courier;
 
 import java.sql.SQLException;
 
