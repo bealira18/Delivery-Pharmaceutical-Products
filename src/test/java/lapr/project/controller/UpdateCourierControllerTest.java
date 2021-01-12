@@ -7,6 +7,8 @@ import lapr.project.model.Product;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 
@@ -27,14 +29,14 @@ public class UpdateCourierControllerTest {
     }
 
     @Test
-    void testUpdateCourier1(){
+    void testUpdateCourier1() throws SQLException {
         Courier c=new Courier("email","pass","name",123456789,12345678,1,2.5);
         boolean actual=cPC.updateCourier("email1",c);
         assertFalse(actual); //porque não existem estafetas
     }
 
     @Test
-    void testUpdateCourier2(){
+    void testUpdateCourier2() throws SQLException {
         boolean actual=cPC.updateCourier("email",null);
         assertFalse(actual);
     }
