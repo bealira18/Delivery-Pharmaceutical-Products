@@ -14,13 +14,12 @@ import oracle.jdbc.OracleTypes;
 
 public class PharmacyDB extends DataHandler {
 
-    //TODO REWRITE EVERYTHING BECAUSE OF ADDRESS
-    public boolean addPharmacy(Pharmacy p, int limit) throws SQLException {
+    public boolean addPharmacy(Address a, Pharmacy p, int limit) throws SQLException {
 
         openConnection();
 
         try {
-            return addPharmacy(p.getName(), "", limit);
+            return addPharmacy(a.getDescription(), a.getLatitude(), a.getLongitude(), a.getAltitude(), p.getName(), limit);
 
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -29,29 +28,32 @@ public class PharmacyDB extends DataHandler {
         }
     }
 
-    private boolean addPharmacy(String name, String address, int limit) throws SQLException {
+    private boolean addPharmacy(String address, double lat, double lon, double alt, String name, int limit) throws SQLException {
 
         CallableStatement callStmt = null;
 
         try {
-            callStmt.getConnection().prepareCall("{ call addPharmacy(?,?,?) }");
+            callStmt.getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?) }");
 
-            callStmt.setString(1, name);
-            callStmt.setString(2, address);
-            callStmt.setInt(3, limit);
+            callStmt.setString(1, address);
+            callStmt.setDouble(2, lat);
+            callStmt.setDouble(3, lon);
+            callStmt.setDouble(4, alt);
+            callStmt.setString(5, name);
+            callStmt.setInt(6, limit);
 
             callStmt.execute();
             return true;
 
         } catch (SQLException ex) {
             Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
 
         } finally {
             if (callStmt != null) {
                 callStmt.close();
             }
         }
-        return false;
     }
 
     private static Pharmacy callGetPharmacy(String identifier, CallableStatement callStmt) throws SQLException {

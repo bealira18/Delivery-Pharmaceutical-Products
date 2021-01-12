@@ -4,7 +4,7 @@ CREATE OR REPLACE PROCEDURE ADDSCOOTERPARK(pharmacy_id IN NUMBER, p_limit IN NUM
 
 BEGIN
 
-    v_park_id := ISEQ$$_1706058.NEXTVAL;
+    v_park_id := ISEQ$$_1782039.NEXTVAL;
 
     INSERT INTO SCOOTERPARK(ID_PARK, ID_PHARMACY, LIMIT, NUM_CHARGING_STATIONS, ADDRESS)
     VALUES(v_park_id, pharmacy_id, p_limit, p_num_charging_stations, p_address);
