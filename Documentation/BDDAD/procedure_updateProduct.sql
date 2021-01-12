@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE updateCourier(idProduct in INTEGER, v_name in VARCHAR, idCategory in INTEGER, v_price in NUMERIC, v_weight in NUMERIC) IS
+CREATE OR REPLACE PROCEDURE updateProduct(idProduct in INTEGER, v_name in VARCHAR, idCategory in INTEGER, v_price in NUMERIC, v_weight in NUMERIC) IS
 
 begin
 
