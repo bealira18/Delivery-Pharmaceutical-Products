@@ -9,6 +9,10 @@ import lapr.project.model.Vehicle;
 
 public class PathAlgorithms {
 
+    private PathAlgorithms() {
+
+    }
+
     /**
      * Earth radius in Km.
      */
@@ -75,8 +79,6 @@ public class PathAlgorithms {
         double aeroDrag = 0.5 * AIR_DENSITY * v.getAerodynamicCoeficient() * v.getFrontalArea() * Math.pow(relativeSpeed, 2);
         double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient();
 
-        double totalEnergy = (aeroDrag + groundDrag) * distance / 3600;
-
-        return totalEnergy;
+        return (aeroDrag + groundDrag) * distance / 3600;
     }
 }
