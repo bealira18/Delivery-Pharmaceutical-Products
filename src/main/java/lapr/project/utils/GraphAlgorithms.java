@@ -1,9 +1,15 @@
 package lapr.project.utils;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 import lapr.project.model.Address;
+import lapr.project.model.Courier;
 import lapr.project.model.Path;
+import lapr.project.model.Product;
+import lapr.project.model.Vehicle;
 
 public class GraphAlgorithms {
 
@@ -68,6 +74,39 @@ public class GraphAlgorithms {
         allPaths(g, vOrig, vDest, path, paths);
 
         return paths;
+    }
+
+    public static int writePathsToFile(String fileName, int nrPaths, List<LinkedList<Address>> la,
+            Graph<Address, Path> g, Courier c, Vehicle v, List<Product> lp) throws IOException {
+
+        if (la.isEmpty()) {
+            return 0;
+        }
+        if (nrPaths > la.size()) {
+            nrPaths = la.size();
+        }
+        FileWriter fw = new FileWriter(fileName);
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        for (int i = 0; i < nrPaths; i++) {
+
+            bw.write("Path #" + (i + 1));
+            bw.newLine();
+            bw.write("Total Distance = " + PathAlgorithms.calcTotalDistance(la.get(i)) + "km.");
+            bw.newLine();
+            bw.write("Total Energy Consumption = " + PathAlgorithms.calcTotalEnergy(g, la.get(i), c, v, lp) + "W.");
+            bw.newLine();
+
+            for (int j = 0; j < la.get(i).size(); j++) {
+
+                bw.write(la.get(i).get(j).getDescription() + ";");
+            }
+            bw.newLine();
+        }
+        bw.close();
+        fw.close();
+
+        return nrPaths;
     }
 
     /**

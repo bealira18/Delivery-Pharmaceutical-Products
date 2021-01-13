@@ -1,5 +1,6 @@
 package lapr.project.utils;
 
+import java.util.LinkedList;
 import java.util.List;
 import lapr.project.model.Address;
 import lapr.project.model.Courier;
@@ -80,5 +81,30 @@ public class PathAlgorithms {
         double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient();
 
         return (aeroDrag + groundDrag) * distance / 3600;
+    }
+
+    public static double calcTotalDistance(LinkedList<Address> la) {
+
+        double totalDistance = 0;
+
+        for (int i = 0; i < la.size() - 1; i++) {
+
+            totalDistance += calcDistance(la.get(i), la.get(i + 1));
+        }
+        return totalDistance;
+    }
+
+    public static double calcTotalEnergy(Graph<Address, Path> g, LinkedList<Address> la, Courier c, Vehicle v, List<Product> lp) {
+
+        double totalEnergy = 0;
+
+        for (int i = 0; i < la.size() - 1; i++) {
+
+            Path p = g.getEdge(la.get(i), la.get(i + 1)).getElement();
+            totalEnergy += calcEnergy(p, c, v, lp);
+            System.out.println(p);
+            System.out.println(totalEnergy);
+        }
+        return totalEnergy;
     }
 }
