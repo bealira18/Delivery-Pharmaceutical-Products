@@ -65,9 +65,8 @@ public class GraphAlgorithms {
         }
         ArrayList<LinkedList<V>> paths = new ArrayList<>();
 
-        if (g.validVertex(vOrig) && g.validVertex(vDest)) {
-            allPaths(g, vOrig, vDest, path, paths);
-        }
+        allPaths(g, vOrig, vDest, path, paths);
+
         return paths;
     }
 
@@ -147,9 +146,9 @@ public class GraphAlgorithms {
 
     private static void addAddressesToGraph(Graph<Address, Path> g, List<Address> la) {
 
-        la.forEach(a -> {
+        for (Address a : la) {
             g.insertVertex(a);
-        });
+        }
     }
 
     private static void addPathsToGraph(Graph<Address, Path> g, List<Address> la, List<Path> lp) {
