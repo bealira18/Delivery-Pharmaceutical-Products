@@ -12,6 +12,54 @@ import java.util.logging.Logger;
 
 public class DroneDB extends DataHandler {
 
+    public boolean addDrone(Drone drone)throws SQLException {
+
+        openConnection();
+
+        try{
+            return addDrone(drone.getIdVehicle(), drone.getIdPharmacy(), drone.getWeight(), drone.getAerodynamicCoeficient(),
+                    drone.getFrontalArea(), drone.getMotor(), drone.getCurrentBattery(), drone.getMaxBattery(), drone.getDroneStatusId());
+
+        }catch (NullPointerException | SQLException ex){
+            Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+            return false;
+        }
+    }
+
+    public boolean addDrone(int idDrone, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
+                              double motor, double currentBattery, double maxBattery, int droneStatusId) throws SQLException {
+
+        CallableStatement callStmt = null;
+
+        try {
+            callStmt.getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?) }");
+
+            callStmt.setInt(1, idDrone);
+            callStmt.setInt(2, idPharmacy);
+            callStmt.setDouble(3, weight);
+            callStmt.setDouble(4, aerodynamicCoeficient);
+            callStmt.setDouble(5, frontalArea);
+            callStmt.setDouble(6, motor);
+            callStmt.setDouble(7, currentBattery);
+            callStmt.setDouble(8, maxBattery);
+            callStmt.setInt(9, droneStatusId);
+
+            callStmt.execute();
+            return true;
+
+        } catch (NullPointerException | SQLException ex){
+            Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+    }
+
     public Drone getIdDrone(int idDrone) throws SQLException {
         Drone d = null;
         CallableStatement callStmt = null;

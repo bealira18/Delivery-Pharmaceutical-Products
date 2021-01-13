@@ -5,9 +5,9 @@ IS
     i_limit INTEGER;
 
 begin
-    SELECT LIMIT INTO i_limit
-    from SCOOTERPARK
-    where ID_PHARMACY = idPharmacy;
+    SELECT SUM(LIMIT) INTO i_limit
+    from PARK
+    where ID_PHARMACY = idPharmacy AND CATEGORY = 'scooter';
 
     return (i_limit);
 end;

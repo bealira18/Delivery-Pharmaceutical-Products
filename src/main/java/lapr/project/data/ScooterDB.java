@@ -1,6 +1,5 @@
 package lapr.project.data;
 
-import lapr.project.model.Courier;
 import lapr.project.model.Scooter;
 import oracle.jdbc.OracleTypes;
 
@@ -8,7 +7,6 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
