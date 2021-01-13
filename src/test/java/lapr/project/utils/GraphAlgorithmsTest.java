@@ -5,7 +5,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import lapr.project.model.Address;
+import lapr.project.model.Courier;
 import lapr.project.model.Path;
+import lapr.project.model.Product;
+import lapr.project.model.Vehicle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -208,5 +211,55 @@ public class GraphAlgorithmsTest {
 
         la = null;
         GraphAlgorithms.fillGraph(g, la, lp);
+    }
+
+    /**
+     * Test of writePathsToFile method, of class GraphAlgorithms.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testWritePathsToFile() throws Exception {
+
+        System.out.println("writePathsToFile");
+        String fileName = "pathTest.txt";
+        int nrPaths = 3;
+
+        Graph<Address, Path> g = new Graph<>(true);
+        List<Address> la = new ArrayList<>();
+        List<Path> lp = new ArrayList<>();
+
+        Address a1 = new Address("casa da musica", 41.158056, 8.630556, 83);
+        Address a2 = new Address("conservatorio", 41.155556, 8.623056, 79);
+        Address a3 = new Address("trindade", 41.151667, 8.609444, 86);
+        la.add(a1);
+        la.add(a2);
+        la.add(a3);
+        lp.add(new Path(a1, a2, 0));
+        lp.add(new Path(a2, a3, 0));
+        lp.add(new Path(a2, a1, 0));
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        LinkedList<Address> lla = new LinkedList<>();
+        lla.add(a1);
+        lla.add(a2);
+        lla.add(a3);
+
+        LinkedList<Address> lla2 = new LinkedList<>();
+        lla2.add(a1);
+        lla2.add(a2);
+        lla2.add(a1);
+
+        List<LinkedList<Address>> llla = new ArrayList<>();
+        llla.add(lla);
+        llla.add(lla2);
+
+        Courier c = new Courier("TestMail", "TestPass", "Name", 0, 0, 0, 80.0);
+        Vehicle v = new Vehicle(0, 0, 130.0, 1.1, 1, 250, 500, 500);
+        List<Product> lpro = new ArrayList<>();
+
+        int expResult = 2;
+        int result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
+        assertEquals(expResult, result);
     }
 }
