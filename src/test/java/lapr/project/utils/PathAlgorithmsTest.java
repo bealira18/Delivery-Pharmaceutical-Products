@@ -192,7 +192,7 @@ public class PathAlgorithmsTest {
         
         lla = new LinkedList<>();
         
-        expResult = 0;
+        expResult = 0.0d;
         result = PathAlgorithms.calcTotalEnergy(g, lla, c, v, lpro);
         assertEquals(expResult, result, 0);
     }

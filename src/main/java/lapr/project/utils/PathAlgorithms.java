@@ -85,7 +85,7 @@ public class PathAlgorithms {
 
     public static double calcTotalDistance(LinkedList<Address> la) {
 
-        double totalDistance = 0;
+        double totalDistance = 0.0d;
 
         for (int i = 0; i < la.size() - 1; i++) {
 
@@ -96,7 +96,7 @@ public class PathAlgorithms {
 
     public static double calcTotalEnergy(Graph<Address, Path> g, LinkedList<Address> la, Courier c, Vehicle v, List<Product> lp) {
 
-        double totalEnergy = 0;
+        double totalEnergy = 0.0d;
 
         for (int i = 0; i < la.size() - 1; i++) {
 

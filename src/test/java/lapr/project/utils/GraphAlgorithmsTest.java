@@ -267,5 +267,9 @@ public class GraphAlgorithmsTest {
         llla = new LinkedList<>();
         result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
         assertEquals(expResult, result);
+
+        llla.add(lla);
+        result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
+        assertEquals(expResult, result);
     }
 }
