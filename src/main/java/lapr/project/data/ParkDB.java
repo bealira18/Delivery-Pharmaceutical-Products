@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ScooterParkDB extends DataHandler {
+public class ParkDB extends DataHandler {
 
     //Para duplicação receber o call por string e juntar as duas funções em uma
     public int getLimitScooterPark(int idPharmacy) throws SQLException {
@@ -21,7 +21,7 @@ public class ScooterParkDB extends DataHandler {
 
             return callStmt.getInt(1);
         }catch(NullPointerException | NumberFormatException | SQLException ex){
-            Logger.getLogger(ScooterParkDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }finally {
             if(callStmt != null){
@@ -42,7 +42,7 @@ public class ScooterParkDB extends DataHandler {
 
             return callStmt.getInt(1);
         }catch(NullPointerException | NumberFormatException | SQLException ex){
-            Logger.getLogger(ScooterParkDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }finally {
             if(callStmt != null){

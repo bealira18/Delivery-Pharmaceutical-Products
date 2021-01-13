@@ -1,17 +1,17 @@
 package lapr.project.controller;
 
-import lapr.project.data.ScooterParkDB;
-import lapr.project.model.ScooterPark;
+import lapr.project.data.ParkDB;
+import lapr.project.model.Park;
 
 public class UpdateNrChargingStationsController {
 
-    private final ScooterParkDB spDB;
+    private final ParkDB spDB;
 
     public UpdateNrChargingStationsController() {
-        spDB = new ScooterParkDB();
+        spDB = new ParkDB();
     }
 
-    public UpdateNrChargingStationsController(ScooterParkDB spDB) {
+    public UpdateNrChargingStationsController(ParkDB spDB) {
         this.spDB = spDB;
     }
 
@@ -22,7 +22,7 @@ public class UpdateNrChargingStationsController {
         //Verificar se nr + atual numChargingStations não excede limite.
         //Se sim, petáculo.
         //Após isso, percorrer os parking spaces e torná-los em charging stations na BDDAD.
-        ScooterPark sp = null; //Função para ir buscar o sp em questão
+        Park sp = null; //Função para ir buscar o sp em questão
         sp.setNumChargingStations(nr);
         return true;
     }

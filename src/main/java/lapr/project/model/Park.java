@@ -1,19 +1,21 @@
 package lapr.project.model;
 
-public class ScooterPark {
+public class Park {
 
     private int scooterParkId;
     private int pharmacyId;
     private int limit;
     private int numChargingStations;
+    private String category;
     private Address address;
 
-    public ScooterPark(int scooterParkId, int pharmacyId, int limit, int numChargingStations, Address address) {
+    public Park(int scooterParkId, int pharmacyId, int limit, int numChargingStations, String category, Address address) {
 
         this.scooterParkId = scooterParkId;
         this.pharmacyId = pharmacyId;
         this.limit = limit;
         this.numChargingStations = numChargingStations;
+        this.category = category;
         this.address = address;
     }
 
@@ -35,6 +37,11 @@ public class ScooterPark {
     public int getNumChargingStations() {
 
         return numChargingStations;
+    }
+
+    public String getCategory() {
+
+        return category;
     }
 
     public Address getAddress() {
@@ -62,6 +69,11 @@ public class ScooterPark {
         this.numChargingStations = numChargingStations;
     }
 
+    public void setCategory(String category) {
+
+        this.category = category;
+    }
+
     public void setAddress(Address address) {
 
         this.address = address;
@@ -70,7 +82,7 @@ public class ScooterPark {
     @Override
     public String toString() {
 
-        return "ScooterPark{" + "scooterParkId=" + scooterParkId + ", pharmacyId=" + pharmacyId + ", limit=" + limit + ", numChargingStations=" + numChargingStations + ", address=" + address + '}';
+        return "ScooterPark{" + "scooterParkId=" + scooterParkId + ", pharmacyId=" + pharmacyId + ", limit=" + limit + ", numChargingStations=" + numChargingStations + "category=" + category + ", address=" + address + '}';
     }
 
     @Override
@@ -90,7 +102,7 @@ public class ScooterPark {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final ScooterPark other = (ScooterPark) obj;
+        final Park other = (Park) obj;
 
         return this.scooterParkId == other.scooterParkId;
     }

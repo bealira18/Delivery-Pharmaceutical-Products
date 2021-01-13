@@ -1,7 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.data.ScooterDB;
-import lapr.project.data.ScooterParkDB;
+import lapr.project.data.ParkDB;
 import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -25,14 +25,14 @@ class AddScooterControllerTest {
         Scooter scooter1 = new Scooter(1, 1, 20, 40, 50, 60, 10, 100, 1);
 
         ScooterDB scooterDB = mock(ScooterDB.class);
-        ScooterParkDB scooterParkDB = mock(ScooterParkDB.class);
+        ParkDB parkDB = mock(ParkDB.class);
 
         when(scooterDB.addScooter(scooter1)).thenReturn(Boolean.TRUE);
-        when(scooterParkDB.getNumberOfScootersInPharmacy(scooter1.getIdPharmacy())).thenReturn(0);
-        when(scooterParkDB.getLimitScooterPark(scooter1.getIdPharmacy())).thenReturn(1);
+        when(parkDB.getNumberOfScootersInPharmacy(scooter1.getIdPharmacy())).thenReturn(0);
+        when(parkDB.getLimitScooterPark(scooter1.getIdPharmacy())).thenReturn(1);
 
         controller = new AddScooterController();
-        controller = new AddScooterController(scooterDB, scooterParkDB);
+        controller = new AddScooterController(scooterDB, parkDB);
     }
 
     /**
@@ -51,17 +51,17 @@ class AddScooterControllerTest {
         assertEquals(true, result);
 
         ScooterDB scooterDB = mock(ScooterDB.class);
-        ScooterParkDB scooterParkDB = mock(ScooterParkDB.class);
+        ParkDB parkDB = mock(ParkDB.class);
 
-        when(scooterParkDB.getNumberOfScootersInPharmacy(scooter1.getIdPharmacy())).thenReturn(1);
+        when(parkDB.getNumberOfScootersInPharmacy(scooter1.getIdPharmacy())).thenReturn(1);
 
-        AddScooterController controller1 = new AddScooterController(scooterDB, scooterParkDB);
+        AddScooterController controller1 = new AddScooterController(scooterDB, parkDB);
 
         result = controller1.addScooter(scooter1);
         assertEquals(false, result);
 
         when(scooterDB.addScooter(scooter1)).thenReturn(Boolean.FALSE);
-        when(scooterParkDB.getNumberOfScootersInPharmacy(scooter1.getIdPharmacy())).thenReturn(0);
+        when(parkDB.getNumberOfScootersInPharmacy(scooter1.getIdPharmacy())).thenReturn(0);
 
         result = controller1.addScooter(scooter1);
         assertEquals(false, result);
