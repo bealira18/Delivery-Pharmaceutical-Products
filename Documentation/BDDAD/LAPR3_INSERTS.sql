@@ -18,7 +18,7 @@ INSERT INTO registeredUser(email, password, role) VALUES ('client3@gmail.com', '
 
 -- ## table Address ##
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('casa da musica', 41.158056, 8.630556, 83);
-INSERT INTO address(address, latitude, longitude, altitude) VALUES ('conservatorio', 41.158056, 8.630556, 83);
+INSERT INTO address(address, latitude, longitude, altitude) VALUES ('conservatorio', 41.155556, 8.623056, 79);
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('isep', 41.178333, 8.606389, 103);
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('feup', 41.1775, 8.598056, 111);
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('trindade', 41.151667, 8.609444, 86);
