@@ -15,9 +15,9 @@ public class ScooterStatusTest {
     public void testGetScooterStatusId() {
 
         System.out.println("getScooterStatusId");
-        ScooterStatus instance = new ScooterStatus(1, "Test");
+        VehicleStatus instance = new VehicleStatus(1, "Test");
         int expResult = 1;
-        int result = instance.getScooterStatusId();
+        int result = instance.getVehicleStatusId();
         assertEquals(expResult, result);
     }
 
@@ -28,9 +28,9 @@ public class ScooterStatusTest {
     public void testGetScooterStatusName() {
 
         System.out.println("getScooterStatusName");
-        ScooterStatus instance = new ScooterStatus(1, "Test");
+        VehicleStatus instance = new VehicleStatus(1, "Test");
         String expResult = "Test";
-        String result = instance.getScooterStatusName();
+        String result = instance.getVehicleStatusName();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -43,9 +43,9 @@ public class ScooterStatusTest {
 
         System.out.println("setScooterStatusId");
         int scooterStatusId = 2;
-        ScooterStatus instance = new ScooterStatus(1, "Test");
-        instance.setScooterStatusId(scooterStatusId);
-        int result = instance.getScooterStatusId();
+        VehicleStatus instance = new VehicleStatus(1, "Test");
+        instance.setVehicleStatusId(scooterStatusId);
+        int result = instance.getVehicleStatusId();
         assertEquals(scooterStatusId, result);
     }
 
@@ -57,9 +57,9 @@ public class ScooterStatusTest {
 
         System.out.println("setScooterStatusName");
         String scooterStatusName = "Test2";
-        ScooterStatus instance = new ScooterStatus(1, "Test");
-        instance.setScooterStatusName(scooterStatusName);
-        String result = instance.getScooterStatusName();
+        VehicleStatus instance = new VehicleStatus(1, "Test");
+        instance.setVehicleStatusName(scooterStatusName);
+        String result = instance.getVehicleStatusName();
         assertEquals(scooterStatusName, result);
     }
 
@@ -70,8 +70,8 @@ public class ScooterStatusTest {
     public void testToString() {
 
         System.out.println("toString");
-        ScooterStatus instance = new ScooterStatus(1, "Test");
-        String expResult = "ScooterStatus{scooterStatusId=1, scooterStatusName=Test}";
+        VehicleStatus instance = new VehicleStatus(1, "Test");
+        String expResult = "VehicleStatus{vehicleStatusId=1, vehicleStatusName=Test}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -83,7 +83,7 @@ public class ScooterStatusTest {
     public void testHashCode() {
 
         System.out.println("hashCode");
-        ScooterStatus instance = new ScooterStatus(1, "Test");
+        VehicleStatus instance = new VehicleStatus(1, "Test");
         int expResult = 554;
         int result = instance.hashCode();
         assertEquals(expResult, result);
@@ -97,7 +97,7 @@ public class ScooterStatusTest {
 
         System.out.println("equals");
         Object obj = null;
-        ScooterStatus instance = new ScooterStatus(1, "Test");
+        VehicleStatus instance = new VehicleStatus(1, "Test");
         boolean expResult = true;
         boolean result = instance.equals(instance);
         assertEquals(expResult, result);
@@ -109,10 +109,10 @@ public class ScooterStatusTest {
         result = instance.equals(obj);
         assertEquals(false, result);
 
-        result = instance.equals(new ScooterStatus(2, "Test"));
+        result = instance.equals(new VehicleStatus(2, "Test"));
         assertEquals(false, result);
 
-        result = instance.equals(new ScooterStatus(1, "Test2"));
+        result = instance.equals(new VehicleStatus(1, "Test2"));
         assertEquals(true, result);
     }
 }
