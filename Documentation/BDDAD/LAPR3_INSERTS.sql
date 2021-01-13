@@ -18,7 +18,7 @@ INSERT INTO registeredUser(email, password, role) VALUES ('client3@gmail.com', '
 
 -- ## table Address ##
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('casa da musica', 41.158056, 8.630556, 83);
-INSERT INTO address(address, latitude, longitude, altitude) VALUES ('conservatorio', 41.158056, 8.630556, 83);
+INSERT INTO address(address, latitude, longitude, altitude) VALUES ('conservatorio', 41.155556, 8.623056, 79);
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('isep', 41.178333, 8.606389, 103);
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('feup', 41.1775, 8.598056, 111);
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('trindade', 41.151667, 8.609444, 86);
@@ -73,8 +73,9 @@ INSERT INTO client(email, name, nif, credit_card, address) VALUES('client1@gmail
 INSERT INTO client(email, name, nif, credit_card, address) VALUES('client2@gmail.com', 'client2', 333333302, 1111111111111101, 'parque de serralves');
 INSERT INTO client(email, name, nif, credit_card, address) VALUES('client3@gmail.com', 'client3', 333333303, 1111111111111102, 'torre dos clerigos');
 
--- ## table ScooterPark ##
-INSERT INTO scooterPark(id_pharmacy, limit, num_charging_stations, address) VALUES (1, 10, 1, 'casa da musica');
+-- ## table Park ##
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address) VALUES (1, 10, 1, 'scooter','casa da musica');
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address) VALUES (1, 10, 1, 'drone','casa da musica');
 
 -- ## table ProductCategory ##
 INSERT INTO productCategory(name) VALUES ('Medicamentos');
@@ -150,13 +151,24 @@ INSERT INTO drone(id_drone, id_vehicle_status) VALUES(9, 1);
 INSERT INTO drone(id_drone, id_vehicle_status) VALUES(10, 1);
 
 -- ## table ParkingSpace ##
-INSERT INTO parkingSpace(id_parking_space, id_park, id_scooter, is_charging_station) VALUES (1, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_scooter, is_charging_station) VALUES (2, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_scooter, is_charging_station) VALUES (3, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_scooter, is_charging_station) VALUES (4, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_scooter, is_charging_station) VALUES (5, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_scooter, is_charging_station) VALUES (6, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_scooter, is_charging_station) VALUES (7, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_scooter, is_charging_station) VALUES (8, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_scooter, is_charging_station) VALUES (9, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_scooter, is_charging_station) VALUES (10, 1, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (1, 1, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (2, 1, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (3, 1, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (4, 1, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (5, 1, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (6, 1, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (7, 1, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (8, 1, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (9, 1, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (10, 1, null, 1);
+
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (1, 2, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (2, 2, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (3, 2, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (4, 2, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (5, 2, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (6, 2, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (7, 2, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (8, 2, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (9, 2, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (10, 2, null, 1);

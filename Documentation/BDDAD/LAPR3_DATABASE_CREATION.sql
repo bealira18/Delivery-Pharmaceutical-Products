@@ -10,7 +10,7 @@ DROP TABLE administrator		CASCADE CONSTRAINTS PURGE;
 DROP TABLE courier		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE creditCard		    CASCADE CONSTRAINTS PURGE;
 DROP TABLE client		        CASCADE CONSTRAINTS PURGE;
-DROP TABLE scooterPark		    CASCADE CONSTRAINTS PURGE;
+DROP TABLE park		            CASCADE CONSTRAINTS PURGE;
 DROP TABLE parkingSpace		    CASCADE CONSTRAINTS PURGE;
 DROP TABLE productCategory      CASCADE CONSTRAINTS PURGE;
 DROP TABLE product		        CASCADE CONSTRAINTS PURGE;
@@ -103,12 +103,14 @@ CREATE TABLE client (
     credits         INTEGER DEFAULT 0        CONSTRAINT nnClientCredits          NOT NULL
 );
 
-CREATE TABLE scooterPark (
-    id_park                 INTEGER GENERATED AS IDENTITY   CONSTRAINT pkScooterParkIdPark              PRIMARY KEY,
-    id_pharmacy             INTEGER                         CONSTRAINT nnScooterParkIdPharmacy          NOT NULL,
-    limit                   INTEGER                         CONSTRAINT nnScooterParkLimit               NOT NULL,
-    num_charging_stations   INTEGER                         CONSTRAINT nnNumChargingStations            NOT NULL,
-    address                 VARCHAR2(255)                   CONSTRAINT nnScooterParkAdress              NOT NULL,
+CREATE TABLE park (
+    id_park                 INTEGER GENERATED AS IDENTITY   CONSTRAINT pkParkIdPark               PRIMARY KEY,
+    id_pharmacy             INTEGER                         CONSTRAINT nnParkIdPharmacy           NOT NULL,
+    limit                   INTEGER                         CONSTRAINT nnParkLimit                NOT NULL,
+    num_charging_stations   INTEGER                         CONSTRAINT nnParkNumChargingStations  NOT NULL,
+    category                VARCHAR2(255)                   CONSTRAINT nnParkCategory             NOT NULL
+                                                            CONSTRAINT ckParkCategory             CHECK(category IN('scooter', 'drone')),
+    address                 VARCHAR2(255)                   CONSTRAINT nnParkAdress               NOT NULL,
     
     CONSTRAINT ckScooterParkLimitNumChargingStations   CHECK(limit>=num_charging_stations)
 );
@@ -183,7 +185,7 @@ CREATE TABLE drone (
 CREATE TABLE parkingSpace (
     id_parking_space        INTEGER,
     id_park                 INTEGER                 CONSTRAINT nnParkingSpaceIdPark             NOT NULL,
-    id_scooter              INTEGER,
+    id_vehicle              INTEGER,
     is_charging_station     NUMBER(1) DEFAULT 0     CONSTRAINT nnParkingSpaceIsChargingStation  NOT NULL
                                                     CONSTRAINT ckParkingSpaceIsChargingStation  CHECK(is_charging_station IN(0,1)), 
                                                     
@@ -246,8 +248,8 @@ ALTER TABLE client              ADD CONSTRAINT fkClientEmail                    
 ALTER TABLE client              ADD CONSTRAINT fkClientCreditCard               FOREIGN KEY(credit_card)        REFERENCES creditCard (credit_card);
 ALTER TABLE client              ADD CONSTRAINT fkClientAddress                  FOREIGN KEY(address)            REFERENCES address (address);
 
-ALTER TABLE scooterPark         ADD CONSTRAINT fkScooterParkIdPharmacy          FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
-ALTER TABLE scooterPark         ADD CONSTRAINT fkScooterParkAddress             FOREIGN KEY(address)            REFERENCES address (address);
+ALTER TABLE park                ADD CONSTRAINT fkParkIdPharmacy                 FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
+ALTER TABLE park                ADD CONSTRAINT fkParkAddress                    FOREIGN KEY(address)            REFERENCES address (address);
 
 ALTER TABLE product             ADD CONSTRAINT fkProductCategoryId              FOREIGN KEY(id_category)        REFERENCES productCategory (id_category);
 
@@ -262,8 +264,8 @@ ALTER TABLE scooter             ADD CONSTRAINT fkScooterStatusId                
 ALTER TABLE drone               ADD CONSTRAINT fkDroneDroneId                   FOREIGN KEY(id_drone)           REFERENCES vehicle (id_vehicle);
 ALTER TABLE drone               ADD CONSTRAINT fkDroneStatusId                  FOREIGN KEY(id_vehicle_status)  REFERENCES vehicleStatus (id_vehicle_status);
 
-ALTER TABLE parkingSpace        ADD CONSTRAINT fkParkingSpaceIdPark             FOREIGN KEY(id_park)            REFERENCES scooterPark (id_park);
-ALTER TABLE parkingSpace        ADD CONSTRAINT fkParkingSpaceIdScooter          FOREIGN KEY(id_scooter)         REFERENCES scooter (id_scooter);
+ALTER TABLE parkingSpace        ADD CONSTRAINT fkParkingSpaceIdPark             FOREIGN KEY(id_park)            REFERENCES park (id_park);
+ALTER TABLE parkingSpace        ADD CONSTRAINT fkParkingSpaceIdScooter          FOREIGN KEY(id_vehicle)         REFERENCES vehicle (id_vehicle);
 
 ALTER TABLE purchaseOrder       ADD CONSTRAINT fkPurchaseOrderPharmacyId        FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
 ALTER TABLE purchaseOrder       ADD CONSTRAINT fkPurchaseOrderClientEmail       FOREIGN KEY(email_client)       REFERENCES client (email);
