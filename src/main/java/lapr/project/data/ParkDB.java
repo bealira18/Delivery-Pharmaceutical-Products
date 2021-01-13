@@ -50,4 +50,47 @@ public class ParkDB extends DataHandler {
             }
         }
     }
+
+    public int getLimitDronePark(int idPharmacy) throws SQLException {
+        CallableStatement callStmt = null;
+
+        try{
+            callStmt = getConnection().prepareCall("{ ? = call getLimitDronePark(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setInt(2, idPharmacy);
+            callStmt.execute();
+
+            return callStmt.getInt(1);
+        }catch(NullPointerException | NumberFormatException | SQLException ex){
+            Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }finally {
+            if(callStmt != null){
+                callStmt.close();
+            }
+        }
+    }
+
+    public int getNumberOfDronesInPharmacy(int idPharmacy) throws SQLException{
+        CallableStatement callStmt = null;
+
+        try{
+            callStmt = getConnection().prepareCall("{ ? = call getNumberOfDronesInPharmacy(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setInt(2, idPharmacy);
+            callStmt.execute();
+
+            return callStmt.getInt(1);
+        }catch(NullPointerException | NumberFormatException | SQLException ex){
+            Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }finally {
+            if(callStmt != null){
+                callStmt.close();
+            }
+        }
+    }
+
 }
