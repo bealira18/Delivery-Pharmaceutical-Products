@@ -102,8 +102,6 @@ public class PathAlgorithms {
 
             Path p = g.getEdge(la.get(i), la.get(i + 1)).getElement();
             totalEnergy += calcEnergy(p, c, v, lp);
-            System.out.println(p);
-            System.out.println(totalEnergy);
         }
         return totalEnergy;
     }

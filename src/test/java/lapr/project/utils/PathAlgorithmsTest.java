@@ -142,6 +142,12 @@ public class PathAlgorithmsTest {
         double expResult = 1.90;
         double result = PathAlgorithms.calcTotalDistance(la);
         assertEquals(expResult, result, 2);
+        
+        la = new LinkedList<>();
+        
+        expResult = 0;
+        result = PathAlgorithms.calcTotalDistance(la);
+        assertEquals(expResult, result, 0);
     }
 
     /**
@@ -183,5 +189,11 @@ public class PathAlgorithmsTest {
         double expResult = 0.116;
         double result = PathAlgorithms.calcTotalEnergy(g, lla, c, v, lpro);
         assertEquals(expResult, result, 1);
+        
+        lla = new LinkedList<>();
+        
+        expResult = 0;
+        result = PathAlgorithms.calcTotalEnergy(g, lla, c, v, lpro);
+        assertEquals(expResult, result, 0);
     }
 }
