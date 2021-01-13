@@ -1,18 +1,14 @@
 package lapr.project.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import lapr.project.model.Address;
 import lapr.project.model.Path;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeAll;
 
 /**
  *
@@ -68,62 +64,6 @@ public class GraphAlgorithmsTest {
     }
 
     /**
-     * Test of BreadthFirstSearch method, of class GraphAlgorithms.
-     */
-    @Test
-    public void testBreadthFirstSearch() {
-        System.out.println("Test BreadthFirstSearch");
-
-        setUp();
-
-        assertTrue(GraphAlgorithms.BreadthFirstSearch(completeMap, "LX") == null, "Should be null if vertex does not exist");
-
-        LinkedList<String> path = GraphAlgorithms.BreadthFirstSearch(incompleteMap, "Faro");
-
-        assertTrue(path.size() == 1, "Should be just one");
-
-        Iterator<String> it = path.iterator();
-        assertTrue(it.next().compareTo("Faro") == 0, "it should be Faro");
-
-        path = GraphAlgorithms.BreadthFirstSearch(incompleteMap, "Porto");
-        assertTrue(path.size() == 7, "Should give seven vertices ");
-
-        path = GraphAlgorithms.BreadthFirstSearch(incompleteMap, "Viseu");
-        assertTrue(path.size() == 3, "Should give 3 vertices");
-    }
-
-    /**
-     * Test of DepthFirstSearch method, of class GraphAlgorithms.
-     */
-    @Test
-    public void testDepthFirstSearch() {
-        System.out.println("Test of DepthFirstSearch");
-
-        setUp();
-
-        LinkedList<String> path;
-
-        assertTrue(GraphAlgorithms.DepthFirstSearch(completeMap, "LX") == null, "Should be null if vertex does not exist");
-
-        path = GraphAlgorithms.DepthFirstSearch(incompleteMap, "Faro");
-        assertTrue(path.size() == 1, "Should be just one");
-
-        Iterator<String> it = path.iterator();
-        assertTrue(it.next().compareTo("Faro") == 0, "it should be Faro");
-
-        path = GraphAlgorithms.DepthFirstSearch(incompleteMap, "Porto");
-        assertTrue(path.size() == 7, "Should give seven vertices");
-
-        path = GraphAlgorithms.DepthFirstSearch(incompleteMap, "Viseu");
-        assertTrue(path.size() == 3, "Should give 3 vertices");
-
-        it = path.iterator();
-        assertTrue(it.next().compareTo("Viseu") == 0, "First in visit should be Viseu");
-        assertTrue(it.next().compareTo("Guarda") == 0, "then Guarda");
-        assertTrue(it.next().compareTo("Castelo Branco") == 0, "then Castelo Branco");
-    }
-
-    /**
      * Test of allPaths method, of class GraphAlgorithms.
      */
     @Test
@@ -135,7 +75,7 @@ public class GraphAlgorithmsTest {
         ArrayList<LinkedList<String>> paths = new ArrayList<LinkedList<String>>();
 
         paths = GraphAlgorithms.allPaths(completeMap, "Porto", "LX");
-        assertTrue(paths == null, "There should not be paths if vertex does not exist");
+        assertTrue(paths.size() == 0, "There should not be paths if vertex does not exist");
 
         paths = GraphAlgorithms.allPaths(incompleteMap, "Porto", "Lisboa");
         assertTrue(paths.size() == 4, "There should be 4 paths");
@@ -213,46 +153,6 @@ public class GraphAlgorithmsTest {
         assertTrue(it.next().compareTo("Leiria") == 0, "then Leiria");
         assertTrue(it.next().compareTo("Castelo Branco") == 0, "then Castelo Branco");
 
-    }
-
-    /**
-     * Test of shortestPaths method, of class GraphAlgorithms.
-     */
-    @Test
-    public void testShortestPaths() {
-        System.out.println("Test of shortest path");
-
-        setUp();
-
-        ArrayList<LinkedList<String>> paths = new ArrayList<>();
-        ArrayList<Double> dists = new ArrayList<>();
-
-        GraphAlgorithms.shortestPaths(completeMap, "Porto", paths, dists);
-
-        assertEquals(paths.size(), dists.size(), "There should be as many paths as sizes");
-        assertEquals(completeMap.numVertices(), paths.size(), "There should be a path to every vertex");
-        assertEquals(1, paths.get(completeMap.getKey("Porto")).size(), "Number of nodes should be 1 if source and vertex are the same");
-        assertEquals(Arrays.asList("Porto", "Aveiro", "Coimbra", "Lisboa"), paths.get(completeMap.getKey("Lisboa")), "Path to Lisbon");
-        assertEquals(Arrays.asList("Porto", "Aveiro", "Viseu", "Guarda", "Castelo Branco"), paths.get(completeMap.getKey("Castelo Branco")), "Path to Castelo Branco");
-        assertEquals(335, dists.get(completeMap.getKey("Castelo Branco")), 0.01, "Path between Porto and Castelo Branco should be 335 Km");
-
-        //Changing Edge: Aveiro-Viseu with Edge: Leiria-C.Branco 
-        //should change shortest path between Porto and Castelo Branco        
-        completeMap.removeEdge("Aveiro", "Viseu");
-        completeMap.insertEdge("Leiria", "Castelo Branco", "A23", 170);
-        GraphAlgorithms.shortestPaths(completeMap, "Porto", paths, dists);
-        assertEquals(365, dists.get(completeMap.getKey("Castelo Branco")), 0.01, "Path between Porto and Castelo Branco should now be 365 Km");
-        assertEquals(Arrays.asList("Porto", "Aveiro", "Leiria", "Castelo Branco"), paths.get(completeMap.getKey("Castelo Branco")), "Path to Castelo Branco");
-
-        GraphAlgorithms.shortestPaths(incompleteMap, "Porto", paths, dists);
-        assertEquals(Double.MAX_VALUE, dists.get(completeMap.getKey("Faro")), 0.01, "Length path should be Double.MAX_VALUE if there is no path");
-        assertEquals(335, dists.get(completeMap.getKey("Lisboa")), 0.01, "Path between Porto and Lisboa should be 335 Km");
-        assertEquals(Arrays.asList("Porto", "Aveiro", "Coimbra", "Lisboa"), paths.get(completeMap.getKey("Lisboa")), "Path to Lisboa");
-        assertEquals(335, dists.get(completeMap.getKey("Lisboa")), 0.01, "Path between Porto and Lisboa should be 335 Km");
-
-        GraphAlgorithms.shortestPaths(incompleteMap, "Braga", paths, dists);
-        assertEquals(255, dists.get(completeMap.getKey("Leiria")), 0.01, "Path between Braga and Leiria should be 255 Km");
-        assertEquals(Arrays.asList("Braga", "Porto", "Aveiro", "Leiria"), paths.get(completeMap.getKey("Leiria")), "Path to Leiria");
     }
 
     /**
