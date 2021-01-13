@@ -6,17 +6,17 @@ import lapr.project.model.Drone;
 
 import java.sql.SQLException;
 
-public class addDroneController {
+public class AddDroneController {
 
     private final DroneDB droneDB;
     private final ParkDB parkDB;
 
-    public addDroneController() {
+    public AddDroneController() {
         droneDB = new DroneDB();
         parkDB = new ParkDB();
     }
 
-    public addDroneController(DroneDB droneDB, ParkDB parkDB) {
+    public AddDroneController(DroneDB droneDB, ParkDB parkDB) {
         this.droneDB = droneDB;
         this.parkDB = parkDB;
     }
