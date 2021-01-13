@@ -176,6 +176,27 @@ public class GraphAlgorithmsTest {
         lp.add(p);
         GraphAlgorithms.fillGraph(g, la, lp);
 
+        Address a3 = new Address("Test3", 0, 0, 0);
+
+        Path p2 = new Path(a1, a3, 0);
+        List<Path> lp2 = new ArrayList<>();
+        lp2.add(p2);
+        GraphAlgorithms.fillGraph(g, la, lp2);
+
+        g = new Graph<>(true);
+        Path p3 = new Path(a3, a2, 0);
+        List<Path> lp3 = new ArrayList<>();
+        lp3.add(p3);
+        GraphAlgorithms.fillGraph(g, la, lp3);
+
+        g = new Graph<>(true);
+        Address a4 = new Address("Test4", 0, 0, 0);
+
+        Path p4 = new Path(a3, a4, 0);
+        List<Path> lp4 = new ArrayList<>();
+        lp4.add(p4);
+        GraphAlgorithms.fillGraph(g, la, lp4);
+
         lp = new ArrayList<>();
         GraphAlgorithms.fillGraph(g, la, lp);
 
@@ -186,21 +207,6 @@ public class GraphAlgorithmsTest {
         GraphAlgorithms.fillGraph(g, la, lp);
 
         la = null;
-        GraphAlgorithms.fillGraph(g, la, lp);
-
-        p = new Path(a1, new Address("Test3", 0, 0, 0), 0);
-        lp = new ArrayList<>();
-        lp.add(p);
-        GraphAlgorithms.fillGraph(g, la, lp);
-
-        p = new Path(new Address("Test3", 0, 0, 0), a2, 0);
-        lp = new ArrayList<>();
-        lp.add(p);
-        GraphAlgorithms.fillGraph(g, la, lp);
-
-        p = new Path(new Address("Test3", 0, 0, 0), new Address("Test4", 0, 0, 0), 0);
-        lp = new ArrayList<>();
-        lp.add(p);
         GraphAlgorithms.fillGraph(g, la, lp);
     }
 }
