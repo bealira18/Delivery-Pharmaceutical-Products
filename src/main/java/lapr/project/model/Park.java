@@ -82,7 +82,7 @@ public class Park {
     @Override
     public String toString() {
 
-        return "ScooterPark{" + "scooterParkId=" + scooterParkId + ", pharmacyId=" + pharmacyId + ", limit=" + limit + ", numChargingStations=" + numChargingStations + "category=" + category + ", address=" + address + '}';
+        return "ScooterPark{" + "scooterParkId=" + scooterParkId + ", pharmacyId=" + pharmacyId + ", limit=" + limit + ", numChargingStations=" + numChargingStations + ", category=" + category + ", address=" + address + '}';
     }
 
     @Override

@@ -191,8 +191,8 @@ public class ParkTest {
         System.out.println("toString");
         Address a = new Address("Test", 1, 1, 1);
         Park instance = new Park(1, 1, 1, 1, "Test",a);
-        String expResult = "ScooterPark{scooterParkId=1, pharmacyId=1, limit=1, numChargingStations=1,"
-                + " address=Address{description=Test, latitude=1.0, longitude=1.0, altitude=1.0}}";
+        String expResult = "ScooterPark{scooterParkId=1, pharmacyId=1, limit=1, numChargingStations=1"
+                + ", category=Test, address=Address{description=Test, latitude=1.0, longitude=1.0, altitude=1.0}}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
