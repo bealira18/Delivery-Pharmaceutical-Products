@@ -187,5 +187,14 @@ public class GraphAlgorithmsTest {
 
         la = null;
         GraphAlgorithms.fillGraph(g, la, lp);
+
+        p = new Path(a1, new Address("Test3", 0, 0, 0), 0);
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        p = new Path(new Address("Test3", 0, 0, 0), a2, 0);
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        p = new Path(new Address("Test3", 0, 0, 0), new Address("Test4", 0, 0, 0), 0);
+        GraphAlgorithms.fillGraph(g, la, lp);
     }
 }
