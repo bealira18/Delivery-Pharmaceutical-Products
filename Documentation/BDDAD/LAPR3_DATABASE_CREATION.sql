@@ -226,7 +226,8 @@ CREATE TABLE invoice (
     id_order        INTEGER                               CONSTRAINT nnInvoiceIdOrder              NOT NULL,
     id_pharmacy     INTEGER                               CONSTRAINT nnInvoiceIdPharmacy           NOT NULL,
     email_client    VARCHAR2(255)                         CONSTRAINT nnInvoiceEmailClient          NOT NULL,
-    total_price     NUMERIC(9,2)                          CONSTRAINT nnInvoiceTotalPrice           NOT NULL
+    total_price     NUMERIC(9,2)                          CONSTRAINT nnInvoiceTotalPrice           NOT NULL,
+    delivery_fee    INTEGER,
                                                           CONSTRAINT ckInvoiceTotalPriceNotZero    CHECK(total_price>=0)
 );
 
