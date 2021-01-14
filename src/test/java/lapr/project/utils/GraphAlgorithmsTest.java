@@ -222,7 +222,7 @@ public class GraphAlgorithmsTest {
     public void testWritePathsToFile() throws Exception {
 
         System.out.println("writePathsToFile");
-        String fileName = "testFiles\\pathTest.csv";
+        String fileName = "pathTest.csv";
         int nrPaths = 3;
 
         Graph<Address, Path> g = new Graph<>(true);

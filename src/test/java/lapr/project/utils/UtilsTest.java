@@ -25,7 +25,7 @@ public class UtilsTest {
 
         assertNull(Utils.readFile(null));
 
-        String fileName = "testFiles\\testFile.csv";
+        String fileName = "testFile.csv";
         List<String> expResult = new ArrayList<>();
         List<String> result = Utils.readFile(fileName);
         expResult.add("Path #1");
