@@ -9,7 +9,6 @@ import lapr.project.data.SettingsHandler;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -26,7 +25,6 @@ public class UpdateDeliveryFeeControllerTest {
     @BeforeAll
     public static void setUpClass() {
         SettingsHandler sh = mock(SettingsHandler.class);
-        doNothing().when(sh).saveSettings(SettingsHandler.SETTINGS_FILE);
         
         uDFC = new UpdateDeliveryFeeController();
         uDFC = new UpdateDeliveryFeeController(sh);
