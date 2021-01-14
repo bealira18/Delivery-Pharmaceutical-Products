@@ -55,43 +55,6 @@ public class ParkDB extends DataHandler {
         }
     }
 
-    public Address getAddressByAd(String address) throws SQLException{
-        Address a=null;
-
-        CallableStatement callStmt = null;
-
-        try{
-            callStmt = getConnection().prepareCall("{ ? = call getAddress(?) }");
-
-            // Regista o tipo de dados SQL para interpretar o resultado obtido.
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setString(2, address);
-            // Executa a invocação da função "getSailor".
-            callStmt.execute();
-            // Guarda o cursor retornado num objeto "ResultSet".
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
-
-            if (rSet.next()) {
-                String ad = rSet.getString(1);
-                double latitude = rSet.getDouble(2);
-                double longitude = rSet.getDouble(3);
-                double altitude = rSet.getDouble(4);
-
-                a = new Address(ad, latitude,longitude,altitude);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("This address doesn't exist:" + address);
-        } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
-        }
-
-        return a;
-    }
-
     public Park getParkById (int id) throws SQLException {
 
         Park p = null;
@@ -118,7 +81,8 @@ public class ParkDB extends DataHandler {
                 String category = rSet.getString(5);
                 String address = rSet.getString(6);
 
-                Address a = getAddressByAd(address);
+                AddressDB adb = new AddressDB();
+                Address a = adb.getAddressByAd(address);
 
                 p = new Park(idP, pharmacyId, limit, numChargingStations, category, a);
             }
@@ -134,7 +98,7 @@ public class ParkDB extends DataHandler {
         }
     }
 
-    public boolean updateCS(Park park) throws SQLException {
+    public boolean updateChargingStations(Park park) throws SQLException {
 
         Park p;
 
