@@ -9,7 +9,6 @@ import lapr.project.model.Courier;
 import lapr.project.model.Path;
 import lapr.project.model.Product;
 import lapr.project.model.Vehicle;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,10 +64,6 @@ public class GraphAlgorithmsTest {
         incompleteMap.removeEdge("Aveiro", "Viseu");
         incompleteMap.removeEdge("Leiria", "Castelo Branco");
         incompleteMap.removeEdge("Lisboa", "Faro");
-    }
-
-    @AfterEach
-    public void tearDown() throws Exception {
     }
 
     /**
@@ -478,5 +473,63 @@ public class GraphAlgorithmsTest {
         System.out.println("getShortestPathThroughNodes4");
 
         assertEquals(0.0d, GraphAlgorithms.getShortestPathThroughNodes(null, new ArrayList<>(), new LinkedList<>(), new Address("", 0, 0, 0), new Address("", 0, 0, 0)));
+    }
+
+    @Test
+    public void testGenerateCombinations() {
+
+        System.out.println("generateCombinations");
+
+        Address a1 = new Address("ali", 0, 0, 0);
+        Address a2 = new Address("aqui", 0, 0, 0);
+        Address a3 = new Address("aculoutro", 0, 0, 0);
+        Address a4 = new Address("adiante", 0, 0, 0);
+        Address a5 = new Address("hmm", 0, 0, 0);
+        Address a6 = new Address("hhmmmmmmm", 0, 0, 0);
+
+        List<Address> lNodes = new ArrayList<>();
+        lNodes.add(a2);
+        lNodes.add(a3);
+        lNodes.add(a4);
+        lNodes.add(a5);
+
+        List<LinkedList<Address>> combos = new ArrayList<>();
+
+        GraphAlgorithms.generateCombinations(lNodes.size(), lNodes, combos, a1, a6);
+
+        lNodes = new ArrayList<>();
+        lNodes.add(a2);
+        lNodes.add(a3);
+        lNodes.add(a4);
+        lNodes.add(a5);
+
+        List<LinkedList<Address>> expCombos = new ArrayList<>();
+
+        GraphAlgorithms.generateCombinations(lNodes.size(), lNodes, expCombos, a1, a6);
+
+        assertEquals(expCombos, combos);
+        assertEquals(24, combos.size());
+    }
+
+    @Test
+    public void testMergeLinkedLists() {
+
+        System.out.println("mergeLinkedLists");
+
+        Address a1 = new Address("ali", 0, 0, 0);
+        Address a2 = new Address("aqui", 0, 0, 0);
+        Address a3 = new Address("aculoutro", 0, 0, 0);
+
+        LinkedList<Address> lOrig = new LinkedList<>();
+        LinkedList<Address> lAddon = new LinkedList<>();
+
+        lOrig.add(a1);
+        lOrig.add(a2);
+
+        lAddon.add(a3);
+        lAddon.add(a2);
+
+        ArrayStoreException ex = assertThrows(ArrayStoreException.class, () -> GraphAlgorithms.mergeLinkedLists(lOrig, lAddon));
+        assertTrue(ex.getMessage().contains("Error merging Linked Lists : Head doesn't match Tail"));
     }
 }

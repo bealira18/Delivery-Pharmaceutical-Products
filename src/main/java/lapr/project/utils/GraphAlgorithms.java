@@ -153,6 +153,46 @@ public class GraphAlgorithms {
         return minLength;
     }
 
+    public static void generateCombinations(int n, List<Address> lNodes,
+            List<LinkedList<Address>> combos, Address aOrig, Address aDest) {
+
+        if (n == 1) {
+            LinkedList<Address> newWorld = new LinkedList<>();
+            newWorld.add(aOrig);
+            newWorld.addAll(lNodes);
+            newWorld.add(aDest);
+            combos.add(newWorld);
+
+        } else if (n > 1) {
+
+            for (int i = 0; i < n - 1; i++) {
+
+                generateCombinations(n - 1, lNodes, combos, aOrig, aDest);
+
+                if (n % 2 == 0) {
+                    Collections.swap(lNodes, i, n - 1);
+
+                } else {
+                    Collections.swap(lNodes, 0, n - 1);
+                }
+            }
+            generateCombinations(n - 1, lNodes, combos, aOrig, aDest);
+        }
+    }
+
+    public static void mergeLinkedLists(LinkedList<Address> lOrig, LinkedList<Address> lAddon) {
+
+        if (lOrig.isEmpty()) {
+            lOrig.addAll(lAddon);
+            return;
+        }
+        if (lOrig.getLast() != lAddon.getFirst()) {
+            throw new ArrayStoreException("Error merging Linked Lists : Head doesn't match Tail");
+        }
+        lAddon.removeFirst();
+        lOrig.addAll(lAddon);
+    }
+
     /**
      * Computes shortest-path distance from a source vertex to all reachable
      * vertices of a graph g with nonnegative edge weights This implementation
@@ -285,45 +325,5 @@ public class GraphAlgorithms {
             }
         }
         path.pop();
-    }
-
-    private static void generateCombinations(int n, List<Address> lNodes,
-            List<LinkedList<Address>> combos, Address aOrig, Address aDest) {
-
-        if (n == 1) {
-            LinkedList<Address> newWorld = new LinkedList<>();
-            newWorld.add(aOrig);
-            newWorld.addAll(lNodes);
-            newWorld.add(aDest);
-            combos.add(newWorld);
-
-        } else if (n > 1) {
-
-            for (int i = 0; i < n - 1; i++) {
-
-                generateCombinations(n - 1, lNodes, combos, aOrig, aDest);
-
-                if (n % 2 == 0) {
-                    Collections.swap(lNodes, i, n - 1);
-
-                } else {
-                    Collections.swap(lNodes, 0, n - 1);
-                }
-            }
-            generateCombinations(n - 1, lNodes, combos, aOrig, aDest);
-        }
-    }
-
-    private static void mergeLinkedLists(LinkedList<Address> lOrig, LinkedList<Address> lAddon) {
-
-        if (lOrig.isEmpty()) {
-            lOrig.addAll(lAddon);
-            return;
-        }
-        if (lOrig.getLast() != lAddon.getFirst()) {
-            throw new ArrayStoreException("Error merging Linked Lists : Head doesn't match Tail");
-        }
-        lAddon.removeFirst();
-        lOrig.addAll(lAddon);
     }
 }
