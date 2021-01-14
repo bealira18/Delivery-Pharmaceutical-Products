@@ -11,78 +11,37 @@ import java.util.logging.Logger;
 
 public class ParkDB extends DataHandler {
 
-    //Para duplicação receber o call por string e juntar as duas funções em uma
-    public int getLimitScooterPark(int idPharmacy) throws SQLException {
-        CallableStatement callStmt = null;
+    public int getLimitVehiclesPark(int idPharmacy, String vehicleType) throws SQLException {
+        CallableStatement callStt = null;
 
         try{
-            callStmt = getConnection().prepareCall("{ ? = call getLimitScooterPark(?) }");
+            callStt = getConnection().prepareCall("{ ? = call getLimitVehiclesPark(?,?) }");
 
-            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
-            callStmt.setInt(2, idPharmacy);
-            callStmt.execute();
+            callStt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStt.setInt(2, idPharmacy);
+            callStt.setString(3, vehicleType);
+            callStt.execute();
 
-            return callStmt.getInt(1);
+            return callStt.getInt(1);
         }catch(NullPointerException | NumberFormatException | SQLException ex){
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         }finally {
-            if(callStmt != null){
-                callStmt.close();
+            if(callStt != null){
+                callStt.close();
             }
         }
     }
 
-    public int getNumberOfScootersInPharmacy(int idPharmacy) throws SQLException{
+    public int getNumberOfVehiclesInPharmacy(int idPharmacy, String vehicleType) throws SQLException{
         CallableStatement callStmt = null;
 
         try{
-            callStmt = getConnection().prepareCall("{ ? = call getNumberOfScootersInPharmacy(?) }");
+            callStmt = getConnection().prepareCall("{ ? = call getNumberOfVehiclesInPharmacy(?,?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.setInt(2, idPharmacy);
-            callStmt.execute();
-
-            return callStmt.getInt(1);
-        }catch(NullPointerException | NumberFormatException | SQLException ex){
-            Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        }finally {
-            if(callStmt != null){
-                callStmt.close();
-            }
-        }
-    }
-
-    public int getLimitDronePark(int idPharmacy) throws SQLException {
-        CallableStatement callStmt = null;
-
-        try{
-            callStmt = getConnection().prepareCall("{ ? = call getLimitDronePark(?) }");
-
-            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
-            callStmt.setInt(2, idPharmacy);
-            callStmt.execute();
-
-            return callStmt.getInt(1);
-        }catch(NullPointerException | NumberFormatException | SQLException ex){
-            Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        }finally {
-            if(callStmt != null){
-                callStmt.close();
-            }
-        }
-    }
-
-    public int getNumberOfDronesInPharmacy(int idPharmacy) throws SQLException{
-        CallableStatement callStmt = null;
-
-        try{
-            callStmt = getConnection().prepareCall("{ ? = call getNumberOfDronesInPharmacy(?) }");
-
-            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
-            callStmt.setInt(2, idPharmacy);
+            callStmt.setString(3, vehicleType);
             callStmt.execute();
 
             return callStmt.getInt(1);

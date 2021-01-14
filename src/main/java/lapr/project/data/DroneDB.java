@@ -132,20 +132,20 @@ public class DroneDB extends DataHandler {
 
     public List<Drone> getAllAvailableDrones(int orderId) {
         ArrayList<Drone> drones = new ArrayList<>();
-        CallableStatement callStmt = null;
+        CallableStatement callStt = null;
         ResultSet rSet = null;
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call getAllAvailableDrones(?) }");;
+            callStt = getConnection().prepareCall("{ ? = call getAllAvailableDrones(?) }");;
 
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStt.registerOutParameter(1, OracleTypes.CURSOR);
 
-            callStmt.setInt(2, orderId);
+            callStt.setInt(2, orderId);
 
-            callStmt.execute();
+            callStt.execute();
 
-            rSet = (ResultSet) callStmt.getObject(1);
+            rSet = (ResultSet) callStt.getObject(1);
 
             while (rSet.next()) {
                 drones.add(getIdDrone(rSet.getInt(1)));
