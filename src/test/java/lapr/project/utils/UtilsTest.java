@@ -1,10 +1,7 @@
 package lapr.project.utils;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,9 +18,9 @@ public class UtilsTest {
 
         System.out.println("readFile");
 
-        assertEquals(new ArrayList<>(), Utils.readFile(""));
+        assertNull(Utils.readFile(""));
 
-        assertEquals(new ArrayList<>(), Utils.readFile(null));
+        assertNull(Utils.readFile(null));
 
         String fileName = "testFile.csv";
         List<String> expResult = new ArrayList<>();

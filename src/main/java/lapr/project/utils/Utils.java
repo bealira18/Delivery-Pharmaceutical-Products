@@ -17,7 +17,7 @@ public class Utils {
     public static List<String> readFile(String fileName) {
 
         if (fileName == null || fileName.trim().isEmpty()) {
-            return new ArrayList<>();
+            return null;
         }
         try {
             return Files.lines(Paths.get(fileName)).collect(Collectors.toList());
@@ -33,6 +33,6 @@ public class Utils {
                 Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return new ArrayList<>();
+        return null;
     }
 }
