@@ -21,9 +21,9 @@ public class UtilsTest {
 
         System.out.println("readFile");
 
-        assertNull(Utils.readFile(""));
+        assertEquals(new ArrayList<>(), Utils.readFile(""));
 
-        assertNull(Utils.readFile(null));
+        assertEquals(new ArrayList<>(), Utils.readFile(null));
 
         String fileName = "testFile.csv";
         List<String> expResult = new ArrayList<>();

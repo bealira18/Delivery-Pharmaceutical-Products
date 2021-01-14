@@ -262,11 +262,6 @@ public class GraphAlgorithmsTest {
         int result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
         assertEquals(expResult, result);
 
-        List<String> expResultString = Utils.readFile(fileName);
-        GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
-        List<String> resultString = Utils.readFile(fileName);
-        assertEquals(expResultString, resultString);
-
         nrPaths = 0;
         expResult = 0;
         llla = new LinkedList<>();
@@ -277,5 +272,63 @@ public class GraphAlgorithmsTest {
         result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
         assertEquals(expResult, result);
 
+    }
+
+    @Test
+    public void testWritePathsToFile2() throws Exception {
+
+        System.out.println("writePathsToFile2");
+
+        System.out.println("writePathsToFile");
+        String fileName = "pathTest.csv";
+        int nrPaths = 2;
+
+        Graph<Address, Path> g = new Graph<>(true);
+        List<Address> la = new ArrayList<>();
+        List<Path> lp = new ArrayList<>();
+
+        Address a1 = new Address("casa da musica", 41.158056, 8.630556, 83);
+        Address a2 = new Address("conservatorio", 41.155556, 8.623056, 79);
+        Address a3 = new Address("trindade", 41.151667, 8.609444, 86);
+        la.add(a1);
+        la.add(a2);
+        la.add(a3);
+        lp.add(new Path(a1, a2, 0));
+        lp.add(new Path(a2, a3, 0));
+        lp.add(new Path(a2, a1, 0));
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        LinkedList<Address> lla = new LinkedList<>();
+        lla.add(a1);
+        lla.add(a2);
+        lla.add(a3);
+
+        LinkedList<Address> lla2 = new LinkedList<>();
+        lla2.add(a1);
+        lla2.add(a2);
+        lla2.add(a1);
+
+        List<LinkedList<Address>> llla = new ArrayList<>();
+        llla.add(lla);
+        llla.add(lla2);
+
+        Courier c = new Courier("TestMail", "TestPass", "Name", 0, 0, 0, 80.0);
+        Vehicle v = new Vehicle(0, 0, 130.0, 1.1, 1, 250, 500, 500);
+        List<Product> lpro = new ArrayList<>();
+
+        List<String> expResult = new ArrayList<>();
+        expResult.add("Path #1");
+        expResult.add("Total Distance = 1.905651978328597km.");
+        expResult.add("Total Energy Consumption = 0.11634853102384513W.");
+        expResult.add("casa da musica;conservatorio;trindade;");
+        expResult.add("Path #2");
+        expResult.add("Total Distance = 1.3733907506501952km.");
+        expResult.add("Total Energy Consumption = 0.08385161518318578W.");
+        expResult.add("casa da musica;conservatorio;casa da musica;");
+
+        GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
+        List<String> result = Utils.readFile(fileName);
+
+        assertEquals(expResult, result);
     }
 }
