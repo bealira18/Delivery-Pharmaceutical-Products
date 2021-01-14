@@ -22,6 +22,9 @@ public class UpdateNrChargingStationsController {
 
         Park sp = spDB.getParkById(parkId);
 
+        if(sp==null)
+            return false;
+
         if(sp.getLimit()<nr)
             return false;
 
