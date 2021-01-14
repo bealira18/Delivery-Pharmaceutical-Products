@@ -33,7 +33,7 @@ public class PharmacyDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
-            callStmt.getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?) }");
 
             callStmt.setString(1, address);
             callStmt.setDouble(2, lat);
