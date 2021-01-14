@@ -320,7 +320,7 @@ public class GraphAlgorithms {
             lOrig.addAll(lAddon);
             return;
         }
-        if (!(lOrig.getLast() == lAddon.getFirst())) {
+        if (lOrig.getLast() != lAddon.getFirst()) {
             throw new ArrayStoreException("Error merging Linked Lists : Head doesn't match Tail");
         }
         lAddon.removeFirst();

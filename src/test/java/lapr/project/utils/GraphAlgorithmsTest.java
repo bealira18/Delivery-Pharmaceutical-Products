@@ -432,6 +432,25 @@ public class GraphAlgorithmsTest {
         double expResult = 20.12;
         double result = GraphAlgorithms.getShortestPathThroughNodes(g, lNodes, path, aOrig, aDest);
         assertEquals(expResult, result, 1);
+
+        LinkedList<Address> expPath = new LinkedList<>();
+        expPath.add(a1);
+        expPath.add(a2);
+        expPath.add(a6);
+        expPath.add(a7);
+        expPath.add(a6);
+        expPath.add(a2);
+        expPath.add(a5);
+        expPath.add(a3);
+        expPath.add(a4);
+        expPath.add(a5);
+        expPath.add(a2);
+        expPath.add(a1);
+        expPath.add(a11);
+        expPath.add(a9);
+        expPath.add(a1);
+        expPath.add(a11);
+        assertEquals(expPath, path);
     }
 
     @Test
