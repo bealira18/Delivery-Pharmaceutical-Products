@@ -43,10 +43,13 @@ public class ClientDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+        finally
+        {
+            closeAll();
         }
         return true;
     }
@@ -67,10 +70,12 @@ public class ClientDB extends DataHandler {
             callStmt.setInt(2, creditsEarned);
 
             callStmt.execute();
-
-            closeAll();
+            
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            closeAll();
         }
     }
 }
