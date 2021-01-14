@@ -31,4 +31,16 @@ public class UtilsTest {
         expResult.add("aqui;ali;");
         assertEquals(expResult, result);
     }
+
+    @Test
+    public void testReadFile2() {
+
+        System.out.println("readFile2");
+
+        String fileName = "testFail.csv";
+
+        List<String> expResult = null;
+        List<String> result = Utils.readFile(fileName);
+        assertEquals(expResult, result);
+    }
 }
