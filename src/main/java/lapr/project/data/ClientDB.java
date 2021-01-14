@@ -50,4 +50,27 @@ public class ClientDB extends DataHandler {
         }
         return true;
     }
+
+    public void updateCredits(String email, int creditsEarned) {
+    
+        try {
+            openConnection();
+            /*
+             *  Objeto "callStmt" para invocar o procedimento "addClientCredits" armazenado
+             *  na BD.
+             *
+             *  CREATE OR REPLACE PROCEDURE addClientCredits(email_pr VARCHAR2, credits_pr INT)
+             */
+            CallableStatement callStmt = getConnection().prepareCall("{ call addClientCredits(?,?) }");
+
+            callStmt.setString(1, email);
+            callStmt.setInt(2, creditsEarned);
+
+            callStmt.execute();
+
+            closeAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
