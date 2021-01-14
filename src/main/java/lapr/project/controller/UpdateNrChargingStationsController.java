@@ -3,6 +3,8 @@ package lapr.project.controller;
 import lapr.project.data.ParkDB;
 import lapr.project.model.Park;
 
+import java.sql.SQLException;
+
 public class UpdateNrChargingStationsController {
 
     private final ParkDB spDB;
@@ -16,14 +18,13 @@ public class UpdateNrChargingStationsController {
     }
 
     @SuppressWarnings("null")
-    public boolean updateNrChargingStations(int parkId, int nr) {
+    public boolean updateNrChargingStations(int parkId, int nr) throws SQLException {
 
-        //SQL Para ir buscar parque em questão.
-        //Verificar se nr + atual numChargingStations não excede limite.
-        //Se sim, petáculo.
-        //Após isso, percorrer os parking spaces e torná-los em charging stations na BDDAD.
-        Park sp = null; //Função para ir buscar o sp em questão
-        sp.setNumChargingStations(nr);
-        return true;
+        Park sp = spDB.getParkById(parkId);
+
+        if(sp.getLimit()<nr)
+            return false;
+
+        return spDB.updateCS(sp);
     }
 }
