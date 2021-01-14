@@ -18,9 +18,9 @@ public class UtilsTest {
 
         System.out.println("readFile");
 
-        assertNull(Utils.readFile(""));
+        assertEquals(new ArrayList<>(), Utils.readFile(""));
 
-        assertNull(Utils.readFile(null));
+        assertEquals(new ArrayList<>(), Utils.readFile(null));
 
         String fileName = "testFile.csv";
         List<String> expResult = new ArrayList<>();
@@ -39,7 +39,7 @@ public class UtilsTest {
 
         String fileName = "testFail.csv";
 
-        List<String> expResult = null;
+        List<String> expResult = new ArrayList<>();
         List<String> result = Utils.readFile(fileName);
         assertEquals(expResult, result);
     }
