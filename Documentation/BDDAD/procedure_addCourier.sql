@@ -1,10 +1,10 @@
 CREATE OR REPLACE PROCEDURE addCourier(
     p_id_pharmacy IN INTEGER,
-    p_email IN VARCHAR2, 
-    p_name IN VARCHAR2, 
+    p_email IN courier.email%TYPE,
+    p_name IN courier.name%TYPE,
     p_nif IN INTEGER,
     p_social_security IN NUMERIC,
-    p_weight IN NUMERIC) 
+    p_weight IN NUMERIC)
 IS
     int_already_registered INTEGER;
 BEGIN
@@ -25,3 +25,4 @@ BEGIN
     VALUES(p_email, p_name, p_nif, p_social_security, p_id_pharmacy, p_weight);
 
 END;
+/

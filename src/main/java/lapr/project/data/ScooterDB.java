@@ -96,20 +96,20 @@ public class ScooterDB extends DataHandler {
 
     public List<Scooter> getAllAvailableScooters(int orderId) {
         ArrayList<Scooter> scooters = new ArrayList<>();
-        CallableStatement callStmt = null;
+        CallableStatement callStm = null;
         ResultSet rSet = null;
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call getAllAvailableScooters(?) }");;
+            callStm = getConnection().prepareCall("{ ? = call getAllAvailableScooters(?) }");;
 
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStm.registerOutParameter(1, OracleTypes.CURSOR);
 
-            callStmt.setInt(2, orderId);
+            callStm.setInt(2, orderId);
 
-            callStmt.execute();
+            callStm.execute();
 
-            rSet = (ResultSet) callStmt.getObject(1);
+            rSet = (ResultSet) callStm.getObject(1);
 
             while (rSet.next()) {
                 scooters.add(getIdScooter(rSet.getInt(1)));

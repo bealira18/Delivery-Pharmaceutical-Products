@@ -7,6 +7,8 @@ import oracle.jdbc.OracleTypes;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -128,5 +130,32 @@ public class DroneDB extends DataHandler {
         return false;
     }
 
+    public List<Drone> getAllAvailableDrones(int orderId) {
+        ArrayList<Drone> drones = new ArrayList<>();
+        CallableStatement callStt = null;
+        ResultSet rSet = null;
+        try {
+            openConnection();
+
+            callStt = getConnection().prepareCall("{ ? = call getAllAvailableDrones(?) }");;
+
+            callStt.registerOutParameter(1, OracleTypes.CURSOR);
+
+            callStt.setInt(2, orderId);
+
+            callStt.execute();
+
+            rSet = (ResultSet) callStt.getObject(1);
+
+            while (rSet.next()) {
+                drones.add(getIdDrone(rSet.getInt(1)));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeAll();
+        }
+        return drones;
+    }
 
 }

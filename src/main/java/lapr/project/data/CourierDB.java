@@ -32,7 +32,7 @@ public class CourierDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
-            callStmt.getConnection().prepareCall("{ call addCourier(?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addCourier(?,?,?,?,?,?) }");
 
             callStmt.setInt(1, pharmacyId);
             callStmt.setString(2, email);

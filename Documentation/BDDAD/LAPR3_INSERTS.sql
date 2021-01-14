@@ -32,9 +32,9 @@ INSERT INTO address(address, latitude, longitude, altitude) VALUES ('estadio do 
 -- ## table Path ##
 INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('casa da musica', 'conservatorio', 0);
 INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('conservatorio', 'casa da musica', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('casa da musica', 'estadio do bessa', 0); --one directional
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('estadio do bessa', 'parque de serralves', 0); --one directional
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('parque de serralves', 'casa da musica', 0); --one directional
+INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('casa da musica', 'estadio do bessa', 0);
+INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('estadio do bessa', 'parque de serralves', 0);
+INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('parque de serralves', 'casa da musica', 0);
 INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('casa da musica', 'pavilhao rosa mota', 0);
 INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('pavilhao rosa mota', 'casa da musica', 0);
 INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('conservatorio', 'trindade', 0);
@@ -85,23 +85,23 @@ INSERT INTO productCategory(name) VALUES ('Vacinas');
 INSERT INTO productCategory(name) VALUES ('Vitaminas');
 
 -- ## table Product ##
-INSERT INTO product(name, price, weight, id_category) VALUES ('Ben-u-ron', 2.40, 0.1, 1);--1
-INSERT INTO product(name, price, weight, id_category) VALUES ('Ibuprofeno', 4.70, 0.2, 1);--2
-INSERT INTO product(name, price, weight, id_category) VALUES ('Imodium Rapid', 7.95, 0.25, 1);--3
+INSERT INTO product(name, price, weight, id_category) VALUES ('Ben-u-ron', 2.40, 0.1, 1);
+INSERT INTO product(name, price, weight, id_category) VALUES ('Ibuprofeno', 4.70, 0.2, 1);
+INSERT INTO product(name, price, weight, id_category) VALUES ('Imodium Rapid', 7.95, 0.25, 1);
 
-INSERT INTO product(name, price, weight, id_category) VALUES ('Escova de Dentes Colgate', 3.99, 0.08, 2);--4
-INSERT INTO product(name, price, weight, id_category) VALUES ('Escova de Dentes Deluxe Edition', 15.99, 0.8, 2);--5
-INSERT INTO product(name, price, weight, id_category) VALUES ('Fio Dentario Colgate', 3.49, 0.05, 2);--6
-INSERT INTO product(name, price, weight, id_category) VALUES ('Pasta Dentes Gengivas Bonitas Oral-B', 3.36, 0.35, 2);--7
+INSERT INTO product(name, price, weight, id_category) VALUES ('Escova de Dentes Colgate', 3.99, 0.08, 2);
+INSERT INTO product(name, price, weight, id_category) VALUES ('Escova de Dentes Deluxe Edition', 15.99, 0.8, 2);
+INSERT INTO product(name, price, weight, id_category) VALUES ('Fio Dentario Colgate', 3.49, 0.05, 2);
+INSERT INTO product(name, price, weight, id_category) VALUES ('Pasta Dentes Gengivas Bonitas Oral-B', 3.36, 0.35, 2);
 
-INSERT INTO product(name, price, weight, id_category) VALUES ('Gel Lubrificante', 25.30, 0.45, 3);--8
-INSERT INTO product(name, price, weight, id_category) VALUES ('Preservativos Non-Stop', 10.99, 0.25, 3);--9
+INSERT INTO product(name, price, weight, id_category) VALUES ('Gel Lubrificante', 25.30, 0.45, 3);
+INSERT INTO product(name, price, weight, id_category) VALUES ('Preservativos Non-Stop', 10.99, 0.25, 3);
 
-INSERT INTO product(name, price, weight, id_category) VALUES ('Vacina Mata Tudo', 7.99, 0.03, 4);--10
+INSERT INTO product(name, price, weight, id_category) VALUES ('Vacina Mata Tudo', 7.99, 0.03, 4);
 
-INSERT INTO product(name, price, weight, id_category) VALUES ('Saquetas Anti Stress', 9.50, 0.20, 5);--11
-INSERT INTO product(name, price, weight, id_category) VALUES ('Vitamina C Framboesa Comprimidos', 8.40, 0.15, 5);--12
-INSERT INTO product(name, price, weight, id_category) VALUES ('Vitamina D Menta Comprimidos', 21.65, 0.15, 5);--13
+INSERT INTO product(name, price, weight, id_category) VALUES ('Saquetas Anti Stress', 9.50, 0.20, 5);
+INSERT INTO product(name, price, weight, id_category) VALUES ('Vitamina C Framboesa Comprimidos', 8.40, 0.15, 5);
+INSERT INTO product(name, price, weight, id_category) VALUES ('Vitamina D Menta Comprimidos', 21.65, 0.15, 5);
 
 -- ## table Stock ##
 INSERT INTO stock(id_pharmacy, id_product, quantity) VALUES (1, 1, 10);

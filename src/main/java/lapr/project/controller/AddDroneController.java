@@ -23,7 +23,7 @@ public class AddDroneController {
 
     public boolean addDrone(Drone drone) throws SQLException {
 
-        if (parkDB.getNumberOfDronesInPharmacy(drone.getIdPharmacy()) < parkDB.getLimitDronePark(drone.getIdPharmacy())) {
+        if (parkDB.getNumberOfVehiclesInPharmacy(drone.getIdPharmacy(), "drone") < parkDB.getLimitVehiclesPark(drone.getIdPharmacy(), "drone")) {
             return droneDB.addDrone(drone);
         }
         return false;
