@@ -9,6 +9,7 @@ import lapr.project.model.Courier;
 import lapr.project.model.Path;
 import lapr.project.model.Product;
 import lapr.project.model.Vehicle;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -64,6 +65,10 @@ public class GraphAlgorithmsTest {
         incompleteMap.removeEdge("Aveiro", "Viseu");
         incompleteMap.removeEdge("Leiria", "Castelo Branco");
         incompleteMap.removeEdge("Lisboa", "Faro");
+    }
+
+    @AfterEach
+    public void tearDown() throws Exception {
     }
 
     /**
@@ -330,5 +335,129 @@ public class GraphAlgorithmsTest {
         List<String> result = Utils.readFile(fileName);
 
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getShortestPathThroughNodes method, of class GraphAlgorithms.
+     */
+    @Test
+    public void testGetShortestPathThroughNodes() {
+
+        System.out.println("getShortestPathThroughNodes");
+
+        Graph<Address, Path> g = new Graph<>(true);
+        List<Address> la = new ArrayList<>();
+        List<Path> lp = new ArrayList<>();
+
+        Address a1 = new Address("casa da musica", 41.158056, 8.630556, 83);
+        Address a2 = new Address("conservatorio", 41.155556, 8.623056, 79);
+        Address a3 = new Address("isep", 41.178333, 8.606389, 103);
+        Address a4 = new Address("feup", 41.1775, 8.598056, 111);
+        Address a5 = new Address("trindade", 41.151667, 8.609444, 86);
+        Address a6 = new Address("torre dos clerigos", 41.145833, 8.613889, 74);
+        Address a7 = new Address("se do porto", 41.143056, 8.611111, 72);
+        Address a8 = new Address("el corte ingles", 41.125556, 8.605278, 99);
+        Address a9 = new Address("parque de serralves", 41.159722, 8.659722, 60);
+        Address a10 = new Address("pavilhao rosa mota", 41.148333, 8.625278, 72);
+        Address a11 = new Address("estadio do bessa", 41.162222, 8.643333, 66);
+
+        la.add(a1);
+        la.add(a2);
+        la.add(a3);
+        la.add(a4);
+        la.add(a5);
+        la.add(a6);
+        la.add(a7);
+        la.add(a8);
+        la.add(a9);
+        la.add(a10);
+        la.add(a11);
+
+        Path p1 = new Path(a1, a2, 0);
+        Path p2 = new Path(a2, a1, 0);
+        Path p3 = new Path(a1, a11, 0);
+        Path p4 = new Path(a11, a9, 0);
+        Path p5 = new Path(a9, a1, 0);
+        Path p6 = new Path(a1, a10, 0);
+        Path p7 = new Path(a10, a1, 0);
+        Path p8 = new Path(a2, a5, 0);
+        Path p9 = new Path(a5, a2, 0);
+        Path p10 = new Path(a10, a6, 0);
+        Path p11 = new Path(a6, a10, 0);
+        Path p12 = new Path(a2, a6, 0);
+        Path p13 = new Path(a6, a2, 0);
+        Path p14 = new Path(a6, a7, 0);
+        Path p15 = new Path(a7, a6, 0);
+        Path p16 = new Path(a7, a8, 0);
+        Path p17 = new Path(a8, a7, 0);
+        Path p18 = new Path(a5, a3, 0);
+        Path p19 = new Path(a3, a4, 0);
+        Path p20 = new Path(a4, a5, 0);
+
+        lp.add(p1);
+        lp.add(p2);
+        lp.add(p3);
+        lp.add(p4);
+        lp.add(p5);
+        lp.add(p6);
+        lp.add(p7);
+        lp.add(p8);
+        lp.add(p9);
+        lp.add(p10);
+        lp.add(p11);
+        lp.add(p12);
+        lp.add(p13);
+        lp.add(p14);
+        lp.add(p15);
+        lp.add(p16);
+        lp.add(p17);
+        lp.add(p18);
+        lp.add(p19);
+        lp.add(p20);
+
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        List<Address> lNodes = new ArrayList<>();
+
+        lNodes.add(a3);
+        lNodes.add(a5);
+        lNodes.add(a7);
+        lNodes.add(a9);
+
+        LinkedList<Address> path = new LinkedList<>();
+
+        Address aOrig = a1;
+        Address aDest = a11;
+
+        double expResult = 20.12;
+        double result = GraphAlgorithms.getShortestPathThroughNodes(g, lNodes, path, aOrig, aDest);
+        assertEquals(expResult, result, 1);
+    }
+
+    @Test
+    public void testGetShortestPathThroughNodes2() {
+
+        System.out.println("getShortestPathThroughNodes2");
+
+        Graph<Address, Path> g = new Graph<>(true);
+        assertEquals(0.0d, GraphAlgorithms.getShortestPathThroughNodes(g, new ArrayList<>(), new LinkedList<>(), new Address("", 0, 0, 0), new Address("", 0, 0, 0)));
+    }
+
+    @Test
+    public void testGetShortestPathThroughNodes3() {
+
+        System.out.println("getShortestPathThroughNodes3");
+
+        List<Address> lNodes = new ArrayList<>();
+        lNodes.add(new Address("", 0, 0, 0));
+        assertEquals(0.0d, GraphAlgorithms.getShortestPathThroughNodes(new Graph<>(true), lNodes, new LinkedList<>(), new Address("", 0, 0, 0), new Address("", 0, 0, 0)));
+    }
+
+    @Test
+    public void testGetShortestPathThroughNodes4() {
+
+        System.out.println("getShortestPathThroughNodes4");
+
+        assertEquals(0.0d, GraphAlgorithms.getShortestPathThroughNodes(null, new ArrayList<>(), new LinkedList<>(), new Address("", 0, 0, 0), new Address("", 0, 0, 0)));
     }
 }

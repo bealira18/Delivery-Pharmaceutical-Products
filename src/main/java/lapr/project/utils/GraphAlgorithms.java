@@ -87,7 +87,7 @@ public class GraphAlgorithms {
         }
         FileWriter fw = new FileWriter(fileName);
         BufferedWriter bw = new BufferedWriter(fw);
-       
+
         for (int i = 0; i < nrPaths; i++) {
 
             bw.write("Path #" + (i + 1));
@@ -107,6 +107,50 @@ public class GraphAlgorithms {
         fw.close();
 
         return nrPaths;
+    }
+
+    public static double getShortestPathThroughNodes(Graph<Address, Path> g, List<Address> lNodes,
+            LinkedList<Address> path, Address aOrig, Address aDest) {
+
+        if (g == null || lNodes.isEmpty()) {
+            return 0.0d;
+        }
+        List<LinkedList<Address>> combos = new ArrayList<>();
+        generateCombinations(lNodes.size(), lNodes, combos, aOrig, aDest);
+
+        double minLength = 0.0d;
+        double currentLength;
+        double shortestPathBufferLength;
+        LinkedList<Address> workList = new LinkedList<>();
+        LinkedList<Address> shortestPathBuffer = new LinkedList<>();
+
+        for (LinkedList<Address> combo : combos) {
+
+            workList.clear();
+            currentLength = 0.0d;
+
+            for (int i = 0; i < combo.size() - 1; i++) {
+
+                shortestPathBuffer.clear();
+                shortestPathBufferLength = shortestPath(g, combo.get(i), combo.get(i + 1), shortestPathBuffer);
+
+                if (shortestPathBufferLength == 0) {
+                    continue;
+                }
+                currentLength += shortestPathBufferLength;
+
+                if (currentLength > minLength && minLength != 0) {
+                    continue;
+                }
+                mergeLinkedLists(workList, shortestPathBuffer);
+            }
+            if (minLength == 0 || minLength > currentLength) {
+                minLength = currentLength;
+                path.clear();
+                path.addAll(workList);
+            }
+        }
+        return minLength;
     }
 
     /**
@@ -241,5 +285,45 @@ public class GraphAlgorithms {
             }
         }
         path.pop();
+    }
+
+    private static void generateCombinations(int n, List<Address> lNodes,
+            List<LinkedList<Address>> combos, Address aOrig, Address aDest) {
+
+        if (n == 1) {
+            LinkedList<Address> newWorld = new LinkedList<>();
+            newWorld.add(aOrig);
+            newWorld.addAll(lNodes);
+            newWorld.add(aDest);
+            combos.add(newWorld);
+
+        } else if (n > 1) {
+
+            for (int i = 0; i < n - 1; i++) {
+
+                generateCombinations(n - 1, lNodes, combos, aOrig, aDest);
+
+                if (n % 2 == 0) {
+                    Collections.swap(lNodes, i, n - 1);
+
+                } else {
+                    Collections.swap(lNodes, 0, n - 1);
+                }
+            }
+            generateCombinations(n - 1, lNodes, combos, aOrig, aDest);
+        }
+    }
+
+    private static void mergeLinkedLists(LinkedList<Address> lOrig, LinkedList<Address> lAddon) {
+
+        if (lOrig.isEmpty()) {
+            lOrig.addAll(lAddon);
+            return;
+        }
+        if (!(lOrig.getLast() == lAddon.getFirst())) {
+            throw new ArrayStoreException("Error merging Linked Lists : Head doesn't match Tail");
+        }
+        lAddon.removeFirst();
+        lOrig.addAll(lAddon);
     }
 }
