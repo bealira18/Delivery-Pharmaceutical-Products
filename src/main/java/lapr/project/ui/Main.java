@@ -7,7 +7,6 @@ import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
 import lapr.project.model.Courier;
 import lapr.project.model.Pharmacy;
-import lapr.project.model.Sailor;
 
 import java.io.FileInputStream;
 import java.io.IOException;
