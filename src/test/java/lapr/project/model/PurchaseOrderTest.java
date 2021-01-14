@@ -69,9 +69,29 @@ public class PurchaseOrderTest {
     public void testGetDeliveryFee() {
 
         System.out.println("getDeliveryFee");
-        double expResult = PurchaseOrder.getDeliveryFee();
+        System.setProperty("purchase.order.delivery.fee", "0.0");
+        double expResult = 0.0;
         double result = PurchaseOrder.getDeliveryFee();
-        assertEquals(expResult, result, 0.0);
+        assertEquals(expResult, result, 0.01);
+        
+        System.setProperty("purchase.order.delivery.fee", "5.4");
+        expResult = 5.4;
+        result = PurchaseOrder.getDeliveryFee();
+        assertEquals(expResult, result, 0.01);
+        
+        System.setProperty("purchase.order.delivery.fee", "12.54");
+        expResult = 12.54;
+        result = PurchaseOrder.getDeliveryFee();
+        assertEquals(expResult, result, 0.01);
+        
+        
+        System.setProperty("purchase.order.delivery.fee", "-5.4");
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            PurchaseOrder.getDeliveryFee();
+        });
+        assertEquals("Invalid Numeric Value (Negative Delivery Fee). Please check your configuration file.", ex.getMessage());
+        
+        
     }
 
     /**
