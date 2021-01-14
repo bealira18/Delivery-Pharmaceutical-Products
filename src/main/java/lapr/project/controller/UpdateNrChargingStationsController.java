@@ -28,6 +28,6 @@ public class UpdateNrChargingStationsController {
         if(sp.getLimit()<nr)
             return false;
 
-        return spDB.updateCS(sp);
+        return spDB.updateChargingStations(sp);
     }
 }
