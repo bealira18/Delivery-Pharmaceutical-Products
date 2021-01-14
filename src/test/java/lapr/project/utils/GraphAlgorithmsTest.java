@@ -222,7 +222,7 @@ public class GraphAlgorithmsTest {
     public void testWritePathsToFile() throws Exception {
 
         System.out.println("writePathsToFile");
-        String fileName = "pathTest.txt";
+        String fileName = "testFiles\\pathTest.csv";
         int nrPaths = 3;
 
         Graph<Address, Path> g = new Graph<>(true);
@@ -262,6 +262,11 @@ public class GraphAlgorithmsTest {
         int result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
         assertEquals(expResult, result);
 
+        List<String> expResultString = Utils.readFile(fileName);
+        GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
+        List<String> resultString = Utils.readFile(fileName);
+        assertEquals(expResultString, resultString);
+
         nrPaths = 0;
         expResult = 0;
         llla = new LinkedList<>();
@@ -271,5 +276,6 @@ public class GraphAlgorithmsTest {
         llla.add(lla);
         result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
         assertEquals(expResult, result);
+
     }
 }
