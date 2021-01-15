@@ -67,7 +67,7 @@ public class StockDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
-            callStmt.getConnection().prepareCall("{ call removeProductFromCatalog(?,?) }");
+            callStmt = getConnection().prepareCall("{ call removeProductFromCatalog(?,?) }");
 
             callStmt.setInt(1, idPharmacy);
             callStmt.setInt(2, idProduct);
