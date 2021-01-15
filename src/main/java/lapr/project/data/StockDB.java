@@ -23,12 +23,51 @@ public class StockDB extends DataHandler {
         }
     }
 
+    public boolean removeProductToPharmacyCatalog(Stock stock)throws SQLException {
+
+        openConnection();
+
+        try{
+            return removeProductToPharmacyCatalog(stock.getPharmacyId(), stock.getProductId());
+
+        }catch (NullPointerException | SQLException ex){
+            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+            return false;
+        }
+    }
+
     public boolean addProductToPharmacyCatalog(int idPharmacy, int idProduct)throws SQLException {
 
         CallableStatement callStmt = null;
 
         try {
             callStmt.getConnection().prepareCall("{ call addProductToPharmacyCatalog(?,?) }");
+
+            callStmt.setInt(1, idPharmacy);
+            callStmt.setInt(2, idProduct);
+
+            callStmt.execute();
+            return true;
+
+        } catch (NullPointerException | SQLException ex){
+            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+
+        }finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+    }
+
+    public boolean removeProductToPharmacyCatalog(int idPharmacy, int idProduct)throws SQLException {
+
+        CallableStatement callStmt = null;
+
+        try {
+            callStmt.getConnection().prepareCall("{ call removeProductFromCatalog(?,?) }");
 
             callStmt.setInt(1, idPharmacy);
             callStmt.setInt(2, idProduct);
