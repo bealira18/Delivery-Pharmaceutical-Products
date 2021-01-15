@@ -1,11 +1,13 @@
 package lapr.project.ui;
 
 import lapr.project.controller.AddCourierController;
+import lapr.project.controller.AddDroneController;
 import lapr.project.controller.AddPharmacyController;
 import lapr.project.data.CourierDB;
 import lapr.project.data.DataHandler;
 import lapr.project.model.Address;
 import lapr.project.model.Courier;
+import lapr.project.model.Drone;
 import lapr.project.model.Pharmacy;
 
 import java.io.FileInputStream;
@@ -49,9 +51,27 @@ class Main {
         dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
         dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
 
+        //AddCourierController
+        //AddCourierController addCourierController = new AddCourierController();
+        //addCourierController.addCourier("c1@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85);
+        //System.out.println(addCourierController.findPharmacies());
 
-        AddCourierController addCourierController = new AddCourierController();
-        addCourierController.addCourier("c1@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85);
+        //AddDroneController
+        /*AddDroneController addDroneController = new AddDroneController();
+        Drone drone = new Drone(11, 1, 20, 40, 50, 60, 10, 100, 1);
+        Drone drone1 = new Drone(12, 1, 20, 40, 50, 60, 10, 100, 1);
+        Drone drone2 = new Drone(13, 1, 20, 40, 50, 60, 10, 100, 1);
+        Drone drone3 = new Drone(14, 1, 20, 40, 50, 60, 10, 100, 1);
+        Drone drone4 = new Drone(15, 1, 20, 40, 50, 60, 10, 100, 1);
+        Drone drone5 = new Drone(16, 1, 20, 40, 50, 60, 10, 100, 1);
+
+        addDroneController.addDrone(drone);
+        addDroneController.addDrone(drone1);
+        addDroneController.addDrone(drone2);
+        addDroneController.addDrone(drone3);
+        addDroneController.addDrone(drone4);
+        addDroneController.addDrone(drone5);*/
+
 
         /*Address a = new Address("Test", 0, 0, 0);
         Pharmacy p = new Pharmacy(0, "TestPharma", a);

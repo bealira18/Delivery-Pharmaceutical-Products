@@ -1,4 +1,3 @@
-
 CREATE OR REPLACE FUNCTION getLimitScooterPark(idPharmacy IN INTEGER)
 return INTEGER
 IS
