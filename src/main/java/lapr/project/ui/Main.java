@@ -46,8 +46,8 @@ class Main {
 
         //Initial Database Setup
         DataHandler dh = new DataHandler();
-        //dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
-        //dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
+        dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
+        dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
 
         //AddCourierController
         //AddCourierController addCourierController = new AddCourierController();
@@ -81,10 +81,12 @@ class Main {
         Park park2 = new Park(3, 1, 1,1, "scooter", a2);
         System.out.println(addParkController.addPark(park2));*/
 
-        /*Address a = new Address("Test", 0, 0, 0);
+
+        //AddPharmacyController
+        /*Address a = new Address("testeAddress", 0, 0, 0);
         Pharmacy p = new Pharmacy(0, "TestPharma", a);
         AddPharmacyController addPharmacyController = new AddPharmacyController();
-        addPharmacyController.addPharmacy(a,p,2);*/
+        System.out.println(addPharmacyController.addPharmacy(a,p,2,2));*/
     }
 
 }

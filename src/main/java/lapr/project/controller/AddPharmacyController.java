@@ -19,8 +19,8 @@ public class AddPharmacyController {
         this.pDB = pDB;
     }
 
-    public boolean addPharmacy(Address a, Pharmacy p, int limit) throws SQLException {
+    public boolean addPharmacy(Address a, Pharmacy p, int limitScooterPark, int limitDronePark) throws SQLException {
 
-        return pDB.addPharmacy(a, p, limit);
+        return pDB.addPharmacy(a, p, limitScooterPark, limitDronePark);
     }
 }

@@ -23,9 +23,10 @@ public class AddPharmacyControllerTest {
         Address a = new Address("Test", 0, 0, 0);
         Pharmacy p = new Pharmacy(0, "TestPharma", a);
         PharmacyDB pDB = mock(PharmacyDB.class);
-        int limit = 2;
+        int limitScooterPark = 2;
+        int limitDronePark = 2;
 
-        when(pDB.addPharmacy(a, p, limit)).thenReturn(Boolean.TRUE);
+        when(pDB.addPharmacy(a, p, limitScooterPark, limitDronePark)).thenReturn(Boolean.TRUE);
 
         pCont = new AddPharmacyController();
         pCont = new AddPharmacyController(pDB);
@@ -43,26 +44,27 @@ public class AddPharmacyControllerTest {
 
         Address a = new Address("Test", 0, 0, 0);
         Pharmacy p = new Pharmacy(0, "TestPharma", a);
-        int limit = 2;
+        int limitScooterPark = 2;
+        int limitDronePark = 2;
 
         boolean expResult = true;
-        boolean result = pCont.addPharmacy(a, p, limit);
+        boolean result = pCont.addPharmacy(a, p, limitScooterPark, limitDronePark);
         assertEquals(expResult, result);
 
         PharmacyDB pDB = mock(PharmacyDB.class);
-        when(pDB.addPharmacy(a, new Pharmacy(0, "TestPharma", a), limit)).thenReturn(Boolean.FALSE);
+        when(pDB.addPharmacy(a, new Pharmacy(0, "TestPharma", a), limitScooterPark, limitDronePark)).thenReturn(Boolean.FALSE);
         AddPharmacyController pCont1 = new AddPharmacyController(pDB);
 
         expResult = false;
-        result = pCont1.addPharmacy(a, p, limit);
+        result = pCont1.addPharmacy(a, p, limitScooterPark, limitDronePark);
         assertEquals(expResult, result);
 
         PharmacyDB pDB1 = mock(PharmacyDB.class);
-        when(pDB1.addPharmacy(a, new Pharmacy(0, "TestPharma", a), limit)).thenThrow(new SQLException());
+        when(pDB1.addPharmacy(a, new Pharmacy(0, "TestPharma", a), limitScooterPark, limitDronePark)).thenThrow(new SQLException());
         AddPharmacyController pCont2 = new AddPharmacyController(pDB);
 
         expResult = false;
-        result = pCont2.addPharmacy(a, p, limit);
+        result = pCont2.addPharmacy(a, p, limitScooterPark, limitDronePark);
         assertEquals(expResult, result);
     }
 }
