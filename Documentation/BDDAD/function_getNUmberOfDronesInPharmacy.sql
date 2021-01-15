@@ -1,13 +1,12 @@
-
 CREATE OR REPLACE FUNCTION getNumberOfDronesInPharmacy(idPharmacy IN INTEGER)
-return INTEGER
+RETURN INTEGER
 IS
     num_drones INTEGER;
 
-begin
+BEGIN
     SELECT count(*) into num_drones
-    from DRONE INNER JOIN VEHICLE ON ID_VEHICLE = DRONE.ID_DRONE
-    where ID_PHARMACY = idPharmacy;
+    FROM drone INNER JOIN vehicle ON id_vehicle = drone.id_drone
+    WHERE id_pharmacy = idPharmacy;
 
-    return (num_drones);
-end;
+    RETURN (num_drones);
+END;
