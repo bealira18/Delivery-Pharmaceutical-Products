@@ -18,7 +18,7 @@ public class UseCreditsController {
         this.cDB = cDB;
     }
 
-    public boolean updateProduct(String email,int idInvoice) throws SQLException {
+    public boolean useCredits(String email,int idInvoice) throws SQLException {
 
         return cDB.useCredits(email, idInvoice);
     }
