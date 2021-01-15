@@ -1,9 +1,14 @@
 package lapr.project.data;
 
+import lapr.project.model.Client;
+
 import java.sql.CallableStatement;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ClientDB extends DataHandler {
     
@@ -73,4 +78,29 @@ public class ClientDB extends DataHandler {
             e.printStackTrace();
         }
     }
+
+    public boolean useCredits(String email,int idInvoice) throws SQLException {
+
+        CallableStatement callStmt = null;
+
+        try{
+            callStmt.getConnection().prepareCall("{ call useCredits(?,?) }");
+
+            callStmt.setString(1,email);
+            callStmt.setInt(2,idInvoice);
+            callStmt.execute();
+            return true;
+        } catch (NullPointerException | SQLException ex){
+            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+
+    }
+
 }
