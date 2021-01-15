@@ -14,12 +14,12 @@ import oracle.jdbc.OracleTypes;
 
 public class PharmacyDB extends DataHandler {
 
-    public boolean addPharmacy(Address a, Pharmacy p, int limit) throws SQLException {
+    public boolean addPharmacy(Address a, Pharmacy p, int limitScooterPark, int limitDronePark) throws SQLException {
 
         openConnection();
 
         try {
-            return addPharmacy(a.getDescription(), a.getLatitude(), a.getLongitude(), a.getAltitude(), p.getName(), limit);
+            return addPharmacy(a.getDescription(), a.getLatitude(), a.getLongitude(), a.getAltitude(), p.getName(), limitScooterPark, limitDronePark);
 
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -28,19 +28,20 @@ public class PharmacyDB extends DataHandler {
         }
     }
 
-    private boolean addPharmacy(String address, double lat, double lon, double alt, String name, int limit) throws SQLException {
+    private boolean addPharmacy(String address, double lat, double lon, double alt, String name, int limitScooterPark, int limitDronePark) throws SQLException {
 
         CallableStatement callStmt = null;
 
         try {
-            callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, address);
             callStmt.setDouble(2, lat);
             callStmt.setDouble(3, lon);
             callStmt.setDouble(4, alt);
             callStmt.setString(5, name);
-            callStmt.setInt(6, limit);
+            callStmt.setInt(6, limitScooterPark);
+            callStmt.setInt(7, limitDronePark);
 
             callStmt.execute();
             return true;
