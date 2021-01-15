@@ -1,9 +1,6 @@
 package lapr.project.ui;
 
-import lapr.project.controller.AddCourierController;
-import lapr.project.controller.AddDroneController;
-import lapr.project.controller.AddParkController;
-import lapr.project.controller.AddPharmacyController;
+import lapr.project.controller.*;
 import lapr.project.data.CourierDB;
 import lapr.project.data.DataHandler;
 import lapr.project.model.*;
@@ -46,8 +43,8 @@ class Main {
 
         //Initial Database Setup
         DataHandler dh = new DataHandler();
-        dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
-        dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
+        //dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
+        //dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
 
         //AddCourierController
         //AddCourierController addCourierController = new AddCourierController();
@@ -87,6 +84,11 @@ class Main {
         Pharmacy p = new Pharmacy(0, "TestPharma", a);
         AddPharmacyController addPharmacyController = new AddPharmacyController();
         System.out.println(addPharmacyController.addPharmacy(a,p,2,2));*/
+
+        //AddProductController
+        /*AddProductController addProductController = new AddProductController();
+        Product product1 = new Product(0, "NameTest", 10, 20, 1);
+        System.out.println(addProductController.addProduct(product1));*/
     }
 
 }
