@@ -11,7 +11,7 @@ CREATE OR REPLACE PROCEDURE addDrone(
 IS
 begin
 
-    INSERT INTO vehicle(id_vehicle, id_oharmacy, weight, aerodynamics_coefficient, frontal_area, motor, current_battery, max_battery)
+    INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery)
     VALUES(idDrone, idPharmacy, v_weight, aerodynamicCoeficient, frontalArea, v_motor,  currentBattery, maxBattery);
 
     INSERT INTO drone(id_drone, id_vehicle_status)

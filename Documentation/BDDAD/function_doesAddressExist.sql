@@ -1,13 +1,17 @@
-CREATE OR REPLACE FUNCTION DOESADDRESSEXIST(a_name IN VARCHAR2)
-RETURN BOOLEAN AS
-
+CREATE OR REPLACE FUNCTION doesAddressExist(
+    a_name IN address.address%TYPE)
+RETURN INTEGER 
+IS
     result      INTEGER;
-
 BEGIN
 
     SELECT COUNT(*) INTO result
-    FROM ADDRESS
-    WHERE ADDRESS = a_name;
-
-    RETURN result > 0;
+    FROM address
+    WHERE address = a_name;
+    
+    IF result > 0 THEN
+        RETURN 0;
+    ELSE
+        RETURN 1;
+    END IF;
 END;
