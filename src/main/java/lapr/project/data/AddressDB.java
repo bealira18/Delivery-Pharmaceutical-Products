@@ -3,6 +3,7 @@ package lapr.project.data;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,7 +32,7 @@ public class AddressDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
-            callStmt = getConnection().prepareCall("{ call addPark(?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addAddress(?,?,?,?) }");
 
             callStmt.setString(1, description);
             callStmt.setDouble(2, latitude);
@@ -131,15 +132,17 @@ public class AddressDB extends DataHandler {
 
     public boolean doesAddressExist(String addressName) throws SQLException{
         CallableStatement callStmt = null;
+        int aux;
 
         try{
             callStmt = getConnection().prepareCall("{ ? = call doesAddressExist(?) }");
 
-            callStmt.registerOutParameter(1, OracleTypes.BOOLEAN);
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.setString(2, addressName);
             callStmt.execute();
 
-            return callStmt.getBoolean(1);
+            aux = callStmt.getInt(1);
+            return aux == 0;
         }catch(NullPointerException | NumberFormatException | SQLException ex){
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;

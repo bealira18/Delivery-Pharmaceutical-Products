@@ -35,7 +35,7 @@ public class DroneDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
-            callStmt.getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addDrone(?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1, idDrone);
             callStmt.setInt(2, idPharmacy);

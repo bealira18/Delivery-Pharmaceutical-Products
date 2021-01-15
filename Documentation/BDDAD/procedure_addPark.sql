@@ -1,7 +1,7 @@
 CREATE OR REPLACE PROCEDURE addPark(
-    pharmacy_id IN NUMBER, 
-    p_limit IN NUMBER,
-    p_num_charging_stations IN NUMBER, 
+    pharmacy_id IN INTEGER, 
+    p_limit IN INTEGER,
+    p_num_charging_stations IN INTEGER, 
     p_category IN VARCHAR2,
     p_address IN VARCHAR2) 
 IS

@@ -42,7 +42,7 @@ public class StockDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
-            callStmt.getConnection().prepareCall("{ call addProductToPharmacyCatalog(?,?) }");
+            callStmt = getConnection().prepareCall("{ call addProductToPharmacyCatalog(?,?) }");
 
             callStmt.setInt(1, idPharmacy);
             callStmt.setInt(2, idProduct);
@@ -93,12 +93,12 @@ public class StockDB extends DataHandler {
         try{
             callStmt = getConnection().prepareCall("{ ? = call checkIfProductExistsInCatalog(?,?) }");
 
-            callStmt.registerOutParameter(1, OracleTypes.BOOLEAN);
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
             callStmt.setInt(2, idPharmacy);
             callStmt.setInt(3, idProduct);
             callStmt.execute();
 
-            return callStmt.getBoolean(1);
+            return callStmt.getInt(1) > 0;
         }catch(NullPointerException | NumberFormatException | SQLException ex){
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
