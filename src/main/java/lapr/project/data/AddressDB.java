@@ -12,6 +12,46 @@ import oracle.jdbc.OracleTypes;
 
 public class AddressDB extends DataHandler {
 
+    public boolean addAddress(Address a) throws SQLException {
+
+        openConnection();
+
+        try {
+            return addAddress(a.getDescription(), a.getLatitude(), a.getLongitude(), a.getAltitude());
+
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(AddressDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+            return false;
+        }
+    }
+
+    private boolean addAddress(String description, double latitude, double longitude, double altitude) throws SQLException {
+
+        CallableStatement callStmt = null;
+
+        try {
+            callStmt = getConnection().prepareCall("{ call addPark(?,?,?,?) }");
+
+            callStmt.setString(1, description);
+            callStmt.setDouble(2, latitude);
+            callStmt.setDouble(3, longitude);
+            callStmt.setDouble(4, altitude);
+
+            callStmt.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AddressDB.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+    }
+
     public List<Address> getAddresses() throws SQLException {
 
         List<Address> la = new ArrayList<>();
@@ -87,6 +127,27 @@ public class AddressDB extends DataHandler {
         }
 
         return a;
+    }
+
+    public boolean doesAddressExist(String addressName) throws SQLException{
+        CallableStatement callStmt = null;
+
+        try{
+            callStmt = getConnection().prepareCall("{ ? = call doesAddressExist(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.BOOLEAN);
+            callStmt.setString(2, addressName);
+            callStmt.execute();
+
+            return callStmt.getBoolean(1);
+        }catch(NullPointerException | NumberFormatException | SQLException ex){
+            Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }finally {
+            if(callStmt != null){
+                callStmt.close();
+            }
+        }
     }
 
 }

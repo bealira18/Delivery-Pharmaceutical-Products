@@ -15,7 +15,7 @@ BEGIN
     VALUES(p_name, a_name);
 
     IF NOT (doesAddressExist(a_name)) THEN
-        ADDADDRESS(a_name, a_lat, a_lon, a_alt);
+        addAddress(a_name, a_lat, a_lon, a_alt);
     END IF;
     
     SELECT id_pharmacy INTO v_pharmacy_id

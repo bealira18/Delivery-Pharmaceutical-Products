@@ -11,6 +11,47 @@ import java.util.logging.Logger;
 
 public class ParkDB extends DataHandler {
 
+    public boolean addPark(Park p) throws SQLException {
+
+        openConnection();
+
+        try {
+            return addPark(p.getPharmacyId(), p.getLimit(), p.getNumChargingStations(), p.getCategory(), p.getAddress().getDescription());
+
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+            return false;
+        }
+    }
+
+    private boolean addPark(int pharmacyId, int limit, int numChargingStations, String category, String address) throws SQLException {
+
+        CallableStatement callStmt = null;
+
+        try {
+            callStmt = getConnection().prepareCall("{ call addPark(?,?,?,?,?) }");
+
+            callStmt.setInt(1, pharmacyId);
+            callStmt.setInt(2, limit);
+            callStmt.setInt(3, numChargingStations);
+            callStmt.setString(4, category);
+            callStmt.setString(5, address);
+
+            callStmt.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+    }
+
     public int getLimitVehiclesPark(int idPharmacy, String vehicleType) throws SQLException {
         CallableStatement callStt = null;
 
