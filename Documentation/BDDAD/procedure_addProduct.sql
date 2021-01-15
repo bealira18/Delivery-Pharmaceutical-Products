@@ -9,4 +9,4 @@ BEGIN
     INSERT INTO product(name, price, weight, id_category)
     VALUES(p_name, p_price, p_weight, p_idCategory);
 
-end;
+END;
