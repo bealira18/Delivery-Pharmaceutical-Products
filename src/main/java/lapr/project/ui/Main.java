@@ -85,10 +85,17 @@ class Main {
         AddPharmacyController addPharmacyController = new AddPharmacyController();
         System.out.println(addPharmacyController.addPharmacy(a,p,2,2));*/
 
+
         //AddProductController
         /*AddProductController addProductController = new AddProductController();
         Product product1 = new Product(0, "NameTest", 10, 20, 1);
         System.out.println(addProductController.addProduct(product1));*/
+
+
+        //AddProductToPhamacyCatalogController
+        /*AddProductToPharmacyCatalogController addProductToPharmacyCatalogController = new AddProductToPharmacyCatalogController();
+        Stock stock1 = new Stock(1, 3, 0);
+        System.out.println(addProductToPharmacyCatalogController.addProductToPharmacyCatalog(stock1));*/
     }
 
 }
