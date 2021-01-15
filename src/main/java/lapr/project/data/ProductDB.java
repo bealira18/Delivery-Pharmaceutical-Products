@@ -72,7 +72,7 @@ public class ProductDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
-            callStmt.getConnection().prepareCall("{ call addProduct(?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addProduct(?,?,?,?) }");
 
             callStmt.setString(1, name);
             callStmt.setDouble(2, price);
