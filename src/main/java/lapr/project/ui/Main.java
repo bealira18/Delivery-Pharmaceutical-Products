@@ -9,6 +9,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,6 +104,35 @@ class Main {
         /*AddScooterController addScooterController = new AddScooterController();
         Scooter scooter1 = new Scooter(0, 1, 20, 40, 50, 60, 10, 100, 1);
         System.out.println(addScooterController.addScooter(scooter1));*/
+
+
+        //AssignOrderToCourierScooterController --------------------------------------------------------------------------
+
+
+        //GetDronesController -------------------------------------------------------------------------------------------
+
+
+        //GetProductsController
+        /*GetProductsController getProductsController = new GetProductsController();
+        System.out.println(getProductsController.getProducts());*/
+
+
+        //GraphController ----------------------------------------------------------------------------------------------
+
+
+        //ManageCreditsController --------------------------------------------------------------------------------------
+
+
+        //RegisterClientController
+        /*RegisterClientController registerClientController = new RegisterClientController();
+        String email = "test3@email.com";
+        String password = "qwerty";
+        String name = "Joaquim Alberto";
+        int nif = 123456787;
+        CreditCard creditCard = new CreditCard(5295360011327825L, LocalDate.of(2077, Month.MARCH, 1), (short) 454);
+        Address address = new Address("isep", 41.15796537787468, -8.62910514603121, 5.200514144411);
+        System.out.println(registerClientController.addClient(email, password, name, nif, creditCard, address));*/
+        
     }
 
 }
