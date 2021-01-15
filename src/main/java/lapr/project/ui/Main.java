@@ -2,13 +2,11 @@ package lapr.project.ui;
 
 import lapr.project.controller.AddCourierController;
 import lapr.project.controller.AddDroneController;
+import lapr.project.controller.AddParkController;
 import lapr.project.controller.AddPharmacyController;
 import lapr.project.data.CourierDB;
 import lapr.project.data.DataHandler;
-import lapr.project.model.Address;
-import lapr.project.model.Courier;
-import lapr.project.model.Drone;
-import lapr.project.model.Pharmacy;
+import lapr.project.model.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -48,13 +46,14 @@ class Main {
 
         //Initial Database Setup
         DataHandler dh = new DataHandler();
-        dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
-        dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
+        //dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
+        //dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
 
         //AddCourierController
         //AddCourierController addCourierController = new AddCourierController();
         //addCourierController.addCourier("c1@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85);
         //System.out.println(addCourierController.findPharmacies());
+
 
         //AddDroneController
         /*AddDroneController addDroneController = new AddDroneController();
@@ -72,6 +71,15 @@ class Main {
         addDroneController.addDrone(drone4);
         addDroneController.addDrone(drone5);*/
 
+
+        //AddParkController
+        /*AddParkController addParkController = new AddParkController();
+        Address a = new Address("teste", 0, 0, 0);
+        Park park = new Park(3, 1, 1,1, "scooter", a);
+        System.out.println(addParkController.addPark(park));
+        Address a2 = new Address("isep", 0, 0, 0);
+        Park park2 = new Park(3, 1, 1,1, "scooter", a2);
+        System.out.println(addParkController.addPark(park2));*/
 
         /*Address a = new Address("Test", 0, 0, 0);
         Pharmacy p = new Pharmacy(0, "TestPharma", a);
