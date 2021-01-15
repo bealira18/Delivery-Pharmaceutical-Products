@@ -96,6 +96,12 @@ class Main {
         /*AddProductToPharmacyCatalogController addProductToPharmacyCatalogController = new AddProductToPharmacyCatalogController();
         Stock stock1 = new Stock(1, 3, 0);
         System.out.println(addProductToPharmacyCatalogController.addProductToPharmacyCatalog(stock1));*/
+
+
+        //AddScooterController
+        /*AddScooterController addScooterController = new AddScooterController();
+        Scooter scooter1 = new Scooter(0, 1, 20, 40, 50, 60, 10, 100, 1);
+        System.out.println(addScooterController.addScooter(scooter1));*/
     }
 
 }

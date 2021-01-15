@@ -34,7 +34,7 @@ public class ScooterDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
-            callStmt.getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1, idScooter);
             callStmt.setInt(2, idPharmacy);
