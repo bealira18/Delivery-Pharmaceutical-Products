@@ -21,10 +21,10 @@ public class AddParkController {
         this.pDB = pDB;
     }
 
-    public boolean addPark(Park p) throws SQLException {
-        if(!aDB.doesAddressExist(p.getAddress().getDescription())) {
-            aDB.addAddress(p.getAddress());
+    public boolean addPark(Park park) throws SQLException {
+        if(!aDB.doesAddressExist(park.getAddress().getDescription())) {
+            aDB.addAddress(park.getAddress());
         }
-        return pDB.addPark(p);
+        return pDB.addPark(park);
     }
 }
