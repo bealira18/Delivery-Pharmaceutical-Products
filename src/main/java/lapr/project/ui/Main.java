@@ -164,6 +164,10 @@ class Main {
         /*UpdateDroneController updateDroneController = new UpdateDroneController();
         Drone drone = new Drone(6, 1, 2, 40, 50, 60, 10, 100, 1);
         System.out.println(updateDroneController.updateDrone(drone.getIdVehicle(), drone));*/
+
+        //UpdateNrChargingStationsController
+        /*UpdateNrChargingStationsController updateNrChargingStationsController = new UpdateNrChargingStationsController();
+        System.out.println(updateNrChargingStationsController.updateNrChargingStations(1,5));*/
     }
 
 }
