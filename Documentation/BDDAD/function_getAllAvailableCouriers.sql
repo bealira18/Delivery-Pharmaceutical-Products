@@ -1,6 +1,8 @@
-CREATE OR REPLACE FUNCTION getAllAvailableCouriers(idOrder IN INTEGER)
-RETURN SYS_REFCURSOR IS available_couriers SYS_REFCURSOR;
-
+CREATE OR REPLACE FUNCTION getAllAvailableCouriers(
+    idOrder IN INTEGER)
+RETURN SYS_REFCURSOR 
+IS 
+    available_couriers SYS_REFCURSOR;
 BEGIN
 
     OPEN available_couriers FOR

@@ -25,4 +25,3 @@ BEGIN
     VALUES(p_email, p_name, p_nif, p_social_security, p_id_pharmacy, p_weight);
 
 END;
-/

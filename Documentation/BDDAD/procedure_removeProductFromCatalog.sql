@@ -1,4 +1,6 @@
-CREATE OR REPLACE PROCEDURE removeProductFromCatalog(idPharmacy IN INTEGER, idProduct IN INTEGER)
+CREATE OR REPLACE PROCEDURE removeProductFromCatalog(
+    idPharmacy IN INTEGER, 
+    idProduct IN INTEGER)
 IS
 BEGIN
      DELETE FROM stock

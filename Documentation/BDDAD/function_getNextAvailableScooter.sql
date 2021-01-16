@@ -1,6 +1,8 @@
-CREATE OR REPLACE FUNCTION getNextAvailableScooter(idPharmacy IN INTEGER) 
-RETURN SYS_REFCURSOR IS next_scooter SYS_REFCURSOR; 
-
+CREATE OR REPLACE FUNCTION getNextAvailableScooter(
+    idPharmacy IN INTEGER) 
+RETURN SYS_REFCURSOR 
+IS 
+    next_scooter SYS_REFCURSOR;
 BEGIN
     OPEN next_scooter FOR
         SELECT d.id_order, d.id_vehicle, d.email_courier, d.id_delivery_status, d.delivery_start, d.delivery_end, d.delivery_run
