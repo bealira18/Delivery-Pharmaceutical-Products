@@ -174,10 +174,12 @@ public class ParkDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
-            callStmt.getConnection().prepareCall("{ call updateNrChargingStations(?,?) }");
+            callStmt = getConnection().prepareCall("{ call updateNrChargingStations(?,?) }");
 
-            callStmt.setInt(1,p.getScooterParkId());
-            callStmt.setInt(2,p.getNumChargingStations());
+            callStmt.setInt(1,park.getScooterParkId());
+            callStmt.setInt(2,park.getNumChargingStations());
+
+            callStmt.execute();
             return true;
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
