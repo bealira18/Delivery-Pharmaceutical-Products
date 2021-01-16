@@ -23,12 +23,12 @@ public class StockDB extends DataHandler {
         }
     }
 
-    public boolean removeProductToPharmacyCatalog(Stock stock)throws SQLException {
+    public boolean removeProductFromPharmacyCatalog(Stock stock)throws SQLException {
 
         openConnection();
 
         try{
-            return removeProductToPharmacyCatalog(stock.getPharmacyId(), stock.getProductId());
+            return removeProductFromPharmacyCatalog(stock.getPharmacyId(), stock.getProductId());
 
         }catch (NullPointerException | SQLException ex){
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,7 +62,7 @@ public class StockDB extends DataHandler {
         return false;
     }
 
-    public boolean removeProductToPharmacyCatalog(int idPharmacy, int idProduct)throws SQLException {
+    public boolean removeProductFromPharmacyCatalog(int idPharmacy, int idProduct)throws SQLException {
 
         CallableStatement callStmt = null;
 
