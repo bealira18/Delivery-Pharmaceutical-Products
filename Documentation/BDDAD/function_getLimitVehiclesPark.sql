@@ -1,12 +1,13 @@
-CREATE OR REPLACE FUNCTION getLimitScooterPark(idPharmacy IN INTEGER)
-return INTEGER
+CREATE OR REPLACE FUNCTION getLimitVehiclesPark(
+    idPharmacy IN INTEGER, 
+    vehicleType IN VARCHAR2)
+RETURN INTEGER
 IS
     i_limit INTEGER;
-
-begin
-    SELECT SUM(LIMIT) INTO i_limit
-    from PARK
-    where ID_PHARMACY = idPharmacy AND CATEGORY = 'scooter';
+BEGIN
+    SELECT SUM(limit) INTO i_limit
+    FROM park
+    WHERE id_pharmacy = idPharmacy AND category = vehicleType;
 
     return (i_limit);
-end;
+END;

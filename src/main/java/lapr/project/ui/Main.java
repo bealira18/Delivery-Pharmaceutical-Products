@@ -183,9 +183,18 @@ class Main {
 
 
         //UpdateScooterController
-        UpdateScooterController updateScooterController = new UpdateScooterController();
+        /*UpdateScooterController updateScooterController = new UpdateScooterController();
         Scooter s=new Scooter(1,1,2.0,2.5,1,2.0,35.0,40.0,0);
-        System.out.println(updateScooterController.updateScooter(s.getIdVehicle(), s));
+        System.out.println(updateScooterController.updateScooter(s.getIdVehicle(), s));*/
+
+
+        //UpdateStockController     -- still no orders in the system
+        /*UpdateStockController updateStockController = new UpdateStockController();
+        PurchaseOrder order = new PurchaseOrder(1,1, "emailTeste@gmail.com", LocalDate.now());
+        System.out.println(updateStockController.updateProductStockAfterSale(1));*/
+
+
+        //UseCreditsController      ------------------------------------------------------------------------------------
     }
 
 }

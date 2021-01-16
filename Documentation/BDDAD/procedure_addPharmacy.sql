@@ -23,8 +23,5 @@ BEGIN
     FROM pharmacy
     ORDER BY id_pharmacy DESC
     FETCH FIRST 1 ROWS ONLY;
-    
-    -- By default, on Pharmacy creation, only 1 charging station will exist.
-    addPark(v_pharmacy_id, p_limit_scooter_park, 1, 'scooter', a_name);
-    addPark(v_pharmacy_id, p_limit_drone_park, 1, 'drone', a_name);
+
 END;

@@ -1,40 +1,40 @@
-CREATE OR REPLACE PROCEDURE useCredits(email_client client.email%type, idInvoice invoice.id_invoice%type) IS
+CREATE OR REPLACE PROCEDURE useCredits(
+    email_client IN client.email%type, 
+    idInvoice IN invoice.id_invoice%type) 
+IS
+    c INTEGER;
+    d INTEGER;
+    total INTEGER;
+BEGIN
 
-c INTEGER;
-d INTEGER;
-total INTEGER;
-
-begin
-
-    select credits into c
-    from client
-    where email=email_client;
+    SELECT credits INTO c
+    FROM client
+    WHERE email=email_client;
     
-    select delivery_fee into d
-    from invoice
-    where id_invoice=idInvoice;
+    SELECT delivery_fee INTO d
+    FROM invoice
+    WHERE id_invoice=idInvoice;
     
-    if c>=d then
+    IF c>=d THEN
         total:=c-d;
     
-        update client SET credits=total
-        where email=email_client;
+        UPDATE client SET credits=total
+        WHERE email=email_client;
     
-        update invoice SET delivery_fee=0
-        where id_invoice=idInvoice;
+        UPDATE invoice SET delivery_fee=0
+        WHERE id_invoice=idInvoice;
         
-    end if;
+    END IF;
     
-    if d>c then
+    IF d>c THEN
         total:=d-c;
     
-        update client SET credits=0
-        where email=email_client;
+        UPDATE client SET credits=0
+        WHERE email=email_client;
     
-        update invoice SET delivery_fee=total
-        where id_invoice=idInvoice;
+        UPDATE invoice SET delivery_fee=total
+        WHERE id_invoice=idInvoice;
         
-    end if;
+    END IF;
 
-end;
-/
+END;

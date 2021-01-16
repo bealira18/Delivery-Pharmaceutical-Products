@@ -1,15 +1,15 @@
 CREATE OR REPLACE PROCEDURE addClient(
-    email_pr VARCHAR2,
-    password_pr VARCHAR2,
-    name_pr VARCHAR2,
-    nif_pr NUMBER,
-    credit_card_pr NUMBER,
-    validity_date_pr DATE,
-    ccv_pr SMALLINT,
-    adr_pr VARCHAR2,
-    latitude_pr NUMERIC,
-    longitude_pr NUMERIC,
-    altitude_pr NUMERIC)
+    email_pr IN VARCHAR2,
+    password_pr IN VARCHAR2,
+    name_pr IN VARCHAR2,
+    nif_pr IN NUMBER,
+    credit_card_pr IN NUMBER,
+    validity_date_pr IN DATE,
+    ccv_pr IN SMALLINT,
+    adr_pr IN VARCHAR2,
+    latitude_pr IN NUMERIC,
+    longitude_pr IN NUMERIC,
+    altitude_pr IN NUMERIC)
 IS
     int_already_registered INTEGER :=0;
     i_does_address_exist INTEGER :=0;
