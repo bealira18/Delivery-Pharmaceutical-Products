@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class RemoveProductToPharmacyCatalogControllerTest {
+class RemoveProductFromPharmacyCatalogControllerTest {
 
-    private static RemoveProductToPharmacyCatalogController controller;
+    private static RemoveProductFromPharmacyCatalogController controller;
 
-    public RemoveProductToPharmacyCatalogControllerTest() {
+    public RemoveProductFromPharmacyCatalogControllerTest() {
     }
 
     @BeforeAll
@@ -29,10 +29,10 @@ class RemoveProductToPharmacyCatalogControllerTest {
 
         StockDB stockDB = mock(StockDB.class);
 
-        when(stockDB.removeProductToPharmacyCatalog(stock1)).thenReturn(Boolean.TRUE);
+        when(stockDB.removeProductFromPharmacyCatalog(stock1)).thenReturn(Boolean.TRUE);
 
-        controller = new RemoveProductToPharmacyCatalogController();
-        controller = new RemoveProductToPharmacyCatalogController(stockDB);
+        controller = new RemoveProductFromPharmacyCatalogController();
+        controller = new RemoveProductFromPharmacyCatalogController(stockDB);
     }
 
     /**
@@ -51,7 +51,7 @@ class RemoveProductToPharmacyCatalogControllerTest {
 
         Stock stock1 = new Stock(1, 1, 0);
 
-        boolean result = controller.removeProductToPharmacyCatalog(stock1);
+        boolean result = controller.removeProductFromPharmacyCatalog(stock1);
         assertEquals(true, result);
     }
 

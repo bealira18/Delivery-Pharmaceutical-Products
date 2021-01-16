@@ -1,9 +1,10 @@
-CREATE OR REPLACE PROCEDURE updateCourier(v_email in VARCHAR, idPharmacy in INTEGER, v_name in VARCHAR, v_weight in NUMERIC) IS
-
-begin
-
-    update courier SET id_pharmacy=idPharmacy,name=v_name,weight=v_weight
-    where email=v_email;
-
-end;
-/
+CREATE OR REPLACE PROCEDURE updateCourier(
+    v_email IN VARCHAR, 
+    idPharmacy IN INTEGER, 
+    v_name IN VARCHAR, 
+    v_weight IN NUMERIC) 
+IS
+BEGIN
+    UPDATE courier SET id_pharmacy = idPharmacy, name = v_name, weight = v_weight
+    WHERE email = v_email;
+END;

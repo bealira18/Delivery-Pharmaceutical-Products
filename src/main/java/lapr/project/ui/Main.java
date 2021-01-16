@@ -49,9 +49,9 @@ class Main {
         //dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
 
         //AddCourierController
-        //AddCourierController addCourierController = new AddCourierController();
-        //addCourierController.addCourier("c1@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85);
-        //System.out.println(addCourierController.findPharmacies());
+        /*AddCourierController addCourierController = new AddCourierController();
+        System.out.println(addCourierController.addCourier("courier5@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85));
+        System.out.println(addCourierController.findPharmacies());*/
 
 
         //AddDroneController
@@ -132,7 +132,27 @@ class Main {
         CreditCard creditCard = new CreditCard(5295360011327825L, LocalDate.of(2077, Month.MARCH, 1), (short) 454);
         Address address = new Address("isep", 41.15796537787468, -8.62910514603121, 5.200514144411);
         System.out.println(registerClientController.addClient(email, password, name, nif, creditCard, address));*/
-        
+
+
+        //RemoveProductFromPharmacyCatalogController
+        /*Stock stock1 = new Stock(1, 1, 10);
+        RemoveProductFromPharmacyCatalogController removeProductFromPharmacyCatalogController = new RemoveProductFromPharmacyCatalogController();
+        System.out.println(removeProductFromPharmacyCatalogController.removeProductFromPharmacyCatalog(stock1));*/
+
+
+        //SetDeliveryFeeController      --- not saving after execution finished
+        /*SetDeliveryFeeController setDeliveryFeeController = new SetDeliveryFeeController();
+        System.out.println(setDeliveryFeeController.setDeliveryFee(2.90));
+        System.out.println(new PurchaseOrder(1,1,"a", LocalDate.now()).getDeliveryFee());*/
+
+
+        //SetMaximumPayloadController       -- definir nas application.properties?
+
+
+        //UpdateCourierController
+        /*UpdateCourierController updateCourierController = new UpdateCourierController();
+        Courier c=new Courier("courier5@gmail.com","pass","name1",123456789,12345678,1,2.5);
+        System.out.println(updateCourierController.updateCourier(c.getEmail(),c));*/
     }
 
 }
