@@ -113,7 +113,7 @@ public class StockDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
-            callStmt.getConnection().prepareCall("{ call updateProductStockAfterSale(?) }");
+            callStmt = getConnection().prepareCall("{ call updateProductStockAfterSale(?) }");
 
             callStmt.setInt(1, idOrder);
 
@@ -130,5 +130,47 @@ public class StockDB extends DataHandler {
             }
         }
         return false;
+    }
+
+    public boolean checkIfIsEnoughStock(int idOrder) throws SQLException {
+        CallableStatement callStmt = null;
+
+        try{
+            callStmt = getConnection().prepareCall("{ ? = call checkIfIsEnoughStock(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setInt(2, idOrder);
+            callStmt.execute();
+
+            return callStmt.getInt(1) > 0;
+        }catch(NullPointerException | NumberFormatException | SQLException ex){
+            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }finally {
+            if(callStmt != null){
+                callStmt.close();
+            }
+        }
+    }
+
+    public boolean checkIfIsEnoughStockInOtherPharmacy(int idOrder) throws SQLException {
+        CallableStatement callStmt = null;
+
+        try{
+            callStmt = getConnection().prepareCall("{ ? = call checkIfIsEnoughStockInOtherPharmacy(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setInt(2, idOrder);
+            callStmt.execute();
+
+            return callStmt.getInt(1) > 0;
+        }catch(NullPointerException | NumberFormatException | SQLException ex){
+            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }finally {
+            if(callStmt != null){
+                callStmt.close();
+            }
+        }
     }
 }

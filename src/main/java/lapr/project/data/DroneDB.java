@@ -1,7 +1,6 @@
 package lapr.project.data;
 
 import lapr.project.model.Drone;
-import lapr.project.model.Scooter;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
