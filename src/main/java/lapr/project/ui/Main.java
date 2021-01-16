@@ -180,6 +180,12 @@ class Main {
         /*UpdateProductController updateProductController = new UpdateProductController();
         Product p=new Product(1,"name1",2.0,2.5,1);
         System.out.println(updateProductController.updateProduct(p.getId(), p));*/
+
+
+        //UpdateScooterController
+        UpdateScooterController updateScooterController = new UpdateScooterController();
+        Scooter s=new Scooter(1,1,2.0,2.5,1,2.0,35.0,40.0,0);
+        System.out.println(updateScooterController.updateScooter(s.getIdVehicle(), s));
     }
 
 }
