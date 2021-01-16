@@ -83,6 +83,7 @@ public class DroneDB extends DataHandler {
 
                 d = new Drone(id, droneStatus);
             }
+            else return null;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("No Drone with id:" + idDrone);
@@ -95,10 +96,11 @@ public class DroneDB extends DataHandler {
     }
 
     public boolean updateDrone(int idd, Drone d) throws SQLException {
-        Drone a;
+        Drone drone;
 
         try{
-            a=getIdDrone(idd);
+            drone = getIdDrone(idd);
+            if(drone == null) return false;
         }catch (SQLException e){
             e.printStackTrace();
             return false;
@@ -107,7 +109,7 @@ public class DroneDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
-            callStmt.getConnection().prepareCall("{ call updateDrone(?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call updateDrone(?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1,d.getIdVehicle());
             callStmt.setInt(2,d.getIdPharmacy());
@@ -116,6 +118,8 @@ public class DroneDB extends DataHandler {
             callStmt.setDouble(5,d.getMotor());
             callStmt.setDouble(6,d.getCurrentBattery());
             callStmt.setDouble(7,d.getMaxBattery());
+
+            callStmt.execute();
             return true;
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);

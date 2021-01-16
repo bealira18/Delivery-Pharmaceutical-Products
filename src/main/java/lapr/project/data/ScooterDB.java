@@ -127,6 +127,7 @@ public class ScooterDB extends DataHandler {
 
         try{
             a=getIdScooter(ids);
+            if(a == null) return false;
         }catch (SQLException e){
             e.printStackTrace();
             return false;
@@ -135,7 +136,7 @@ public class ScooterDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
-            callStmt.getConnection().prepareCall("{ call updateScooter(?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call updateScooter(?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1,s.getIdVehicle());
             callStmt.setInt(2,s.getIdPharmacy());
@@ -144,6 +145,8 @@ public class ScooterDB extends DataHandler {
             callStmt.setDouble(5,s.getMotor());
             callStmt.setDouble(6,s.getCurrentBattery());
             callStmt.setDouble(7,s.getMaxBattery());
+
+            callStmt.execute();
             return true;
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,5 +1,8 @@
-CREATE OR REPLACE FUNCTION getDroneById(idDrone IN INTEGER) RETURN
-SYS_REFCURSOR is matching_drone sys_refcursor;
+CREATE OR REPLACE FUNCTION getDroneById(
+    idDrone IN INTEGER) 
+RETURN SYS_REFCURSOR 
+IS 
+    matching_drone SYS_REFCURSOR;
 
 BEGIN
     OPEN matching_drone FOR

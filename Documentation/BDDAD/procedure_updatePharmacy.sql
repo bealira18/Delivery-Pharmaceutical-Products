@@ -1,9 +1,10 @@
-CREATE OR REPLACE PROCEDURE updatePharmacy(idPharmacy in INTEGER, v_name in VARCHAR) IS
+CREATE OR REPLACE PROCEDURE updatePharmacy(
+    idPharmacy IN INTEGER, 
+    v_name IN VARCHAR) 
+IS
+BEGIN
 
-begin
+    UPDATE pharmacy SET name = v_name
+    WHERE id_pharmacy = idPharmacy;
 
-    update pharmacy SET name=v_name
-    where id_pharmacy=idPharmacy;
-
-end;
-/
+END;

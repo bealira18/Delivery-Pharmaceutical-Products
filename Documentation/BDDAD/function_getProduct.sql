@@ -1,5 +1,5 @@
-create or replace FUNCTION getProduct(idp INT) RETURN
-SYS_REFCURSOR is resultado sys_refcursor;
+CREATE OR REPLACE FUNCTION getProduct(idp IN INTEGER) RETURN
+SYS_REFCURSOR IS resultado sys_refcursor;
 
 BEGIN
     OPEN resultado FOR
@@ -9,4 +9,3 @@ BEGIN
 
 RETURN (resultado);
 END;
-/

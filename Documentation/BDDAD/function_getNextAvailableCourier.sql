@@ -1,6 +1,8 @@
-CREATE OR REPLACE FUNCTION getNextAvailableCourier(idPharmacy IN INTEGER) 
-RETURN SYS_REFCURSOR IS next_courier SYS_REFCURSOR; 
-
+CREATE OR REPLACE FUNCTION getNextAvailableCourier(
+    idPharmacy IN INTEGER) 
+RETURN SYS_REFCURSOR 
+IS 
+    next_courier SYS_REFCURSOR; 
 BEGIN
     OPEN next_courier FOR
         SELECT *

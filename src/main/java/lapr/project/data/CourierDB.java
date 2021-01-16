@@ -74,14 +74,17 @@ public class CourierDB extends DataHandler {
             if (rSet.next()) {
                 //Courier(String email, String password, String name, int nif, long socialSecurity, int pharmacyId, double weight)
                 String em=rSet.getString(1);
-                String password=rSet.getString(2);
-                String name=rSet.getString(3);
-                int nif=rSet.getInt(4);
-                long socialSecurity=rSet.getLong(5);
-                int pharmacyId=rSet.getInt(6);
-                double weight=rSet.getDouble(7);
+                //String password=rSet.getString(2);
+                String name=rSet.getString(2);
+                int nif=rSet.getInt(3);
+                long socialSecurity=rSet.getLong(4);
+                int pharmacyId=rSet.getInt(5);
+                double weight=rSet.getDouble(6);
 
-                c=new Courier(em,password,name,nif,socialSecurity,pharmacyId,weight);
+                c=new Courier(em,"qwerty", name,nif,socialSecurity,pharmacyId,weight);
+            }
+            else{
+                return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -127,6 +130,7 @@ public class CourierDB extends DataHandler {
 
         try{
             a=getCourier(email);
+            if(a == null) return false;
         }catch (SQLException e){
             e.printStackTrace();
             return false;
@@ -135,13 +139,16 @@ public class CourierDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
-            callStmt.getConnection().prepareCall("{ call updateCourier(?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call updateCourier(?,?,?,?) }");
 
             callStmt.setString(1,c.getEmail());
             callStmt.setInt(2,c.getPharmacyId());
             callStmt.setString(3,c.getName());
             callStmt.setDouble(4,c.getWeight());
 
+            callStmt.execute();
+
+            return true;
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
