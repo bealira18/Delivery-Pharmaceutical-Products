@@ -50,7 +50,7 @@ class Main {
 
         //AddCourierController
         /*AddCourierController addCourierController = new AddCourierController();
-        System.out.println(addCourierController.addCourier("courier5@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85));
+        System.out.println(addCourierController.addCourier("courier6@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85));
         System.out.println(addCourierController.findPharmacies());*/
 
 
@@ -153,6 +153,17 @@ class Main {
         /*UpdateCourierController updateCourierController = new UpdateCourierController();
         Courier c=new Courier("courier5@gmail.com","pass","name1",123456789,12345678,1,2.5);
         System.out.println(updateCourierController.updateCourier(c.getEmail(),c));*/
+
+
+        //UpdateDeliveryFeeController           --- correr isto removeu a ligaçao à bddad... ta a apagar as coisas das properties......
+        /*UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
+        updateDeliveryFeeController.updateDeliveryFee(2.90);*/
+
+
+        //UpdateDroneController
+        /*UpdateDroneController updateDroneController = new UpdateDroneController();
+        Drone drone = new Drone(6, 1, 2, 40, 50, 60, 10, 100, 1);
+        System.out.println(updateDroneController.updateDrone(drone.getIdVehicle(), drone));*/
     }
 
 }
