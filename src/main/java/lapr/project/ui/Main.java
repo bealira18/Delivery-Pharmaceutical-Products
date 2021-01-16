@@ -174,6 +174,12 @@ class Main {
         //UpdatePharmacyController
         /*UpdatePharmacyController updatePharmacyController = new UpdatePharmacyController();
         System.out.println(updatePharmacyController.updatePharmacy(1, "blahh"));*/
+
+
+        //UpdateProductController
+        /*UpdateProductController updateProductController = new UpdateProductController();
+        Product p=new Product(1,"name1",2.0,2.5,1);
+        System.out.println(updateProductController.updateProduct(p.getId(), p));*/
     }
 
 }
