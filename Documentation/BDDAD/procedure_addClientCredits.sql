@@ -1,16 +1,18 @@
-CREATE OR REPLACE PROCEDURE addClientCredits(email_pr VARCHAR2, credits_pr INT)
+CREATE OR REPLACE PROCEDURE addClientCredits(
+    email_pr IN VARCHAR2, 
+    credits_pr IN INTEGER)
 IS
-    DOES_USER_EXIST INTEGER;
+    does_user_exist INTEGER;
 BEGIN
-    SELECT COUNT(*) INTO DOES_USER_EXIST
+    SELECT COUNT(*) INTO does_user_exist
     FROM registeredUser
     WHERE email = email_pr;
 
-    IF DOES_USER_EXIST = 0 THEN
+    IF does_user_exist = 0 THEN
         RAISE_APPLICATION_ERROR(-20001, 'This user does not exist');
     END IF;
 
-    UPDATE CLIENT
-    SET CREDITS = CREDITS + credits_pr
-    WHERE EMAIL = email_pr;
+    UPDATE client
+    SET credits = credits + credits_pr
+    WHERE email = email_pr;
 END;

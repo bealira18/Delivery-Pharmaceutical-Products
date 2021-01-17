@@ -1,9 +1,9 @@
-
-CREATE OR REPLACE PROCEDURE removeProductFromCatalog(idPharmacy in INTEGER, idProduct in INTEGER)
+CREATE OR REPLACE PROCEDURE removeProductFromCatalog(
+    idPharmacy IN INTEGER, 
+    idProduct IN INTEGER)
 IS
-
 BEGIN
-     DELETE FROM STOCK
-     WHERE ID_PHARMACY = idPharmacy AND ID_PRODUCT = idProduct;
+     DELETE FROM stock
+     WHERE id_pharmacy = idPharmacy AND id_product = idProduct;
 
 END;

@@ -104,7 +104,7 @@ public class ProductDB extends DataHandler {
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setInt(1, id);
+            callStmt.setInt(2, id);
             // Executa a invocação da função "getSailor".
             callStmt.execute();
             // Guarda o cursor retornado num objeto "ResultSet".
@@ -137,6 +137,7 @@ public class ProductDB extends DataHandler {
 
         try {
             a = getProduct(id);
+            if(a == null) return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -145,13 +146,16 @@ public class ProductDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
-            callStmt.getConnection().prepareCall("{ call updateCourier(?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call updateProduct(?,?,?,?,?) }");
 
             callStmt.setInt(1,p.getId());
             callStmt.setString(2,p.getName());
             callStmt.setInt(3,p.getCategoryId());
             callStmt.setDouble(4,p.getPrice());
             callStmt.setDouble(5,p.getWeight());
+
+            callStmt.execute();
+            return true;
 
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);

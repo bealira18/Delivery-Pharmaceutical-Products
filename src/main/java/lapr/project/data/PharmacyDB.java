@@ -141,6 +141,7 @@ public class PharmacyDB extends DataHandler {
 
         try{
             a=getPhamacyByID(i);
+            if (a == null) return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -149,10 +150,13 @@ public class PharmacyDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
-            callStmt.getConnection().prepareCall("{ call updatePharmacy(?,?) }");
+            callStmt = getConnection().prepareCall("{ call updatePharmacy(?,?) }");
 
             callStmt.setInt(1,id);
             callStmt.setString(2,name);
+
+            callStmt.execute();
+            return true;
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();

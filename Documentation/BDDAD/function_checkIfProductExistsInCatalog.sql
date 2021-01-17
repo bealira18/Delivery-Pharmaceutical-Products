@@ -1,4 +1,6 @@
-CREATE OR REPLACE FUNCTION checkIfProductExistsInCatalog(idPharmacy IN INTEGER, idProduct IN INTEGER)
+CREATE OR REPLACE FUNCTION checkIfProductExistsInCatalog(
+    idPharmacy IN INTEGER, 
+    idProduct IN INTEGER)
 RETURN INTEGER
 IS
     is_same_product  INTEGER;
@@ -7,5 +9,5 @@ BEGIN
     FROM stock
     WHERE id_pharmacy = idPharmacy AND id_product = idProduct;
 
-  RETURN is_same_product;
+    RETURN is_same_product;
 END;

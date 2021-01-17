@@ -1,6 +1,8 @@
-CREATE OR REPLACE FUNCTION getAllAvailableDrones(idOrder IN INTEGER)
-RETURN SYS_REFCURSOR IS available_drones SYS_REFCURSOR;
-
+CREATE OR REPLACE FUNCTION getAllAvailableDrones(
+    idOrder IN INTEGER)
+RETURN SYS_REFCURSOR 
+IS 
+    available_drones SYS_REFCURSOR;
 BEGIN
 
     OPEN available_drones FOR
@@ -18,4 +20,3 @@ BEGIN
     RETURN available_drones;
 
 END;
-/
