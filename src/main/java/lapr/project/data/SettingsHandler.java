@@ -37,9 +37,8 @@ public class SettingsHandler {
     public void saveSettings(String filePath)
     {
         try {
-            Properties properties = new Properties(System.getProperties());
-            OutputStream output = new FileOutputStream(filePath);
-            properties.store(output, null);
+            FileOutputStream output = new FileOutputStream(filePath);
+            System.getProperties().store(output, null);
             output.close();
             
         } catch (IOException e) {
