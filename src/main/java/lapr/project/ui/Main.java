@@ -12,8 +12,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lapr.project.data.AssemblyWatcher;
+import lapr.project.data.SettingsHandler;
 
 
 class Main {
@@ -31,18 +34,12 @@ class Main {
     public static void main(String[] args) throws IOException, SQLException {
         //load database properties
 
-        try {
-            Properties properties =
-                    new Properties(System.getProperties());
-            InputStream input = new FileInputStream("target/classes/application.properties");
-            properties.load(input);
-            input.close();
-            System.setProperties(properties);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        SettingsHandler sH = new SettingsHandler();
+        sH.loadSettings(SettingsHandler.SETTINGS_FILE);
+        
+//        System.out.println(System.getProperties());
+//        sH.saveSettings(SettingsHandler.SETTINGS_FILE);
+        
         //Initial Database Setup
         DataHandler dh = new DataHandler();
         //dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
@@ -156,8 +153,8 @@ class Main {
 
 
         //UpdateDeliveryFeeController           --- correr isto removeu a ligaçao à bddad... ta a apagar as coisas das properties......
-        /*UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
-        updateDeliveryFeeController.updateDeliveryFee(2.90);*/
+        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
+        updateDeliveryFeeController.updateDeliveryFee(2.90);
 
 
         //UpdateDroneController
@@ -195,6 +192,17 @@ class Main {
 
 
         //UseCreditsController      ------------------------------------------------------------------------------------
+        
+        /*AssemblyWatcher asmWatch = new AssemblyWatcher();
+        
+        Thread thr = new Thread(asmWatch);
+        thr.setDaemon(true);
+        thr.start();
+        
+        System.out.println("Type anything to stop program");
+        Scanner in = new Scanner(System.in);
+        in.nextLine();*/
+
     }
 
 }
