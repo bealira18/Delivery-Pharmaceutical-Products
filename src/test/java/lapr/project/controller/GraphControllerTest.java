@@ -10,6 +10,7 @@ import lapr.project.utils.GraphAlgorithms;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 
@@ -52,26 +53,6 @@ public class GraphControllerTest {
     }
 
     /**
-     * Test of fillScooterGraph method, of class GraphController.
-     *
-     * @throws java.lang.Exception
-     */
-    @Test
-    public void testFillGraphScooter2() throws Exception {
-
-        System.out.println("fillGraphScooter2");
-
-        GraphAlgorithms g = mock(GraphAlgorithms.class);
-        gCont = mock(GraphController.class);
-        doThrow(new Exception()).when(g).fillGraph(new Graph<>(true), new ArrayList<>(), new ArrayList<>());
-        Exception ex = assertThrows(Exception.class, () -> gCont.fillGraphScooter());
-
-        gCont.fillGraphScooter();
-
-        assertEquals(ex.getMessage(), ex.getMessage());
-    }
-
-    /**
      * Test of getGraphDrone method, of class GraphController.
      */
     @Test
@@ -92,21 +73,6 @@ public class GraphControllerTest {
 
         System.out.println("fillGraphDrone");
         gCont = new GraphController();
-        gCont.fillGraphScooter();
-    }
-
-    @Test
-    public void testFillGraphDrone2() throws Exception {
-
-        System.out.println("fillGraphScooter2");
-
-        GraphAlgorithms g = mock(GraphAlgorithms.class);
-        gCont = mock(GraphController.class);
-        doThrow(new Exception()).when(g).fillGraph(new Graph<>(false), new ArrayList<>(), new ArrayList<>());
-        Exception ex = assertThrows(Exception.class, () -> gCont.fillGraphDrone());
-
         gCont.fillGraphDrone();
-
-        assertEquals(ex.getMessage(), ex.getMessage());
     }
 }
