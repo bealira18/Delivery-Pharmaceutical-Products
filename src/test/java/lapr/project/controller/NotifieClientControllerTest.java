@@ -60,11 +60,11 @@ class NotifieClientControllerTest {
         result = controller1.checkIfIsEnoughStock(order1);
         assertEquals(true, result);
 
-        when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
-        when(stockDB.checkIfIsEnoughStockInOtherPharmacy(order1.getId())).thenReturn(Boolean.TRUE);
+        when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.FALSE);
+        when(stockDB.checkIfIsEnoughStockInOtherPharmacy(order1.getId())).thenReturn(Boolean.FALSE);
 
         result = controller1.checkIfIsEnoughStock(order1);
-        assertEquals(true, result);
+        assertEquals(false, result);
     }
 
 }

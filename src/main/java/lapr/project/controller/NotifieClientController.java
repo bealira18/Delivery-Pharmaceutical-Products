@@ -18,9 +18,6 @@ public class NotifieClientController {
      //se retornar true é porque ainda tem stock
      public Boolean checkIfIsEnoughStock(PurchaseOrder order)throws SQLException {
 
-        if(stockDB.checkIfIsEnoughStock(order.getId()) || stockDB.checkIfIsEnoughStockInOtherPharmacy(order.getId())){
-            return true;
-        }
-        return false;
+        return stockDB.checkIfIsEnoughStock(order.getId()) || stockDB.checkIfIsEnoughStockInOtherPharmacy(order.getId());
      }
 }
