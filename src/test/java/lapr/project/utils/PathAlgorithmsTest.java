@@ -273,11 +273,53 @@ public class PathAlgorithmsTest {
         double expResult = 41.82;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
         assertEquals(expResult, result, 1);
+        
+        lpro.add(new Product(1, "Test", 0, 180, 1));
+        
+        expResult = 149.68;
+        result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
+        assertEquals(expResult, result, 1);
 
         lla = new LinkedList<>();
 
         expResult = 0.0d;
         result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
         assertEquals(expResult, result, 0);
+    }
+    
+    @Test
+    public void testCalcTotalDroneEnergy2(){
+        
+        System.out.println("calcDroneTotalEnergy2");
+
+        Graph<Address, Path> g = new Graph<>(true);
+
+        List<Address> la = new ArrayList<>();
+
+        Address a1 = new Address("casa da musica", 41.158056, 8.630556, 91892);
+        Address a2 = new Address("conservatorio", 41.155556, 8.623056, 2);
+        Address a3 = new Address("trindade", 41.151667, 8.609444, -28237);
+
+        la.add(a1);
+        la.add(a2);
+        la.add(a3);
+
+        List<Path> lp = new ArrayList<>();
+
+        lp.add(new Path(a1, a2, 0));
+        lp.add(new Path(a2, a3, 0));
+
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        LinkedList<Address> lla = new LinkedList<>();
+
+        lla.add(a1);
+        lla.add(a2);
+        lla.add(a3);
+
+        List<Product> lpro = new ArrayList<>();
+        double expResult = 3234.24;
+        double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
+        assertEquals(expResult, result, 1);
     }
 }
