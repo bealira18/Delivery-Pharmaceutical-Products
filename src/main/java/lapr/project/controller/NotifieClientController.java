@@ -20,8 +20,7 @@ public class NotifieClientController {
 
         if(stockDB.checkIfIsEnoughStock(order.getId()) || stockDB.checkIfIsEnoughStockInOtherPharmacy(order.getId())){
             return true;
-        }else {
-            return false;
         }
+        return false;
      }
 }
