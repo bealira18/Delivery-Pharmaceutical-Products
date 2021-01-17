@@ -11,34 +11,50 @@ import lapr.project.utils.GraphAlgorithms;
 
 public class GraphController {
 
-    private final Graph<Address, Path> g;
+    private final Graph<Address, Path> gScooter;
+    private final Graph<Address, Path> gDrone;
     private final AddressDB aDB;
     private final PathDB pDB;
 
     public GraphController() {
 
-        g = new Graph<>(true);
+        gScooter = new Graph<>(true);
+        gDrone = new Graph<>(false);
         aDB = new AddressDB();
         pDB = new PathDB();
     }
 
     public GraphController(AddressDB aDB, PathDB pDB) {
 
-        g = new Graph<>(true);
+        gScooter = new Graph<>(true);
+        gDrone = new Graph<>(false);
         this.aDB = aDB;
         this.pDB = pDB;
     }
 
-    public Graph<Address, Path> getGraph() {
+    public Graph<Address, Path> getGraphScooter() {
 
-        return g.clone();
+        return gScooter.clone();
+    }
+    
+    public Graph<Address, Path> getGraphDrone() {
+        
+        return gDrone.clone();
     }
 
-    public void fillGraph() throws SQLException {
+    public void fillGraphScooter() throws SQLException {
 
-        List<Address> la = aDB.getAddresses();
-        List<Path> lp = pDB.getPaths(la);
+        List<Address> laScooter = aDB.getAddresses();
+        List<Path> lpScooter = pDB.getPaths(laScooter);
 
-        GraphAlgorithms.fillGraph(g, la, lp);
+        GraphAlgorithms.fillGraph(gScooter, laScooter, lpScooter);
+    }
+    
+    public void fillGraphDrone() throws SQLException {
+        
+        List<Address> laDrone = aDB.getAddresses();
+        List<Path> lpDrone = pDB.getPaths(laDrone);
+        
+        GraphAlgorithms.fillGraph(gDrone, laDrone, lpDrone);
     }
 }
