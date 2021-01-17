@@ -8,7 +8,6 @@ import lapr.project.model.Address;
 import lapr.project.model.Courier;
 import lapr.project.model.Path;
 import lapr.project.model.Product;
-import lapr.project.model.Vehicle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -255,21 +254,20 @@ public class GraphAlgorithmsTest {
         llla.add(lla2);
 
         Courier c = new Courier("TestMail", "TestPass", "Name", 0, 0, 0, 80.0);
-        Vehicle v = new Vehicle(0, 0, 130.0, 1.1, 1, 250, 500, 500);
         List<Product> lpro = new ArrayList<>();
 
         int expResult = 2;
-        int result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
+        int result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, lpro);
         assertEquals(expResult, result);
 
         nrPaths = 0;
         expResult = 0;
         llla = new LinkedList<>();
-        result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
+        result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, lpro);
         assertEquals(expResult, result);
 
         llla.add(lla);
-        result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
+        result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, lpro);
         assertEquals(expResult, result);
 
     }
@@ -313,20 +311,19 @@ public class GraphAlgorithmsTest {
         llla.add(lla2);
 
         Courier c = new Courier("TestMail", "TestPass", "Name", 0, 0, 0, 80.0);
-        Vehicle v = new Vehicle(0, 0, 130.0, 1.1, 1, 250, 500, 500);
         List<Product> lpro = new ArrayList<>();
 
         List<String> expResult = new ArrayList<>();
         expResult.add("Path #1");
-        expResult.add("Total Distance = 1.905651978328597km.");
-        expResult.add("Total Energy Consumption = 0.11634853102384513W.");
+        expResult.add("Total Distance = 1.91km.");
+        expResult.add("Total Energy Consumption = 13.81W.h.");
         expResult.add("casa da musica;conservatorio;trindade;");
         expResult.add("Path #2");
-        expResult.add("Total Distance = 1.3733907506501952km.");
-        expResult.add("Total Energy Consumption = 0.08385161518318578W.");
+        expResult.add("Total Distance = 1.37km.");
+        expResult.add("Total Energy Consumption = 9.99W.h.");
         expResult.add("casa da musica;conservatorio;casa da musica;");
 
-        GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, v, lpro);
+        GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, lpro);
         List<String> result = Utils.readFile(fileName);
 
         assertEquals(expResult, result);
@@ -424,21 +421,21 @@ public class GraphAlgorithmsTest {
         Address aOrig = a1;
         Address aDest = a11;
 
-        double expResult = 20.12;
+        double expResult = 20122.97;
         double result = GraphAlgorithms.getShortestPathThroughNodes(g, lNodes, path, aOrig, aDest);
         assertEquals(expResult, result, 1);
 
         LinkedList<Address> expPath = new LinkedList<>();
         expPath.add(a1);
         expPath.add(a2);
-        expPath.add(a6);
-        expPath.add(a7);
-        expPath.add(a6);
-        expPath.add(a2);
         expPath.add(a5);
         expPath.add(a3);
         expPath.add(a4);
         expPath.add(a5);
+        expPath.add(a2);
+        expPath.add(a6);
+        expPath.add(a7);
+        expPath.add(a6);
         expPath.add(a2);
         expPath.add(a1);
         expPath.add(a11);
