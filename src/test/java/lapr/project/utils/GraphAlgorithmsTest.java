@@ -509,6 +509,61 @@ public class GraphAlgorithmsTest {
     }
 
     @Test
+    public void testGenerateCombinations2() {
+
+        System.out.println("generateCombinations2");
+
+        List<Address> lNodes = new ArrayList<>();
+        List<LinkedList<Address>> combos = new ArrayList<>();
+
+        Address a1 = new Address("ali", 0, 0, 0);
+        Address a2 = new Address("aqui", 0, 0, 0);
+
+        GraphAlgorithms.generateCombinations(lNodes.size(), lNodes, combos, a1, a2);
+
+        assertEquals(new ArrayList<>(), combos);
+        assertEquals(0, combos.size());
+    }
+
+    @Test
+    public void testGenerateCombinations3() {
+
+        System.out.println("generateCombinations3");
+
+        Address a1 = new Address("ali", 0, 0, 0);
+        Address a2 = new Address("aqui", 0, 0, 0);
+        Address a3 = new Address("aculoutro", 0, 0, 0);
+        Address a4 = new Address("adiante", 0, 0, 0);
+
+        List<Address> lNodes = new ArrayList<>();
+        lNodes.add(a2);
+        lNodes.add(a3);
+
+        List<LinkedList<Address>> combos = new ArrayList<>();
+
+        GraphAlgorithms.generateCombinations(lNodes.size(), lNodes, combos, a1, a4);
+
+        List<LinkedList<Address>> expCombos = new ArrayList<>();
+
+        LinkedList<Address> theCombo1 = new LinkedList<>();
+        theCombo1.add(a1);
+        theCombo1.add(a2);
+        theCombo1.add(a3);
+        theCombo1.add(a4);
+        LinkedList<Address> theCombo2 = new LinkedList<>();
+        theCombo2.add(a1);
+        theCombo2.add(a3);
+        theCombo2.add(a2);
+        theCombo2.add(a4);
+
+        expCombos.add(theCombo1);
+        expCombos.add(theCombo2);
+
+        assertEquals(expCombos, combos);
+        assertEquals(2, combos.size());
+    }
+
+    @Test
     public void testMergeLinkedLists() {
 
         System.out.println("mergeLinkedLists");

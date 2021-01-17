@@ -92,10 +92,6 @@ public class PathAlgorithms {
         double alt1 = a1.getAltitude();
         double alt2 = a2.getAltitude();
 
-        if (Double.compare(lat1, lat2) == 0 && Double.compare(long1, long2) == 0 && Double.compare(alt1, alt2) == 0) {
-            return 0;
-        }
-
         double latDistance = Math.toRadians(lat2 - lat1);
         double longDistance = Math.toRadians(long2 - long1);
         double firstVal = Math.pow(Math.sin(latDistance / 2), 2) + Math.cos(Math.toRadians(lat1))
