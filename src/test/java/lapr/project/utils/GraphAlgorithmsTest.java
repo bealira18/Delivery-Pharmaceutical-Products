@@ -315,12 +315,12 @@ public class GraphAlgorithmsTest {
 
         List<String> expResult = new ArrayList<>();
         expResult.add("Path #1");
-        expResult.add("Total Distance = 1,91km.");
-        expResult.add("Total Energy Consumption = 13,81W.h.");
+        expResult.add("Total Distance = 1.91km.");
+        expResult.add("Total Energy Consumption = 13.81W.h.");
         expResult.add("casa da musica;conservatorio;trindade;");
         expResult.add("Path #2");
-        expResult.add("Total Distance = 1,37km.");
-        expResult.add("Total Energy Consumption = 9,99W.h.");
+        expResult.add("Total Distance = 1.37km.");
+        expResult.add("Total Energy Consumption = 9.99W.h.");
         expResult.add("casa da musica;conservatorio;casa da musica;");
 
         GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, lpro);
