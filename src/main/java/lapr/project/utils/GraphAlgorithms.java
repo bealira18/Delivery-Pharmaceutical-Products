@@ -91,9 +91,9 @@ public class GraphAlgorithms {
 
             bw.write("Path #" + (i + 1));
             bw.newLine();
-            bw.write("Total Distance = " + String.format("%.2f", PathAlgorithms.calcTotalDistance(la.get(i)) / 1000) + "km.");
+            bw.write("Total Distance = " + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcTotalDistance(la.get(i)) / 1000) + "km.");
             bw.newLine();
-            bw.write("Total Energy Consumption = " + String.format("%.2f", PathAlgorithms.calcScooterTotalEnergy(g, la.get(i), c, lp)) + "W.h.");
+            bw.write("Total Energy Consumption = " + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcScooterTotalEnergy(g, la.get(i), c, lp)) + "W.h.");
             bw.newLine();
 
             for (int j = 0; j < la.get(i).size(); j++) {
