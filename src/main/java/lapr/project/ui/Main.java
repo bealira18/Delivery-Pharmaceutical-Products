@@ -15,7 +15,6 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lapr.project.data.AssemblyWatcher;
 import lapr.project.data.SettingsHandler;
 
 
@@ -153,8 +152,8 @@ class Main {
 
 
         //UpdateDeliveryFeeController           --- correr isto removeu a ligaçao à bddad... ta a apagar as coisas das properties......
-        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
-        updateDeliveryFeeController.updateDeliveryFee(2.90);
+//        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
+//        updateDeliveryFeeController.updateDeliveryFee(2.90);
 
 
         //UpdateDroneController
