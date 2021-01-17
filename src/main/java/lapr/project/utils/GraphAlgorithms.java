@@ -9,7 +9,6 @@ import lapr.project.model.Address;
 import lapr.project.model.Courier;
 import lapr.project.model.Path;
 import lapr.project.model.Product;
-import lapr.project.model.Vehicle;
 
 public class GraphAlgorithms {
 
@@ -77,7 +76,7 @@ public class GraphAlgorithms {
     }
 
     public static int writePathsToFile(String fileName, int nrPaths, List<LinkedList<Address>> la,
-            Graph<Address, Path> g, Courier c, Vehicle v, List<Product> lp) throws IOException {
+            Graph<Address, Path> g, Courier c, List<Product> lp) throws IOException {
 
         if (la.isEmpty()) {
             return 0;
@@ -92,9 +91,9 @@ public class GraphAlgorithms {
 
             bw.write("Path #" + (i + 1));
             bw.newLine();
-            bw.write("Total Distance = " + PathAlgorithms.calcTotalDistance(la.get(i)) + "km.");
+            bw.write("Total Distance = " + String.format("%.2f", PathAlgorithms.calcTotalDistance(la.get(i)) / 1000) + "km.");
             bw.newLine();
-            bw.write("Total Energy Consumption = " + PathAlgorithms.calcTotalEnergy(g, la.get(i), c, v, lp) + "W.");
+            bw.write("Total Energy Consumption = " + String.format("%.2f", PathAlgorithms.calcScooterTotalEnergy(g, la.get(i), c, lp)) + "W.h.");
             bw.newLine();
 
             for (int j = 0; j < la.get(i).size(); j++) {
