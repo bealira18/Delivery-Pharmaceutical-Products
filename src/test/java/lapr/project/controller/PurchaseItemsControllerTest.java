@@ -118,5 +118,8 @@ class PurchaseItemsControllerTest {
         boolean expResult = true;
         boolean result = controller.addToBasket(product1, 2);
         assertEquals(expResult, result);
+
+        result = controller.addToBasket(product1, 2);
+        assertEquals(expResult, result);
     }
 }
