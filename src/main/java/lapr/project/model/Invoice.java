@@ -7,7 +7,6 @@ public class Invoice {
     private int pharmacyId;
     private String clientEmail;
     private double totalPrice;
-    private double deliveryFee;
 
     public Invoice(int id, int orderId, int pharmacyId, String clientEmail, double totalPrice, double deliveryFee) {
         this.invoiceId = id;
@@ -15,7 +14,6 @@ public class Invoice {
         this.pharmacyId = pharmacyId;
         this.clientEmail = clientEmail;
         this.totalPrice = totalPrice;
-        this.deliveryFee=deliveryFee;
     }
 
     public int getId() {
@@ -43,11 +41,6 @@ public class Invoice {
         return totalPrice;
     }
 
-    public double getDeliveryFee(){
-
-        return deliveryFee;
-    }
-
     public void setId(int id) {
 
         this.invoiceId = id;
@@ -73,15 +66,10 @@ public class Invoice {
         this.totalPrice = totalPrice;
     }
 
-    public void setDeliveryFee(double deliveryFee){
-
-        this.deliveryFee=deliveryFee;
-    }
-
     @Override
     public String toString() {
 
-        return "Invoice{" + "id=" + invoiceId + ", orderId=" + orderId + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", totalPrice=" + totalPrice + ", deliveryFee=" + deliveryFee + '}';
+        return "Invoice{" + "id=" + invoiceId + ", orderId=" + orderId + ", pharmacyId=" + pharmacyId + ", clientEmail=" + clientEmail + ", totalPrice=" + totalPrice + '}';
     }
 
     @Override
