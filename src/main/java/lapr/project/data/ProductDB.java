@@ -4,10 +4,13 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import lapr.project.model.Product;
+import lapr.project.model.ProductCategory;
 import oracle.jdbc.OracleTypes;
 
 public class ProductDB extends DataHandler {
@@ -167,5 +170,54 @@ public class ProductDB extends DataHandler {
             }
         }
         return false;
+    }
+
+    public HashMap<ProductCategory, ArrayList<Product>> getProductsFromPharmacy(int idPharmacy) throws SQLException {
+        CallableStatement callStmt = null;
+        ResultSet rs = null;
+        HashMap<ProductCategory, ArrayList<Product>> mapProducts = new HashMap<>();
+
+        try {
+            callStmt = getConnection().prepareCall("{ ? = call getProductsFromPharmacy(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setInt(2, idPharmacy);
+
+            callStmt.execute();
+
+            rs = (ResultSet) callStmt.getObject(1);
+
+            while (rs.next()) {
+                int idCategory = rs.getInt(1);
+                String nameCategory = rs.getString(2);
+                int idProduct = rs.getInt(3);
+                String nameProduct = rs.getString(4);
+                double priceProduct = rs.getDouble(5);
+                double weight = rs.getDouble(6);
+
+                ProductCategory pc = new ProductCategory(idCategory, nameCategory);
+                Product p = new Product(idProduct, nameProduct, priceProduct, weight, idCategory);
+
+                if (!mapProducts.containsKey(pc)) {
+                    ArrayList<Product> listProducts = new ArrayList<>();
+                    listProducts.add(p);
+                    mapProducts.put(pc, listProducts);
+                }
+                else {
+                    ArrayList<Product> listProducts = mapProducts.get(pc);
+                    listProducts.add(p);
+                    mapProducts.put(pc, listProducts);
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return mapProducts;
     }
 }
