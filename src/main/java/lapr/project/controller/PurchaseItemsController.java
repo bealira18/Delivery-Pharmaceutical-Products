@@ -1,9 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.data.PharmacyDB;
-import lapr.project.data.ProductDB;
-import lapr.project.data.ProductLineDB;
-import lapr.project.data.PurchaseOrderDB;
+import lapr.project.data.*;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Product;
 import lapr.project.model.ProductCategory;
@@ -22,11 +19,15 @@ public class PurchaseItemsController {
     private HashMap<Product, Integer> basket;
     private PurchaseOrderDB po;
     private ProductLineDB pl;
+    private StockDB s;
 
     public PurchaseItemsController() {
         pharmacyDB = new PharmacyDB();
         productDB = new ProductDB();
         basket = new HashMap<>();
+        po=new PurchaseOrderDB();
+        pl=new ProductLineDB();
+        s=new StockDB();
     }
 
     public PurchaseItemsController(PharmacyDB pharmacyDB, ProductDB productDB) {
@@ -75,6 +76,8 @@ public class PurchaseItemsController {
             if(!pl.newProductLine(idOrder,p.getKey().getId(),p.getValue(),p.getKey().getPrice()))
                 return false;
         }
+        s.updateProductStockAfterSale(idOrder);
+
         return true;
     }
 
