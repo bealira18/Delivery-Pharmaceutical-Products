@@ -172,10 +172,10 @@ public class ProductDB extends DataHandler {
         return false;
     }
 
-    public HashMap<ProductCategory, ArrayList<Product>> getProductsFromPharmacy(int idPharmacy) throws SQLException {
+    public HashMap<ProductCategory, List<Product>> getProductsFromPharmacy(int idPharmacy) throws SQLException {
         CallableStatement callStmt = null;
         ResultSet rs = null;
-        HashMap<ProductCategory, ArrayList<Product>> mapProducts = new HashMap<>();
+        HashMap<ProductCategory, List<Product>> mapProducts = new HashMap<>();
 
         try {
             callStmt = getConnection().prepareCall("{ ? = call getProductsFromPharmacy(?) }");
@@ -204,7 +204,7 @@ public class ProductDB extends DataHandler {
                     mapProducts.put(pc, listProducts);
                 }
                 else {
-                    ArrayList<Product> listProducts = mapProducts.get(pc);
+                    List<Product> listProducts = mapProducts.get(pc);
                     listProducts.add(p);
                     mapProducts.put(pc, listProducts);
                 }
