@@ -39,8 +39,8 @@ public class PurchaseItemsController {
         mapProducts = productDB.getProductsFromPharmacy(idPharmacy);
     }
 
-    public List<ProductCategory> getProductCategories() {
-        List categories = new ArrayList<>();
+    public ArrayList<ProductCategory> getProductCategories() {
+        ArrayList categories = new ArrayList<>();
         for(ProductCategory pc : mapProducts.keySet()) {
             categories.add(pc);
         }
