@@ -15,6 +15,7 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lapr.project.data.EmailService;
 import lapr.project.data.SettingsHandler;
 
 
@@ -192,7 +193,11 @@ class Main {
 
         //UseCreditsController      ------------------------------------------------------------------------------------
         
-        /*AssemblyWatcher asmWatch = new AssemblyWatcher();
+        //Dont uncomment this, poor andré
+//        EmailService eS = new EmailService();
+//        eS.sendEmail("1171060@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");
+        
+        AssemblyWatcher asmWatch = new AssemblyWatcher();
         
         Thread thr = new Thread(asmWatch);
         thr.setDaemon(true);
@@ -200,7 +205,7 @@ class Main {
         
         System.out.println("Type anything to stop program");
         Scanner in = new Scanner(System.in);
-        in.nextLine();*/
+        in.nextLine();
 
     }
 
