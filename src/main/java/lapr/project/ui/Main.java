@@ -36,8 +36,8 @@ class Main {
         SettingsHandler sH = new SettingsHandler();
         sH.loadSettings(SettingsHandler.SETTINGS_FILE);
         
-//        System.out.println(System.getProperties());
-//        sH.saveSettings(SettingsHandler.SETTINGS_FILE);
+        System.out.println(System.getProperties());
+        sH.saveSettings(SettingsHandler.SETTINGS_FILE);
         
         //Initial Database Setup
         DataHandler dh = new DataHandler();
@@ -152,8 +152,8 @@ class Main {
 
 
         //UpdateDeliveryFeeController           --- correr isto removeu a ligaçao à bddad... ta a apagar as coisas das properties......
-//        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
-//        updateDeliveryFeeController.updateDeliveryFee(2.90);
+        //UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
+        //updateDeliveryFeeController.updateDeliveryFee(2.90);
 
 
         //UpdateDroneController
