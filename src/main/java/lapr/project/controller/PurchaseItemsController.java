@@ -1,7 +1,12 @@
 package lapr.project.controller;
 
-import lapr.project.data.*;
-import lapr.project.model.*;
+import lapr.project.data.PharmacyDB;
+import lapr.project.data.ProductDB;
+import lapr.project.data.ProductLineDB;
+import lapr.project.data.PurchaseOrderDB;
+import lapr.project.model.Pharmacy;
+import lapr.project.model.Product;
+import lapr.project.model.ProductCategory;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
