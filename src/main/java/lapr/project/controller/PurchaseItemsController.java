@@ -16,7 +16,7 @@ public class PurchaseItemsController {
 
     private final PharmacyDB pharmacyDB;
     private final ProductDB productDB;
-    private HashMap<ProductCategory, ArrayList<Product>> mapProducts;
+    private HashMap<ProductCategory, List<Product>> mapProducts;
     private HashMap<Product, Integer> basket;
 
     public PurchaseItemsController() {
@@ -40,12 +40,8 @@ public class PurchaseItemsController {
     }
 
     public List<ProductCategory> getProductCategories() {
-        List<ProductCategory> categories = new ArrayList<>();
-        for(ProductCategory pc : mapProducts.keySet()) {
-            categories.add(pc);
-        }
 
-        return categories;
+        return new ArrayList<>(mapProducts.keySet());
     }
 
     public List<Product> getProductsFromCategory(ProductCategory pc) {
