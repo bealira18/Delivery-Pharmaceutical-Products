@@ -197,16 +197,6 @@ class Main {
 //        EmailService eS = new EmailService();
 //        eS.sendEmail("1171060@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");
         
-        AssemblyWatcher asmWatch = new AssemblyWatcher();
-        
-        Thread thr = new Thread(asmWatch);
-        thr.setDaemon(true);
-        thr.start();
-        
-        System.out.println("Type anything to stop program");
-        Scanner in = new Scanner(System.in);
-        in.nextLine();
-
     }
 
 }
