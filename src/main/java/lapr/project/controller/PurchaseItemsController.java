@@ -1,16 +1,13 @@
 package lapr.project.controller;
 
-import lapr.project.data.PharmacyDB;
-import lapr.project.data.ProductCategoryDB;
-import lapr.project.data.ProductDB;
-import lapr.project.model.Pharmacy;
-import lapr.project.model.Product;
-import lapr.project.model.ProductCategory;
+import lapr.project.data.*;
+import lapr.project.model.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PurchaseItemsController {
 
@@ -18,6 +15,8 @@ public class PurchaseItemsController {
     private final ProductDB productDB;
     private HashMap<ProductCategory, List<Product>> mapProducts;
     private HashMap<Product, Integer> basket;
+    private PurchaseOrderDB po;
+    private ProductLineDB pl;
 
     public PurchaseItemsController() {
         pharmacyDB = new PharmacyDB();
@@ -61,4 +60,17 @@ public class PurchaseItemsController {
         //se nao houver stock retornar false
         return true;
     }
+
+    public boolean purchaseItems(int idOrder,int idPharmacy,String email) throws SQLException {
+
+        if(!po.newOrder(idOrder,idPharmacy,email))
+            return false;
+
+        for(Map.Entry<Product,Integer> p : basket.entrySet()){
+            if(!pl.newProductLine(idOrder,p.getKey().getId(),p.getValue(),p.getKey().getPrice()))
+                return false;
+        }
+        return true;
+    }
+
 }
