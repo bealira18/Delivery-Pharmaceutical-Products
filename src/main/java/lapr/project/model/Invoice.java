@@ -8,7 +8,7 @@ public class Invoice {
     private String clientEmail;
     private double totalPrice;
 
-    public Invoice(int id, int orderId, int pharmacyId, String clientEmail, double totalPrice, double deliveryFee) {
+    public Invoice(int id, int orderId, int pharmacyId, String clientEmail, double totalPrice) {
         this.invoiceId = id;
         this.orderId = orderId;
         this.pharmacyId = pharmacyId;
