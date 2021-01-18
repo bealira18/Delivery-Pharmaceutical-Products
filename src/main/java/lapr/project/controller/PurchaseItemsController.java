@@ -40,7 +40,7 @@ public class PurchaseItemsController {
     }
 
     public List<ProductCategory> getProductCategories() {
-        List categories = new ArrayList();
+        List categories = new ArrayList<>();
         for(ProductCategory pc : mapProducts.keySet()) {
             categories.add(pc);
         }
