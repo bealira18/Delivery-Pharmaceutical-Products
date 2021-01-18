@@ -5,6 +5,5 @@
     <file url="file://$PROJECT_DIR$/Documentation/BDDAD/LAPR3_INSERTS.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/Documentation/BDDAD/procedure_addAddress.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/Documentation/BDDAD/procedure_addCourier.sql" dialect="Oracle" />
-    <file url="file://$PROJECT_DIR$/target/test-classes/demo_jdbc.sql" dialect="Oracle" />
   </component>
 </project>
