@@ -1,12 +1,15 @@
 package lapr.project.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import lapr.project.data.PharmacyDB;
 import lapr.project.data.ProductDB;
 import lapr.project.model.Address;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Product;
 import lapr.project.model.ProductCategory;
+import lapr.project.data.*;
+import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
