@@ -1,7 +1,11 @@
 package lapr.project.controller;
 
 import lapr.project.data.*;
-import lapr.project.model.*;
+import lapr.project.model.Address;
+import lapr.project.model.Pharmacy;
+import lapr.project.model.Product;
+import lapr.project.model.ProductCategory;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -128,5 +132,4 @@ class PurchaseItemsControllerTest {
         boolean result=controller.purchaseItems(0,0,"email");
         assertEquals(expResult,result);
     }
-
 }
