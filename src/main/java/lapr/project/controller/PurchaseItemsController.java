@@ -4,10 +4,6 @@ import lapr.project.data.*;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Product;
 import lapr.project.model.ProductCategory;
-import lapr.project.model.Pharmacy;
-import lapr.project.model.Product;
-import lapr.project.model.ProductCategory;
-import lapr.project.model.ProductLine;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,15 +24,6 @@ public class PurchaseItemsController {
     public PurchaseItemsController() {
         pharmacyDB = new PharmacyDB();
         productDB = new ProductDB();
-        basket = new HashMap<>();
-        po=new PurchaseOrderDB();
-        pl=new ProductLineDB();
-        s=new StockDB();
-    }
-
-    public PurchaseItemsController(PharmacyDB pharmacyDB, ProductDB productDB, PurchaseOrderDB po, ProductLineDB pl,StockDB s) {
-        this.pharmacyDB = pharmacyDB;
-        this.productDB = productDB;
         basket = new HashMap<>();
         po=new PurchaseOrderDB();
         pl=new ProductLineDB();
