@@ -26,13 +26,13 @@ class PurchaseItemsControllerTest {
     private static List<Product> auxListProducts1;
     private static List<Product> auxListProducts2;
     private static HashMap<ProductCategory, List<Product>> auxMapProducts;
-    HashMap<Product, Integer> auxBasket;
+    private static HashMap<Product, Integer> auxBasket;
 
     public PurchaseItemsControllerTest() {
     }
 
-    @BeforeEach
-    void setUpClass() throws Exception {
+    @BeforeAll
+    public static void setUp() throws SQLException {
 
         auxListPharmacies = new ArrayList<>();
         auxListPharmacies.add(new Pharmacy(1, "TestPharma", new Address("TestAddress", 0, 0, 0)));
