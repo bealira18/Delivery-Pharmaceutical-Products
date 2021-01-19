@@ -1,5 +1,6 @@
 package lapr.project.controller;
 
+<<<<<<< HEAD
 import lapr.project.data.PharmacyDB;
 import lapr.project.data.ProductDB;
 import lapr.project.model.Address;
@@ -64,12 +65,16 @@ class PurchaseItemsControllerTest {
 
         PharmacyDB pharmacyDB = mock(PharmacyDB.class);
         ProductDB productDB = mock(ProductDB.class);
+        PurchaseOrderDB purchaseOrderDB=mock(PurchaseOrderDB.class);
+        ProductLineDB productLineDB=mock(ProductLineDB.class);
+        StockDB stockDB=mock(StockDB.class);
 
         when(pharmacyDB.getAllPharmacies()).thenReturn(auxListPharmacies);
         when(productDB.getProductsFromPharmacy(1)).thenReturn(auxMapProducts);
 
         controller = new PurchaseItemsController();
         controller = new PurchaseItemsController(pharmacyDB, productDB);
+        controller = new PurchaseItemsController(pharmacyDB, productDB, purchaseOrderDB, productLineDB, stockDB);
 
         controller.getProductsFromPharmacy(1);
     }
@@ -121,5 +126,12 @@ class PurchaseItemsControllerTest {
 
         result = controller.addToBasket(product1, 2);
         assertEquals(expResult, result);
+    }
+
+    @Test
+    void purchaseItemsTest() throws SQLException {
+        boolean expResult=false;
+        boolean result=controller.purchaseItems(0,0,"email");
+        assertEquals(expResult,result);
     }
 }

@@ -7,6 +7,10 @@ import lapr.project.data.PurchaseOrderDB;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Product;
 import lapr.project.model.ProductCategory;
+import lapr.project.model.Pharmacy;
+import lapr.project.model.Product;
+import lapr.project.model.ProductCategory;
+import lapr.project.model.ProductLine;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,6 +26,7 @@ public class PurchaseItemsController {
     private HashMap<Product, Integer> basket;
     private PurchaseOrderDB po;
     private ProductLineDB pl;
+    private StockDB s;
 
     public PurchaseItemsController() {
         pharmacyDB = new PharmacyDB();
@@ -33,6 +38,18 @@ public class PurchaseItemsController {
         this.pharmacyDB = pharmacyDB;
         this.productDB = productDB;
         basket = new HashMap<>();
+        po=new PurchaseOrderDB();
+        pl=new ProductLineDB();
+        s=new StockDB();
+    }
+
+    public PurchaseItemsController(PharmacyDB pharmacyDB, ProductDB productDB, PurchaseOrderDB po, ProductLineDB pl,StockDB s) {
+        this.pharmacyDB = pharmacyDB;
+        this.productDB = productDB;
+        basket = new HashMap<>();
+        this.po=po;
+        this.pl=pl;
+        this.s=s;
     }
 
     public List<Pharmacy> getPharmacies() {
@@ -68,6 +85,9 @@ public class PurchaseItemsController {
 
     public boolean purchaseItems(int idOrder,int idPharmacy,String email) throws SQLException {
 
+        if(basket.isEmpty())
+            return false;
+
         if(!po.newOrder(idOrder,idPharmacy,email))
             return false;
 
@@ -75,6 +95,8 @@ public class PurchaseItemsController {
             if(!pl.newProductLine(idOrder,p.getKey().getId(),p.getValue(),p.getKey().getPrice()))
                 return false;
         }
+        s.updateProductStockAfterSale(idOrder);
+
         return true;
     }
 
