@@ -87,9 +87,8 @@ public class GraphControllerTest {
 
         GraphController instance = mock(GraphController.class);
         Address a = new Address("Test", 0, 0, 0);
-        when(instance.getNearestPharmacy(a)).thenReturn(new Address("Test", 0, 0, 0));
 
-        Address expResult = new Address("Test", 0, 0, 0);
+        Address expResult = null;
         Address result = instance.getNearestPharmacy(a);
         assertEquals(expResult, result);
     }
