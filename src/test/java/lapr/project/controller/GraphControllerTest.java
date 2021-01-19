@@ -85,7 +85,7 @@ public class GraphControllerTest {
 
         System.out.println("getNearestPharmacy");
 
-        GraphController instance = mock(GraphController.class);
+        GraphController instance = new GraphController();
         Address a = new Address("Test", 0, 0, 0);
 
         Address expResult = null;
