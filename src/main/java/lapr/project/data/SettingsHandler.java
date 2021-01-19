@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Properties;
 
 /**
@@ -19,31 +18,29 @@ import java.util.Properties;
 public class SettingsHandler {
 
     public static final String SETTINGS_FILE = "target/classes/application.properties";
-    
-    public void loadSettings(String filePath)
-    {
+
+    public void loadSettings(String filePath) {
         try {
             Properties properties = new Properties(System.getProperties());
             InputStream input = new FileInputStream(filePath);
             properties.load(input);
-            
+
             System.setProperties(properties);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-    public void saveSettings(String filePath)
-    {
+
+    public void saveSettings(String filePath) {
         try {
             FileOutputStream output = new FileOutputStream(filePath);
             System.getProperties().store(output, null);
             output.close();
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
 }

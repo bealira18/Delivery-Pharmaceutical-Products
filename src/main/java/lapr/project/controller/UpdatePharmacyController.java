@@ -1,8 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.data.PharmacyDB;
-import lapr.project.data.ProductDB;
-import lapr.project.model.Product;
 
 import java.sql.SQLException;
 

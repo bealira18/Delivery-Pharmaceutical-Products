@@ -1,7 +1,6 @@
 package lapr.project.data;
 
 import lapr.project.model.Delivery;
-import lapr.project.model.Scooter;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
@@ -19,8 +18,8 @@ public class DeliveryDB extends DataHandler {
         boolean check = true;
         try {
             openConnection();
-            for(Delivery d : deliveryList) {
-                if(!addDelivery(d)) {
+            for (Delivery d : deliveryList) {
+                if (!addDelivery(d)) {
                     check = false;
                 }
             }
@@ -33,12 +32,11 @@ public class DeliveryDB extends DataHandler {
         return check;
     }
 
-
     private boolean addDelivery(Delivery d) throws SQLException {
 
         try {
             return addDelivery(d.getOrderId(), d.getVehicleId(), d.getCourierEmail(), d.getDeliveryStatusId(), d.getDeliveryStart(),
-                                d.getDeliveryEnd() ,d.getDeliveryRun());
+                    d.getDeliveryEnd(), d.getDeliveryRun());
 
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, ex);

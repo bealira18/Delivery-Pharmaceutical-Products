@@ -192,6 +192,29 @@ public class GraphAlgorithms {
         lOrig.addAll(lAddon);
     }
 
+    public static Address getNearestPharmacy(Graph<Address, Path> g, Address aOrig, List<Address> la) {
+
+        if (la.isEmpty() || g == null || !g.validVertex(aOrig)) {
+            return null;
+        }
+        LinkedList<Address> dummyList = new LinkedList<>();
+        Address nearestPharmacy = la.get(0);
+        double lowestDistance = shortestPath(g, aOrig, la.get(0), dummyList);
+        double currentDistance;
+
+        for (int i = 1; i < la.size(); i++) {
+
+            dummyList = new LinkedList<>();
+            currentDistance = shortestPath(g, aOrig, la.get(i), dummyList);
+
+            if (currentDistance < lowestDistance) {
+                lowestDistance = currentDistance;
+                nearestPharmacy = la.get(i);
+            }
+        }
+        return nearestPharmacy;
+    }
+
     /**
      * Computes shortest-path distance from a source vertex to all reachable
      * vertices of a graph g with nonnegative edge weights This implementation

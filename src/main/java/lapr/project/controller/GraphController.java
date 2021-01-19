@@ -36,9 +36,9 @@ public class GraphController {
 
         return gScooter.clone();
     }
-    
+
     public Graph<Address, Path> getGraphDrone() {
-        
+
         return gDrone.clone();
     }
 
@@ -49,12 +49,19 @@ public class GraphController {
 
         GraphAlgorithms.fillGraph(gScooter, laScooter, lpScooter);
     }
-    
+
     public void fillGraphDrone() throws SQLException {
-        
+
         List<Address> laDrone = aDB.getAddresses();
         List<Path> lpDrone = pDB.getPaths(laDrone);
-        
+
         GraphAlgorithms.fillGraph(gDrone, laDrone, lpDrone);
+    }
+
+    public Address getNearestPharmacy(Address a) throws SQLException {
+
+        List<Address> la = aDB.getPharmacyAddresses();
+
+        return GraphAlgorithms.getNearestPharmacy(gDrone, a, la);
     }
 }

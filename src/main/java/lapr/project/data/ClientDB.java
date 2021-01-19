@@ -1,17 +1,14 @@
 package lapr.project.data;
 
-import lapr.project.model.Client;
-
 import java.sql.CallableStatement;
 import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ClientDB extends DataHandler {
-    
+
     public boolean addClient(String email, String password, String name, int nif, long creditCard, LocalDate expirationDate, short ccv, String address, double latitude, double longitude, double altitude) {
 
         try {
@@ -57,7 +54,7 @@ public class ClientDB extends DataHandler {
     }
 
     public void updateCredits(String email, int creditsEarned) {
-    
+
         try {
             openConnection();
             /*
@@ -79,18 +76,18 @@ public class ClientDB extends DataHandler {
         }
     }
 
-    public boolean useCredits(String email,int idInvoice) throws SQLException {
+    public boolean useCredits(String email, int idInvoice) throws SQLException {
 
         CallableStatement callStmt = null;
 
-        try{
+        try {
             callStmt.getConnection().prepareCall("{ call useCredits(?,?) }");
 
-            callStmt.setString(1,email);
-            callStmt.setInt(2,idInvoice);
+            callStmt.setString(1, email);
+            callStmt.setInt(2, idInvoice);
             callStmt.execute();
             return true;
-        } catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 

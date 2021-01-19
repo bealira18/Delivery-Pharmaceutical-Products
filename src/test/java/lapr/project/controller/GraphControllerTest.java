@@ -1,18 +1,15 @@
 package lapr.project.controller;
 
-import java.util.ArrayList;
 import lapr.project.data.AddressDB;
 import lapr.project.data.PathDB;
 import lapr.project.model.Address;
 import lapr.project.model.Path;
 import lapr.project.utils.Graph;
-import lapr.project.utils.GraphAlgorithms;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GraphControllerTest {
 
@@ -67,6 +64,8 @@ public class GraphControllerTest {
 
     /**
      * Test of fillGraphDrone method, of class GraphController.
+     *
+     * @throws java.lang.Exception
      */
     @Test
     public void testFillGraphDrone() throws Exception {
@@ -74,5 +73,24 @@ public class GraphControllerTest {
         System.out.println("fillGraphDrone");
         gCont = new GraphController();
         gCont.fillGraphDrone();
+    }
+
+    /**
+     * Test of getNearestPharmacy method, of class GraphController.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testGetNearestPharmacy() throws Exception {
+
+        System.out.println("getNearestPharmacy");
+
+        GraphController instance = mock(GraphController.class);
+        Address a = null;
+        when(instance.getNearestPharmacy(a)).thenReturn(a);
+
+        Address expResult = null;
+        Address result = instance.getNearestPharmacy(a);
+        assertEquals(expResult, result);
     }
 }
