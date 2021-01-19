@@ -17,6 +17,8 @@ public class PurchaseOrderDB extends DataHandler {
             callStmt.setInt(1, idOrder);
             callStmt.setInt(2, idPharmacy);
             callStmt.setString(3, email);
+
+            callStmt.execute();
             return true;
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
