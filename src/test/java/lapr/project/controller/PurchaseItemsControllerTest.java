@@ -6,7 +6,7 @@ import lapr.project.model.Pharmacy;
 import lapr.project.model.Product;
 import lapr.project.model.ProductCategory;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
