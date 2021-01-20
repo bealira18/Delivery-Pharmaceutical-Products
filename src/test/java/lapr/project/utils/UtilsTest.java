@@ -93,5 +93,10 @@ public class UtilsTest {
         fileName = "";
         result = Utils.writeFile(s, fileName);
         assertEquals(expResult, result);
+
+        s = "Hello";
+        fileName = "    ||    []*  +/8)as0         as:_   asas\\asd\\as.acc<.aa.s.d,,sd";
+        result = Utils.writeFile(s, fileName);
+        assertEquals(expResult, result);
     }
 }
