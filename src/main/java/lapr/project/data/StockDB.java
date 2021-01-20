@@ -39,15 +39,15 @@ public class StockDB extends DataHandler {
 
     private boolean addProductToPharmacyCatalog(int idPharmacy, int idProduct)throws SQLException {
 
-        CallableStatement callStmt = null;
+        CallableStatement callStm = null;
 
         try {
-            callStmt = getConnection().prepareCall("{ call addProductToPharmacyCatalog(?,?) }");
+            callStm = getConnection().prepareCall("{ call addProductToPharmacyCatalog(?,?) }");
 
-            callStmt.setInt(1, idPharmacy);
-            callStmt.setInt(2, idProduct);
+            callStm.setInt(1, idPharmacy);
+            callStm.setInt(2, idProduct);
 
-            callStmt.execute();
+            callStm.execute();
             return true;
 
         } catch (NullPointerException | SQLException ex){
@@ -55,6 +55,7 @@ public class StockDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStm!=null) callStm.close();
             closeAll();
         }
         return false;
@@ -62,15 +63,15 @@ public class StockDB extends DataHandler {
 
     private boolean removeProductFromPharmacyCatalog(int idPharmacy, int idProduct)throws SQLException {
 
-        CallableStatement callStmt = null;
+        CallableStatement callStm = null;
 
         try {
-            callStmt = getConnection().prepareCall("{ call removeProductFromCatalog(?,?) }");
+            callStm = getConnection().prepareCall("{ call removeProductFromCatalog(?,?) }");
 
-            callStmt.setInt(1, idPharmacy);
-            callStmt.setInt(2, idProduct);
+            callStm.setInt(1, idPharmacy);
+            callStm.setInt(2, idProduct);
 
-            callStmt.execute();
+            callStm.execute();
             return true;
 
         } catch (NullPointerException | SQLException ex){
@@ -78,6 +79,7 @@ public class StockDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStm!=null) callStm.close();
             closeAll();
         }
         return false;
@@ -101,6 +103,7 @@ public class StockDB extends DataHandler {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
     }
@@ -116,35 +119,34 @@ public class StockDB extends DataHandler {
             callStmt.setInt(1, idOrder);
 
             callStmt.execute();
+            closeAll();
             return true;
 
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
-
-        } finally {
             closeAll();
         }
         return false;
     }
 
     public boolean checkIfIsEnoughStock(int idOrder) throws SQLException {
-        CallableStatement callStmt = null;
+        CallableStatement callStm = null;
 
         try{
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call checkIfIsEnoughStock(?) }");
+            callStm = getConnection().prepareCall("{ ? = call checkIfIsEnoughStock(?) }");
 
-            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
-            callStmt.setInt(2, idOrder);
-            callStmt.execute();
+            callStm.registerOutParameter(1, OracleTypes.INTEGER);
+            callStm.setInt(2, idOrder);
+            callStm.execute();
 
-            return callStmt.getInt(1) > 0;
+            return callStm.getInt(1) > 0;
         }catch(NullPointerException | NumberFormatException | SQLException ex){
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
+            if(callStm!=null) callStm.close();
             closeAll();
         }
     }
@@ -166,6 +168,7 @@ public class StockDB extends DataHandler {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
     }

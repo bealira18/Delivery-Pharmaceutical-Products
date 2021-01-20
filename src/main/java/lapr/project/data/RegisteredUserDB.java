@@ -8,13 +8,14 @@ import oracle.jdbc.OracleTypes;
 
 public class RegisteredUserDB extends DataHandler {
 
-    public RegisteredUser findUser(String email, String password) {
+    public RegisteredUser findUser(String email, String password) throws SQLException {
 
         /* Objeto "callStmt" para invocar a função "findUser" armazenada na BD.
          *
          * FUNCTION findUser(email_pr VARCHAR2, password_pr VARCHAR2) RETURN MATCHING_USER.ref_cursor
          */
         CallableStatement callStmt = null;
+        ResultSet rSet = null;
 
         try {
             openConnection();
@@ -29,7 +30,7 @@ public class RegisteredUserDB extends DataHandler {
             // Executa a invocação da função "getSailor".
             callStmt.execute();
             // Guarda o cursor retornado num objeto "ResultSet".
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
                 String userEmail = rSet.getString(1);
@@ -43,6 +44,8 @@ public class RegisteredUserDB extends DataHandler {
             e.printStackTrace();
         }
         finally{
+            if(callStmt!=null) callStmt.close();
+            if(rSet!=null) rSet.close();
             closeAll();
         }
         throw new IllegalArgumentException("Could not find a user matching this user and password");

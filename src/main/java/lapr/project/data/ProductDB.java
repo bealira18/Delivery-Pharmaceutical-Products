@@ -92,6 +92,7 @@ public class ProductDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;
@@ -100,6 +101,7 @@ public class ProductDB extends DataHandler {
     public Product getProduct(int id) throws SQLException {
         Product p = null;
         CallableStatement callStmt = null;
+        ResultSet rSet = null;
 
         try {
             openConnection();
@@ -113,7 +115,7 @@ public class ProductDB extends DataHandler {
             // Executa a invocação da função "getSailor".
             callStmt.execute();
             // Guarda o cursor retornado num objeto "ResultSet".
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
                 //Product(int id, String name, double price, double weight, int categoryId)
@@ -129,6 +131,8 @@ public class ProductDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("No Product with id:" + id);
         } finally {
+            if(callStmt!=null) callStmt.close();
+            if(rSet!=null) rSet.close();
             closeAll();
         }
         return p;
@@ -159,14 +163,14 @@ public class ProductDB extends DataHandler {
             callStmt.setDouble(5,p.getWeight());
 
             callStmt.execute();
+
+            closeAll();
             return true;
 
         } catch (NullPointerException | SQLException ex){
-            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
-        } finally {
-            closeAll();
         }
         return false;
     }
@@ -215,6 +219,8 @@ public class ProductDB extends DataHandler {
             Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
         } finally {
+            if(callStmt!=null) callStmt.close();
+            if(rs!=null) rs.close();
             closeAll();
         }
         return mapProducts;

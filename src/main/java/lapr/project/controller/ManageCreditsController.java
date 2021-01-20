@@ -9,6 +9,8 @@ import lapr.project.data.ClientDB;
 import lapr.project.data.SettingsHandler;
 import lapr.project.model.Client;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Ricardo
@@ -28,8 +30,7 @@ public class ManageCreditsController {
         cDB = new ClientDB();
     }
     
-    public int addCreditsAfterPurchase(Client client, double purchaseAmount)
-    {
+    public int addCreditsAfterPurchase(Client client, double purchaseAmount) throws SQLException {
         double ratio = getCreditConversionRatio();
         int creditsEarned = (int) (ratio * purchaseAmount);
         client.setCredits(client.getCredits() + creditsEarned);

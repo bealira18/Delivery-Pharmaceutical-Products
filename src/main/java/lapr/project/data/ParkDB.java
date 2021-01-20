@@ -27,7 +27,7 @@ public class ParkDB extends DataHandler {
 
     private boolean addPark(int pharmacyId, int limit, int numChargingStations, String category, String address) throws SQLException {
 
-        CallableStatement callStmt;
+        CallableStatement callStmt = null;
 
         try {
             callStmt = getConnection().prepareCall("{ call addPark(?,?,?,?,?) }");
@@ -45,6 +45,7 @@ public class ParkDB extends DataHandler {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;
@@ -68,6 +69,7 @@ public class ParkDB extends DataHandler {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         } finally {
+            if(callStt!=null) callStt.close();
             closeAll();
         }
     }
@@ -89,6 +91,7 @@ public class ParkDB extends DataHandler {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
     }
@@ -110,6 +113,7 @@ public class ParkDB extends DataHandler {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
     }
@@ -120,6 +124,7 @@ public class ParkDB extends DataHandler {
         Park p = null;
 
         CallableStatement callStmt = null;
+        ResultSet rSet = null;
 
         try {
             openConnection();
@@ -133,7 +138,7 @@ public class ParkDB extends DataHandler {
             // Executa a invocação da função "getSailor".
             callStmt.execute();
             // Guarda o cursor retornado num objeto "ResultSet".
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
                 int idP = rSet.getInt(1);
@@ -148,11 +153,10 @@ public class ParkDB extends DataHandler {
 
                 p = new Park(idP, pharmacyId, limit, numChargingStations, category, a);
             }
+            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("No Park with id:" + id);
-        } finally {
-            closeAll();
         }
 
         return p;
@@ -164,6 +168,7 @@ public class ParkDB extends DataHandler {
 
         try{
             p=getParkById(park.getScooterParkId());
+            if(p == null) return false;
         }catch (SQLException e){
             e.printStackTrace();
             return false;
@@ -185,6 +190,7 @@ public class ParkDB extends DataHandler {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;

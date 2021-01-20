@@ -67,12 +67,13 @@ public class DeliveryDB extends DataHandler {
             Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;
     }
 
-    public Delivery getNextAvailableScooter(int pharmacyId) {
+    public Delivery getNextAvailableScooter(int pharmacyId) throws SQLException {
         Delivery delivery = null;
         CallableStatement callStmt = null;
         ResultSet rSet = null;
@@ -105,12 +106,14 @@ public class DeliveryDB extends DataHandler {
         } catch (SQLException e) {
             Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
+            if(callStmt!=null) callStmt.close();
+            if(rSet!=null) rSet.close();
             closeAll();
         }
         return delivery;
     }
 
-    public Delivery getNextAvailableCourier(int idPharmacy) {
+    public Delivery getNextAvailableCourier(int idPharmacy) throws SQLException {
         Delivery delivery = null;
         CallableStatement callStmt = null;
         ResultSet resultSetSet = null;
@@ -141,6 +144,8 @@ public class DeliveryDB extends DataHandler {
         } catch (SQLException e) {
             Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
+            if(callStmt!=null) callStmt.close();
+            if(resultSetSet!=null) resultSetSet.close();
             closeAll();
         }
         return delivery;

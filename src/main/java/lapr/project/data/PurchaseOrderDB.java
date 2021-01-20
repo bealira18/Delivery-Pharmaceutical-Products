@@ -23,10 +23,11 @@ public class PurchaseOrderDB extends DataHandler {
             callStmt.execute();
             return true;
         } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PurchaseOrderDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;

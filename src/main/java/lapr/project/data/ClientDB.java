@@ -9,7 +9,10 @@ import java.util.logging.Logger;
 
 public class ClientDB extends DataHandler {
 
-    public boolean addClient(String email, String password, String name, int nif, long creditCard, LocalDate expirationDate, short ccv, String address, double latitude, double longitude, double altitude) {
+    public boolean addClient(String email, String password, String name, int nif, long creditCard, LocalDate expirationDate,
+                             short ccv, String address, double latitude, double longitude, double altitude) throws SQLException {
+
+        CallableStatement callStmt = null;
 
         try {
             openConnection();
@@ -29,7 +32,7 @@ public class ClientDB extends DataHandler {
              *  longitude_pr NUMERIC,
              *  altitude_pr NUMERIC)
              */
-            CallableStatement callStmt = getConnection().prepareCall("{ call addClient(?,?,?,?,?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addClient(?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setString(1, email);
             callStmt.setString(2, password);
@@ -49,12 +52,15 @@ public class ClientDB extends DataHandler {
             e.printStackTrace();
             return false;
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return true;
     }
 
-    public void updateCredits(String email, int creditsEarned) {
+    public void updateCredits(String email, int creditsEarned) throws SQLException {
+
+        CallableStatement callStmt = null;
 
         try {
             openConnection();
@@ -64,7 +70,7 @@ public class ClientDB extends DataHandler {
              *
              *  CREATE OR REPLACE PROCEDURE addClientCredits(email_pr VARCHAR2, credits_pr INT)
              */
-            CallableStatement callStmt = getConnection().prepareCall("{ call addClientCredits(?,?) }");
+            callStmt = getConnection().prepareCall("{ call addClientCredits(?,?) }");
 
             callStmt.setString(1, email);
             callStmt.setInt(2, creditsEarned);
@@ -74,6 +80,7 @@ public class ClientDB extends DataHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
     }
@@ -85,17 +92,18 @@ public class ClientDB extends DataHandler {
         try {
             openConnection();
 
-            callStmt.getConnection().prepareCall("{ call useCredits(?,?) }");
+            callStmt = getConnection().prepareCall("{ call useCredits(?,?) }");
 
             callStmt.setString(1, email);
             callStmt.setInt(2, idInvoice);
             callStmt.execute();
             return true;
         } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;
