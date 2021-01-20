@@ -81,7 +81,12 @@ public class UtilsTest {
         fileName = "";
         result = Utils.writeFile(s, fileName);
         assertEquals(expResult, result);
+        
+        s = "Hello";
+        result = Utils.writeFile(s, fileName);
+        assertEquals(expResult, result);
 
+        s = "";
         fileName = "writeTest.txt";
         result = Utils.writeFile(s, fileName);
         assertEquals(expResult, result);

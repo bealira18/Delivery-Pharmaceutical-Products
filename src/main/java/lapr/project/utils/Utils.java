@@ -31,15 +31,14 @@ public class Utils {
 
     public static boolean writeFile(String s, String fileName) throws IOException {
 
-        if (s == null || fileName == null) {
+        if (s == null || fileName == null || s.trim().isEmpty() || fileName.trim().isEmpty()) {
             return false;
+
+        } else {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
+                bw.write(s);
+            }
+            return true;
         }
-        if (s.trim().isEmpty() || fileName.trim().isEmpty()) {
-            return false;
-        }
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
-            bw.write(s);
-        }
-        return true;
     }
 }
