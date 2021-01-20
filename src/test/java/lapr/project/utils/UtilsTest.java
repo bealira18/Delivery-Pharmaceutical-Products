@@ -89,5 +89,14 @@ public class UtilsTest {
         s = null;
         result = Utils.writeFile(s, fileName);
         assertEquals(expResult, result);
+
+        fileName = "";
+        result = Utils.writeFile(s, fileName);
+        assertEquals(expResult, result);
+
+        s = "Hello";
+        fileName = "as\\asd\\as.acc<";
+        result = Utils.writeFile(s, fileName);
+        assertEquals(expResult, result);
     }
 }

@@ -29,18 +29,18 @@ public class Utils {
         return null;
     }
 
-    public static boolean writeFile(String s, String fileName) throws IOException {
+    public static boolean writeFile(String s, String fileName) {
 
         if (s == null || fileName == null || s.trim().isEmpty() || fileName.trim().isEmpty()) {
             return false;
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             bw.write(s);
+            return true;
 
         } catch (IOException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
         }
-        return true;
+        return false;
     }
 }
