@@ -22,6 +22,8 @@ public class ProductDB extends DataHandler {
         ResultSet rs = null;
 
         try {
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call getProducts() }");
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
@@ -58,8 +60,6 @@ public class ProductDB extends DataHandler {
 
     public boolean addProduct(Product product) throws SQLException {
 
-        openConnection();
-
         try {
             return addProduct(product.getName(), product.getPrice(), product.getWeight(), product.getCategoryId());
 
@@ -75,6 +75,8 @@ public class ProductDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ call addProduct(?,?,?,?) }");
 
             callStmt.setString(1, name);
@@ -90,9 +92,7 @@ public class ProductDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
     }
@@ -102,6 +102,8 @@ public class ProductDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call getProduct(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
@@ -127,10 +129,7 @@ public class ProductDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("No Product with id:" + id);
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
-            //return p;
+            closeAll();
         }
         return p;
     }
@@ -149,6 +148,8 @@ public class ProductDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ call updateProduct(?,?,?,?,?) }");
 
             callStmt.setInt(1,p.getId());
@@ -165,9 +166,7 @@ public class ProductDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
     }
@@ -178,6 +177,8 @@ public class ProductDB extends DataHandler {
         HashMap<ProductCategory, List<Product>> mapProducts = new HashMap<>();
 
         try {
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call getProductsFromPharmacy(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
@@ -214,9 +215,7 @@ public class ProductDB extends DataHandler {
             Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return mapProducts;
     }

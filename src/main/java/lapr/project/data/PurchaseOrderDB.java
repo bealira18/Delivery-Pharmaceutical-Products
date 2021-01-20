@@ -12,6 +12,8 @@ public class PurchaseOrderDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ call newOrder(?,?,?) }");
 
             callStmt.setInt(1, idOrder);
@@ -25,9 +27,7 @@ public class PurchaseOrderDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
     }

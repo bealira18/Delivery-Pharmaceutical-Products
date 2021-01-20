@@ -22,8 +22,9 @@ public class CourierDB extends DataHandler {
 
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
             return false;
+        } finally {
+            closeAll();
         }
     }
 
@@ -48,14 +49,16 @@ public class CourierDB extends DataHandler {
             Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
-            closeAll();
+            if(callStmt!=null)
+            callStmt.close();
         }
         return false;
     }
 
-    public Courier getCourier(String email){
+    public Courier getCourier(String email) throws SQLException {
         Courier c=null;
         CallableStatement callStmt = null;
+        ResultSet rSet = null;
 
         try{
             callStmt = getConnection().prepareCall("{ ? = call getCourier(?) }");
@@ -67,7 +70,7 @@ public class CourierDB extends DataHandler {
             // Executa a invocação da função "getSailor".
             callStmt.execute();
             // Guarda o cursor retornado num objeto "ResultSet".
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
                 //Courier(String email, String password, String name, int nif, long socialSecurity, int pharmacyId, double weight)
@@ -88,7 +91,10 @@ public class CourierDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("No Courier with email:" + email);
         } finally {
-            closeAll();
+            if(callStmt!=null)
+                callStmt.close();
+            if(rSet!=null)
+                rSet.close();
         }
         return c;
     }
@@ -123,13 +129,13 @@ public class CourierDB extends DataHandler {
 
     public boolean updateCourier(String email,Courier c) throws SQLException{
         Courier a;
-
-        a=getCourier(email);
-        if(a == null) return false;
-
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
+            a=getCourier(email);
+            if(a == null) return false;
             callStmt = getConnection().prepareCall("{ call updateCourier(?,?,?,?) }");
 
             callStmt.setString(1,c.getEmail());
@@ -145,9 +151,7 @@ public class CourierDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
     }

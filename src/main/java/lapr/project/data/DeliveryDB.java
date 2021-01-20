@@ -67,9 +67,7 @@ public class DeliveryDB extends DataHandler {
             Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
     }

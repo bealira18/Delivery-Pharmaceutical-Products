@@ -45,10 +45,11 @@ public class ClientDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            closeAll();
         }
         return true;
     }
@@ -70,9 +71,10 @@ public class ClientDB extends DataHandler {
 
             callStmt.execute();
 
-            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeAll();
         }
     }
 
@@ -81,6 +83,8 @@ public class ClientDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
+            openConnection();
+
             callStmt.getConnection().prepareCall("{ call useCredits(?,?) }");
 
             callStmt.setString(1, email);
@@ -92,12 +96,9 @@ public class ClientDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
-
     }
 
 }

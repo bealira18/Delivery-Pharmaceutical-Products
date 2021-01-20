@@ -14,9 +14,8 @@ public class AddressDB extends DataHandler {
 
     public boolean addAddress(Address a) throws SQLException {
 
-        openConnection();
-
         try {
+            openConnection();
             return addAddress(a.getDescription(), a.getLatitude(), a.getLongitude(), a.getAltitude());
 
         } catch (NullPointerException | SQLException ex) {
@@ -39,15 +38,13 @@ public class AddressDB extends DataHandler {
             callStmt.setDouble(4, altitude);
 
             callStmt.execute();
+            closeAll();
             return true;
 
         } catch (SQLException ex) {
             Logger.getLogger(AddressDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
 
-        } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
         }
         return false;
     }
@@ -59,6 +56,8 @@ public class AddressDB extends DataHandler {
         ResultSet rs = null;
 
         try {
+            openConnection();
+
             callStmt.getConnection().prepareCall("{ ? = call getAddresses() }");
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
@@ -81,13 +80,6 @@ public class AddressDB extends DataHandler {
             return new ArrayList<>();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-
-                if (rs != null) {
-                    rs.close();
-                }
-            }
             closeAll();
         }
     }
@@ -98,6 +90,8 @@ public class AddressDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call getAddress(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
@@ -121,9 +115,7 @@ public class AddressDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("This address doesn't exist:" + address);
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
 
         return a;
@@ -134,6 +126,7 @@ public class AddressDB extends DataHandler {
         int aux;
 
         try {
+            openConnection();
             callStmt = getConnection().prepareCall("{ ? = call doesAddressExist(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -146,9 +139,7 @@ public class AddressDB extends DataHandler {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
     }
 
@@ -159,6 +150,8 @@ public class AddressDB extends DataHandler {
         ResultSet rs = null;
 
         try {
+            openConnection();
+
             callStmt.getConnection().prepareCall("{ ? = call getPharmacyAddresses() }");
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();

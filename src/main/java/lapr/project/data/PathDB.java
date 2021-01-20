@@ -20,6 +20,8 @@ public class PathDB extends DataHandler {
         ResultSet rs = null;
 
         try {
+            openConnection();
+
             callStmt.getConnection().prepareCall("{ ? = call getPaths() }");
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();

@@ -45,9 +45,7 @@ public class ParkDB extends DataHandler {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
     }
@@ -56,6 +54,8 @@ public class ParkDB extends DataHandler {
         CallableStatement callStt = null;
 
         try{
+            openConnection();
+
             callStt = getConnection().prepareCall("{ ? = call getLimitVehiclesPark(?,?) }");
 
             callStt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -67,10 +67,8 @@ public class ParkDB extends DataHandler {
         }catch(NullPointerException | NumberFormatException | SQLException ex){
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
-        }finally {
-            if(callStt != null){
-                callStt.close();
-            }
+        } finally {
+            closeAll();
         }
     }
 
@@ -78,6 +76,8 @@ public class ParkDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call getNumberOfScootersInPharmacy(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -88,10 +88,8 @@ public class ParkDB extends DataHandler {
         }catch(NullPointerException | NumberFormatException | SQLException ex){
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
-        }finally {
-            if(callStmt != null){
-                callStmt.close();
-            }
+        } finally {
+            closeAll();
         }
     }
 
@@ -99,6 +97,8 @@ public class ParkDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call getNumberOfDronesInPharmacy(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -109,10 +109,8 @@ public class ParkDB extends DataHandler {
         }catch(NullPointerException | NumberFormatException | SQLException ex){
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
-        }finally {
-            if(callStmt != null){
-                callStmt.close();
-            }
+        } finally {
+            closeAll();
         }
     }
 
@@ -124,6 +122,8 @@ public class ParkDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call getParkById(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
@@ -152,12 +152,10 @@ public class ParkDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("No Park with id:" + id);
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
-
-            return p;
+            closeAll();
         }
+
+        return p;
     }
 
     public boolean updateChargingStations(Park park) throws SQLException {
@@ -174,6 +172,8 @@ public class ParkDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ call updateNrChargingStations(?,?) }");
 
             callStmt.setInt(1,park.getScooterParkId());
@@ -183,14 +183,10 @@ public class ParkDB extends DataHandler {
             return true;
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
-
     }
 }

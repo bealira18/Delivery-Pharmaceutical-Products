@@ -37,7 +37,7 @@ public class StockDB extends DataHandler {
         }
     }
 
-    public boolean addProductToPharmacyCatalog(int idPharmacy, int idProduct)throws SQLException {
+    private boolean addProductToPharmacyCatalog(int idPharmacy, int idProduct)throws SQLException {
 
         CallableStatement callStmt = null;
 
@@ -54,15 +54,13 @@ public class StockDB extends DataHandler {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
-        }finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+        } finally {
+            closeAll();
         }
         return false;
     }
 
-    public boolean removeProductFromPharmacyCatalog(int idPharmacy, int idProduct)throws SQLException {
+    private boolean removeProductFromPharmacyCatalog(int idPharmacy, int idProduct)throws SQLException {
 
         CallableStatement callStmt = null;
 
@@ -79,10 +77,8 @@ public class StockDB extends DataHandler {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
-        }finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+        } finally {
+            closeAll();
         }
         return false;
     }
@@ -91,6 +87,8 @@ public class StockDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call checkIfProductExistsInCatalog(?,?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -102,10 +100,8 @@ public class StockDB extends DataHandler {
         }catch(NullPointerException | NumberFormatException | SQLException ex){
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }finally {
-            if(callStmt != null){
-                callStmt.close();
-            }
+        } finally {
+            closeAll();
         }
     }
 
@@ -113,6 +109,8 @@ public class StockDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ call updateProductStockAfterSale(?) }");
 
             callStmt.setInt(1, idOrder);
@@ -124,10 +122,8 @@ public class StockDB extends DataHandler {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
-        }finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+        } finally {
+            closeAll();
         }
         return false;
     }
@@ -136,6 +132,8 @@ public class StockDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call checkIfIsEnoughStock(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -146,10 +144,8 @@ public class StockDB extends DataHandler {
         }catch(NullPointerException | NumberFormatException | SQLException ex){
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }finally {
-            if(callStmt != null){
-                callStmt.close();
-            }
+        } finally {
+            closeAll();
         }
     }
 
@@ -157,6 +153,8 @@ public class StockDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call checkIfIsEnoughStockInOtherPharmacy(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.INTEGER);
@@ -167,10 +165,8 @@ public class StockDB extends DataHandler {
         }catch(NullPointerException | NumberFormatException | SQLException ex){
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }finally {
-            if(callStmt != null){
-                callStmt.close();
-            }
+        } finally {
+            closeAll();
         }
     }
 }

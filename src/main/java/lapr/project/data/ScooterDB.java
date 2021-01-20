@@ -15,9 +15,8 @@ public class ScooterDB extends DataHandler {
 
     public boolean addScooter(Scooter scooter)throws SQLException {
 
-        openConnection();
-
         try{
+            openConnection();
             return addScooter(scooter.getIdVehicle(), scooter.getIdPharmacy(), scooter.getWeight(), scooter.getAerodynamicCoeficient(),
                                 scooter.getFrontalArea(), scooter.getMotor(), scooter.getCurrentBattery(), scooter.getMaxBattery(), scooter.getScooterStatusId());
 
@@ -54,9 +53,7 @@ public class ScooterDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
     }
@@ -66,6 +63,8 @@ public class ScooterDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call getScooterById(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
@@ -87,9 +86,7 @@ public class ScooterDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("No Scooter with id:" + idScooter);
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return s;
     }
@@ -136,6 +133,8 @@ public class ScooterDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ call updateScooter(?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1,s.getIdVehicle());
@@ -153,9 +152,7 @@ public class ScooterDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
 

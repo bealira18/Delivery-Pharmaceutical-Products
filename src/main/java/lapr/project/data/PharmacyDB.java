@@ -51,9 +51,7 @@ public class PharmacyDB extends DataHandler {
             return false;
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
     }
 
@@ -86,15 +84,15 @@ public class PharmacyDB extends DataHandler {
         Pharmacy p = null;
 
         try {
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call getPharmacyById(?) }");
             p = callGetPharmacy(pharmacyID, callStmt);
         } catch (SQLException ex) {
             Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
             throw new IllegalArgumentException("No Pharmacy with ID:" + pharmacyID);
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return p;
     }
@@ -150,6 +148,8 @@ public class PharmacyDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ call updatePharmacy(?,?) }");
 
             callStmt.setInt(1,id);
@@ -162,9 +162,7 @@ public class PharmacyDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
     }

@@ -54,9 +54,7 @@ public class DroneDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
     }
@@ -66,6 +64,8 @@ public class DroneDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ ? = call getDroneById(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
@@ -88,9 +88,7 @@ public class DroneDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("No Drone with id:" + idDrone);
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return d;
     }
@@ -109,6 +107,8 @@ public class DroneDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try{
+            openConnection();
+
             callStmt = getConnection().prepareCall("{ call updateDrone(?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1,d.getIdVehicle());
@@ -126,9 +126,7 @@ public class DroneDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
     }

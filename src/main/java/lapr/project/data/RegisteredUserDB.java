@@ -17,6 +17,7 @@ public class RegisteredUserDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
+            openConnection();
 
             callStmt = getConnection().prepareCall("{ ? = call findUser(?, ?) }");
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
