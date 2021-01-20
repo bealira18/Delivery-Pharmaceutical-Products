@@ -48,14 +48,12 @@ public class CourierDB extends DataHandler {
             Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return false;
     }
 
-    public Courier getCourier(String email) throws SQLException{
+    public Courier getCourier(String email){
         Courier c=null;
         CallableStatement callStmt = null;
 
@@ -90,9 +88,7 @@ public class CourierDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("No Courier with email:" + email);
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
+            closeAll();
         }
         return c;
     }
@@ -125,16 +121,11 @@ public class CourierDB extends DataHandler {
         return couriers;
     }
 
-    public boolean updateCourier(String email,Courier c) throws SQLException {
+    public boolean updateCourier(String email,Courier c) throws SQLException{
         Courier a;
 
-        try{
-            a=getCourier(email);
-            if(a == null) return false;
-        }catch (SQLException e){
-            e.printStackTrace();
-            return false;
-        }
+        a=getCourier(email);
+        if(a == null) return false;
 
         CallableStatement callStmt = null;
 
