@@ -1,5 +1,8 @@
 package lapr.project.controller;
 
+import lapr.project.data.DeliveryDB;
+import lapr.project.data.DeliveryStatusDB;
+import lapr.project.data.EmailService;
 import lapr.project.data.StockDB;
 import lapr.project.model.PurchaseOrder;
 import org.junit.jupiter.api.BeforeAll;
@@ -25,12 +28,15 @@ class NotifieClientControllerTest {
         PurchaseOrder order1 = new PurchaseOrder(1, 1, "TestName", LocalDate.now());
 
         StockDB stockDB = mock(StockDB.class);
-        
+        DeliveryDB deliveryDB = mock(DeliveryDB.class);
+        DeliveryStatusDB deliveryStatusDB = mock(DeliveryStatusDB.class);
+        EmailService emailService = mock(EmailService.class);
+
         when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
         when(stockDB.checkIfIsEnoughStockInOtherPharmacy(order1.getId())).thenReturn(Boolean.TRUE);
 
         controller = new NotifyClientController();
-        controller = new NotifyClientController(stockDB);
+        controller = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, emailService);
     }
 
     /**
@@ -49,10 +55,13 @@ class NotifieClientControllerTest {
         assertEquals(true, result);
 
         StockDB stockDB = mock(StockDB.class);
+        DeliveryDB deliveryDB = mock(DeliveryDB.class);
+        DeliveryStatusDB deliveryStatusDB = mock(DeliveryStatusDB.class);
+        EmailService emailService = mock(EmailService.class);
 
         when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
 
-        NotifyClientController controller1 = new NotifyClientController(stockDB);
+        NotifyClientController controller1 = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, emailService);
 
         result = controller1.checkIfIsEnoughStock(order1);
         assertEquals(true, result);
