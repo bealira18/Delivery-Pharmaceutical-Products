@@ -152,14 +152,13 @@ public class ScooterDB extends DataHandler {
             callStmt.setDouble(7,s.getMaxBattery());
 
             callStmt.execute();
+
+            closeAll();
             return true;
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
-        } finally {
-            if(callStmt!=null) callStmt.close();
-            closeAll();
         }
         return false;
 

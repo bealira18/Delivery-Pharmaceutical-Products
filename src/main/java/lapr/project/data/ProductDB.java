@@ -163,7 +163,7 @@ public class ProductDB extends DataHandler {
             callStmt.setDouble(5,p.getWeight());
 
             callStmt.execute();
-            
+
             closeAll();
             return true;
 
