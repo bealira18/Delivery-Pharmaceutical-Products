@@ -72,30 +72,46 @@ public class UtilsTest {
 
         System.out.println("writeFile2");
         String s = "";
-        String fileName = null;
+        String fileName = "";
 
         boolean expResult = false;
         boolean result = Utils.writeFile(s, fileName);
         assertEquals(expResult, result);
 
-        fileName = "";
-        result = Utils.writeFile(s, fileName);
-        assertEquals(expResult, result);
-        
-        s = "Hello";
+        fileName = "Hi";
         result = Utils.writeFile(s, fileName);
         assertEquals(expResult, result);
 
-        s = "";
-        fileName = "writeTest.txt";
+        s = "Hello";
+        fileName = "";
         result = Utils.writeFile(s, fileName);
         assertEquals(expResult, result);
 
         s = null;
+        fileName = null;
         result = Utils.writeFile(s, fileName);
         assertEquals(expResult, result);
 
         fileName = "";
+        result = Utils.writeFile(s, fileName);
+        assertEquals(expResult, result);
+
+        s = "";
+        fileName = null;
+        result = Utils.writeFile(s, fileName);
+        assertEquals(expResult, result);
+
+        s = null;
+        fileName = "Hello";
+        result = Utils.writeFile(s, fileName);
+        assertEquals(expResult, result);
+
+        s = "Hello";
+        fileName = null;
+        result = Utils.writeFile(s, fileName);
+        assertEquals(expResult, result);
+
+        fileName = "    ||    []*  +/8)as0         as:_   asas\\asd\\as.acc<.aa.s.d,,sd";
         result = Utils.writeFile(s, fileName);
         assertEquals(expResult, result);
     }
