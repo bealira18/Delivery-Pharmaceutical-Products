@@ -37,11 +37,11 @@ public class Utils {
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             bw.write(s);
-            return true;
 
         } catch (IOException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-        return false;
+        return true;
     }
 }
