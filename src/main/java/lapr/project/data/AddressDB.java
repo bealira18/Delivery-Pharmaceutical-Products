@@ -139,6 +139,7 @@ public class AddressDB extends DataHandler {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
     }
@@ -152,7 +153,7 @@ public class AddressDB extends DataHandler {
         try {
             openConnection();
 
-            callStmt.getConnection().prepareCall("{ ? = call getPharmacyAddresses() }");
+            callStmt = getConnection().prepareCall("{ ? = call getPharmacyAddresses() }");
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
 
