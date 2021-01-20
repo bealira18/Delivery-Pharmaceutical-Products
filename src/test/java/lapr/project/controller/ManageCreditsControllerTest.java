@@ -5,6 +5,7 @@
  */
 package lapr.project.controller;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
 import lapr.project.data.ClientDB;
@@ -42,7 +43,7 @@ public class ManageCreditsControllerTest {
      * Test of addCreditsAfterPurchase method, of class ManageCreditsController.
      */
     @Test
-    public void testAddCreditsAfterPurchase() {
+    public void testAddCreditsAfterPurchase() throws SQLException {
         System.out.println("addCreditsAfterPurchase");
         System.setProperty("client.credits.purchase.ratio", "0.5");
         Client client = new Client("a@b.c", "qwerty", "Joaquim Alberto", 123456789, new CreditCard(5295360011327825L, LocalDate.of(2077, Month.MARCH, 1), (short) 454), new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411), 0);;

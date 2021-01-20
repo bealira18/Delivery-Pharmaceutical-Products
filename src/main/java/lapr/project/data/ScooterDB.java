@@ -53,6 +53,7 @@ public class ScooterDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;
@@ -61,6 +62,7 @@ public class ScooterDB extends DataHandler {
     public Scooter getIdScooter(int idScooter) throws SQLException{
         Scooter s = null;
         CallableStatement callStmt = null;
+        ResultSet rSet = null;
 
         try{
             openConnection();
@@ -74,7 +76,7 @@ public class ScooterDB extends DataHandler {
             // Executa a invocação da função "getSailor".
             callStmt.execute();
             // Guarda o cursor retornado num objeto "ResultSet".
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
                 int id = rSet.getInt(1);
@@ -86,12 +88,14 @@ public class ScooterDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("No Scooter with id:" + idScooter);
         } finally {
+            if(callStmt!=null) callStmt.close();
+            if(rSet!=null) rSet.close();
             closeAll();
         }
         return s;
     }
 
-    public List<Scooter> getAllAvailableScooters(int orderId) {
+    public List<Scooter> getAllAvailableScooters(int orderId) throws SQLException {
         ArrayList<Scooter> scooters = new ArrayList<>();
         CallableStatement callStm = null;
         ResultSet rSet = null;
@@ -114,6 +118,8 @@ public class ScooterDB extends DataHandler {
         } catch (SQLException e) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
+            if(callStm!=null) callStm.close();
+            if(rSet!=null) rSet.close();
             closeAll();
         }
         return scooters;
@@ -152,6 +158,7 @@ public class ScooterDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;

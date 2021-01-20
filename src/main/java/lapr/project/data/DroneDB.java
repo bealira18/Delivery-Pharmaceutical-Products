@@ -54,6 +54,7 @@ public class DroneDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;
@@ -62,6 +63,7 @@ public class DroneDB extends DataHandler {
     public Drone getIdDrone(int idDrone) throws SQLException {
         Drone d = null;
         CallableStatement callStmt = null;
+        ResultSet rSet = null;
 
         try{
             openConnection();
@@ -75,7 +77,7 @@ public class DroneDB extends DataHandler {
             // Executa a invocação da função "getSailor".
             callStmt.execute();
             // Guarda o cursor retornado num objeto "ResultSet".
-            ResultSet rSet = (ResultSet) callStmt.getObject(1);
+            rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
                 int id = rSet.getInt(1);
@@ -88,6 +90,8 @@ public class DroneDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("No Drone with id:" + idDrone);
         } finally {
+            if(callStmt!=null) callStmt.close();
+            if(rSet!=null) rSet.close();
             closeAll();
         }
         return d;
@@ -126,12 +130,13 @@ public class DroneDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;
     }
 
-    public List<Drone> getAllAvailableDrones(int orderId) {
+    public List<Drone> getAllAvailableDrones(int orderId) throws SQLException {
         ArrayList<Drone> drones = new ArrayList<>();
         CallableStatement callStt = null;
         ResultSet rSet = null;
@@ -154,6 +159,8 @@ public class DroneDB extends DataHandler {
         } catch (SQLException e) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
+            if(callStt!=null) callStt.close();
+            if(rSet!=null) rSet.close();
             closeAll();
         }
         return drones;

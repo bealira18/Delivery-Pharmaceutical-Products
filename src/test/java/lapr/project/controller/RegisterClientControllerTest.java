@@ -5,6 +5,7 @@
  */
 package lapr.project.controller;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
 import lapr.project.data.ClientDB;
@@ -41,7 +42,7 @@ public class RegisterClientControllerTest {
      * Test of addClient method, of class RegisterClientController.
      */
     @Test
-    public void testAddClient() {
+    public void testAddClient() throws SQLException {
         System.out.println("addClient");
         String email = "test@email.com";
         String password = "qwerty";

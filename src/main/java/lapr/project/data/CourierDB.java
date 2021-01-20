@@ -49,14 +49,13 @@ public class CourierDB extends DataHandler {
             Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
-            if(callStmt!=null)
-            callStmt.close();
+            if(callStmt!=null) callStmt.close();
         }
         return false;
     }
 
     public Courier getCourier(String email) throws SQLException {
-        Courier c=null;
+        Courier c;
         CallableStatement callStmt = null;
         ResultSet rSet = null;
 
@@ -99,7 +98,7 @@ public class CourierDB extends DataHandler {
         return c;
     }
 
-    public List<Courier> getAllAvailableCouriers(int orderId) {
+    public List<Courier> getAllAvailableCouriers(int orderId) throws SQLException {
         ArrayList<Courier> couriers = new ArrayList<>();
         CallableStatement callStmt = null;
         ResultSet rSet = null;
@@ -122,6 +121,8 @@ public class CourierDB extends DataHandler {
         } catch (SQLException e) {
             Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
+            if(callStmt!=null) callStmt.close();
+            if(rSet!=null) rSet.close();
             closeAll();
         }
         return couriers;
@@ -151,6 +152,7 @@ public class CourierDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;

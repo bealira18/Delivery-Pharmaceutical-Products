@@ -32,11 +32,11 @@ public class AssignOrderToCourierScooterController {
         this.dDB = dDB;
     }
 
-    public List<Courier> getAllAvailableCouriers(PurchaseOrder order) {
+    public List<Courier> getAllAvailableCouriers(PurchaseOrder order) throws SQLException {
         return cDB.getAllAvailableCouriers(order.getId());
     }
 
-    public List<Scooter> getAllAvailableScooters(PurchaseOrder order) {
+    public List<Scooter> getAllAvailableScooters(PurchaseOrder order) throws SQLException {
         return sDB.getAllAvailableScooters(order.getId());
     }
 

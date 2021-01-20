@@ -51,6 +51,7 @@ public class PharmacyDB extends DataHandler {
             return false;
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
     }
@@ -81,7 +82,7 @@ public class PharmacyDB extends DataHandler {
     public Pharmacy getPhamacyByID(String pharmacyID) throws SQLException {
 
         CallableStatement callStmt = null;
-        Pharmacy p = null;
+        Pharmacy p;
 
         try {
             openConnection();
@@ -92,6 +93,7 @@ public class PharmacyDB extends DataHandler {
             Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
             throw new IllegalArgumentException("No Pharmacy with ID:" + pharmacyID);
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return p;
@@ -162,6 +164,7 @@ public class PharmacyDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;

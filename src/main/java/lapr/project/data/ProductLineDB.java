@@ -27,6 +27,7 @@ public class ProductLineDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
 

@@ -27,6 +27,7 @@ public class PurchaseOrderDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;

@@ -10,6 +10,9 @@ import lapr.project.model.RegisteredUser;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
+
+import java.sql.SQLException;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -41,7 +44,7 @@ public class AuthFacadeTest {
      * Test of doLogin method, of class AuthFacade.
      */
     @Test
-    public void testDoLogin() {
+    public void testDoLogin() throws SQLException {
         System.out.println("doLogin");
         String strEmail = "a@b.c";
         String strPwd = "qwerty32";
@@ -71,7 +74,7 @@ public class AuthFacadeTest {
      * Test of getCurrentSession method, of class AuthFacade.
      */
     @Test
-    public void testGetCurrentSession() {
+    public void testGetCurrentSession() throws SQLException {
         System.out.println("getCurrentSession");
         AuthFacade instance = new AuthFacade(ruDB);
         UserSession expResult = null;
@@ -87,7 +90,7 @@ public class AuthFacadeTest {
      * Test of doLogout method, of class AuthFacade.
      */
     @Test
-    public void testDoLogout() {
+    public void testDoLogout() throws SQLException {
         System.out.println("doLogout");
         AuthFacade instance = new AuthFacade(ruDB);
         assertEquals(null, instance.getCurrentSession());

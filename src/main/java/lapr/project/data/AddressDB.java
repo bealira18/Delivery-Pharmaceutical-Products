@@ -44,7 +44,8 @@ public class AddressDB extends DataHandler {
         } catch (SQLException ex) {
             Logger.getLogger(AddressDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
-
+        } finally {
+            if(callStmt!=null) callStmt.close();
         }
         return false;
     }
@@ -80,6 +81,8 @@ public class AddressDB extends DataHandler {
             return new ArrayList<>();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
+            if(rs!=null) rs.close();
             closeAll();
         }
     }
@@ -115,6 +118,7 @@ public class AddressDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("This address doesn't exist:" + address);
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
 

@@ -55,6 +55,7 @@ public class StockDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;
@@ -78,6 +79,7 @@ public class StockDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;
@@ -101,6 +103,7 @@ public class StockDB extends DataHandler {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
     }
@@ -123,6 +126,7 @@ public class StockDB extends DataHandler {
             closeAll();
 
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;
@@ -145,6 +149,7 @@ public class StockDB extends DataHandler {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
     }
@@ -166,6 +171,7 @@ public class StockDB extends DataHandler {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
+            if(callStmt!=null) callStmt.close();
             closeAll();
         }
     }
