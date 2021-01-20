@@ -9,4 +9,3 @@ BEGIN
     VALUES (idOrder,idPharmacy,email,SYSDATE);
 
 END;
-/
