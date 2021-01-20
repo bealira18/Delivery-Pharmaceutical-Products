@@ -1,10 +1,10 @@
 package lapr.project.controller;
 
-import lapr.project.data.ParkDB;
-import lapr.project.data.ScooterDB;
+import lapr.project.data.DeliveryDB;
+import lapr.project.data.DeliveryStatusDB;
+import lapr.project.data.EmailService;
 import lapr.project.data.StockDB;
 import lapr.project.model.PurchaseOrder;
-import lapr.project.model.Scooter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 class NotifieClientControllerTest {
 
-    private static NotifieClientController controller;
+    private static NotifyClientController controller;
 
     public NotifieClientControllerTest() {
     }
@@ -28,12 +28,15 @@ class NotifieClientControllerTest {
         PurchaseOrder order1 = new PurchaseOrder(1, 1, "TestName", LocalDate.now());
 
         StockDB stockDB = mock(StockDB.class);
-        
+        DeliveryDB deliveryDB = mock(DeliveryDB.class);
+        DeliveryStatusDB deliveryStatusDB = mock(DeliveryStatusDB.class);
+        EmailService emailService = mock(EmailService.class);
+
         when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
         when(stockDB.checkIfIsEnoughStockInOtherPharmacy(order1.getId())).thenReturn(Boolean.TRUE);
 
-        controller = new NotifieClientController();
-        controller = new NotifieClientController(stockDB);
+        controller = new NotifyClientController();
+        controller = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, emailService);
     }
 
     /**
@@ -52,10 +55,13 @@ class NotifieClientControllerTest {
         assertEquals(true, result);
 
         StockDB stockDB = mock(StockDB.class);
+        DeliveryDB deliveryDB = mock(DeliveryDB.class);
+        DeliveryStatusDB deliveryStatusDB = mock(DeliveryStatusDB.class);
+        EmailService emailService = mock(EmailService.class);
 
         when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
 
-        NotifieClientController controller1 = new NotifieClientController(stockDB);
+        NotifyClientController controller1 = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, emailService);
 
         result = controller1.checkIfIsEnoughStock(order1);
         assertEquals(true, result);

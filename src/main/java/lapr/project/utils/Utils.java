@@ -1,5 +1,7 @@
 package lapr.project.utils;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -23,15 +25,23 @@ public class Utils {
 
         } catch (IOException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
-
-        } finally {
-            try {
-                Files.lines(Paths.get(fileName)).close();
-
-            } catch (IOException ex) {
-                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         return null;
+    }
+
+    public static boolean writeFile(String s, String fileName) {
+
+        if (s == null || fileName == null || s.trim().isEmpty() || fileName.trim().isEmpty()) {
+            return false;
+
+        }
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
+            bw.write(s);
+
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 }

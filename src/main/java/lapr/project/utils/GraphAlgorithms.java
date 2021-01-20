@@ -84,27 +84,24 @@ public class GraphAlgorithms {
         if (nrPaths > la.size()) {
             nrPaths = la.size();
         }
-        FileWriter fw = new FileWriter(fileName);
-        BufferedWriter bw = new BufferedWriter(fw);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
 
-        for (int i = 0; i < nrPaths; i++) {
+            for (int i = 0; i < nrPaths; i++) {
 
-            bw.write("Path #" + (i + 1));
-            bw.newLine();
-            bw.write("Total Distance = " + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcTotalDistance(la.get(i)) / 1000) + "km.");
-            bw.newLine();
-            bw.write("Total Energy Consumption = " + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcScooterTotalEnergy(g, la.get(i), c, lp)) + "W.h.");
-            bw.newLine();
+                bw.write("Path #" + (i + 1));
+                bw.newLine();
+                bw.write("Total Distance = " + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcTotalDistance(la.get(i)) / 1000) + "km.");
+                bw.newLine();
+                bw.write("Total Energy Consumption = " + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcScooterTotalEnergy(g, la.get(i), c, lp)) + "W.h.");
+                bw.newLine();
 
-            for (int j = 0; j < la.get(i).size(); j++) {
+                for (int j = 0; j < la.get(i).size(); j++) {
 
-                bw.write(la.get(i).get(j).getDescription() + ";");
+                    bw.write(la.get(i).get(j).getDescription() + ";");
+                }
+                bw.newLine();
             }
-            bw.newLine();
         }
-        bw.close();
-        fw.close();
-
         return nrPaths;
     }
 

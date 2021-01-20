@@ -111,9 +111,9 @@ public class PathTest {
         Address a1 = new Address("TestAddress1", 0.0, 0.0, 0.0);
         Address a2 = new Address("TestAddress2", 0.0, 0.0, 0.0);
         Path instance = new Path(a1, a2, 1.0, 90, 12);
-        String expResult = "Path{address1=Address{description=TestAddress1, latitude=0.0, longitude=0.0, altitude=0.0}, " +
-                "address2=Address{description=TestAddress2, latitude=0.0, longitude=0.0, altitude=0.0}," +
-                " kineticCoeficient=1.0, windAngle=90.0, windSpeed=12.0}";
+        String expResult = "Path{address1=Address{description=TestAddress1, latitude=0.0, longitude=0.0, altitude=0.0}, "
+                + "address2=Address{description=TestAddress2, latitude=0.0, longitude=0.0, altitude=0.0},"
+                + " kineticCoeficient=1.0, windAngle=90.0, windSpeed=12.0}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -164,5 +164,64 @@ public class PathTest {
 
         result = instance.equals(new Path(a1, a2, 2.0, 90, 12));
         assertEquals(true, result);
+    }
+
+    /**
+     * Test of getWindAngle method, of class Path.
+     */
+    @Test
+    public void testGetWindAngle() {
+
+        System.out.println("getWindAngle");
+        Address a1 = new Address("TestAddress1", 0.0, 0.0, 0.0);
+        Address a2 = new Address("TestAddress2", 0.0, 0.0, 0.0);
+        Path instance = new Path(a1, a2, 1.0, 90, 12);
+        double expResult = 90;
+        double result = instance.getWindAngle();
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of getWindSpeed method, of class Path.
+     */
+    @Test
+    public void testGetWindSpeed() {
+        System.out.println("getWindSpeed");
+        Address a1 = new Address("TestAddress1", 0.0, 0.0, 0.0);
+        Address a2 = new Address("TestAddress2", 0.0, 0.0, 0.0);
+        Path instance = new Path(a1, a2, 1.0, 90, 12);
+        double expResult = 12;
+        double result = instance.getWindSpeed();
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of setWindAngle method, of class Path.
+     */
+    @Test
+    public void testSetWindAngle() {
+        System.out.println("setWindAngle");
+        double windAngle = 13;
+        Address a1 = new Address("TestAddress1", 0.0, 0.0, 0.0);
+        Address a2 = new Address("TestAddress2", 0.0, 0.0, 0.0);
+        Path instance = new Path(a1, a2, 1.0, 90, 12);
+        instance.setWindAngle(windAngle);
+        double result = instance.getWindAngle();
+        assertEquals(windAngle, result);
+    }
+
+    /**
+     * Test of setWindSpeed method, of class Path.
+     */
+    @Test
+    public void testSetWindSpeed() {
+        System.out.println("setWindSpeed");
+        double windSpeed = 13;
+        Address a1 = new Address("TestAddress1", 0.0, 0.0, 0.0);
+        Address a2 = new Address("TestAddress2", 0.0, 0.0, 0.0);
+        Path instance = new Path(a1, a2, 1.0, 90, 12);
+        instance.setWindSpeed(windSpeed);
+        double result = instance.getWindSpeed();
+        assertEquals(windSpeed, result);
     }
 }
