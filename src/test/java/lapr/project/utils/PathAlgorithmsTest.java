@@ -492,7 +492,7 @@ public class PathAlgorithmsTest {
         lla = new LinkedList<>();
 
         expResult = 0.0d;
-        result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
+        result = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
         assertEquals(expResult, result, 0);
     }
 
@@ -546,7 +546,7 @@ public class PathAlgorithmsTest {
         double windSpeed = 30;
         double windDegrees = 175;
         double speed = 90;
-        
+
         double expResult = 119.88;
         double result = PathAlgorithms.getRelativeSpeed(windSpeed, windDegrees, speed);
         assertEquals(expResult, result, 1);
