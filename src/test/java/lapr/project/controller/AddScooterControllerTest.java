@@ -22,7 +22,7 @@ class AddScooterControllerTest {
     @BeforeAll
     public static void setUpClass() throws SQLException {
 
-        Scooter scooter1 = new Scooter(1, 1, 20, 40, 50, 60, 10, 100, 1);
+        Scooter scooter1 = new Scooter(1, 1, 20, 40, 50, 60, 10, 100, 8.9,1);
 
         ScooterDB scooterDB = mock(ScooterDB.class);
         ParkDB parkDB = mock(ParkDB.class);
@@ -45,7 +45,7 @@ class AddScooterControllerTest {
 
         System.out.println("addScooter");
 
-        Scooter scooter1 = new Scooter(1, 1, 20, 40, 50, 60, 10, 100, 1);
+        Scooter scooter1 = new Scooter(1, 1, 20, 40, 50, 60, 10, 100, 8.9, 1);
 
         boolean result = controller.addScooter(scooter1);
         assertEquals(true, result);

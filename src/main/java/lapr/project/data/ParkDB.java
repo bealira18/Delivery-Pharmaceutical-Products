@@ -27,7 +27,7 @@ public class ParkDB extends DataHandler {
 
     private boolean addPark(int pharmacyId, int limit, int numChargingStations, String category, String address) throws SQLException {
 
-        CallableStatement callStmt = null;
+        CallableStatement callStmt;
 
         try {
             callStmt = getConnection().prepareCall("{ call addPark(?,?,?,?,?) }");

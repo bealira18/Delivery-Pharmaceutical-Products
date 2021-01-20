@@ -29,7 +29,7 @@ public class UpdateScooterControllerTest {
     @Test
     void testUpdateScooter1() throws SQLException {
         //int idVehicle, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea, double motor, double currentBattery, double maxBattery)
-        Scooter s=new Scooter(0,0,2.0,2.5,1,2.0,35.0,40.0,0);
+        Scooter s=new Scooter(0,0,2.0,2.5,1,2.0,35.0,40.0, 8.9,0);
         boolean actual=sPC.updateScooter(0,s);
         assertFalse(actual); //porque não existem scooters
     }

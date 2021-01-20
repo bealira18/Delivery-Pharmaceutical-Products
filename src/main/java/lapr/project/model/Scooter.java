@@ -4,9 +4,10 @@ public class Scooter extends Vehicle {
 
     private int scooterStatusId;
 
-    public Scooter(int idScooter, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea, double motor, double currentBattery, double maxBattery, int scooterStatusId) {
+    public Scooter(int idScooter, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea, double motor,
+                   double currentBattery, double maxBattery, double averageSpeed, int scooterStatusId) {
 
-        super(idScooter, idPharmacy, weight, aerodynamicCoeficient, frontalArea, motor, currentBattery, maxBattery);
+        super(idScooter, idPharmacy, weight, aerodynamicCoeficient, frontalArea, motor, currentBattery, maxBattery, averageSpeed);
         this.scooterStatusId = scooterStatusId;
     }
 

@@ -10,8 +10,9 @@ public class Vehicle {
     private double motor;
     private double currentBattery;
     private double maxBattery;
+    private double averageSpeed;
 
-    public Vehicle(int idVehicle, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea, double motor, double currentBattery, double maxBattery) {
+    public Vehicle(int idVehicle, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea, double motor, double currentBattery, double maxBattery, double averageSpeed) {
 
         this.idVehicle = idVehicle;
         this.idPharmacy = idPharmacy;
@@ -21,6 +22,7 @@ public class Vehicle {
         this.motor = motor;
         this.currentBattery = currentBattery;
         this.maxBattery = maxBattery;
+        this.averageSpeed = averageSpeed;
     }
     
     public Vehicle(int idVehicle){
@@ -68,6 +70,10 @@ public class Vehicle {
         return maxBattery;
     }
 
+    public double getAverageSpeed() {
+        return averageSpeed;
+    }
+
     public void setIdVehicle(int idVehicle) {
         
         this.idVehicle = idVehicle;
@@ -108,9 +114,23 @@ public class Vehicle {
         this.maxBattery = maxBattery;
     }
 
+    public void setAverageSpeed(double averageSpeed) {
+        this.averageSpeed = averageSpeed;
+    }
+
     @Override
     public String toString() {
-        return "Vehicle{" + "idVehicle=" + idVehicle + ", idPharmacy=" + idPharmacy + ", weight=" + weight + ", aerodynamicCoeficient=" + aerodynamicCoeficient + ", frontalArea=" + frontalArea + ", motor=" + motor + ", currentBattery=" + currentBattery + ", maxBattery=" + maxBattery + '}';
+        return "Vehicle{" +
+                "idVehicle=" + idVehicle +
+                ", idPharmacy=" + idPharmacy +
+                ", weight=" + weight +
+                ", aerodynamicCoeficient=" + aerodynamicCoeficient +
+                ", frontalArea=" + frontalArea +
+                ", motor=" + motor +
+                ", currentBattery=" + currentBattery +
+                ", maxBattery=" + maxBattery +
+                ", averageSpeed=" + averageSpeed +
+                '}';
     }
 
     @Override

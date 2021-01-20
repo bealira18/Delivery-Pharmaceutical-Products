@@ -43,8 +43,8 @@ class AssignOrderToCourierScooterControllerTest {
         auxListCouriers.add(new Courier("c2@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85));
 
         auxListScooters = new ArrayList<>();
-        auxListScooters.add(new Scooter(1, 1, 20, 40, 50, 60, 10, 100, 1));
-        auxListScooters.add(new Scooter(2, 1, 20, 40, 50, 60, 10, 100, 1));
+        auxListScooters.add(new Scooter(1, 1, 20, 40, 50, 60, 10, 100, 8.9, 1));
+        auxListScooters.add(new Scooter(2, 1, 20, 40, 50, 60, 10, 100, 8.9, 1));
 
         DeliveryDB dDB = mock(DeliveryDB.class);
         CourierDB cDB = mock(CourierDB.class);

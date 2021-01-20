@@ -23,7 +23,7 @@ public class DroneTest {
     public void testGetScooterStatusId() {
 
         System.out.println("getDroneStatusId");
-        Drone instance = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1);
+        Drone instance = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1);
         int expResult = 1;
         int result = instance.getDroneStatusId();
         assertEquals(expResult, result);
@@ -37,7 +37,7 @@ public class DroneTest {
 
         System.out.println("setDroneStatusId");
         int droneStatusId = 2;
-        Drone instance = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1);
+        Drone instance = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1);
         instance.setDroneStatusId(droneStatusId);
         int result = instance.getDroneStatusId();
         assertEquals(droneStatusId, result);
@@ -50,9 +50,9 @@ public class DroneTest {
     public void testToString() {
 
         System.out.println("toString");
-        Drone instance = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1);
+        Drone instance = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1);
         String expResult = "Vehicle{idVehicle=1, idPharmacy=1, weight=1.0, aerodynamicCoeficient=1.0, "
-                + "frontalArea=1.0, motor=1.0, currentBattery=1.0, maxBattery=1.0} Drone{droneStatusId=1}";
+                + "frontalArea=1.0, motor=1.0, currentBattery=1.0, maxBattery=1.0, averageSpeed=8.9} Drone{droneStatusId=1}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }

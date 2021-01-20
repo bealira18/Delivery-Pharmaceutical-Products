@@ -4,8 +4,9 @@ public class Drone extends Vehicle{
 
     private int droneStatusId;
 
-    public Drone(int idVehicle, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea, double motor, double currentBattery, double maxBattery, int droneStatusId) {
-        super(idVehicle, idPharmacy, weight, aerodynamicCoeficient, frontalArea, motor, currentBattery, maxBattery);
+    public Drone(int idVehicle, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea, double motor,
+                 double currentBattery, double maxBattery, double averageSpeed, int droneStatusId) {
+        super(idVehicle, idPharmacy, weight, aerodynamicCoeficient, frontalArea, motor, currentBattery, maxBattery, averageSpeed);
         this.droneStatusId=droneStatusId;
     }
 

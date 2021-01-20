@@ -31,7 +31,7 @@ public class UpdateDroneControllerTest {
     @Test
     void testUpdateDrone1() throws SQLException {
         //int idVehicle, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea, double motor, double currentBattery, double maxBattery)
-        Drone s=new Drone(0,0,2.0,2.5,1,2.0,35.0,40.0,0);
+        Drone s=new Drone(0,0,2.0,2.5,1,2.0,35.0,40.0, 22.36,0);
         boolean actual=dPC.updateDrone(0,s);
         assertFalse(actual); //porque não existem scooters
     }
