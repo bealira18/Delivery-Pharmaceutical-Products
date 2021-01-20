@@ -8,9 +8,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lapr.project.model.Address;
-import lapr.project.model.Courier;
 import lapr.project.model.Path;
-import lapr.project.model.Product;
 import lapr.project.model.Vehicle;
 
 public class GraphAlgorithms {
