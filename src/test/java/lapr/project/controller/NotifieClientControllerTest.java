@@ -1,10 +1,7 @@
 package lapr.project.controller;
 
-import lapr.project.data.ParkDB;
-import lapr.project.data.ScooterDB;
 import lapr.project.data.StockDB;
 import lapr.project.model.PurchaseOrder;
-import lapr.project.model.Scooter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +14,7 @@ import static org.mockito.Mockito.when;
 
 class NotifieClientControllerTest {
 
-    private static NotifieClientController controller;
+    private static NotifyClientController controller;
 
     public NotifieClientControllerTest() {
     }
@@ -32,8 +29,8 @@ class NotifieClientControllerTest {
         when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
         when(stockDB.checkIfIsEnoughStockInOtherPharmacy(order1.getId())).thenReturn(Boolean.TRUE);
 
-        controller = new NotifieClientController();
-        controller = new NotifieClientController(stockDB);
+        controller = new NotifyClientController();
+        controller = new NotifyClientController(stockDB);
     }
 
     /**
@@ -55,7 +52,7 @@ class NotifieClientControllerTest {
 
         when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
 
-        NotifieClientController controller1 = new NotifieClientController(stockDB);
+        NotifyClientController controller1 = new NotifyClientController(stockDB);
 
         result = controller1.checkIfIsEnoughStock(order1);
         assertEquals(true, result);

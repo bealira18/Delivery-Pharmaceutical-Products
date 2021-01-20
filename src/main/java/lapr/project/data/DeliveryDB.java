@@ -151,4 +151,26 @@ public class DeliveryDB extends DataHandler {
         return delivery;
     }
 
+    public String getClientEmailFromOrder(int idOrder)throws SQLException {
+        CallableStatement callStt = null;
+
+        try{
+            openConnection();
+
+            callStt = getConnection().prepareCall("{ ? = call getClientEmailFromOrder(?) }");
+
+            callStt.registerOutParameter(1, OracleTypes.VARCHAR);
+            callStt.setInt(2, idOrder);
+            callStt.execute();
+
+            return callStt.getString(1);
+        }catch(NullPointerException | NumberFormatException | SQLException ex){
+            Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            if(callStt!=null) callStt.close();
+            closeAll();
+        }
+    }
+
 }
