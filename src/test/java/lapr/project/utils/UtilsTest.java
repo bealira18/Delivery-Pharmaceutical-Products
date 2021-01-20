@@ -95,7 +95,7 @@ public class UtilsTest {
         assertEquals(expResult, result);
 
         s = "Hello";
-        fileName = "as\\asd\\as.acc<";
+        fileName = "as\\asd\\as.acc<.aa.s.d,,sd";
         result = Utils.writeFile(s, fileName);
         assertEquals(expResult, result);
     }
