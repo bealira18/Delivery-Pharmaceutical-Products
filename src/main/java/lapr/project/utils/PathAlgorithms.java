@@ -4,8 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 import lapr.project.model.Address;
 import lapr.project.model.Courier;
+import lapr.project.model.Drone;
 import lapr.project.model.Path;
 import lapr.project.model.Product;
+import lapr.project.model.Scooter;
 
 public class PathAlgorithms {
 
@@ -19,14 +21,6 @@ public class PathAlgorithms {
     private static final int EARTH_RADIUS = 6371;
     /**
      * Wind degrees (non-radian).
-     */
-    private static final int WIND_DEGREES = 90;
-    /**
-     * Wind velocity in m/s.
-     */
-    private static final int WIND_VELOCITY = 5;
-    /**
-     * Air density at 20ºC in Kg/m3.
      */
     private static final double AIR_DENSITY = 1.2041;
     /**
@@ -114,12 +108,28 @@ public class PathAlgorithms {
         }
         double totalWeight = c.getWeight() + AVG_SCOOTER_WEIGHT + lp.stream().mapToDouble(Product::getWeight).sum();
 
-        double relativeSpeed = getRelativeSpeed();
+        double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), AVG_SCOOTER_SPEED);
         double aeroDrag = 0.5 * AIR_DENSITY * AVG_SCOOTER_DRAG * AVG_SCOOTER_FRONTAL * Math.pow(relativeSpeed, 2);
         double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient();
         double totalForce = aeroDrag + groundDrag;
 
         return totalForce * AVG_SCOOTER_SPEED * calcTime(distance, AVG_SCOOTER_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
+    }
+
+    public static double calcScooterEnergy(Path p, Courier c, Scooter s, List<Product> lp) {
+
+        double distance = calcDistance(p.getAddress1(), p.getAddress2());
+        if (distance == 0) {
+            return 0;
+        }
+        double totalWeight = c.getWeight() + s.getWeight() + lp.stream().mapToDouble(Product::getWeight).sum();
+
+        double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), s.getAverageSpeed());
+        double aeroDrag = 0.5 * AIR_DENSITY * s.getAerodynamicCoeficient() * s.getFrontalArea() * Math.pow(relativeSpeed, 2);
+        double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient();
+        double totalForce = aeroDrag + groundDrag;
+
+        return totalForce * s.getAverageSpeed() * calcTime(distance, s.getAverageSpeed()) * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
     public static double calcDroneEnergy(Path p, List<Product> lp) {
@@ -130,16 +140,28 @@ public class PathAlgorithms {
         }
         double totalWeight = AVG_DRONE_WEIGHT + lp.stream().mapToDouble(Product::getWeight).sum();
 
-        double horizontalAeroDrag = 0.5 * AIR_DENSITY * AVG_DRONE_DRAG * AVG_DRONE_FRONTAL * Math.pow(AVG_DRONE_H_SPEED, 2);
+        double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), AVG_DRONE_H_SPEED);
+        double horizontalAeroDrag = 0.5 * AIR_DENSITY * AVG_DRONE_DRAG * AVG_DRONE_FRONTAL * Math.pow(relativeSpeed, 2);
         double horizontalForce = totalWeight + horizontalAeroDrag;
         double horizontalPower = horizontalForce * AVG_DRONE_H_SPEED;
 
         return horizontalPower * calcTime(distance, AVG_DRONE_H_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
-    public static int calcTime(double distance, double speed) {
+    public static double calcDroneEnergy(Path p, Drone d, List<Product> lp) {
 
-        return (int) (distance / speed);
+        double distance = calcDistance(p.getAddress1(), p.getAddress2());
+        if (distance == 0) {
+            return 0;
+        }
+        double totalWeight = AVG_DRONE_WEIGHT + lp.stream().mapToDouble(Product::getWeight).sum();
+
+        double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), d.getAverageSpeed());
+        double horizontalAeroDrag = 0.5 * AIR_DENSITY * d.getAerodynamicCoeficient() * d.getFrontalArea() * Math.pow(relativeSpeed, 2);
+        double horizontalForce = totalWeight + horizontalAeroDrag;
+        double horizontalPower = horizontalForce * d.getAverageSpeed();
+
+        return horizontalPower * calcTime(distance, d.getAverageSpeed()) * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
     public static double calcTotalDistance(LinkedList<Address> la) {
@@ -161,6 +183,18 @@ public class PathAlgorithms {
 
             Path p = g.getEdge(la.get(i), la.get(i + 1)).getElement();
             totalEnergy += calcScooterEnergy(p, c, lp);
+        }
+        return totalEnergy;
+    }
+
+    public static double calcScooterTotalEnergy(Graph<Address, Path> g, LinkedList<Address> la, Courier c, Scooter s, List<Product> lp) {
+
+        double totalEnergy = 0.0d;
+
+        for (int i = 0; i < la.size() - 1; i++) {
+
+            Path p = g.getEdge(la.get(i), la.get(i + 1)).getElement();
+            totalEnergy += calcScooterEnergy(p, c, s, lp);
         }
         return totalEnergy;
     }
@@ -187,10 +221,37 @@ public class PathAlgorithms {
         return totalEnergy;
     }
 
-    private static double getRelativeSpeed() {
+    public static double calcDroneTotalEnergy(Graph<Address, Path> g, LinkedList<Address> la, Drone d, List<Product> lp) {
 
-        double relativeWind = WIND_VELOCITY * Math.cos(Math.toRadians(WIND_DEGREES));
+        if (la.isEmpty()) {
+            return 0;
+        }
+        double totalEnergy = 0.0d;
+        double totalWeight = d.getWeight() + lp.stream().mapToDouble(Product::getWeight).sum();
+        double verticalTime = calcTime((DRONE_ALTITUDE * 2 + Math.abs(la.getLast().getAltitude() - la.getFirst().getAltitude())), AVG_DRONE_V_SPEED);
 
-        return AVG_SCOOTER_SPEED - relativeWind;
+        double verticalDrag = 0.5 * AIR_DENSITY * Math.pow(AVG_DRONE_V_SPEED, 2) * d.getAerodynamicCoeficient() * AVG_DRONE_TOP;
+        double verticalForce = totalWeight + verticalDrag;
+        double verticalPower = verticalForce * AVG_DRONE_V_SPEED;
+        totalEnergy += verticalPower * verticalTime * JOULE_TO_WATTHOUR_CONVERTER;
+
+        for (int i = 0; i < la.size() - 1; i++) {
+
+            Path p = g.getEdge(la.get(i), la.get(i + 1)).getElement();
+            totalEnergy += calcDroneEnergy(p, lp);
+        }
+        return totalEnergy;
+    }
+
+    public static int calcTime(double distance, double speed) {
+
+        return (int) (distance / speed);
+    }
+
+    public static double getRelativeSpeed(double windSpeed, double windDegrees, double speed) {
+
+        double relativeWind = windSpeed * Math.cos(Math.toRadians(windDegrees));
+
+        return speed - relativeWind;
     }
 }
