@@ -116,6 +116,8 @@ CREATE TABLE park (
     category                VARCHAR2(255)                   CONSTRAINT nnParkCategory             NOT NULL
                                                             CONSTRAINT ckParkCategory             CHECK(category IN('scooter', 'drone')),
     address                 VARCHAR2(255)                   CONSTRAINT nnParkAdress               NOT NULL,
+    max_charging_potency    NUMERIC(9,2)                    CONSTRAINT nnParkMaxChargingPotency   NOT NULL
+                                                            CONSTRAINT ckParkMaxChargingPotency   CHECK(max_charging_potency>0),
     
     CONSTRAINT ckScooterParkLimitNumChargingStations   CHECK(limit>=num_charging_stations)
 );
@@ -174,7 +176,9 @@ CREATE TABLE vehicle (
     current_battery         NUMERIC(9,2)                      CONSTRAINT nnVehicleCurrentBattery         NOT NULL
                                                               CONSTRAINT ckVehicleCurrentBattery         CHECK(current_battery>=0),
     max_battery             NUMERIC(9,2)                      CONSTRAINT nnVehicleMaxBattery             NOT NULL 
-                                                              CONSTRAINT ckVehicleMaxBattery             CHECK(max_battery>0)
+                                                              CONSTRAINT ckVehicleMaxBattery             CHECK(max_battery>0),
+    average_speed           NUMERIC(6,2)                      CONSTRAINT nnVehicleAverageSpeed           NOT NULL
+                                                              CONSTRAINT ckVehicleAverageSpeed           CHECK(average_speed>=0)
 );
 
 CREATE TABLE scooter (
