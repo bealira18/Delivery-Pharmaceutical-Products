@@ -7,12 +7,16 @@ public class Path {
     private Address address1;
     private Address address2;
     private double kineticCoeficient;
+    private double windAngle;
+    private double windSpeed;
 
-    public Path(Address address1, Address address2, double kineticCoeficient) {
+    public Path(Address address1, Address address2, double kineticCoeficient, double windAngle, double windSpeed) {
 
         this.address1 = address1;
         this.address2 = address2;
         this.kineticCoeficient = kineticCoeficient;
+        this.windAngle = windAngle;
+        this.windSpeed = windSpeed;
     }
 
     public Address getAddress1() {
@@ -30,6 +34,14 @@ public class Path {
         return kineticCoeficient;
     }
 
+    public double getWindAngle() {
+        return windAngle;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
     public void setAddress1(Address address1) {
 
         this.address1 = address1;
@@ -45,10 +57,23 @@ public class Path {
         this.kineticCoeficient = kineticCoeficient;
     }
 
+    public void setWindAngle(double windAngle) {
+        this.windAngle = windAngle;
+    }
+
+    public void setWindSpeed(double windSpeed) {
+        this.windSpeed = windSpeed;
+    }
+
     @Override
     public String toString() {
-
-        return "Path{" + "address1=" + address1 + ", address2=" + address2 + ", kineticCoeficient=" + kineticCoeficient + '}';
+        return "Path{" +
+                "address1=" + address1 +
+                ", address2=" + address2 +
+                ", kineticCoeficient=" + kineticCoeficient +
+                ", windAngle=" + windAngle +
+                ", windSpeed=" + windSpeed +
+                '}';
     }
 
     @Override

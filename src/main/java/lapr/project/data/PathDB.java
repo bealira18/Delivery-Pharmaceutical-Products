@@ -34,6 +34,8 @@ public class PathDB extends DataHandler {
                 String a1text = rs.getString(1);
                 String a2text = rs.getString(2);
                 double kc = rs.getDouble(3);
+                double wa = rs.getDouble(4);
+                double ws = rs.getDouble(5);
 
                 for (Address a : la) {
 
@@ -45,7 +47,7 @@ public class PathDB extends DataHandler {
                     }
                 }
                 if (a1 != null && a2 != null) {
-                    lp.add(new Path(a1, a2, kc));
+                    lp.add(new Path(a1, a2, kc, wa, ws));
                 }
             }
             return lp;

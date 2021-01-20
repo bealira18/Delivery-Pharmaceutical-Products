@@ -81,7 +81,7 @@ public class PathAlgorithmsTest {
         System.out.println("calcScooterEnergy");
         Address a1 = new Address("Test1", 45, 45, 0);
         Address a2 = new Address("Test2", 46, 48.7749, 0);
-        Path p = new Path(a1, a2, 0.7);
+        Path p = new Path(a1, a2, 0.7, 90, 12);
         Courier c = new Courier("TestMail", "TestPass", "TestName", 0, 0, 1, 80);
         List<Product> lp = new ArrayList<>();
 
@@ -89,7 +89,7 @@ public class PathAlgorithmsTest {
         double result = PathAlgorithms.calcScooterEnergy(p, c, lp);
         assertEquals(expResult, result, 1);
 
-        p = new Path(a1, a2, 0.7);
+        p = new Path(a1, a2, 0.7, 90, 12);
         c = new Courier("TestMail", "TestPass", "TestName", 0, 0, 1, 100);
 
         expResult = 71204.33;
@@ -104,7 +104,7 @@ public class PathAlgorithmsTest {
 
         a1 = new Address("Test1", 45, 45, 0);
         a2 = new Address("Test2", 45, 45, 0);
-        p = new Path(a1, a2, 0.7);
+        p = new Path(a1, a2, 0.7, 90, 12);
 
         expResult = 0;
         result = PathAlgorithms.calcScooterEnergy(p, c, lp);
@@ -162,8 +162,8 @@ public class PathAlgorithmsTest {
 
         List<Path> lp = new ArrayList<>();
 
-        lp.add(new Path(a1, a2, 0));
-        lp.add(new Path(a2, a3, 0));
+        lp.add(new Path(a1, a2, 0, 90, 12));
+        lp.add(new Path(a2, a3, 0, 90, 12));
 
         GraphAlgorithms.fillGraph(g, la, lp);
 
@@ -195,7 +195,7 @@ public class PathAlgorithmsTest {
         System.out.println("calcDroneEnergy");
         Address a1 = new Address("Test1", 45, 45, 0);
         Address a2 = new Address("Test2", 46, 48.7749, 0);
-        Path p = new Path(a1, a2, 0.7);
+        Path p = new Path(a1, a2, 0.7, 90, 12);
         List<Product> lp = new ArrayList<>();
 
         double expResult = 6747.29;
@@ -210,7 +210,7 @@ public class PathAlgorithmsTest {
 
         a1 = new Address("Test1", 45, 45, 0);
         a2 = new Address("Test2", 45, 45, 0);
-        p = new Path(a1, a2, 0.7);
+        p = new Path(a1, a2, 0.7, 90, 12);
 
         expResult = 0;
         result = PathAlgorithms.calcDroneEnergy(p, lp);
@@ -258,8 +258,8 @@ public class PathAlgorithmsTest {
 
         List<Path> lp = new ArrayList<>();
 
-        lp.add(new Path(a1, a2, 0));
-        lp.add(new Path(a2, a3, 0));
+        lp.add(new Path(a1, a2, 0, 90, 12));
+        lp.add(new Path(a2, a3, 0, 90, 12));
 
         GraphAlgorithms.fillGraph(g, la, lp);
 
@@ -306,8 +306,8 @@ public class PathAlgorithmsTest {
 
         List<Path> lp = new ArrayList<>();
 
-        lp.add(new Path(a1, a2, 0));
-        lp.add(new Path(a2, a3, 0));
+        lp.add(new Path(a1, a2, 0, 90, 12));
+        lp.add(new Path(a2, a3, 0, 90, 12));
 
         GraphAlgorithms.fillGraph(g, la, lp);
 
