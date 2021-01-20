@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class GraphControllerTest {
 
@@ -89,21 +88,6 @@ public class GraphControllerTest {
         Address a = new Address("Test", 0, 0, 0);
 
         Address expResult = null;
-        Address result = instance.getNearestPharmacy(a);
-        assertEquals(expResult, result);
-    }
-
-    @Test
-    public void testGetNearestPharmacy2() throws Exception {
-
-        System.out.println("getNearestPharmacy2");
-
-        GraphController instance = mock(GraphController.class);
-        Address a = new Address("Test", 0, 0, 0);
-
-        when(instance.getNearestPharmacy(a)).thenReturn(new Address("Test2", 0, 0, 0));
-
-        Address expResult = new Address("Test2", 0, 0, 0);
         Address result = instance.getNearestPharmacy(a);
         assertEquals(expResult, result);
     }
