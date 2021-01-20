@@ -50,7 +50,7 @@ public class DeliveryDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
-            callStmt.getConnection().prepareCall("{ call addDelivery(?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addDelivery(?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1, orderId);
             callStmt.setInt(2, vehicleId);
