@@ -95,7 +95,7 @@ public class UtilsTest {
         assertEquals(expResult, result);
 
         s = "Hello";
-        fileName = "s:_   asas\\asd\\as.acc<.aa.s.d,,sd";
+        fileName = "    ||    []*  +/8)as0         as:_   asas\\asd\\as.acc<.aa.s.d,,sd";
         result = Utils.writeFile(s, fileName);
         assertEquals(expResult, result);
     }
