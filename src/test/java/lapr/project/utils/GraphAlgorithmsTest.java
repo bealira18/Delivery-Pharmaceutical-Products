@@ -267,7 +267,7 @@ public class GraphAlgorithmsTest {
         result = GraphAlgorithms.writePathToFile(fileName, lla, distance, energy, s);
         assertEquals(expResult, result);
 
-        fileName = "    [] !!!!!|| ***...         aaaaaaaaaaaaa ssssssssssss dddddddd";
+        fileName = "    ||    []*  +/8)as0         as:_   asas\\asd\\as.acc<.aa.s.d,,sd";
         result = GraphAlgorithms.writePathToFile(fileName, lla2, distance, energy, s);
         assertEquals(expResult, result);
     }
