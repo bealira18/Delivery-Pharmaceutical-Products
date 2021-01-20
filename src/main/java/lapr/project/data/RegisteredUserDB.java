@@ -24,7 +24,7 @@ public class RegisteredUserDB extends DataHandler {
             // Especifica o primeiro parâmetro de entrada da função "findUser".
             callStmt.setString(2, email);
             // Especifica o segundo parâmetro de entrada da função "findUser".
-            callStmt.setString(2, password);
+            callStmt.setString(3, password);
             // Executa a invocação da função "getSailor".
             callStmt.execute();
             // Guarda o cursor retornado num objeto "ResultSet".
@@ -40,6 +40,9 @@ public class RegisteredUserDB extends DataHandler {
         } catch (SQLException e) {
 
             e.printStackTrace();
+        }
+        finally{
+            closeAll();
         }
         throw new IllegalArgumentException("Could not find a user matching this user and password");
     }
