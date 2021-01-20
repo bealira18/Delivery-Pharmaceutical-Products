@@ -30,26 +30,26 @@ INSERT INTO address(address, latitude, longitude, altitude) VALUES ('pavilhao ro
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('estadio do bessa', 41.162222, 8.643333, 66);
 
 -- ## table Path ##
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('casa da musica', 'conservatorio', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('conservatorio', 'casa da musica', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('casa da musica', 'estadio do bessa', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('estadio do bessa', 'parque de serralves', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('parque de serralves', 'casa da musica', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('casa da musica', 'pavilhao rosa mota', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('pavilhao rosa mota', 'casa da musica', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('conservatorio', 'trindade', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('trindade', 'conservatorio', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('pavilhao rosa mota', 'torre dos clerigos', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('torre dos clerigos', 'pavilhao rosa mota', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('conservatorio', 'torre dos clerigos', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('torre dos clerigos', 'conservatorio', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('torre dos clerigos', 'se do porto', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('se do porto', 'torre dos clerigos', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('se do porto', 'el corte ingles', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('el corte ingles', 'se do porto', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('trindade', 'isep', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('isep', 'feup', 0);
-INSERT INTO path(address1, address2, kinetic_coefficient) VALUES ('feup', 'trindade', 0);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'conservatorio', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'casa da musica', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'estadio do bessa', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('estadio do bessa', 'parque de serralves', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('parque de serralves', 'casa da musica', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'pavilhao rosa mota', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('pavilhao rosa mota', 'casa da musica', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'trindade', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('trindade', 'conservatorio', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('pavilhao rosa mota', 'torre dos clerigos', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('torre dos clerigos', 'pavilhao rosa mota', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'torre dos clerigos', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('torre dos clerigos', 'conservatorio', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('torre dos clerigos', 'se do porto', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('se do porto', 'torre dos clerigos', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('se do porto', 'el corte ingles', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('el corte ingles', 'se do porto', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('trindade', 'isep', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('isep', 'feup', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('feup', 'trindade', 0, 90, 12);
 
 -- ## table Pharmacy ##
 INSERT INTO pharmacy(name, address) VALUES ('farmacia da boavista', 'casa da musica');

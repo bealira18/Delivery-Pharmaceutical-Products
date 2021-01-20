@@ -48,6 +48,10 @@ CREATE TABLE path (
     address2                VARCHAR2(255)         CONSTRAINT nnPathAddress2             NOT NULL,
     kinetic_coefficient     NUMERIC(5,2)          CONSTRAINT nnPathKineticCoefficient   NOT NULL
                                                   CONSTRAINT ckPathKineticCoefficient   CHECK(kinetic_coefficient>=0),
+    wind_angle              NUMERIC(5,2)          CONSTRAINT nnPathWindAngle            NOT NULL
+                                                  CONSTRAINT ckPathWindAngle            CHECK(wind_angle BETWEEN 0 AND 360),
+    wind_speed              NUMERIC(6,2)          CONSTRAINT nnPathWindSpeed            NOT NULL
+                                                  CONSTRAINT ckPathWindSpeed            CHECK(wind_speed >= 0),
                                                   
     CONSTRAINT pkPathAddress1Address2   PRIMARY KEY(address1, address2)   
 );
@@ -60,7 +64,8 @@ CREATE TABLE pharmacy (
 
 CREATE TABLE administrator (
     email               VARCHAR2(255)       CONSTRAINT pkAdministratorEmail             PRIMARY KEY,
-    id_pharmacy         INTEGER             CONSTRAINT nnAdministratorIdPharmacy        NOT NULL,
+    id_pharmacy         INTEGER             CONSTRAINT nnAdministratorIdPharmacy        NOT NULL
+                                            CONSTRAINT ukAdministratorIdPharmacy        UNIQUE,
     name                VARCHAR2(255)       CONSTRAINT nnAdministratorName              NOT NULL,
     nif                 INTEGER             CONSTRAINT nnAdministratorNif               NOT NULL
                                             CONSTRAINT ukAdministratorNif               UNIQUE
