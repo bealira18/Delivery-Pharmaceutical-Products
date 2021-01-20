@@ -124,14 +124,12 @@ public class DroneDB extends DataHandler {
             callStmt.setDouble(7,d.getMaxBattery());
 
             callStmt.execute();
+            closeAll();
             return true;
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
-        } finally {
-            if(callStmt!=null) callStmt.close();
-            closeAll();
         }
         return false;
     }

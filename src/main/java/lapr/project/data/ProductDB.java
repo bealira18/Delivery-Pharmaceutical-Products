@@ -163,15 +163,14 @@ public class ProductDB extends DataHandler {
             callStmt.setDouble(5,p.getWeight());
 
             callStmt.execute();
+            
+            closeAll();
             return true;
 
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
-        } finally {
-            if(callStmt!=null) callStmt.close();
-            closeAll();
         }
         return false;
     }

@@ -160,7 +160,7 @@ public class PharmacyDB extends DataHandler {
             callStmt.execute();
             return true;
         } catch (NullPointerException | SQLException ex){
-            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
         } finally {
