@@ -153,13 +153,10 @@ public class ParkDB extends DataHandler {
 
                 p = new Park(idP, pharmacyId, limit, numChargingStations, category, a);
             }
+            closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("No Park with id:" + id);
-        } finally {
-            if(callStmt!=null) callStmt.close();
-            if(rSet!=null) rSet.close();
-            closeAll();
         }
 
         return p;

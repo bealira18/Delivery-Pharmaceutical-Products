@@ -119,14 +119,11 @@ public class StockDB extends DataHandler {
             callStmt.setInt(1, idOrder);
 
             callStmt.execute();
+            closeAll();
             return true;
 
         } catch (NullPointerException | SQLException ex){
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
-
-        } finally {
-            if(callStmt!=null) callStmt.close();
             closeAll();
         }
         return false;

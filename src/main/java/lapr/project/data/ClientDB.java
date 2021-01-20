@@ -99,7 +99,7 @@ public class ClientDB extends DataHandler {
             callStmt.execute();
             return true;
         } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
         } finally {

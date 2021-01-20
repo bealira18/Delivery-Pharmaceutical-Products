@@ -59,7 +59,7 @@ public class AddressDB extends DataHandler {
         try {
             openConnection();
 
-            callStmt.getConnection().prepareCall("{ ? = call getAddresses() }");
+            callStmt = getConnection().prepareCall("{ ? = call getAddresses() }");
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
 
@@ -81,8 +81,13 @@ public class AddressDB extends DataHandler {
             return new ArrayList<>();
 
         } finally {
-            if(callStmt!=null) callStmt.close();
-            if(rs!=null) rs.close();
+            if (callStmt != null) {
+                callStmt.close();
+
+                if (rs != null) {
+                    rs.close();
+                }
+            }
             closeAll();
         }
     }

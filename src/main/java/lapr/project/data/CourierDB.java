@@ -148,7 +148,7 @@ public class CourierDB extends DataHandler {
 
             return true;
         } catch (NullPointerException | SQLException ex){
-            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
         } finally {

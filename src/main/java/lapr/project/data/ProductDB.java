@@ -166,7 +166,7 @@ public class ProductDB extends DataHandler {
             return true;
 
         } catch (NullPointerException | SQLException ex){
-            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
         } finally {

@@ -126,7 +126,7 @@ public class DroneDB extends DataHandler {
             callStmt.execute();
             return true;
         } catch (NullPointerException | SQLException ex){
-            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
         } finally {
