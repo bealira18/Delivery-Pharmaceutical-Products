@@ -78,18 +78,18 @@ public class ClientDB extends DataHandler {
             rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
-                String em=rSet.getString(1);
-                String name=rSet.getString(2);
-                int nif=rSet.getInt(3);
-                long creditCard=rSet.getLong(4);
-                String addressName=rSet.getString(5);
-                int credits=rSet.getInt(6);
+                String email = rSet.getString(1);
+                String name = rSet.getString(2);
+                int nif = rSet.getInt(3);
+                long creditCard = rSet.getLong(4);
+                String addressName = rSet.getString(5);
+                int credits = rSet.getInt(6);
 
                 AddressDB addressDB = new AddressDB();
 
                 Address address = addressDB.getAddressByAd(addressName);
 
-                c=new Client(em,"qwerty", name, nif, new CreditCard(creditCard, LocalDate.now(), (short) 123), address, credits);
+                c=new Client(email,"qwerty", name, nif, new CreditCard(creditCard, LocalDate.now(), (short) 123), address, credits);
             }
             else{
                 throw new IllegalArgumentException("No Client with email:" + email);
