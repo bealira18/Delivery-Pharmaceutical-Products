@@ -64,10 +64,6 @@ public class PathAlgorithms {
      */
     private static final double AVG_DRONE_FRONTAL = 0.4;
     /**
-     * Average drone top area in m2.
-     */
-    private static final double AVG_DRONE_TOP = 0.5;
-    /**
      * Drone altitude in meters, taking into account it parks at 10m above
      * ground.
      */

@@ -56,7 +56,7 @@ public class AddressDB extends DataHandler {
 
         List<Address> la = new ArrayList<>();
         CallableStatement callStmt1 = null;
-        ResultSet rs = null;
+        ResultSet rs1 = null;
 
         try {
             openConnection();
@@ -65,16 +65,16 @@ public class AddressDB extends DataHandler {
             callStmt1.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt1.execute();
 
-            rs = (ResultSet) callStmt1.getObject(1);
+            rs1 = (ResultSet) callStmt1.getObject(1);
 
-            while (rs.next()) {
+            while (rs1.next()) {
 
-                String description = rs.getString(1);
-                double latitude = rs.getDouble(2);
-                double longitude = rs.getDouble(3);
-                double altitude = rs.getDouble(4);
+                String description = rs1.getString(1);
+                double latitude1 = rs1.getDouble(2);
+                double longitude1 = rs1.getDouble(3);
+                double altitude1 = rs1.getDouble(4);
 
-                la.add(new Address(description, latitude, longitude, altitude));
+                la.add(new Address(description, latitude1, longitude1, altitude1));
             }
             return la;
 
@@ -86,8 +86,8 @@ public class AddressDB extends DataHandler {
             if (callStmt1 != null) {
                 callStmt1.close();
 
-                if (rs != null) {
-                    rs.close();
+                if (rs1 != null) {
+                    rs1.close();
                 }
             }
             closeAll();
@@ -163,7 +163,7 @@ public class AddressDB extends DataHandler {
 
         List<Address> la = new ArrayList<>();
         CallableStatement callStmt2 = null;
-        ResultSet rs = null;
+        ResultSet rs2 = null;
 
         try {
             openConnection();
@@ -172,16 +172,16 @@ public class AddressDB extends DataHandler {
             callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt2.execute();
 
-            rs = (ResultSet) callStmt2.getObject(1);
+            rs2 = (ResultSet) callStmt2.getObject(1);
 
-            while (rs.next()) {
+            while (rs2.next()) {
 
-                String description = rs.getString(1);
-                double latitude = rs.getDouble(2);
-                double longitude = rs.getDouble(3);
-                double altitude = rs.getDouble(4);
+                String description = rs2.getString(1);
+                double latitude2 = rs2.getDouble(2);
+                double longitude2 = rs2.getDouble(3);
+                double altitude2 = rs2.getDouble(4);
 
-                la.add(new Address(description, latitude, longitude, altitude));
+                la.add(new Address(description, latitude2, longitude2, altitude2));
             }
             return la;
 
@@ -193,8 +193,8 @@ public class AddressDB extends DataHandler {
             if (callStmt2 != null) {
                 callStmt2.close();
 
-                if (rs != null) {
-                    rs.close();
+                if (rs2 != null) {
+                    rs2.close();
                 }
             }
             closeAll();

@@ -320,7 +320,8 @@ public class PathAlgorithmsTest {
         lla.add(a3);
 
         List<Product> lpro = new ArrayList<>();
-        double expResult = 2416.84;
+        lpro.add(new Product(1, "Test", 0, 999, 1));
+        double expResult = 226012.56;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
         assertEquals(expResult, result, 1);
     }
