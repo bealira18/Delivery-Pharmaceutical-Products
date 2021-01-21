@@ -1,10 +1,7 @@
 package lapr.project.controller;
 
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import lapr.project.data.AddressDB;
-import lapr.project.data.PathDB;
 import lapr.project.model.Address;
 import lapr.project.model.Path;
 import lapr.project.model.Vehicle;
@@ -15,23 +12,11 @@ public class GraphController {
 
     private final Graph<Address, Path> gScooter;
     private final Graph<Address, Path> gDrone;
-    private final AddressDB aDB;
-    private final PathDB pDB;
 
     public GraphController() {
 
         gScooter = new Graph<>(true);
         gDrone = new Graph<>(false);
-        aDB = new AddressDB();
-        pDB = new PathDB();
-    }
-
-    public GraphController(AddressDB aDB, PathDB pDB) {
-
-        gScooter = new Graph<>(true);
-        gDrone = new Graph<>(false);
-        this.aDB = aDB;
-        this.pDB = pDB;
     }
 
     public Graph<Address, Path> getGraphScooter() {
@@ -44,27 +29,19 @@ public class GraphController {
         return gDrone.clone();
     }
 
-    public void fillGraphScooter() throws SQLException {
+    public void fillGraphScooter(List<Address> la, List<Path> lp) {
 
-        List<Address> laScooter = aDB.getAddresses();
-        List<Path> lpScooter = pDB.getPaths(laScooter);
-
-        GraphAlgorithms.fillGraph(gScooter, laScooter, lpScooter);
+        GraphAlgorithms.fillGraph(gScooter, la, lp);
     }
 
-    public void fillGraphDrone() throws SQLException {
+    public void fillGraphDrone(List<Address> la, List<Path> lp) {
 
-        List<Address> laDrone = aDB.getAddresses();
-        List<Path> lpDrone = pDB.getPaths(laDrone);
-
-        GraphAlgorithms.fillGraph(gDrone, laDrone, lpDrone);
+        GraphAlgorithms.fillGraph(gDrone, la, lp);
     }
 
-    public Address getNearestPharmacy(Address a) throws SQLException {
+    public Address getNearestPharmacy(Address a, List<Address> laPharma) {
 
-        List<Address> la = aDB.getPharmacyAddresses();
-
-        return GraphAlgorithms.getNearestPharmacy(gDrone, a, la);
+        return GraphAlgorithms.getNearestPharmacy(gDrone, a, laPharma);
     }
 
     public double getShortestPath(boolean scooterOrDrone, Address aOrig, Address aDest, LinkedList<Address> shortPath) {
@@ -92,15 +69,5 @@ public class GraphController {
             double distance, double energy, Vehicle v) {
 
         return GraphAlgorithms.writePathToFile(fileName, la, distance, energy, v);
-    }
-
-    public List<LinkedList<Address>> allPaths(boolean scooterOrDrone, Address aOrig, Address aDest) {
-
-        if (scooterOrDrone) {
-            return GraphAlgorithms.allPaths(gScooter, aOrig, aDest);
-
-        } else {
-            return GraphAlgorithms.allPaths(gDrone, aOrig, aDest);
-        }
     }
 }
