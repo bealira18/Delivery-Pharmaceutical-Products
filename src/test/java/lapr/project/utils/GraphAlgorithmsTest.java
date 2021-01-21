@@ -820,16 +820,16 @@ public class GraphAlgorithmsTest {
         GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp4);
 
         lp = new ArrayList<>();
-        GraphAlgorithms.fillGraph(g, la, lp);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
 
         la = new ArrayList<>();
-        GraphAlgorithms.fillGraph(g, la, lp);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
 
         lp = null;
-        GraphAlgorithms.fillGraph(g, la, lp);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
 
         la = null;
-        GraphAlgorithms.fillGraph(g, la, lp);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
 
         scooterOrDrone = true;
         g = new Graph<>(true);
@@ -868,15 +868,15 @@ public class GraphAlgorithmsTest {
         GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp4);
 
         lp = new ArrayList<>();
-        GraphAlgorithms.fillGraph(g, la, lp);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
 
         la = new ArrayList<>();
-        GraphAlgorithms.fillGraph(g, la, lp);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
 
         lp = null;
-        GraphAlgorithms.fillGraph(g, la, lp);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
 
         la = null;
-        GraphAlgorithms.fillGraph(g, la, lp);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
     }
 }
