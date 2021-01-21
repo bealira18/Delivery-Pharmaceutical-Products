@@ -1,7 +1,13 @@
 package lapr.project.data;
 
+import lapr.project.model.Address;
+import lapr.project.model.Client;
+import lapr.project.model.CreditCard;
+import oracle.jdbc.OracleTypes;
+
 import java.sql.CallableStatement;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.logging.Level;
@@ -56,6 +62,48 @@ public class ClientDB extends DataHandler {
             closeAll();
         }
         return true;
+    }
+
+    public Client getClientByEmail(String email) throws SQLException {
+        Client c;
+        CallableStatement callStmt = null;
+        ResultSet rSet = null;
+
+        try{
+            callStmt = getConnection().prepareCall("{ ? = call getClientByEmail(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt.setString(2, email);
+            callStmt.execute();
+            rSet = (ResultSet) callStmt.getObject(1);
+
+            if (rSet.next()) {
+                String em=rSet.getString(1);
+                String name=rSet.getString(2);
+                int nif=rSet.getInt(3);
+                long creditCard=rSet.getLong(4);
+                String addressName=rSet.getString(5);
+                int credits=rSet.getInt(6);
+
+                AddressDB addressDB = new AddressDB();
+
+                Address address = addressDB.getAddressByAd(addressName);
+
+                c=new Client(em,"qwerty", name, nif, new CreditCard(creditCard, LocalDate.now(), (short) 123), address, credits);
+            }
+            else{
+                throw new IllegalArgumentException("No Client with email:" + email);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("No Client with email:" + email);
+        } finally {
+            if(callStmt!=null)
+                callStmt.close();
+            if(rSet!=null)
+                rSet.close();
+        }
+        return c;
     }
 
     public void updateCredits(String email, int creditsEarned) throws SQLException {
