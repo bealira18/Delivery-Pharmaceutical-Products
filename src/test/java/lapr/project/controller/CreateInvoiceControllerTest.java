@@ -115,7 +115,9 @@ class CreateInvoiceControllerTest {
     @Test
     void TestSendInvoiceByEmail() throws SQLException {
         Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
+        PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
         controller.getTotalPriceFromOrder();
+        controller.getProductLinesFromOrder(purchaseOrder);
 
         boolean result = controller.sendInvoiceByEmail(invoice);
         boolean expResult = true;
@@ -137,7 +139,6 @@ class CreateInvoiceControllerTest {
         ProductLine productLine2 = new ProductLine(1,2,1,4.50);
         Product product1 = new Product(1, "testProduct1", 1,1,1);
         Product product2 = new Product(2, "testProduct2", 1,1,1);
-        PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
 
         when(pharmacyDB.getPhamacyByID(invoice.getPharmacyId())).thenReturn(pharmacy);
         when(clientDB.getClientByEmail(invoice.getClientEmail())).thenReturn(client);
@@ -168,7 +169,35 @@ class CreateInvoiceControllerTest {
     }
 
     @Test
-    void TestMakeEmailBody() {
+    void TestMakeEmailBody() throws SQLException {
+        controller.getTotalPriceFromOrder();
+        PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
+        controller.getProductLinesFromOrder(purchaseOrder);
+
+        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
+        Address address = new Address("testAddress",1,1,1);
+        Pharmacy pharmacy = new Pharmacy(1, "testPharmacy", address);
+
+        CreditCard creditCard = new CreditCard(1, LocalDate.now(), (short) 1);
+        Client client = new Client("clientEmail@gmail.com", "qwerty", "testName", 1, creditCard, address, 1);
+
+        String expResult = "Receipt #1\r\n" +
+                "\r\n" +
+                "Pharmacy: testPharmacy\tid: 1\r\n" +
+                "------------------------------------------------------------\r\n" +
+                "Order:\r\n" +
+                "Item                                    Number    Price     \r\n" +
+                "------------------------------------------------------------\r\n" +
+                "testProduct1                            1         €5,50      \r\n" +
+                "------------------------------------------------------------\r\n" +
+                "testProduct2                            1         €4,50      \r\n" +
+                "------------------------------------------------------------\r\n" +
+                "                                                  €10,00\r\n" +
+                "\r\n" +
+                "NIF: 1";
+
+        String result = controller.makeEmailBody(invoice, pharmacy, client).toString();
+        assertEquals(expResult, result);
     }
 
 }
