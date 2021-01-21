@@ -5,6 +5,7 @@ import lapr.project.model.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 
 public class CreateInvoiceController {
 
@@ -85,12 +86,12 @@ public class CreateInvoiceController {
 
         for(ProductLine productLine : productLineList) {
             Product p = productDB.getProduct(productLine.getProductId());
-            emailBody.append(String.format("%-40s%-10d€%-10.2f", p.getName(), productLine.getProductQuantity(), productLine.getPrice()));
+            emailBody.append(String.format(Locale.ROOT, "%-40s%-10d€%-10.2f", p.getName(), productLine.getProductQuantity(), productLine.getPrice()));
             emailBody.append(System.getProperty("line.separator"));
             emailBody.append(slash);
             emailBody.append(System.getProperty("line.separator"));
         }
-        emailBody.append(String.format("%51s%.2f", "€", totalPrice));
+        emailBody.append(String.format(Locale.ROOT, "%51s%.2f", "€", totalPrice));
         emailBody.append(System.getProperty("line.separator"));
         emailBody.append(System.getProperty("line.separator"));
         emailBody.append("NIF: ").append(client.getNif());

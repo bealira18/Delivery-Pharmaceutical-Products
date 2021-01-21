@@ -64,11 +64,11 @@ class CreateInvoiceControllerTest {
                 "Order:\r\n" +
                 "Item                                    Number    Price     \r\n" +
                 "------------------------------------------------------------\r\n" +
-                "testProduct1                            1         €5,50      \r\n" +
+                "testProduct1                            1         €5.50      \r\n" +
                 "------------------------------------------------------------\r\n" +
-                "testProduct2                            1         €4,50      \r\n" +
+                "testProduct2                            1         €4.50      \r\n" +
                 "------------------------------------------------------------\r\n" +
-                "                                                  €10,00\r\n" +
+                "                                                  €10.00\r\n" +
                 "\r\n" +
                 "NIF: 1")).thenReturn(Boolean.TRUE);
 
@@ -112,7 +112,7 @@ class CreateInvoiceControllerTest {
         assertEquals(expResult, result);
     }
 
-    /*@Test
+    @Test
     void TestSendInvoiceByEmail() throws SQLException {
         Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
@@ -152,11 +152,11 @@ class CreateInvoiceControllerTest {
                 "Order:\r\n" +
                 "Item                                    Number    Price     \r\n" +
                 "------------------------------------------------------------\r\n" +
-                "testProduct1                            1         €5,50      \r\n" +
+                "testProduct1                            1         €5.50      \r\n" +
                 "------------------------------------------------------------\r\n" +
-                "testProduct2                            1         €4,50      \r\n" +
+                "testProduct2                            1         €4.50      \r\n" +
                 "------------------------------------------------------------\r\n" +
-                "                                                  €10,00\r\n" +
+                "                                                  €10.00\r\n" +
                 "\r\n" +
                 "NIF: 1")).thenReturn(Boolean.FALSE);
 
@@ -188,16 +188,16 @@ class CreateInvoiceControllerTest {
                 "Order:\r\n" +
                 "Item                                    Number    Price     \r\n" +
                 "------------------------------------------------------------\r\n" +
-                "testProduct1                            1         €5,50      \r\n" +
+                "testProduct1                            1         €5.50      \r\n" +
                 "------------------------------------------------------------\r\n" +
-                "testProduct2                            1         €4,50      \r\n" +
+                "testProduct2                            1         €4.50      \r\n" +
                 "------------------------------------------------------------\r\n" +
-                "                                                  €10,00\r\n" +
+                "                                                  €10.00\r\n" +
                 "\r\n" +
                 "NIF: 1";
 
         String result = controller.makeEmailBody(invoice, pharmacy, client).toString();
         assertEquals(expResult, result);
-    }*/
+    }
 
 }
