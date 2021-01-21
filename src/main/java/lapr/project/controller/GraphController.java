@@ -12,11 +12,15 @@ public class GraphController {
 
     private final Graph<Address, Path> gScooter;
     private final Graph<Address, Path> gDrone;
+    private final Graph<Address, Path> gScooterEnergy;
+    private final Graph<Address, Path> gDroneEnergy;
 
     public GraphController() {
 
         gScooter = new Graph<>(true);
-        gDrone = new Graph<>(false);
+        gDrone = new Graph<>(true);
+        gScooterEnergy = new Graph<>(true);
+        gDroneEnergy = new Graph<>(true);
     }
 
     public Graph<Address, Path> getGraphScooter() {
@@ -29,6 +33,16 @@ public class GraphController {
         return gDrone.clone();
     }
 
+    public Graph<Address, Path> getGraphScooterEnergy() {
+
+        return gScooterEnergy.clone();
+    }
+
+    public Graph<Address, Path> getGraphDroneEnergy() {
+
+        return gDroneEnergy.clone();
+    }
+
     public void fillGraphScooter(List<Address> la, List<Path> lp) {
 
         GraphAlgorithms.fillGraph(gScooter, la, lp);
@@ -37,6 +51,16 @@ public class GraphController {
     public void fillGraphDrone(List<Address> la, List<Path> lp) {
 
         GraphAlgorithms.fillGraph(gDrone, la, lp);
+    }
+
+    public void fillGraphScooterEnergy(List<Address> la, List<Path> lp) {
+
+        GraphAlgorithms.fillGraphEnergy(true, gScooterEnergy, la, lp);
+    }
+
+    public void fillGraphDroneEnergy(List<Address> la, List<Path> lp) {
+
+        GraphAlgorithms.fillGraphEnergy(false, gDroneEnergy, la, lp);
     }
 
     public Address getNearestPharmacy(Address a, List<Address> laPharma) {
@@ -54,6 +78,16 @@ public class GraphController {
         }
     }
 
+    public double getShortestPathEnergy(boolean scooterOrDrone, Address aOrig, Address aDest, LinkedList<Address> shortPath) {
+
+        if (scooterOrDrone) {
+            return GraphAlgorithms.shortestPath(gScooterEnergy, aOrig, aDest, shortPath);
+
+        } else {
+            return GraphAlgorithms.shortestPath(gDroneEnergy, aOrig, aDest, shortPath);
+        }
+    }
+
     public double getShortestPathThroughNodes(boolean scooterOrDrone, Address aOrig, Address aDest,
             List<Address> nodes, LinkedList<Address> shortPath) {
 
@@ -62,6 +96,17 @@ public class GraphController {
 
         } else {
             return GraphAlgorithms.getShortestPathThroughNodes(gDrone, nodes, shortPath, aOrig, aDest);
+        }
+    }
+
+    public double getShortestPathThroughNodesEnergy(boolean scooterOrDrone, Address aOrig, Address aDest,
+            List<Address> nodes, LinkedList<Address> shortPath) {
+
+        if (scooterOrDrone) {
+            return GraphAlgorithms.getShortestPathThroughNodes(gScooterEnergy, nodes, shortPath, aOrig, aDest);
+
+        } else {
+            return GraphAlgorithms.getShortestPathThroughNodes(gDroneEnergy, nodes, shortPath, aOrig, aDest);
         }
     }
 

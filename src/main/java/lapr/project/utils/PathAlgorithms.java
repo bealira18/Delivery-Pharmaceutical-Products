@@ -64,10 +64,18 @@ public class PathAlgorithms {
      */
     private static final double AVG_DRONE_FRONTAL = 0.4;
     /**
+     * Average courier weight in kg.
+     */
+    private static final double AVG_COURIER_WEIGHT = 70;
+    /**
      * Drone altitude in meters, taking into account it parks at 10m above
      * ground.
      */
     private static final double DRONE_ALTITUDE = 140;
+    /**
+     * Average drone width in m.
+     */
+    private static final double AVG_DRONE_WIDTH = 0.5;
     /**
      * How many Wh a J is worth.
      */
@@ -94,6 +102,20 @@ public class PathAlgorithms {
         distance = Math.pow(distance, 2) + Math.pow(height, 2);
 
         return Math.sqrt(distance);
+    }
+
+    public static double calcScooterEnergy(Path p) {
+
+        double distance = calcDistance(p.getAddress1(), p.getAddress2());
+        if (distance == 0) {
+            return 0;
+        }
+        double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), AVG_SCOOTER_SPEED);
+        double aeroDrag = 0.5 * AIR_DENSITY * AVG_SCOOTER_DRAG * AVG_SCOOTER_FRONTAL * Math.pow(relativeSpeed, 2);
+        double groundDrag = GRAVITATIONAL_ACCELERATION * (AVG_COURIER_WEIGHT + AVG_SCOOTER_WEIGHT) * p.getKineticCoeficient();
+        double totalForce = aeroDrag + groundDrag;
+
+        return totalForce * AVG_SCOOTER_SPEED * calcTime(distance, AVG_SCOOTER_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
     public static double calcScooterEnergy(Path p, Courier c, List<Product> lp) {
@@ -128,6 +150,22 @@ public class PathAlgorithms {
         return totalForce * s.getAverageSpeed() * calcTime(distance, s.getAverageSpeed()) * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
+    public static double calcDroneEnergy(Path p) {
+
+        double distance = calcDistance(p.getAddress1(), p.getAddress2());
+        if (distance == 0) {
+            return 0;
+        }
+        double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), AVG_DRONE_H_SPEED);
+
+        double horizontalPower = 0.5 * AIR_DENSITY * AVG_DRONE_DRAG * AVG_DRONE_FRONTAL * Math.pow(relativeSpeed, 3);
+        double liftPower = Math.pow(AVG_DRONE_WEIGHT, 2) / (AIR_DENSITY * Math.pow(AVG_DRONE_WIDTH, 2) * relativeSpeed);
+        double tPower = horizontalPower + liftPower;
+        double time = calcTime(distance, AVG_DRONE_H_SPEED);
+
+        return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
+    }
+
     public static double calcDroneEnergy(Path p, List<Product> lp) {
 
         double distance = calcDistance(p.getAddress1(), p.getAddress2());
@@ -138,7 +176,7 @@ public class PathAlgorithms {
         double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), AVG_DRONE_H_SPEED);
 
         double horizontalPower = 0.5 * AIR_DENSITY * AVG_DRONE_DRAG * AVG_DRONE_FRONTAL * Math.pow(relativeSpeed, 3);
-        double liftPower = Math.pow(totalWeight, 2) / (AIR_DENSITY * Math.pow(0.5, 2) * relativeSpeed);
+        double liftPower = Math.pow(totalWeight, 2) / (AIR_DENSITY * Math.pow(AVG_DRONE_WIDTH, 2) * relativeSpeed);
         double tPower = horizontalPower + liftPower;
         double time = calcTime(distance, AVG_DRONE_H_SPEED);
 
@@ -151,11 +189,11 @@ public class PathAlgorithms {
         if (distance == 0) {
             return 0;
         }
-        double totalWeight = AVG_DRONE_WEIGHT + lp.stream().mapToDouble(Product::getWeight).sum();
+        double totalWeight = d.getWeight() + lp.stream().mapToDouble(Product::getWeight).sum();
         double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), d.getAverageSpeed());
 
         double horizontalPower = 0.5 * AIR_DENSITY * d.getAerodynamicCoeficient() * d.getFrontalArea() * Math.pow(relativeSpeed, 3);
-        double liftPower = Math.pow(totalWeight, 2) / (AIR_DENSITY * Math.pow(0.5, 2) * relativeSpeed);
+        double liftPower = Math.pow(totalWeight, 2) / (AIR_DENSITY * Math.pow(AVG_DRONE_WIDTH, 2) * relativeSpeed);
         double tPower = horizontalPower + liftPower;
         double time = calcTime(distance, d.getAverageSpeed());
 

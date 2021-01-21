@@ -20,10 +20,24 @@ public class GraphAlgorithms {
     public static void fillGraph(Graph<Address, Path> g, List<Address> la, List<Path> lp) {
 
         if (la != null) {
-            addAddressesToGraph(g, la);
+            for (Address a : la) {
+                g.insertVertex(a);
+            }
         }
         if (lp != null) {
             addPathsToGraph(g, la, lp);
+        }
+    }
+
+    public static void fillGraphEnergy(boolean scooterOrDrone, Graph<Address, Path> g, List<Address> la, List<Path> lp) {
+
+        if (la != null) {
+            for (Address a : la) {
+                g.insertVertex(a);
+            }
+        }
+        if (lp != null) {
+            addPathsToGraphEnergy(scooterOrDrone, g, la, lp);
         }
     }
 
@@ -285,13 +299,6 @@ public class GraphAlgorithms {
         }
     }
 
-    private static void addAddressesToGraph(Graph<Address, Path> g, List<Address> la) {
-
-        for (Address a : la) {
-            g.insertVertex(a);
-        }
-    }
-
     private static void addPathsToGraph(Graph<Address, Path> g, List<Address> la, List<Path> lp) {
 
         Address a1 = null;
@@ -310,6 +317,34 @@ public class GraphAlgorithms {
             }
             if (a1 != null && a2 != null) {
                 g.insertEdge(a1, a2, p, PathAlgorithms.calcDistance(a1, a2));
+            }
+        }
+    }
+
+    private static void addPathsToGraphEnergy(boolean scooterOrDrone, Graph<Address, Path> g, List<Address> la, List<Path> lp) {
+
+        Address a1 = null;
+        Address a2 = null;
+
+        for (Path p : lp) {
+
+            for (Address a : la) {
+
+                if (p.getAddress1().getDescription().equals(a.getDescription())) {
+                    a1 = a;
+                }
+                if (p.getAddress2().getDescription().equals(a.getDescription())) {
+                    a2 = a;
+                }
+            }
+            if (a1 != null && a2 != null) {
+
+                if (scooterOrDrone) {
+                    g.insertEdge(a1, a2, p, PathAlgorithms.calcScooterEnergy(p));
+
+                } else {
+                    g.insertEdge(a1, a2, p, PathAlgorithms.calcDroneEnergy(p));
+                }
             }
         }
     }

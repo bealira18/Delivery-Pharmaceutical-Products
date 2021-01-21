@@ -552,4 +552,52 @@ public class PathAlgorithmsTest {
         double result = PathAlgorithms.getRelativeSpeed(windSpeed, windDegrees, speed);
         assertEquals(expResult, result, 1);
     }
+
+    /**
+     * Test of calcScooterEnergy method, of class PathAlgorithms.
+     */
+    @Test
+    public void testCalcScooterEnergy_Path() {
+
+        System.out.println("calcScooterEnergy");
+        Address a1 = new Address("Test1", 45, 45, 0);
+        Address a2 = new Address("Test2", 46, 48.7749, 0);
+        Path p = new Path(a1, a2, 0.7, 90, 12);
+
+        double expResult = 53226.98667030415;
+        double result = PathAlgorithms.calcScooterEnergy(p);
+        assertEquals(expResult, result, 0);
+
+        a1 = new Address("Test1", 45, 45, 0);
+        a2 = new Address("Test2", 45, 45, 0);
+        p = new Path(a1, a2, 0.7, 90, 12);
+
+        expResult = 0;
+        result = PathAlgorithms.calcScooterEnergy(p);
+        assertEquals(expResult, result, 0);
+    }
+
+    /**
+     * Test of calcDroneEnergy method, of class PathAlgorithms.
+     */
+    @Test
+    public void testCalcDroneEnergy_Path() {
+
+        System.out.println("calcDroneEnergy");
+        Address a1 = new Address("Test1", 45, 45, 0);
+        Address a2 = new Address("Test2", 46, 48.7749, 0);
+        Path p = new Path(a1, a2, 0.7, 90, 12);
+
+        double expResult = 6325.0361044119;
+        double result = PathAlgorithms.calcDroneEnergy(p);
+        assertEquals(expResult, result, 0);
+
+        a1 = new Address("Test1", 45, 45, 0);
+        a2 = new Address("Test2", 45, 45, 0);
+        p = new Path(a1, a2, 0.7, 90, 12);
+
+        expResult = 0;
+        result = PathAlgorithms.calcDroneEnergy(p);
+        assertEquals(expResult, result, 0);
+    }
 }
