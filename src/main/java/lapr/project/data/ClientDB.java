@@ -64,7 +64,7 @@ public class ClientDB extends DataHandler {
         return true;
     }
 
-    public Client getClientByEmail(String email) throws SQLException {
+    public Client getClientByEmail(String emailClient) throws SQLException {
         Client c;
         CallableStatement callStmt = null;
         ResultSet rSet = null;
@@ -73,7 +73,7 @@ public class ClientDB extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call getClientByEmail(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setString(2, email);
+            callStmt.setString(2, emailClient);
             callStmt.execute();
             rSet = (ResultSet) callStmt.getObject(1);
 
@@ -92,11 +92,11 @@ public class ClientDB extends DataHandler {
                 c=new Client(email,"qwerty", name, nif, new CreditCard(creditCard, LocalDate.now(), (short) 123), address, credits);
             }
             else{
-                throw new IllegalArgumentException("No Client with email:" + email);
+                throw new IllegalArgumentException("No Client with email:" + emailClient);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new IllegalArgumentException("No Client with email:" + email);
+            throw new IllegalArgumentException("No Client with email:" + emailClient);
         } finally {
             if(callStmt!=null)
                 callStmt.close();
