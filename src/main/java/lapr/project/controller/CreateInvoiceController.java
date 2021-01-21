@@ -12,8 +12,8 @@ public class CreateInvoiceController {
     private final ProductLineDB productLineDB;
     private final ProductDB productDB;
     private final PharmacyDB pharmacyDB;
-    private final EmailService emailService;
     private final ClientDB clientDB;
+    private final EmailService emailService;
     private List<ProductLine> productLineList;
     private double totalPrice;
 
@@ -31,8 +31,8 @@ public class CreateInvoiceController {
         this.productLineDB = productLineDB;
         this.productDB = productDB;
         this.pharmacyDB = pharmacyDB;
-        this.emailService = emailService;
         this.clientDB = clientDB;
+        this.emailService = emailService;
     }
 
     public boolean createInvoice(int idInvoice, PurchaseOrder po, double deliveryFee) throws SQLException {
@@ -61,11 +61,17 @@ public class CreateInvoiceController {
 
         String subjectLine = "Receipt";
 
+        StringBuilder emailBody = makeEmailBody(invoice, pharmacy, client);
+
+        return emailService.sendEmail(client.getEmail(), subjectLine, emailBody.toString());
+    }
+
+    public StringBuilder makeEmailBody(Invoice invoice, Pharmacy pharmacy, Client client) throws SQLException {
         StringBuilder emailBody = new StringBuilder("Receipt #"+invoice.getId());
         String slash = "------------------------------------------------------------";
         emailBody.append(System.getProperty("line.separator"));
         emailBody.append(System.getProperty("line.separator"));
-        emailBody.append("Pharmacy: "+pharmacy.getName()+"\tid: "+pharmacy.getId());
+        emailBody.append("Pharmacy: ").append(pharmacy.getName()).append("\tid: ").append(pharmacy.getId());
         emailBody.append(System.getProperty("line.separator"));
         emailBody.append(slash);
         emailBody.append(System.getProperty("line.separator"));
@@ -85,9 +91,9 @@ public class CreateInvoiceController {
         emailBody.append(String.format("%50s%f", "€", totalPrice));
         emailBody.append(System.getProperty("line.separator"));
         emailBody.append(System.getProperty("line.separator"));
-        emailBody.append("NIF: "+client.getNif());
+        emailBody.append("NIF: ").append(client.getNif());
 
-        return emailService.sendEmail(client.getEmail(), subjectLine, emailBody.toString());
+        return emailBody;
     }
 
 }
