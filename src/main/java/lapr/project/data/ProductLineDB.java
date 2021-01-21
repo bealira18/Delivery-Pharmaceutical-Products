@@ -78,7 +78,7 @@ public class ProductLineDB extends DataHandler {
             }
             closeAll();
         }
-
+        if(productLineList.isEmpty()) throw new IllegalArgumentException("No product lines for order " + idOrder);
         return productLineList;
     }
 }
