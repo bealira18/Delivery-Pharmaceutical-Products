@@ -74,8 +74,8 @@ INSERT INTO client(email, name, nif, credit_card, address) VALUES('client2@gmail
 INSERT INTO client(email, name, nif, credit_card, address) VALUES('client3@gmail.com', 'client3', 333333303, 1111111111111102, 'torre dos clerigos');
 
 -- ## table Park ##
-INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address) VALUES (1, 10, 1, 'scooter','casa da musica');
-INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address) VALUES (1, 10, 1, 'drone','casa da musica');
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (1, 10, 1, 'scooter','casa da musica', 5000);
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (1, 10, 1, 'drone','casa da musica', 5000);
 
 -- ## table ProductCategory ##
 INSERT INTO productCategory(name) VALUES ('Medicamentos');
@@ -125,16 +125,16 @@ INSERT INTO deliveryStatus(id_delivery_status, name) VALUES (3, 'in delivery');
 INSERT INTO deliveryStatus(id_delivery_status, name) VALUES (4, 'delivered');
 
 -- ## table Vehicle ##
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery) VALUES(1, 1, 250, 0, 1, 1, 500, 500);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery) VALUES(2, 1, 270, 0, 1, 1, 500, 500);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery) VALUES(3, 1, 330, 0, 1, 1, 500, 500);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery) VALUES(4, 1, 200, 0, 1, 1, 500, 500);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery) VALUES(5, 1, 290, 0, 1, 1, 500, 500);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery) VALUES(6, 1, 8, 0, 1, 1, 500, 500);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery) VALUES(7, 1, 10, 0, 1, 1, 500, 500);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery) VALUES(8, 1, 8, 0, 1, 1, 500, 500);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery) VALUES(9, 1, 10, 0, 1, 1, 500, 500);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery) VALUES(10, 1, 13, 0, 1, 1, 500, 500);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(1, 1, 250, 0, 1, 1, 500, 500, 8.9);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(2, 1, 270, 0, 1, 1, 500, 500, 8.9);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(3, 1, 330, 0, 1, 1, 500, 500, 8.9);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(4, 1, 200, 0, 1, 1, 500, 500, 8.9);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(5, 1, 290, 0, 1, 1, 500, 500, 8.9);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(6, 1, 8, 0, 1, 1, 500, 500, 20);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(7, 1, 10, 0, 1, 1, 500, 500, 20);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(8, 1, 8, 0, 1, 1, 500, 500, 20);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(9, 1, 10, 0, 1, 1, 500, 500, 20);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(10, 1, 13, 0, 1, 1, 500, 500, 20);
 
 -- ## table Scooter ##
 INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(1, 1);
