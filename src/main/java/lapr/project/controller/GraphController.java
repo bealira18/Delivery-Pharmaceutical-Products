@@ -7,6 +7,7 @@ import lapr.project.data.AddressDB;
 import lapr.project.data.PathDB;
 import lapr.project.model.Address;
 import lapr.project.model.Path;
+import lapr.project.model.Vehicle;
 import lapr.project.utils.Graph;
 import lapr.project.utils.GraphAlgorithms;
 
@@ -76,13 +77,30 @@ public class GraphController {
         }
     }
 
-    public double getShortestPathThroughNodes(boolean scooterOrDrone, Address aOrig, Address aDest, List<Address> nodes, LinkedList<Address> shortPath) {
+    public double getShortestPathThroughNodes(boolean scooterOrDrone, Address aOrig, Address aDest,
+            List<Address> nodes, LinkedList<Address> shortPath) {
 
         if (scooterOrDrone) {
             return GraphAlgorithms.getShortestPathThroughNodes(gScooter, nodes, shortPath, aOrig, aDest);
 
         } else {
             return GraphAlgorithms.getShortestPathThroughNodes(gDrone, nodes, shortPath, aOrig, aDest);
+        }
+    }
+
+    public boolean writePathToFile(String fileName, LinkedList<Address> la,
+            double distance, double energy, Vehicle v) {
+
+        return GraphAlgorithms.writePathToFile(fileName, la, distance, energy, v);
+    }
+
+    public List<LinkedList<Address>> allPaths(boolean scooterOrDrone, Address aOrig, Address aDest) {
+
+        if (scooterOrDrone) {
+            return GraphAlgorithms.allPaths(gScooter, aOrig, aDest);
+
+        } else {
+            return GraphAlgorithms.allPaths(gDrone, aOrig, aDest);
         }
     }
 }
