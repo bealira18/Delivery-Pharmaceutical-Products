@@ -584,7 +584,7 @@ public class GraphControllerTest {
         gCont.fillGraphScooterEnergy(la, lp);
 
         LinkedList<Address> shortPath = new LinkedList<>();
-        double expResult = 8.429583591993126;
+        double expResult = 4.52594775871151;
         double result = gCont.getShortestPathEnergy(scooterOrDrone, a1, a11, shortPath);
         assertEquals(expResult, result, 0);
 
@@ -594,7 +594,7 @@ public class GraphControllerTest {
         scooterOrDrone = false;
         expResult = 23.38608343497005;
         result = gCont.getShortestPathEnergy(scooterOrDrone, a1, a11, shortPath);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
     }
 
     /**
@@ -688,15 +688,15 @@ public class GraphControllerTest {
         Address aOrig = a1;
         Address aDest = a2;
 
-        double expResult = 96.22693885013689;
+        double expResult = 95.29854083854472;
         double result = gCont.getShortestPathThroughNodesEnergy(scooterOrDrone, aOrig, aDest, lNodes, path);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         scooterOrDrone = false;
         path = new LinkedList<>();
         gCont.fillGraphDroneEnergy(la, lp);
         expResult = 264.89236813841075;
         result = gCont.getShortestPathThroughNodesEnergy(scooterOrDrone, aOrig, aDest, lNodes, path);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
     }
 }

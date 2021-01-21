@@ -25,7 +25,9 @@ public class GraphAlgorithms {
             }
         }
         if (lp != null) {
-            addPathsToGraph(g, la, lp);
+            List<Address> lad = new ArrayList<>();
+            g.vertices().forEach(lad::add);
+            addPathsToGraph(g, lad, lp);
         }
     }
 
@@ -37,7 +39,9 @@ public class GraphAlgorithms {
             }
         }
         if (lp != null) {
-            addPathsToGraphEnergy(scooterOrDrone, g, la, lp);
+            List<Address> lad = new ArrayList<>();
+            g.vertices().forEach(lad::add);
+            addPathsToGraphEnergy(scooterOrDrone, g, lad, lp);
         }
     }
 
@@ -66,28 +70,6 @@ public class GraphAlgorithms {
             return lengthPath;
         }
         return 0;
-    }
-
-    /**
-     * @param <V>
-     * @param <E>
-     * @param g Graph instance
-     * @param vOrig information of the Vertex origin
-     * @param vDest information of the Vertex destination
-     * @return paths ArrayList with all paths from voInf to vdInf
-     */
-    public static <V, E> ArrayList<LinkedList<V>> allPaths(Graph<V, E> g, V vOrig, V vDest) {
-
-        LinkedList<V> path = new LinkedList<>();
-
-        if (!g.validVertex(vOrig) || !g.validVertex(vDest)) {
-            return new ArrayList<>();
-        }
-        ArrayList<LinkedList<V>> paths = new ArrayList<>();
-
-        allPaths(g, vOrig, vDest, path, paths);
-
-        return paths;
     }
 
     public static boolean writePathToFile(String fileName, LinkedList<Address> la,
@@ -347,36 +329,5 @@ public class GraphAlgorithms {
                 }
             }
         }
-    }
-
-    /**
-     * Returns all paths from vOrig to vDest
-     *
-     * @param g Graph instance
-     * @param vOrig Vertex that will be the source of the path
-     * @param vDest Vertex that will be the end of the path //* @param visited
-     * set of discovered vertices
-     * @param path stack with vertices of the current path (the path is in
-     * reverse order)
-     * @param paths ArrayList with all the paths (in correct order)
-     */
-    private static <V, E> void allPaths(Graph<V, E> g, V vOrig, V vDest, LinkedList<V> path, ArrayList<LinkedList<V>> paths) {
-
-        path.push(vOrig);
-
-        for (V vAdj : g.adjVertices(vOrig)) {
-
-            if (vAdj.equals(vDest)) {
-                path.push(vDest);
-                paths.add(path);
-                path.pop();
-
-            } else {
-                if (!path.contains(vAdj)) {
-                    allPaths(g, vAdj, vDest, path, paths);
-                }
-            }
-        }
-        path.pop();
     }
 }

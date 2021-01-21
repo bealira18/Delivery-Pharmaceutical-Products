@@ -10,12 +10,9 @@ import lapr.project.model.Drone;
 import lapr.project.model.Path;
 import lapr.project.model.Product;
 import lapr.project.model.Scooter;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeAll;
 
 /**
  *
@@ -27,14 +24,6 @@ public class GraphAlgorithmsTest {
     Graph<String, String> incompleteMap;
 
     public GraphAlgorithmsTest() {
-    }
-
-    @BeforeAll
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterAll
-    public static void tearDownClass() throws Exception {
     }
 
     @BeforeEach
@@ -76,31 +65,6 @@ public class GraphAlgorithmsTest {
         incompleteMap.removeEdge("Aveiro", "Viseu");
         incompleteMap.removeEdge("Leiria", "Castelo Branco");
         incompleteMap.removeEdge("Lisboa", "Faro");
-    }
-
-    @AfterEach
-    public void tearDown() throws Exception {
-    }
-
-    /**
-     * Test of allPaths method, of class GraphAlgorithms.
-     */
-    @Test
-    public void testAllPaths() {
-        System.out.println("Test of all paths");
-
-        setUp();
-
-        ArrayList<LinkedList<String>> paths = new ArrayList<LinkedList<String>>();
-
-        paths = GraphAlgorithms.allPaths(completeMap, "Porto", "LX");
-        assertTrue(paths.size() == 0, "There should not be paths if vertex does not exist");
-
-        paths = GraphAlgorithms.allPaths(incompleteMap, "Porto", "Lisboa");
-        assertTrue(paths.size() == 4, "There should be 4 paths");
-
-        paths = GraphAlgorithms.allPaths(incompleteMap, "Porto", "Faro");
-        assertTrue(paths.size() == 0, "There should not be paths between Porto and Faro in the incomplete map");
     }
 
     /**
@@ -810,5 +774,109 @@ public class GraphAlgorithmsTest {
         Address expResult = null;
         Address result = GraphAlgorithms.getNearestPharmacy(g, aOrig, lad);
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of fillGraphEnergy method, of class GraphAlgorithms.
+     */
+    @Test
+    public void testFillGraphEnergy() {
+
+        System.out.println("fillGraphEnergy");
+        boolean scooterOrDrone = false;
+        Graph<Address, Path> g = new Graph<>(true);
+
+        Address a1 = new Address("Test", 0, 0, 0);
+        Address a2 = new Address("Test2", 0, 0, 0);
+        Path p = new Path(a1, a2, 0, 90, 12);
+
+        List<Address> la = new ArrayList<>();
+        List<Path> lp = new ArrayList<>();
+
+        la.add(a1);
+        la.add(a2);
+        lp.add(p);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
+
+        Address a3 = new Address("Test3", 0, 0, 0);
+
+        Path p2 = new Path(a1, a3, 0, 90, 12);
+        List<Path> lp2 = new ArrayList<>();
+        lp2.add(p2);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp2);
+
+        g = new Graph<>(true);
+        Path p3 = new Path(a3, a2, 0, 90, 12);
+        List<Path> lp3 = new ArrayList<>();
+        lp3.add(p3);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp3);
+
+        g = new Graph<>(true);
+        Address a4 = new Address("Test4", 0, 0, 0);
+
+        Path p4 = new Path(a3, a4, 0, 90, 12);
+        List<Path> lp4 = new ArrayList<>();
+        lp4.add(p4);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp4);
+
+        lp = new ArrayList<>();
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
+
+        la = new ArrayList<>();
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
+
+        lp = null;
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
+
+        la = null;
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
+
+        scooterOrDrone = true;
+        g = new Graph<>(true);
+
+        a1 = new Address("Test", 0, 0, 0);
+        a2 = new Address("Test2", 0, 0, 0);
+        p = new Path(a1, a2, 0, 90, 12);
+
+        la = new ArrayList<>();
+        lp = new ArrayList<>();
+
+        la.add(a1);
+        la.add(a2);
+        lp.add(p);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
+
+        a3 = new Address("Test3", 0, 0, 0);
+
+        p2 = new Path(a1, a3, 0, 90, 12);
+        lp2 = new ArrayList<>();
+        lp2.add(p2);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp2);
+
+        g = new Graph<>(true);
+        p3 = new Path(a3, a2, 0, 90, 12);
+        lp3 = new ArrayList<>();
+        lp3.add(p3);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp3);
+
+        g = new Graph<>(true);
+        a4 = new Address("Test4", 0, 0, 0);
+
+        p4 = new Path(a3, a4, 0, 90, 12);
+        lp4 = new ArrayList<>();
+        lp4.add(p4);
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp4);
+
+        lp = new ArrayList<>();
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
+
+        la = new ArrayList<>();
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
+
+        lp = null;
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
+
+        la = null;
+        GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
     }
 }
