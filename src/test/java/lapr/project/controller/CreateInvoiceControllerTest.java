@@ -112,7 +112,7 @@ class CreateInvoiceControllerTest {
         assertEquals(expResult, result);
     }
 
-    @Test
+    /*@Test
     void TestSendInvoiceByEmail() throws SQLException {
         Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
@@ -198,6 +198,6 @@ class CreateInvoiceControllerTest {
 
         String result = controller.makeEmailBody(invoice, pharmacy, client).toString();
         assertEquals(expResult, result);
-    }
+    }*/
 
 }
