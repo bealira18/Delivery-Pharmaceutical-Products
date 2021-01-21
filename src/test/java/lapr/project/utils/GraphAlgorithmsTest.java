@@ -6,11 +6,16 @@ import java.util.LinkedList;
 import java.util.List;
 import lapr.project.model.Address;
 import lapr.project.model.Courier;
+import lapr.project.model.Drone;
 import lapr.project.model.Path;
 import lapr.project.model.Product;
+import lapr.project.model.Scooter;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  *
@@ -22,6 +27,14 @@ public class GraphAlgorithmsTest {
     Graph<String, String> incompleteMap;
 
     public GraphAlgorithmsTest() {
+    }
+
+    @BeforeAll
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterAll
+    public static void tearDownClass() throws Exception {
     }
 
     @BeforeEach
@@ -63,6 +76,10 @@ public class GraphAlgorithmsTest {
         incompleteMap.removeEdge("Aveiro", "Viseu");
         incompleteMap.removeEdge("Leiria", "Castelo Branco");
         incompleteMap.removeEdge("Lisboa", "Faro");
+    }
+
+    @AfterEach
+    public void tearDown() throws Exception {
     }
 
     /**
@@ -218,11 +235,10 @@ public class GraphAlgorithmsTest {
      * @throws java.lang.Exception
      */
     @Test
-    public void testWritePathsToFile() throws Exception {
+    public void testWritePathToFile() throws Exception {
 
-        System.out.println("writePathsToFile");
+        System.out.println("writePathToFile");
         String fileName = "pathTest.csv";
-        int nrPaths = 3;
 
         Graph<Address, Path> g = new Graph<>(true);
         List<Address> la = new ArrayList<>();
@@ -249,39 +265,35 @@ public class GraphAlgorithmsTest {
         lla2.add(a2);
         lla2.add(a1);
 
-        List<LinkedList<Address>> llla = new ArrayList<>();
-        llla.add(lla);
-        llla.add(lla2);
-
         Courier c = new Courier("TestMail", "TestPass", "Name", 0, 0, 0, 80.0);
+        Scooter s = new Scooter(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1);
+        Drone d = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1);
         List<Product> lpro = new ArrayList<>();
 
-        int expResult = 2;
-        int result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, lpro);
+        double distance = PathAlgorithms.calcTotalDistance(lla) / 1000;
+        double energy = PathAlgorithms.calcScooterTotalEnergy(g, lla, c, s, lpro);
+
+        boolean expResult = true;
+        boolean result = GraphAlgorithms.writePathToFile(fileName, lla, distance, energy, s);
         assertEquals(expResult, result);
 
-        nrPaths = 0;
-        expResult = 0;
-        llla = new LinkedList<>();
-        result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, lpro);
+        expResult = false;
+        lla = new LinkedList<>();
+        result = GraphAlgorithms.writePathToFile(fileName, lla, distance, energy, s);
         assertEquals(expResult, result);
 
-        llla.add(lla);
-        result = GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, lpro);
+        fileName = "    ||    []*  +/8)as0         as:_   asas\\asd\\as.acc<.aa.s.d,,sd";
+        result = GraphAlgorithms.writePathToFile(fileName, lla2, distance, energy, s);
         assertEquals(expResult, result);
-
     }
 
     @Test
-    public void testWritePathsToFile2() throws Exception {
+    public void testWritePathToFile2() throws Exception {
 
-        System.out.println("writePathsToFile2");
-
-        System.out.println("writePathsToFile");
+        System.out.println("writePathToFile2");
         String fileName = "pathTest.csv";
-        int nrPaths = 2;
 
-        Graph<Address, Path> g = new Graph<>(true);
+        Graph<Address, Path> g = new Graph<>(false);
         List<Address> la = new ArrayList<>();
         List<Path> lp = new ArrayList<>();
 
@@ -293,7 +305,6 @@ public class GraphAlgorithmsTest {
         la.add(a3);
         lp.add(new Path(a1, a2, 0, 90, 12));
         lp.add(new Path(a2, a3, 0, 90, 12));
-        lp.add(new Path(a2, a1, 0, 90, 12));
         GraphAlgorithms.fillGraph(g, la, lp);
 
         LinkedList<Address> lla = new LinkedList<>();
@@ -301,29 +312,20 @@ public class GraphAlgorithmsTest {
         lla.add(a2);
         lla.add(a3);
 
-        LinkedList<Address> lla2 = new LinkedList<>();
-        lla2.add(a1);
-        lla2.add(a2);
-        lla2.add(a1);
-
-        List<LinkedList<Address>> llla = new ArrayList<>();
-        llla.add(lla);
-        llla.add(lla2);
-
-        Courier c = new Courier("TestMail", "TestPass", "Name", 0, 0, 0, 80.0);
+        Drone d = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1);
         List<Product> lpro = new ArrayList<>();
 
-        List<String> expResult = new ArrayList<>();
-        expResult.add("Path #1");
-        expResult.add("Total Distance = 1.91km.");
-        expResult.add("Total Energy Consumption = 13.81W.h.");
-        expResult.add("casa da musica;conservatorio;trindade;");
-        expResult.add("Path #2");
-        expResult.add("Total Distance = 1.37km.");
-        expResult.add("Total Energy Consumption = 9.99W.h.");
-        expResult.add("casa da musica;conservatorio;casa da musica;");
+        double distance = PathAlgorithms.calcTotalDistance(lla) / 1000;
+        double energy = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
 
-        GraphAlgorithms.writePathsToFile(fileName, nrPaths, llla, g, c, lpro);
+        List<String> expResult = new ArrayList<>();
+        expResult.add("Vehicle of ID 1");
+        expResult.add("Total Distance = 1.91km.");
+        expResult.add("Total Energy Consumption = 37.83W.h.");
+        expResult.add("Path Structure");
+        expResult.add("casa da musica;conservatorio;trindade;");
+
+        GraphAlgorithms.writePathToFile(fileName, lla, distance, energy, d);
         List<String> result = Utils.readFile(fileName);
 
         assertEquals(expResult, result);

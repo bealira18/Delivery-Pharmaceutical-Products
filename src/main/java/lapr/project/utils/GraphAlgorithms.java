@@ -5,10 +5,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lapr.project.model.Address;
-import lapr.project.model.Courier;
 import lapr.project.model.Path;
-import lapr.project.model.Product;
+import lapr.project.model.Vehicle;
 
 public class GraphAlgorithms {
 
@@ -75,37 +76,32 @@ public class GraphAlgorithms {
         return paths;
     }
 
-    public static int writePathsToFile(String fileName, int nrPaths, List<LinkedList<Address>> la,
-            Graph<Address, Path> g, Courier c, List<Product> lp) throws IOException {
+    public static boolean writePathToFile(String fileName, LinkedList<Address> la,
+            double distance, double energy, Vehicle v) {
 
         if (la.isEmpty()) {
-            return 0;
+            return false;
         }
-        if (nrPaths > la.size()) {
-            nrPaths = la.size();
-        }
-        FileWriter fw = new FileWriter(fileName);
-        BufferedWriter bw = new BufferedWriter(fw);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
 
-        for (int i = 0; i < nrPaths; i++) {
-
-            bw.write("Path #" + (i + 1));
+            bw.write("Vehicle of ID " + v.getIdVehicle());
             bw.newLine();
-            bw.write("Total Distance = " + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcTotalDistance(la.get(i)) / 1000) + "km.");
+            bw.write("Total Distance = " + String.format(Locale.ROOT, "%.2f", distance) + "km.");
             bw.newLine();
-            bw.write("Total Energy Consumption = " + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcScooterTotalEnergy(g, la.get(i), c, lp)) + "W.h.");
+            bw.write("Total Energy Consumption = " + String.format(Locale.ROOT, "%.2f", energy) + "W.h.");
+            bw.newLine();
+            bw.write("Path Structure");
             bw.newLine();
 
-            for (int j = 0; j < la.get(i).size(); j++) {
-
-                bw.write(la.get(i).get(j).getDescription() + ";");
+            for (int i = 0; i < la.size(); i++) {
+                bw.write(la.get(i).getDescription() + ";");
             }
-            bw.newLine();
-        }
-        bw.close();
-        fw.close();
 
-        return nrPaths;
+        } catch (IOException ex) {
+            Logger.getLogger(GraphAlgorithms.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 
     public static double getShortestPathThroughNodes(Graph<Address, Path> g, List<Address> lNodes,

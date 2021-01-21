@@ -277,4 +277,30 @@ public class VehicleTest {
         result = instance.equals(new Vehicle(1, 2, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 8.9));
         assertEquals(true, result);
     }
+
+    /**
+     * Test of getAverageSpeed method, of class Vehicle.
+     */
+    @Test
+    public void testGetAverageSpeed() {
+
+        System.out.println("getAverageSpeed");
+        Vehicle instance = new Vehicle(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9);
+        double expResult = 8.9;
+        double result = instance.getAverageSpeed();
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of setAverageSpeed method, of class Vehicle.
+     */
+    @Test
+    public void testSetAverageSpeed() {
+        System.out.println("setAverageSpeed");
+        double averageSpeed = 9;
+        Vehicle instance = new Vehicle(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9);
+        instance.setAverageSpeed(averageSpeed);
+        double result = instance.getAverageSpeed();
+        assertEquals(averageSpeed, result);
+    }
 }

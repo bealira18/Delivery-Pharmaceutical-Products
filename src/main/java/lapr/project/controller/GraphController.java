@@ -1,11 +1,13 @@
 package lapr.project.controller;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import lapr.project.data.AddressDB;
 import lapr.project.data.PathDB;
 import lapr.project.model.Address;
 import lapr.project.model.Path;
+import lapr.project.model.Vehicle;
 import lapr.project.utils.Graph;
 import lapr.project.utils.GraphAlgorithms;
 
@@ -63,5 +65,42 @@ public class GraphController {
         List<Address> la = aDB.getPharmacyAddresses();
 
         return GraphAlgorithms.getNearestPharmacy(gDrone, a, la);
+    }
+
+    public double getShortestPath(boolean scooterOrDrone, Address aOrig, Address aDest, LinkedList<Address> shortPath) {
+
+        if (scooterOrDrone) {
+            return GraphAlgorithms.shortestPath(gScooter, aOrig, aDest, shortPath);
+
+        } else {
+            return GraphAlgorithms.shortestPath(gDrone, aOrig, aDest, shortPath);
+        }
+    }
+
+    public double getShortestPathThroughNodes(boolean scooterOrDrone, Address aOrig, Address aDest,
+            List<Address> nodes, LinkedList<Address> shortPath) {
+
+        if (scooterOrDrone) {
+            return GraphAlgorithms.getShortestPathThroughNodes(gScooter, nodes, shortPath, aOrig, aDest);
+
+        } else {
+            return GraphAlgorithms.getShortestPathThroughNodes(gDrone, nodes, shortPath, aOrig, aDest);
+        }
+    }
+
+    public boolean writePathToFile(String fileName, LinkedList<Address> la,
+            double distance, double energy, Vehicle v) {
+
+        return GraphAlgorithms.writePathToFile(fileName, la, distance, energy, v);
+    }
+
+    public List<LinkedList<Address>> allPaths(boolean scooterOrDrone, Address aOrig, Address aDest) {
+
+        if (scooterOrDrone) {
+            return GraphAlgorithms.allPaths(gScooter, aOrig, aDest);
+
+        } else {
+            return GraphAlgorithms.allPaths(gDrone, aOrig, aDest);
+        }
     }
 }
