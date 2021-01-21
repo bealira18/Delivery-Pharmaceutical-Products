@@ -49,7 +49,9 @@ public class CourierDB extends DataHandler {
             Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
         }
         return false;
     }
@@ -59,7 +61,7 @@ public class CourierDB extends DataHandler {
         CallableStatement callStmt = null;
         ResultSet rSet = null;
 
-        try{
+        try {
             callStmt = getConnection().prepareCall("{ ? = call getCourier(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
@@ -73,27 +75,28 @@ public class CourierDB extends DataHandler {
 
             if (rSet.next()) {
                 //Courier(String email, String password, String name, int nif, long socialSecurity, int pharmacyId, double weight)
-                String em=rSet.getString(1);
+                String em = rSet.getString(1);
                 //String password=rSet.getString(2);
-                String name=rSet.getString(2);
-                int nif=rSet.getInt(3);
-                long socialSecurity=rSet.getLong(4);
-                int pharmacyId=rSet.getInt(5);
-                double weight=rSet.getDouble(6);
+                String name = rSet.getString(2);
+                int nif = rSet.getInt(3);
+                long socialSecurity = rSet.getLong(4);
+                int pharmacyId = rSet.getInt(5);
+                double weight = rSet.getDouble(6);
 
-                c=new Courier(em,"qwerty", name,nif,socialSecurity,pharmacyId,weight);
-            }
-            else{
+                c = new Courier(em, "qwerty", name, nif, socialSecurity, pharmacyId, weight);
+            } else {
                 return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("No Courier with email:" + email);
         } finally {
-            if(callStmt!=null)
+            if (callStmt != null) {
                 callStmt.close();
-            if(rSet!=null)
+            }
+            if (rSet != null) {
                 rSet.close();
+            }
         }
         return c;
     }
@@ -105,7 +108,7 @@ public class CourierDB extends DataHandler {
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call getAllAvailableCouriers(?) }");;
+            callStmt = getConnection().prepareCall("{ ? = call getAllAvailableCouriers(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
 
@@ -121,38 +124,46 @@ public class CourierDB extends DataHandler {
         } catch (SQLException e) {
             Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            if(callStmt!=null) callStmt.close();
-            if(rSet!=null) rSet.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
+            if (rSet != null) {
+                rSet.close();
+            }
             closeAll();
         }
         return couriers;
     }
 
-    public boolean updateCourier(String email,Courier c) throws SQLException{
+    public boolean updateCourier(String email, Courier c) throws SQLException {
         Courier a;
         CallableStatement callStmt = null;
 
-        try{
+        try {
             openConnection();
 
-            a=getCourier(email);
-            if(a == null) return false;
+            a = getCourier(email);
+            if (a == null) {
+                return false;
+            }
             callStmt = getConnection().prepareCall("{ call updateCourier(?,?,?,?) }");
 
-            callStmt.setString(1,c.getEmail());
-            callStmt.setInt(2,c.getPharmacyId());
-            callStmt.setString(3,c.getName());
-            callStmt.setDouble(4,c.getWeight());
+            callStmt.setString(1, c.getEmail());
+            callStmt.setInt(2, c.getPharmacyId());
+            callStmt.setString(3, c.getName());
+            callStmt.setDouble(4, c.getWeight());
 
             callStmt.execute();
 
             return true;
-        } catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(CourierDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
             closeAll();
         }
         return false;

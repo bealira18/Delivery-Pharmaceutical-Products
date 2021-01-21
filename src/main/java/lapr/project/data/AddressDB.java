@@ -12,7 +12,7 @@ import oracle.jdbc.OracleTypes;
 
 public class AddressDB extends DataHandler {
 
-    public boolean addAddress(Address a) throws SQLException {
+    public boolean addAddress(Address a) {
 
         try {
             openConnection();
@@ -45,7 +45,9 @@ public class AddressDB extends DataHandler {
             Logger.getLogger(AddressDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
         }
         return false;
     }
@@ -123,7 +125,9 @@ public class AddressDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("This address doesn't exist:" + address);
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
             closeAll();
         }
 
@@ -148,7 +152,9 @@ public class AddressDB extends DataHandler {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
             closeAll();
         }
     }
