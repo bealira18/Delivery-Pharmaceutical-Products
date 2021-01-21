@@ -55,17 +55,17 @@ public class AddressDB extends DataHandler {
     public List<Address> getAddresses() throws SQLException {
 
         List<Address> la = new ArrayList<>();
-        CallableStatement callStmt = null;
+        CallableStatement callStmt1 = null;
         ResultSet rs = null;
 
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call getAddresses() }");
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.execute();
+            callStmt1 = getConnection().prepareCall("{ ? = call getAddresses() }");
+            callStmt1.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt1.execute();
 
-            rs = (ResultSet) callStmt.getObject(1);
+            rs = (ResultSet) callStmt1.getObject(1);
 
             while (rs.next()) {
 
@@ -83,8 +83,8 @@ public class AddressDB extends DataHandler {
             return new ArrayList<>();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
+            if (callStmt1 != null) {
+                callStmt1.close();
 
                 if (rs != null) {
                     rs.close();
@@ -162,17 +162,17 @@ public class AddressDB extends DataHandler {
     public List<Address> getPharmacyAddresses() throws SQLException {
 
         List<Address> la = new ArrayList<>();
-        CallableStatement callStmt = null;
+        CallableStatement callStmt2 = null;
         ResultSet rs = null;
 
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call getPharmacyAddresses() }");
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.execute();
+            callStmt2 = getConnection().prepareCall("{ ? = call getPharmacyAddresses() }");
+            callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt2.execute();
 
-            rs = (ResultSet) callStmt.getObject(1);
+            rs = (ResultSet) callStmt2.getObject(1);
 
             while (rs.next()) {
 
@@ -190,8 +190,8 @@ public class AddressDB extends DataHandler {
             return new ArrayList<>();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
+            if (callStmt2 != null) {
+                callStmt2.close();
 
                 if (rs != null) {
                     rs.close();

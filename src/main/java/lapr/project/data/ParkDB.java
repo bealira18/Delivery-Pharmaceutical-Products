@@ -45,7 +45,9 @@ public class ParkDB extends DataHandler {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
             closeAll();
         }
         return false;
@@ -54,7 +56,7 @@ public class ParkDB extends DataHandler {
     public int getLimitVehiclesPark(int idPharmacy, String vehicleType) throws SQLException {
         CallableStatement callStt = null;
 
-        try{
+        try {
             openConnection();
 
             callStt = getConnection().prepareCall("{ ? = call getLimitVehiclesPark(?,?) }");
@@ -65,80 +67,85 @@ public class ParkDB extends DataHandler {
             callStt.execute();
 
             return callStt.getInt(1);
-        }catch(NullPointerException | NumberFormatException | SQLException ex){
+        } catch (NullPointerException | NumberFormatException | SQLException ex) {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         } finally {
-            if(callStt!=null) callStt.close();
+            if (callStt != null) {
+                callStt.close();
+            }
             closeAll();
         }
     }
 
-    public int getNumberOfScootersInPharmacy(int idPharmacy) throws SQLException{
-        CallableStatement callStmt = null;
+    public int getNumberOfScootersInPharmacy(int idPharmacy) throws SQLException {
+        CallableStatement callStmt1 = null;
 
-        try{
+        try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call getNumberOfScootersInPharmacy(?) }");
+            callStmt1 = getConnection().prepareCall("{ ? = call getNumberOfScootersInPharmacy(?) }");
 
-            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
-            callStmt.setInt(2, idPharmacy);
-            callStmt.execute();
+            callStmt1.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt1.setInt(2, idPharmacy);
+            callStmt1.execute();
 
-            return callStmt.getInt(1);
-        }catch(NullPointerException | NumberFormatException | SQLException ex){
+            return callStmt1.getInt(1);
+        } catch (NullPointerException | NumberFormatException | SQLException ex) {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt1 != null) {
+                callStmt1.close();
+            }
             closeAll();
         }
     }
 
-    public int getNumberOfDronesInPharmacy(int idPharmacy) throws SQLException{
-        CallableStatement callStmt = null;
+    public int getNumberOfDronesInPharmacy(int idPharmacy) throws SQLException {
+        CallableStatement callStmt2 = null;
 
-        try{
+        try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call getNumberOfDronesInPharmacy(?) }");
+            callStmt2 = getConnection().prepareCall("{ ? = call getNumberOfDronesInPharmacy(?) }");
 
-            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
-            callStmt.setInt(2, idPharmacy);
-            callStmt.execute();
+            callStmt2.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt2.setInt(2, idPharmacy);
+            callStmt2.execute();
 
-            return callStmt.getInt(1);
-        }catch(NullPointerException | NumberFormatException | SQLException ex){
+            return callStmt2.getInt(1);
+        } catch (NullPointerException | NumberFormatException | SQLException ex) {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt2 != null) {
+                callStmt2.close();
+            }
             closeAll();
         }
     }
 
-
-    public Park getParkById (int id) throws SQLException {
+    public Park getParkById(int id) throws SQLException {
 
         Park p = null;
 
-        CallableStatement callStmt = null;
+        CallableStatement callStmt3 = null;
         ResultSet rSet = null;
 
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call getParkById(?) }");
+            callStmt3 = getConnection().prepareCall("{ ? = call getParkById(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt3.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setInt(2, id);
+            callStmt3.setInt(2, id);
             // Executa a invocação da função "getSailor".
-            callStmt.execute();
+            callStmt3.execute();
             // Guarda o cursor retornado num objeto "ResultSet".
-            rSet = (ResultSet) callStmt.getObject(1);
+            rSet = (ResultSet) callStmt3.getObject(1);
 
             if (rSet.next()) {
                 int idP = rSet.getInt(1);
@@ -166,31 +173,35 @@ public class ParkDB extends DataHandler {
 
         Park p;
 
-        try{
-            p=getParkById(park.getScooterParkId());
-            if(p == null) return false;
-        }catch (SQLException e){
+        try {
+            p = getParkById(park.getScooterParkId());
+            if (p == null) {
+                return false;
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
 
         CallableStatement callStmt = null;
 
-        try{
+        try {
             openConnection();
 
             callStmt = getConnection().prepareCall("{ call updateNrChargingStations(?,?) }");
 
-            callStmt.setInt(1,park.getScooterParkId());
-            callStmt.setInt(2,park.getNumChargingStations());
+            callStmt.setInt(1, park.getScooterParkId());
+            callStmt.setInt(2, park.getNumChargingStations());
 
             callStmt.execute();
             return true;
-        } catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
             closeAll();
         }
         return false;

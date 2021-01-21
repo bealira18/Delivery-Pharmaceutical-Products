@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -92,7 +93,9 @@ public class ProductDB extends DataHandler {
             closeAll();
 
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
             closeAll();
         }
         return false;
@@ -100,22 +103,22 @@ public class ProductDB extends DataHandler {
 
     public Product getProduct(int id) throws SQLException {
         Product p = null;
-        CallableStatement callStmt = null;
+        CallableStatement callStmt1 = null;
         ResultSet rSet = null;
 
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call getProduct(?) }");
+            callStmt1 = getConnection().prepareCall("{ ? = call getProduct(?) }");
 
             // Regista o tipo de dados SQL para interpretar o resultado obtido.
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt1.registerOutParameter(1, OracleTypes.CURSOR);
             // Especifica o parâmetro de entrada da função "getSailor".
-            callStmt.setInt(2, id);
+            callStmt1.setInt(2, id);
             // Executa a invocação da função "getSailor".
-            callStmt.execute();
+            callStmt1.execute();
             // Guarda o cursor retornado num objeto "ResultSet".
-            rSet = (ResultSet) callStmt.getObject(1);
+            rSet = (ResultSet) callStmt1.getObject(1);
 
             if (rSet.next()) {
                 //Product(int id, String name, double price, double weight, int categoryId)
@@ -131,8 +134,12 @@ public class ProductDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("No Product with id:" + id);
         } finally {
-            if(callStmt!=null) callStmt.close();
-            if(rSet!=null) rSet.close();
+            if (callStmt1 != null) {
+                callStmt1.close();
+            }
+            if (rSet != null) {
+                rSet.close();
+            }
             closeAll();
         }
         return p;
@@ -143,7 +150,9 @@ public class ProductDB extends DataHandler {
 
         try {
             a = getProduct(id);
-            if(a == null) return false;
+            if (a == null) {
+                return false;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -151,23 +160,23 @@ public class ProductDB extends DataHandler {
 
         CallableStatement callStmt = null;
 
-        try{
+        try {
             openConnection();
 
             callStmt = getConnection().prepareCall("{ call updateProduct(?,?,?,?,?) }");
 
-            callStmt.setInt(1,p.getId());
-            callStmt.setString(2,p.getName());
-            callStmt.setInt(3,p.getCategoryId());
-            callStmt.setDouble(4,p.getPrice());
-            callStmt.setDouble(5,p.getWeight());
+            callStmt.setInt(1, p.getId());
+            callStmt.setString(2, p.getName());
+            callStmt.setInt(3, p.getCategoryId());
+            callStmt.setDouble(4, p.getPrice());
+            callStmt.setDouble(5, p.getWeight());
 
             callStmt.execute();
 
             closeAll();
             return true;
 
-        } catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
@@ -175,7 +184,7 @@ public class ProductDB extends DataHandler {
         return false;
     }
 
-    public HashMap<ProductCategory, List<Product>> getProductsFromPharmacy(int idPharmacy) throws SQLException {
+    public Map<ProductCategory, List<Product>> getProductsFromPharmacy(int idPharmacy) throws SQLException {
         CallableStatement callStmt = null;
         ResultSet rs = null;
         HashMap<ProductCategory, List<Product>> mapProducts = new HashMap<>();
@@ -207,8 +216,7 @@ public class ProductDB extends DataHandler {
                     ArrayList<Product> listProducts = new ArrayList<>();
                     listProducts.add(p);
                     mapProducts.put(pc, listProducts);
-                }
-                else {
+                } else {
                     List<Product> listProducts = mapProducts.get(pc);
                     listProducts.add(p);
                     mapProducts.put(pc, listProducts);
@@ -219,8 +227,12 @@ public class ProductDB extends DataHandler {
             Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
         } finally {
-            if(callStmt!=null) callStmt.close();
-            if(rs!=null) rs.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
             closeAll();
         }
         return mapProducts;

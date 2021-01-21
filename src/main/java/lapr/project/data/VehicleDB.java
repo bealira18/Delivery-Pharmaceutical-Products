@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import oracle.jdbc.OracleTypes;
 
 public class VehicleDB extends DataHandler {
-    
+
     public String typeOfVehicleByID(int vehicleID) {
 
         /* Objeto "callStmt" para invocar a função "findUser" armazenada na BD.
@@ -19,16 +19,14 @@ public class VehicleDB extends DataHandler {
             callStmt = getConnection().prepareCall("{ ? = call typeOfVehicleByID(?) }");
             callStmt.registerOutParameter(1, OracleTypes.VARCHAR);
             callStmt.setInt(2, vehicleID);
- 
+
             callStmt.execute();
             return callStmt.getString(1);
 
-            
         } catch (SQLException e) {
 
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             closeAll();
         }
         throw new IllegalArgumentException("Could not find a vehicle matching this id");

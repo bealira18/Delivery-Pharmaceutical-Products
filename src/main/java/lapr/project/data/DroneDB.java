@@ -13,15 +13,15 @@ import java.util.logging.Logger;
 
 public class DroneDB extends DataHandler {
 
-    public boolean addDrone(Drone drone)throws SQLException {
+    public boolean addDrone(Drone drone) throws SQLException {
 
         openConnection();
 
-        try{
+        try {
             return addDrone(drone.getIdVehicle(), drone.getIdPharmacy(), drone.getWeight(), drone.getAerodynamicCoeficient(),
                     drone.getFrontalArea(), drone.getMotor(), drone.getCurrentBattery(), drone.getMaxBattery(), drone.getDroneStatusId());
 
-        }catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
             return false;
@@ -29,7 +29,7 @@ public class DroneDB extends DataHandler {
     }
 
     public boolean addDrone(int idDrone, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
-                              double motor, double currentBattery, double maxBattery, int droneStatusId) throws SQLException {
+            double motor, double currentBattery, double maxBattery, int droneStatusId) throws SQLException {
 
         CallableStatement callStmt = null;
 
@@ -49,12 +49,14 @@ public class DroneDB extends DataHandler {
             callStmt.execute();
             return true;
 
-        } catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
             closeAll();
         }
         return false;
@@ -65,7 +67,7 @@ public class DroneDB extends DataHandler {
         CallableStatement callStmt = null;
         ResultSet rSet = null;
 
-        try{
+        try {
             openConnection();
 
             callStmt = getConnection().prepareCall("{ ? = call getDroneById(?) }");
@@ -84,14 +86,19 @@ public class DroneDB extends DataHandler {
                 int droneStatus = rSet.getInt(2);
 
                 d = new Drone(id, droneStatus);
+            } else {
+                return null;
             }
-            else return null;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("No Drone with id:" + idDrone);
         } finally {
-            if(callStmt!=null) callStmt.close();
-            if(rSet!=null) rSet.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
+            if (rSet != null) {
+                rSet.close();
+            }
             closeAll();
         }
         return d;
@@ -100,33 +107,35 @@ public class DroneDB extends DataHandler {
     public boolean updateDrone(int idd, Drone d) throws SQLException {
         Drone drone;
 
-        try{
+        try {
             drone = getIdDrone(idd);
-            if(drone == null) return false;
-        }catch (SQLException e){
+            if (drone == null) {
+                return false;
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
 
         CallableStatement callStmt = null;
 
-        try{
+        try {
             openConnection();
 
             callStmt = getConnection().prepareCall("{ call updateDrone(?,?,?,?,?,?,?) }");
 
-            callStmt.setInt(1,d.getIdVehicle());
-            callStmt.setInt(2,d.getIdPharmacy());
-            callStmt.setDouble(3,d.getWeight());
-            callStmt.setDouble(4,d.getFrontalArea());
-            callStmt.setDouble(5,d.getMotor());
-            callStmt.setDouble(6,d.getCurrentBattery());
-            callStmt.setDouble(7,d.getMaxBattery());
+            callStmt.setInt(1, d.getIdVehicle());
+            callStmt.setInt(2, d.getIdPharmacy());
+            callStmt.setDouble(3, d.getWeight());
+            callStmt.setDouble(4, d.getFrontalArea());
+            callStmt.setDouble(5, d.getMotor());
+            callStmt.setDouble(6, d.getCurrentBattery());
+            callStmt.setDouble(7, d.getMaxBattery());
 
             callStmt.execute();
             closeAll();
             return true;
-        } catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
@@ -141,7 +150,7 @@ public class DroneDB extends DataHandler {
         try {
             openConnection();
 
-            callStt = getConnection().prepareCall("{ ? = call getAllAvailableDrones(?) }");;
+            callStt = getConnection().prepareCall("{ ? = call getAllAvailableDrones(?) }");
 
             callStt.registerOutParameter(1, OracleTypes.CURSOR);
 
@@ -157,8 +166,12 @@ public class DroneDB extends DataHandler {
         } catch (SQLException e) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            if(callStt!=null) callStt.close();
-            if(rSet!=null) rSet.close();
+            if (callStt != null) {
+                callStt.close();
+            }
+            if (rSet != null) {
+                rSet.close();
+            }
             closeAll();
         }
         return drones;
