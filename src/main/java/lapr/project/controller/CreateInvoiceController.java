@@ -13,6 +13,7 @@ public class CreateInvoiceController {
     private final ProductDB productDB;
     private final PharmacyDB pharmacyDB;
     private final EmailService emailService;
+    private final ClientDB clientDB;
     private List<ProductLine> productLineList;
     private double totalPrice;
 
@@ -21,15 +22,17 @@ public class CreateInvoiceController {
         productLineDB = new ProductLineDB();
         productDB = new ProductDB();
         pharmacyDB = new PharmacyDB();
+        clientDB = new ClientDB();
         emailService = new EmailService();
     }
 
-    public CreateInvoiceController(InvoiceDB invoiceDB, ProductLineDB productLineDB, ProductDB productDB, PharmacyDB pharmacyDB, EmailService emailService) {
+    public CreateInvoiceController(InvoiceDB invoiceDB, ProductLineDB productLineDB, ProductDB productDB, PharmacyDB pharmacyDB, ClientDB clientDB, EmailService emailService) {
         this.invoiceDB = invoiceDB;
         this.productLineDB = productLineDB;
         this.productDB = productDB;
         this.pharmacyDB = pharmacyDB;
         this.emailService = emailService;
+        this.clientDB = clientDB;
     }
 
     public boolean createInvoice(int idInvoice, PurchaseOrder po, double deliveryFee) throws SQLException {
@@ -52,8 +55,9 @@ public class CreateInvoiceController {
         return totalPrice;
     }
 
-    public boolean sendInvoiceByEmail(Invoice invoice, Client client) throws SQLException {
+    public boolean sendInvoiceByEmail(Invoice invoice) throws SQLException {
         Pharmacy pharmacy = pharmacyDB.getPhamacyByID(invoice.getPharmacyId());
+        Client client = clientDB.getClientByEmail(invoice.getClientEmail());
 
         String subjectLine = "Receipt";
 
