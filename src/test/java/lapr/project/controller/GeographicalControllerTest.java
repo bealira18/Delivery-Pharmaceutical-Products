@@ -37,6 +37,8 @@ public class GeographicalControllerTest {
 
         System.out.println("addAddresses");
         List<Address> la = new ArrayList<>();
+        la.add(new Address("Test", 0, 0, 0));
+        la.add(new Address("Test2", 0, 0, 0));
         GeographicalController instance = new GeographicalController();
         instance.addAddresses(la);
     }
@@ -99,6 +101,8 @@ public class GeographicalControllerTest {
 
         System.out.println("addPaths");
         List<Path> lp = new ArrayList<>();
+        lp.add(new Path(new Address("Test", 0, 0, 0), new Address("Test2", 0, 0, 0), 0, 0, 0));
+        lp.add(new Path(new Address("Test3", 0, 0, 0), new Address("Test4", 0, 0, 0), 0, 0, 0));
         GeographicalController instance = new GeographicalController();
         instance.addPaths(lp);
     }
