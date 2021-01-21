@@ -238,16 +238,16 @@ public class GraphAlgorithmsTest {
         double energy = PathAlgorithms.calcScooterTotalEnergy(g, lla, c, s, lpro);
 
         boolean expResult = true;
-        boolean result = GraphAlgorithms.writePathToFile(fileName, lla, distance, energy, s);
+        boolean result = GraphAlgorithms.writePathToFile(fileName, lla, distance, energy, "Scooter");
         assertEquals(expResult, result);
 
         expResult = false;
         lla = new LinkedList<>();
-        result = GraphAlgorithms.writePathToFile(fileName, lla, distance, energy, s);
+        result = GraphAlgorithms.writePathToFile(fileName, lla, distance, energy, "Scooter");
         assertEquals(expResult, result);
 
         fileName = "    ||    []*  +/8)as0         as:_   asas\\asd\\as.acc<.aa.s.d,,sd";
-        result = GraphAlgorithms.writePathToFile(fileName, lla2, distance, energy, s);
+        result = GraphAlgorithms.writePathToFile(fileName, lla2, distance, energy, "Scooter");
         assertEquals(expResult, result);
     }
 
@@ -283,13 +283,13 @@ public class GraphAlgorithmsTest {
         double energy = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
 
         List<String> expResult = new ArrayList<>();
-        expResult.add("Vehicle of ID 1");
+        expResult.add("Vehicle Type -> Drone");
         expResult.add("Total Distance = 1.91km.");
         expResult.add("Total Energy Consumption = 37.83W.h.");
         expResult.add("Path Structure");
         expResult.add("casa da musica;conservatorio;trindade;");
 
-        GraphAlgorithms.writePathToFile(fileName, lla, distance, energy, d);
+        GraphAlgorithms.writePathToFile(fileName, lla, distance, energy, "Drone");
         List<String> result = Utils.readFile(fileName);
 
         assertEquals(expResult, result);

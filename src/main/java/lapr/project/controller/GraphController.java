@@ -111,7 +111,7 @@ public class GraphController {
     }
 
     public boolean writePathToFile(String fileName, LinkedList<Address> la,
-            double distance, double energy, Vehicle v) {
+            double distance, double energy, String v) {
 
         return GraphAlgorithms.writePathToFile(fileName, la, distance, energy, v);
     }

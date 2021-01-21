@@ -8,7 +8,6 @@ import lapr.project.model.Path;
 import lapr.project.model.Vehicle;
 import lapr.project.utils.Graph;
 import lapr.project.utils.GraphAlgorithms;
-import lapr.project.utils.PathAlgorithms;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -407,15 +406,14 @@ public class GraphControllerTest {
         la.add(aDest);
         double distance = 200;
         double energy = 300;
-        Vehicle v = new Vehicle(1, 1, 1, 1, 1, 1, 1, 1, 1);
         GraphController instance = new GraphController();
         boolean expResult = true;
-        boolean result = instance.writePathToFile(fileName, la, distance, energy, v);
+        boolean result = instance.writePathToFile(fileName, la, distance, energy, "Vehicle");
         assertEquals(expResult, result);
 
         fileName = "";
         expResult = false;
-        result = instance.writePathToFile(fileName, la, distance, energy, v);
+        result = instance.writePathToFile(fileName, la, distance, energy, "Vehicle");
         assertEquals(expResult, result);
     }
 

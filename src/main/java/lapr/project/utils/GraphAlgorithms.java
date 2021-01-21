@@ -73,14 +73,14 @@ public class GraphAlgorithms {
     }
 
     public static boolean writePathToFile(String fileName, LinkedList<Address> la,
-            double distance, double energy, Vehicle v) {
+            double distance, double energy, String vehicle) {
 
         if (la.isEmpty()) {
             return false;
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
 
-            bw.write("Vehicle of ID " + v.getIdVehicle());
+            bw.write("Vehicle Type -> " + vehicle);
             bw.newLine();
             bw.write("Total Distance = " + String.format(Locale.ROOT, "%.2f", distance) + "km.");
             bw.newLine();
