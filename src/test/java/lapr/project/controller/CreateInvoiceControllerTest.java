@@ -115,6 +115,7 @@ class CreateInvoiceControllerTest {
     @Test
     void TestSendInvoiceByEmail() throws SQLException {
         Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
+        controller.getTotalPriceFromOrder();
 
         boolean result = controller.sendInvoiceByEmail(invoice);
         boolean expResult = true;
