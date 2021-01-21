@@ -1,11 +1,7 @@
 package lapr.project.controller;
 
-import lapr.project.data.InvoiceDB;
-import lapr.project.data.ProductDB;
-import lapr.project.data.ProductLineDB;
-import lapr.project.model.Invoice;
-import lapr.project.model.ProductLine;
-import lapr.project.model.PurchaseOrder;
+import lapr.project.data.*;
+import lapr.project.model.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,20 +10,32 @@ public class CreateInvoiceController {
 
     private final InvoiceDB invoiceDB;
     private final ProductLineDB productLineDB;
+    private final ProductDB productDB;
+    private final PharmacyDB pharmacyDB;
+    private final EmailService emailService;
+    private final ClientDB clientDB;
     private List<ProductLine> productLineList;
+    private double totalPrice;
 
     public CreateInvoiceController() {
         invoiceDB = new InvoiceDB();
         productLineDB = new ProductLineDB();
+        productDB = new ProductDB();
+        pharmacyDB = new PharmacyDB();
+        clientDB = new ClientDB();
+        emailService = new EmailService();
     }
 
-    public CreateInvoiceController(InvoiceDB invoiceDB, ProductLineDB productLineDB) {
+    public CreateInvoiceController(InvoiceDB invoiceDB, ProductLineDB productLineDB, ProductDB productDB, PharmacyDB pharmacyDB, ClientDB clientDB, EmailService emailService) {
         this.invoiceDB = invoiceDB;
         this.productLineDB = productLineDB;
+        this.productDB = productDB;
+        this.pharmacyDB = pharmacyDB;
+        this.emailService = emailService;
+        this.clientDB = clientDB;
     }
 
     public boolean createInvoice(int idInvoice, PurchaseOrder po, double deliveryFee) throws SQLException {
-        double totalPrice;
         getProductLinesFromOrder(po);
         totalPrice = getTotalPriceFromOrder();
 
@@ -40,10 +48,46 @@ public class CreateInvoiceController {
     }
 
     public double getTotalPriceFromOrder() {
-        double total = 0;
+        totalPrice = 0;
         for (ProductLine productLine : productLineList) {
-            total = total + productLine.getPrice();
+            totalPrice = totalPrice + productLine.getPrice();
         }
-        return total;
+        return totalPrice;
     }
+
+    public boolean sendInvoiceByEmail(Invoice invoice) throws SQLException {
+        Pharmacy pharmacy = pharmacyDB.getPhamacyByID(invoice.getPharmacyId());
+        Client client = clientDB.getClientByEmail(invoice.getClientEmail());
+
+        String subjectLine = "Receipt";
+
+        StringBuilder emailBody = new StringBuilder("Receipt #"+invoice.getId());
+        String slash = "------------------------------------------------------------";
+        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append("Pharmacy: "+pharmacy.getName()+"\tid: "+pharmacy.getId());
+        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append(slash);
+        emailBody.append(System.getProperty("line.separator"));
+
+        emailBody.append("Order:");
+        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append(String.format("%-40s%-10s%-10s", "Item", "Number", "Price"));
+        emailBody.append(slash);
+        emailBody.append(System.getProperty("line.separator"));
+
+        for(ProductLine productLine : productLineList) {
+            Product p = productDB.getProduct(productLine.getProductId());
+            emailBody.append(String.format("%-40s%-10d€%-10f", p.getName(), productLine.getProductQuantity(), productLine.getPrice()));
+            emailBody.append(slash);
+            emailBody.append(System.getProperty("line.separator"));
+        }
+        emailBody.append(String.format("%50s%f", "€", totalPrice));
+        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append("NIF: "+client.getNif());
+
+        return emailService.sendEmail(client.getEmail(), subjectLine, emailBody.toString());
+    }
+
 }
