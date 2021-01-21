@@ -7,7 +7,7 @@ BEGIN
 
     OPEN matching_product_lines FOR
     
-    SELECT id_product, product_quantity, price
+    SELECT *
     FROM productLine
     WHERE id_order = idOrder;
     
