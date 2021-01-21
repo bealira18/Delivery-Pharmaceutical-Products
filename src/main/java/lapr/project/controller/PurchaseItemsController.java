@@ -18,8 +18,8 @@ public class PurchaseItemsController {
     private final PurchaseOrderDB po;
     private final ProductLineDB pl;
     private final StockDB s;
-    private HashMap<ProductCategory, List<Product>> mapProducts;
-    private HashMap<Product, Integer> basket;
+    private Map<ProductCategory, List<Product>> mapProducts;
+    private Map<Product, Integer> basket;
 
     public PurchaseItemsController() {
         pharmacyDB = new PharmacyDB();
@@ -80,7 +80,7 @@ public class PurchaseItemsController {
         }
 
         for (Map.Entry<Product, Integer> p : basket.entrySet()) {
-            if (!pl.newProductLine(idOrder, p.getKey().getId(), p.getValue(), p.getKey().getPrice()*p.getValue())) {
+            if (!pl.newProductLine(idOrder, p.getKey().getId(), p.getValue(), p.getKey().getPrice() * p.getValue())) {
                 return false;
             }
         }
@@ -88,5 +88,4 @@ public class PurchaseItemsController {
 
         return true;
     }
-
 }

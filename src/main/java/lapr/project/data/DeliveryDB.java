@@ -67,7 +67,9 @@ public class DeliveryDB extends DataHandler {
             Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
             closeAll();
         }
         return false;
@@ -106,8 +108,12 @@ public class DeliveryDB extends DataHandler {
         } catch (SQLException e) {
             Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            if(callStmt!=null) callStmt.close();
-            if(rSet!=null) rSet.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
+            if (rSet != null) {
+                rSet.close();
+            }
             closeAll();
         }
         return delivery;
@@ -121,7 +127,7 @@ public class DeliveryDB extends DataHandler {
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call getNextAvailableCourier(?) }");;
+            callStmt = getConnection().prepareCall("{ ? = call getNextAvailableCourier(?) }");
 
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.setInt(2, idPharmacy);
@@ -144,17 +150,21 @@ public class DeliveryDB extends DataHandler {
         } catch (SQLException e) {
             Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            if(callStmt!=null) callStmt.close();
-            if(resultSetSet!=null) resultSetSet.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
+            if (resultSetSet != null) {
+                resultSetSet.close();
+            }
             closeAll();
         }
         return delivery;
     }
 
-    public String getClientEmailFromOrder(int idOrder)throws SQLException {
+    public String getClientEmailFromOrder(int idOrder) throws SQLException {
         CallableStatement callStt = null;
 
-        try{
+        try {
             openConnection();
 
             callStt = getConnection().prepareCall("{ ? = call getClientEmailFromOrder(?) }");
@@ -164,11 +174,13 @@ public class DeliveryDB extends DataHandler {
             callStt.execute();
 
             return callStt.getString(1);
-        }catch(NullPointerException | NumberFormatException | SQLException ex){
+        } catch (NullPointerException | NumberFormatException | SQLException ex) {
             Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
-            if(callStt!=null) callStt.close();
+            if (callStt != null) {
+                callStt.close();
+            }
             closeAll();
         }
     }

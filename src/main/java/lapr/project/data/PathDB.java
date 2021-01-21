@@ -72,18 +72,18 @@ public class PathDB extends DataHandler {
 
     private boolean updatePath(String address1, String address2, double kineticCoefficient, double windAngle, double windSpeed) throws SQLException {
 
-        CallableStatement callStmt = null;
+        CallableStatement callStmt2 = null;
 
         try {
-            callStmt = getConnection().prepareCall("{ call updatePath(?,?,?,?,?) }");
+            callStmt2 = getConnection().prepareCall("{ call updatePath(?,?,?,?,?) }");
 
-            callStmt.setString(1, address1);
-            callStmt.setString(2, address2);
-            callStmt.setDouble(3, kineticCoefficient);
-            callStmt.setDouble(4, windAngle);
-            callStmt.setDouble(5, windSpeed);
+            callStmt2.setString(1, address1);
+            callStmt2.setString(2, address2);
+            callStmt2.setDouble(3, kineticCoefficient);
+            callStmt2.setDouble(4, windAngle);
+            callStmt2.setDouble(5, windSpeed);
 
-            callStmt.execute();
+            callStmt2.execute();
             closeAll();
             return true;
 
@@ -92,8 +92,8 @@ public class PathDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
+            if (callStmt2 != null) {
+                callStmt2.close();
             }
         }
         return false;
@@ -114,15 +114,15 @@ public class PathDB extends DataHandler {
 
     private boolean removePath(String aDesc1, String aDesc2) throws SQLException {
 
-        CallableStatement callStmt = null;
+        CallableStatement callStmt3 = null;
 
         try {
-            callStmt = getConnection().prepareCall("{ call removePath(?,?) }");
+            callStmt3 = getConnection().prepareCall("{ call removePath(?,?) }");
 
-            callStmt.setString(1, aDesc1);
-            callStmt.setString(2, aDesc2);
+            callStmt3.setString(1, aDesc1);
+            callStmt3.setString(2, aDesc2);
 
-            callStmt.execute();
+            callStmt3.execute();
             closeAll();
             return true;
 
@@ -131,8 +131,8 @@ public class PathDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
+            if (callStmt3 != null) {
+                callStmt3.close();
             }
         }
         return false;
@@ -147,7 +147,7 @@ public class PathDB extends DataHandler {
         try {
             openConnection();
 
-            callStmt.getConnection().prepareCall("{ ? = call getPaths() }");
+            callStmt = getConnection().prepareCall("{ ? = call getPaths() }");
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
             callStmt.execute();
 
@@ -194,5 +194,4 @@ public class PathDB extends DataHandler {
             closeAll();
         }
     }
-
 }

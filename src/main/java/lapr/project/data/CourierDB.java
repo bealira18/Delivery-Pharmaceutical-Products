@@ -76,7 +76,6 @@ public class CourierDB extends DataHandler {
             if (rSet.next()) {
                 //Courier(String email, String password, String name, int nif, long socialSecurity, int pharmacyId, double weight)
                 String em = rSet.getString(1);
-                //String password=rSet.getString(2);
                 String name = rSet.getString(2);
                 int nif = rSet.getInt(3);
                 long socialSecurity = rSet.getLong(4);

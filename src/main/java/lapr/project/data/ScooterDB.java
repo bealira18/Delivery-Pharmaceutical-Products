@@ -13,14 +13,14 @@ import java.util.logging.Logger;
 
 public class ScooterDB extends DataHandler {
 
-    public boolean addScooter(Scooter scooter)throws SQLException {
+    public boolean addScooter(Scooter scooter) throws SQLException {
 
-        try{
+        try {
             openConnection();
             return addScooter(scooter.getIdVehicle(), scooter.getIdPharmacy(), scooter.getWeight(), scooter.getAerodynamicCoeficient(),
-                                scooter.getFrontalArea(), scooter.getMotor(), scooter.getCurrentBattery(), scooter.getMaxBattery(), scooter.getScooterStatusId());
+                    scooter.getFrontalArea(), scooter.getMotor(), scooter.getCurrentBattery(), scooter.getMaxBattery(), scooter.getScooterStatusId());
 
-        }catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
             return false;
@@ -28,7 +28,7 @@ public class ScooterDB extends DataHandler {
     }
 
     public boolean addScooter(int idScooter, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
-                              double motor, double currentBattery, double maxBattery, int scooterStatusId) throws SQLException {
+            double motor, double currentBattery, double maxBattery, int scooterStatusId) throws SQLException {
 
         CallableStatement callStmt = null;
 
@@ -48,23 +48,25 @@ public class ScooterDB extends DataHandler {
             callStmt.execute();
             return true;
 
-        } catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
         } finally {
-            if(callStmt!=null) callStmt.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
             closeAll();
         }
         return false;
     }
 
-    public Scooter getIdScooter(int idScooter) throws SQLException{
+    public Scooter getIdScooter(int idScooter) throws SQLException {
         Scooter s = null;
         CallableStatement callStmt = null;
         ResultSet rSet = null;
 
-        try{
+        try {
             openConnection();
 
             callStmt = getConnection().prepareCall("{ ? = call getScooterById(?) }");
@@ -88,8 +90,12 @@ public class ScooterDB extends DataHandler {
             e.printStackTrace();
             throw new IllegalArgumentException("No Scooter with id:" + idScooter);
         } finally {
-            if(callStmt!=null) callStmt.close();
-            if(rSet!=null) rSet.close();
+            if (callStmt != null) {
+                callStmt.close();
+            }
+            if (rSet != null) {
+                rSet.close();
+            }
             closeAll();
         }
         return s;
@@ -102,7 +108,7 @@ public class ScooterDB extends DataHandler {
         try {
             openConnection();
 
-            callStm = getConnection().prepareCall("{ ? = call getAllAvailableScooters(?) }");;
+            callStm = getConnection().prepareCall("{ ? = call getAllAvailableScooters(?) }");
 
             callStm.registerOutParameter(1, OracleTypes.CURSOR);
 
@@ -118,44 +124,50 @@ public class ScooterDB extends DataHandler {
         } catch (SQLException e) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            if(callStm!=null) callStm.close();
-            if(rSet!=null) rSet.close();
+            if (callStm != null) {
+                callStm.close();
+            }
+            if (rSet != null) {
+                rSet.close();
+            }
             closeAll();
         }
         return scooters;
     }
 
-    public boolean updateScooter(int ids,Scooter s) throws SQLException {
+    public boolean updateScooter(int ids, Scooter s) throws SQLException {
         Scooter a;
 
-        try{
-            a=getIdScooter(ids);
-            if(a == null) return false;
-        }catch (SQLException e){
+        try {
+            a = getIdScooter(ids);
+            if (a == null) {
+                return false;
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
 
         CallableStatement callStmt = null;
 
-        try{
+        try {
             openConnection();
 
             callStmt = getConnection().prepareCall("{ call updateScooter(?,?,?,?,?,?,?) }");
 
-            callStmt.setInt(1,s.getIdVehicle());
-            callStmt.setInt(2,s.getIdPharmacy());
-            callStmt.setDouble(3,s.getWeight());
-            callStmt.setDouble(4,s.getFrontalArea());
-            callStmt.setDouble(5,s.getMotor());
-            callStmt.setDouble(6,s.getCurrentBattery());
-            callStmt.setDouble(7,s.getMaxBattery());
+            callStmt.setInt(1, s.getIdVehicle());
+            callStmt.setInt(2, s.getIdPharmacy());
+            callStmt.setDouble(3, s.getWeight());
+            callStmt.setDouble(4, s.getFrontalArea());
+            callStmt.setDouble(5, s.getMotor());
+            callStmt.setDouble(6, s.getCurrentBattery());
+            callStmt.setDouble(7, s.getMaxBattery());
 
             callStmt.execute();
 
             closeAll();
             return true;
-        } catch (NullPointerException | SQLException ex){
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
             closeAll();
 
