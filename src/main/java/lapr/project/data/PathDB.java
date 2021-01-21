@@ -13,6 +13,131 @@ import oracle.jdbc.OracleTypes;
 
 public class PathDB extends DataHandler {
 
+    public boolean addPath(Path p) {
+
+        try {
+            openConnection();
+            return addPath(p.getAddress1().getDescription(), p.getAddress2().getDescription(),
+                    p.getKineticCoeficient(), p.getWindAngle(), p.getWindSpeed());
+
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(PathDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+            return false;
+        }
+    }
+
+    private boolean addPath(String address1, String address2, double kineticCoefficient, double windAngle, double windSpeed) throws SQLException {
+
+        CallableStatement callStmt = null;
+
+        try {
+            callStmt = getConnection().prepareCall("{ call addPath(?,?,?,?,?) }");
+
+            callStmt.setString(1, address1);
+            callStmt.setString(2, address2);
+            callStmt.setDouble(3, kineticCoefficient);
+            callStmt.setDouble(4, windAngle);
+            callStmt.setDouble(5, windSpeed);
+
+            callStmt.execute();
+            closeAll();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PathDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+    }
+
+    public boolean updatePath(Path p) {
+
+        try {
+            openConnection();
+            return updatePath(p.getAddress1().getDescription(), p.getAddress2().getDescription(),
+                    p.getKineticCoeficient(), p.getWindAngle(), p.getWindSpeed());
+
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(PathDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+            return false;
+        }
+    }
+
+    private boolean updatePath(String address1, String address2, double kineticCoefficient, double windAngle, double windSpeed) throws SQLException {
+
+        CallableStatement callStmt = null;
+
+        try {
+            callStmt = getConnection().prepareCall("{ call updatePath(?,?,?,?,?) }");
+
+            callStmt.setString(1, address1);
+            callStmt.setString(2, address2);
+            callStmt.setDouble(3, kineticCoefficient);
+            callStmt.setDouble(4, windAngle);
+            callStmt.setDouble(5, windSpeed);
+
+            callStmt.execute();
+            closeAll();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PathDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+    }
+
+    public boolean removePath(Address a1, Address a2) {
+
+        try {
+            openConnection();
+            return removePath(a1.getDescription(), a2.getDescription());
+
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(PathDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+            return false;
+        }
+    }
+
+    private boolean removePath(String aDesc1, String aDesc2) throws SQLException {
+
+        CallableStatement callStmt = null;
+
+        try {
+            callStmt = getConnection().prepareCall("{ call removePath(?,?) }");
+
+            callStmt.setString(1, aDesc1);
+            callStmt.setString(2, aDesc2);
+
+            callStmt.execute();
+            closeAll();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PathDB.class.getName()).log(Level.SEVERE, null, ex);
+            closeAll();
+
+        } finally {
+            if (callStmt != null) {
+                callStmt.close();
+            }
+        }
+        return false;
+    }
+
     public List<Path> getPaths(List<Address> la) throws SQLException {
 
         List<Path> lp = new ArrayList<>();
@@ -69,4 +194,5 @@ public class PathDB extends DataHandler {
             closeAll();
         }
     }
+
 }
