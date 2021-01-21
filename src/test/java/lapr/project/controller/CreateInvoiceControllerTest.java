@@ -25,6 +25,8 @@ class CreateInvoiceControllerTest {
     @BeforeAll
     public static void setUp() throws SQLException {
 
+        PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
+
         Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
 
         ProductLine productLine1 = new ProductLine(1,1,1,5.50);
@@ -41,8 +43,6 @@ class CreateInvoiceControllerTest {
 
         CreditCard creditCard = new CreditCard(1, LocalDate.now(), (short) 1);
         Client client = new Client("clientEmail@gmail.com", "qwerty", "testName", 1, creditCard, address, 1);
-
-        PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
 
         InvoiceDB invoiceDB = mock(InvoiceDB.class);
         ProductLineDB productLineDB = mock(ProductLineDB.class);
@@ -69,23 +69,45 @@ class CreateInvoiceControllerTest {
     }
 
     @Test
-    void createInvoice() throws SQLException {
+    void testCreateInvoice() throws SQLException {
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
+        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
 
-        boolean result = true;
-        boolean expResult = controller.createInvoice(1, purchaseOrder, 2.90);
-        assertEquals(result, expResult);
+        boolean expResult = true;
+        boolean result = controller.createInvoice(1, purchaseOrder, 2.90);
+        assertEquals(expResult, result);
+
+
+        InvoiceDB invoiceDB = mock(InvoiceDB.class);
+        ProductLineDB productLineDB = mock(ProductLineDB.class);
+        ProductDB productDB = mock(ProductDB.class);
+        PharmacyDB pharmacyDB = mock(PharmacyDB.class);
+        ClientDB clientDB = mock(ClientDB.class);
+        EmailService emailService = mock(EmailService.class);
+
+        when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
+        when(invoiceDB.addInvoice(invoice, 2.90)).thenReturn(Boolean.FALSE);
+
+        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService);
+
+        result = controller2.createInvoice(1, purchaseOrder, 2.90);
+        expResult = false;
+        assertEquals(expResult, result);
     }
 
     @Test
-    void getProductLinesFromOrder() {
+    void TestgetTotalPriceFromOrder() {
+        double result = controller.getTotalPriceFromOrder();
+        double expResult = 10.00;
+        assertEquals(expResult, result);
     }
 
     @Test
-    void getTotalPriceFromOrder() {
+    void TestSendInvoiceByEmail() {
     }
 
     @Test
-    void sendInvoiceByEmail() {
+    void TestMakeEmailBody() {
     }
+
 }
