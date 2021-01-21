@@ -57,19 +57,19 @@ class CreateInvoiceControllerTest {
         when(productDB.getProduct(productLine2.getProductId())).thenReturn(product2);
         when(pharmacyDB.getPhamacyByID(invoice.getPharmacyId())).thenReturn(pharmacy);
         when(clientDB.getClientByEmail(invoice.getClientEmail())).thenReturn(client);
-        when(emailService.sendEmail(client.getEmail(), "Receipt", "Receipt #1\r\n" +
-                "\r\n" +
-                "Pharmacy: testPharmacy\tid: 1\r\n" +
-                "------------------------------------------------------------\r\n" +
-                "Order:\r\n" +
-                "Item                                    Number    Price     \r\n" +
-                "------------------------------------------------------------\r\n" +
-                "testProduct1                            1         €5.50      \r\n" +
-                "------------------------------------------------------------\r\n" +
-                "testProduct2                            1         €4.50      \r\n" +
-                "------------------------------------------------------------\r\n" +
-                "                                                  €10.00\r\n" +
-                "\r\n" +
+        when(emailService.sendEmail(client.getEmail(), "Receipt", "Receipt #1"+ System.getProperty("line.separator") +
+                System.getProperty("line.separator") +
+                "Pharmacy: testPharmacy\tid: 1"+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "Order:"+ System.getProperty("line.separator") +
+                "Item                                    Number    Price     "+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "testProduct1                            1         €5.50      "+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "testProduct2                            1         €4.50      "+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "                                                  €10.00"+ System.getProperty("line.separator") +
+                System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.TRUE);
 
         controller = new CreateInvoiceController();
