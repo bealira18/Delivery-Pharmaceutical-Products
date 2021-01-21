@@ -163,6 +163,7 @@ class CreateInvoiceControllerTest {
 
         expResult = false;
         result = controller2.sendInvoiceByEmail(invoice);
+        assertEquals(expResult, result);
     }
 
     @Test
