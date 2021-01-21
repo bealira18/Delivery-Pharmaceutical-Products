@@ -69,7 +69,7 @@ class CreateInvoiceControllerTest {
     }
 
     @Test
-    void createInvoice() throws SQLException {
+    void testCreateInvoice() throws SQLException {
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
         Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
 
@@ -96,14 +96,18 @@ class CreateInvoiceControllerTest {
     }
 
     @Test
-    void getProductLinesFromOrder() {
+    void TestgetTotalPriceFromOrder() {
+        double result = controller.getTotalPriceFromOrder();
+        double expResult = 10.00;
+        assertEquals(expResult, result);
     }
 
     @Test
-    void getTotalPriceFromOrder() {
+    void TestSendInvoiceByEmail() {
     }
 
     @Test
-    void sendInvoiceByEmail() {
+    void TestMakeEmailBody() {
     }
+
 }
