@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -146,19 +145,19 @@ class CreateInvoiceControllerTest {
         when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
         when(productDB.getProduct(productLine1.getProductId())).thenReturn(product1);
         when(productDB.getProduct(productLine2.getProductId())).thenReturn(product2);
-        when(emailService.sendEmail(client.getEmail(), "Receipt", "Receipt #1\r\n" +
-                "\r\n" +
-                "Pharmacy: testPharmacy\tid: 1\r\n" +
-                "------------------------------------------------------------\r\n" +
-                "Order:\r\n" +
-                "Item                                    Number    Price     \r\n" +
-                "------------------------------------------------------------\r\n" +
-                "testProduct1                            1         €5.50      \r\n" +
-                "------------------------------------------------------------\r\n" +
-                "testProduct2                            1         €4.50      \r\n" +
-                "------------------------------------------------------------\r\n" +
-                "                                                  €10.00\r\n" +
-                "\r\n" +
+        when(emailService.sendEmail(client.getEmail(), "Receipt", "Receipt #1"+ System.getProperty("line.separator") +
+                System.getProperty("line.separator") +
+                "Pharmacy: testPharmacy\tid: 1"+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "Order:"+ System.getProperty("line.separator") +
+                "Item                                    Number    Price     "+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "testProduct1                            1         €5.50      "+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "testProduct2                            1         €4.50      "+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "                                                  €10.00"+ System.getProperty("line.separator") +
+                System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.FALSE);
 
         CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService);
@@ -182,23 +181,22 @@ class CreateInvoiceControllerTest {
         CreditCard creditCard = new CreditCard(1, LocalDate.now(), (short) 1);
         Client client = new Client("clientEmail@gmail.com", "qwerty", "testName", 1, creditCard, address, 1);
 
-        String expResult = "Receipt #1\n" +
-                "\n" +
-                "Pharmacy: testPharmacy\tid: 1\n" +
-                "------------------------------------------------------------\n" +
-                "Order:\n" +
-                "Item                                    Number    Price     \n" +
-                "------------------------------------------------------------\n" +
-                "testProduct1                            1         €5.50      \n" +
-                "------------------------------------------------------------\n" +
-                "testProduct2                            1         €4.50      \n" +
-                "------------------------------------------------------------\n" +
-                "                                                  €10.00\n" +
-                "\n" +
+        String expResult = "Receipt #1" + System.getProperty("line.separator") +
+                System.getProperty("line.separator") +
+                "Pharmacy: testPharmacy\tid: 1"+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "Order:"+ System.getProperty("line.separator") +
+                "Item                                    Number    Price     "+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "testProduct1                            1         €5.50      "+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "testProduct2                            1         €4.50      "+ System.getProperty("line.separator") +
+                "------------------------------------------------------------"+ System.getProperty("line.separator") +
+                "                                                  €10.00"+ System.getProperty("line.separator") +
+                System.getProperty("line.separator") +
                 "NIF: 1";
 
         String result = controller.makeEmailBody(invoice, pharmacy, client).toString();
-        System.out.println(StringUtils.indexOfDifference(expResult, result));
         assertEquals(expResult, result);
     }
 
