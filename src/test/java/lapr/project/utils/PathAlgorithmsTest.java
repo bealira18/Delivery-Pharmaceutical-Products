@@ -200,13 +200,13 @@ public class PathAlgorithmsTest {
         Path p = new Path(a1, a2, 0.7, 90, 12);
         List<Product> lp = new ArrayList<>();
 
-        double expResult = 6747.29;
+        double expResult = 6325.03;
         double result = PathAlgorithms.calcDroneEnergy(p, lp);
         assertEquals(expResult, result, 1);
 
         lp.add(new Product(0, "Test", 0.0, -10, 0));
 
-        expResult = 5873.76;
+        expResult = 6325.03;
         result = PathAlgorithms.calcDroneEnergy(p, lp);
         assertEquals(expResult, result, 1);
 
@@ -272,13 +272,13 @@ public class PathAlgorithmsTest {
         lla.add(a3);
 
         List<Product> lpro = new ArrayList<>();
-        double expResult = 41.82;
+        double expResult = 38.20;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
         assertEquals(expResult, result, 1);
 
         lpro.add(new Product(1, "Test", 0, 180, 1));
 
-        expResult = 149.68;
+        expResult = 172.24;
         result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
         assertEquals(expResult, result, 1);
 
@@ -320,7 +320,7 @@ public class PathAlgorithmsTest {
         lla.add(a3);
 
         List<Product> lpro = new ArrayList<>();
-        double expResult = 3234.24;
+        double expResult = 2416.84;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
         assertEquals(expResult, result, 1);
     }
@@ -378,13 +378,13 @@ public class PathAlgorithmsTest {
         Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 1);
         List<Product> lp = new ArrayList<>();
 
-        double expResult = 6747.29;
+        double expResult = 6325.03;
         double result = PathAlgorithms.calcDroneEnergy(p, d, lp);
         assertEquals(expResult, result, 1);
 
         lp.add(new Product(0, "Test", 0.0, -10, 0));
 
-        expResult = 5873.76;
+        expResult = 6325.03;
         result = PathAlgorithms.calcDroneEnergy(p, d, lp);
         assertEquals(expResult, result, 1);
 
@@ -479,13 +479,13 @@ public class PathAlgorithmsTest {
 
         Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 1);
         List<Product> lpro = new ArrayList<>();
-        double expResult = 41.82;
+        double expResult = 38.2;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
         assertEquals(expResult, result, 1);
 
         lpro.add(new Product(1, "Test", 0, 180, 1));
 
-        expResult = 149.68;
+        expResult = 172.24;
         result = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
         assertEquals(expResult, result, 1);
 
@@ -531,7 +531,7 @@ public class PathAlgorithmsTest {
 
         Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 1);
         List<Product> lpro = new ArrayList<>();
-        double expResult = 3234.24;
+        double expResult = 2416.84;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
         assertEquals(expResult, result, 1);
     }
