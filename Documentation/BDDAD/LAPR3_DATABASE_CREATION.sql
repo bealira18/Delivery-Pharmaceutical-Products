@@ -178,7 +178,8 @@ CREATE TABLE vehicle (
     max_battery             NUMERIC(9,2)                      CONSTRAINT nnVehicleMaxBattery             NOT NULL 
                                                               CONSTRAINT ckVehicleMaxBattery             CHECK(max_battery>0),
     average_speed           NUMERIC(6,2)                      CONSTRAINT nnVehicleAverageSpeed           NOT NULL
-                                                              CONSTRAINT ckVehicleAverageSpeed           CHECK(average_speed>=0)
+                                                              CONSTRAINT ckVehicleAverageSpeed           CHECK(average_speed>=0),
+    qrCode                  BLOB
 );
 
 CREATE TABLE scooter (
