@@ -35,12 +35,13 @@ public class NotifyClientController {
         return stockDB.checkIfIsEnoughStock(order.getId()) || stockDB.checkIfIsEnoughStockInOtherPharmacy(order.getId());
      }
 
-     public void notifyClientDeliveryRunStarts(PurchaseOrder order) throws SQLException {
+     public boolean notifyClientDeliveryRunStarts(PurchaseOrder order) throws SQLException {
          String subjectLine = "Delivery Run Starts";
          String emailBody = "This email is just to let you know that the delivery is on the way";
 
         if(deliveryStatusDB.updateDeliveryStatusInDelivery(order.getId())){
-            emailService.sendEmail(deliveryDB.getClientEmailFromOrder(order.getId()), subjectLine, emailBody);
+           return emailService.sendEmail(deliveryDB.getClientEmailFromOrder(order.getId()), subjectLine, emailBody);
         }
+        return false;
      }
 }
