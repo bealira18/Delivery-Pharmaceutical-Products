@@ -10,9 +10,12 @@ import lapr.project.model.Drone;
 import lapr.project.model.Path;
 import lapr.project.model.Product;
 import lapr.project.model.Scooter;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  *
@@ -24,6 +27,14 @@ public class GraphAlgorithmsTest {
     Graph<String, String> incompleteMap;
 
     public GraphAlgorithmsTest() {
+    }
+
+    @BeforeAll
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterAll
+    public static void tearDownClass() throws Exception {
     }
 
     @BeforeEach
@@ -65,6 +76,10 @@ public class GraphAlgorithmsTest {
         incompleteMap.removeEdge("Aveiro", "Viseu");
         incompleteMap.removeEdge("Leiria", "Castelo Branco");
         incompleteMap.removeEdge("Lisboa", "Faro");
+    }
+
+    @AfterEach
+    public void tearDown() throws Exception {
     }
 
     /**
@@ -306,7 +321,7 @@ public class GraphAlgorithmsTest {
         List<String> expResult = new ArrayList<>();
         expResult.add("Vehicle of ID 1");
         expResult.add("Total Distance = 1.91km.");
-        expResult.add("Total Energy Consumption = 42.27W.h.");
+        expResult.add("Total Energy Consumption = 37.83W.h.");
         expResult.add("Path Structure");
         expResult.add("casa da musica;conservatorio;trindade;");
 

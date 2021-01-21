@@ -139,13 +139,14 @@ public class PathAlgorithms {
             return 0;
         }
         double totalWeight = AVG_DRONE_WEIGHT + lp.stream().mapToDouble(Product::getWeight).sum();
-
         double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), AVG_DRONE_H_SPEED);
-        double horizontalAeroDrag = 0.5 * AIR_DENSITY * AVG_DRONE_DRAG * AVG_DRONE_FRONTAL * Math.pow(relativeSpeed, 2);
-        double horizontalForce = totalWeight + horizontalAeroDrag;
-        double horizontalPower = horizontalForce * AVG_DRONE_H_SPEED;
 
-        return horizontalPower * calcTime(distance, AVG_DRONE_H_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
+        double horizontalPower = 0.5 * AIR_DENSITY * AVG_DRONE_DRAG * AVG_DRONE_FRONTAL * Math.pow(relativeSpeed, 3);
+        double liftPower = Math.pow(totalWeight, 2) / (AIR_DENSITY * Math.pow(0.5, 2) * relativeSpeed);
+        double tPower = horizontalPower + liftPower;
+        double time = calcTime(distance, AVG_DRONE_H_SPEED);
+
+        return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
     public static double calcDroneEnergy(Path p, Drone d, List<Product> lp) {
@@ -155,13 +156,14 @@ public class PathAlgorithms {
             return 0;
         }
         double totalWeight = AVG_DRONE_WEIGHT + lp.stream().mapToDouble(Product::getWeight).sum();
-
         double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), d.getAverageSpeed());
-        double horizontalAeroDrag = 0.5 * AIR_DENSITY * d.getAerodynamicCoeficient() * d.getFrontalArea() * Math.pow(relativeSpeed, 2);
-        double horizontalForce = totalWeight + horizontalAeroDrag;
-        double horizontalPower = horizontalForce * d.getAverageSpeed();
 
-        return horizontalPower * calcTime(distance, d.getAverageSpeed()) * JOULE_TO_WATTHOUR_CONVERTER;
+        double horizontalPower = 0.5 * AIR_DENSITY * d.getAerodynamicCoeficient() * d.getFrontalArea() * Math.pow(relativeSpeed, 3);
+        double liftPower = Math.pow(totalWeight, 2) / (AIR_DENSITY * Math.pow(0.5, 2) * relativeSpeed);
+        double tPower = horizontalPower + liftPower;
+        double time = calcTime(distance, d.getAverageSpeed());
+
+        return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
     public static double calcTotalDistance(LinkedList<Address> la) {
@@ -206,12 +208,10 @@ public class PathAlgorithms {
         }
         double totalEnergy = 0.0d;
         double totalWeight = AVG_DRONE_WEIGHT + lp.stream().mapToDouble(Product::getWeight).sum();
-        double verticalTime = calcTime((DRONE_ALTITUDE * 2 + Math.abs(la.getLast().getAltitude() - la.getFirst().getAltitude())), AVG_DRONE_V_SPEED);
+        double thrust = totalWeight * GRAVITATIONAL_ACCELERATION;
+        double time = calcTime(DRONE_ALTITUDE * 2, AVG_DRONE_V_SPEED);
 
-        double verticalDrag = 0.5 * AIR_DENSITY * Math.pow(AVG_DRONE_V_SPEED, 2) * AVG_DRONE_DRAG * AVG_DRONE_TOP;
-        double verticalForce = totalWeight + verticalDrag;
-        double verticalPower = verticalForce * AVG_DRONE_V_SPEED;
-        totalEnergy += verticalPower * verticalTime * JOULE_TO_WATTHOUR_CONVERTER;
+        totalEnergy += (thrust / (Math.sqrt(2 * AIR_DENSITY * AVG_DRONE_FRONTAL))) * time * JOULE_TO_WATTHOUR_CONVERTER;
 
         for (int i = 0; i < la.size() - 1; i++) {
 
@@ -228,12 +228,10 @@ public class PathAlgorithms {
         }
         double totalEnergy = 0.0d;
         double totalWeight = d.getWeight() + lp.stream().mapToDouble(Product::getWeight).sum();
-        double verticalTime = calcTime((DRONE_ALTITUDE * 2 + Math.abs(la.getLast().getAltitude() - la.getFirst().getAltitude())), AVG_DRONE_V_SPEED);
+        double thrust = totalWeight * GRAVITATIONAL_ACCELERATION;
+        double time = calcTime(DRONE_ALTITUDE * 2, AVG_DRONE_V_SPEED);
 
-        double verticalDrag = 0.5 * AIR_DENSITY * Math.pow(AVG_DRONE_V_SPEED, 2) * d.getAerodynamicCoeficient() * AVG_DRONE_TOP;
-        double verticalForce = totalWeight + verticalDrag;
-        double verticalPower = verticalForce * AVG_DRONE_V_SPEED;
-        totalEnergy += verticalPower * verticalTime * JOULE_TO_WATTHOUR_CONVERTER;
+        totalEnergy += (thrust / (Math.sqrt(2 * AIR_DENSITY * d.getFrontalArea()))) * time * JOULE_TO_WATTHOUR_CONVERTER;
 
         for (int i = 0; i < la.size() - 1; i++) {
 
