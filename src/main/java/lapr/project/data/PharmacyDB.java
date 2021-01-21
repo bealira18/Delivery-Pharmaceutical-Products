@@ -56,10 +56,10 @@ public class PharmacyDB extends DataHandler {
         }
     }
 
-    private static Pharmacy callGetPharmacy(String identifier, CallableStatement callStmt) throws SQLException {
+    private static Pharmacy callGetPharmacy(int identifier, CallableStatement callStmt) throws SQLException {
         callStmt.registerOutParameter(1, OracleTypes.CURSOR); //standard para o output
 
-        callStmt.setString(2, identifier);
+        callStmt.setInt(2, identifier);
 
         callStmt.execute();
 
@@ -79,7 +79,7 @@ public class PharmacyDB extends DataHandler {
         return null;
     }
 
-    public Pharmacy getPhamacyByID(String pharmacyID) throws SQLException {
+    public Pharmacy getPhamacyByID(int pharmacyID) throws SQLException {
 
         CallableStatement callStmt = null;
         Pharmacy p;
@@ -110,7 +110,7 @@ public class PharmacyDB extends DataHandler {
             rs = stmt.executeQuery("SELECT id_pharmacy FROM pharmacy");
 
             while (rs.next()) {
-                pharmacies.add(getPhamacyByID(rs.getString(1)));
+                pharmacies.add(getPhamacyByID(rs.getInt(1)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -137,10 +137,8 @@ public class PharmacyDB extends DataHandler {
     public boolean updatePharmacy(int id,String name) throws SQLException {
         Pharmacy a;
 
-        String i=Integer.toString(id);
-
         try{
-            a=getPhamacyByID(i);
+            a=getPhamacyByID(id);
             if (a == null) return false;
         } catch (SQLException e) {
             e.printStackTrace();
