@@ -111,9 +111,12 @@ public class PathAlgorithms {
             return 0;
         }
         double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), AVG_SCOOTER_SPEED);
+        double roadSlope = Math.atan((p.getAddress2().getAltitude() - p.getAddress1().getAltitude()) / distance);
+
+        double slopeDrag = (AVG_COURIER_WEIGHT + AVG_SCOOTER_WEIGHT) * GRAVITATIONAL_ACCELERATION * Math.sin(roadSlope);
         double aeroDrag = 0.5 * AIR_DENSITY * AVG_SCOOTER_DRAG * AVG_SCOOTER_FRONTAL * Math.pow(relativeSpeed, 2);
-        double groundDrag = GRAVITATIONAL_ACCELERATION * (AVG_COURIER_WEIGHT + AVG_SCOOTER_WEIGHT) * p.getKineticCoeficient();
-        double totalForce = aeroDrag + groundDrag;
+        double groundDrag = GRAVITATIONAL_ACCELERATION * (AVG_COURIER_WEIGHT + AVG_SCOOTER_WEIGHT) * p.getKineticCoeficient() * Math.cos(roadSlope);
+        double totalForce = slopeDrag + aeroDrag + groundDrag;
 
         return totalForce * AVG_SCOOTER_SPEED * calcTime(distance, AVG_SCOOTER_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
     }
@@ -125,11 +128,13 @@ public class PathAlgorithms {
             return 0;
         }
         double totalWeight = c.getWeight() + AVG_SCOOTER_WEIGHT + lp.stream().mapToDouble(Product::getWeight).sum();
-
         double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), AVG_SCOOTER_SPEED);
+        double roadSlope = Math.atan((p.getAddress2().getAltitude() - p.getAddress1().getAltitude()) / distance);
+
+        double slopeDrag = totalWeight * GRAVITATIONAL_ACCELERATION * Math.sin(roadSlope);
         double aeroDrag = 0.5 * AIR_DENSITY * AVG_SCOOTER_DRAG * AVG_SCOOTER_FRONTAL * Math.pow(relativeSpeed, 2);
-        double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient();
-        double totalForce = aeroDrag + groundDrag;
+        double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient() * Math.cos(roadSlope);
+        double totalForce = slopeDrag + aeroDrag + groundDrag;
 
         return totalForce * AVG_SCOOTER_SPEED * calcTime(distance, AVG_SCOOTER_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
     }
@@ -141,11 +146,13 @@ public class PathAlgorithms {
             return 0;
         }
         double totalWeight = c.getWeight() + s.getWeight() + lp.stream().mapToDouble(Product::getWeight).sum();
-
         double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), s.getAverageSpeed());
+        double roadSlope = Math.atan((p.getAddress2().getAltitude() - p.getAddress1().getAltitude()) / distance);
+
+        double slopeDrag = totalWeight * GRAVITATIONAL_ACCELERATION * Math.sin(roadSlope);
         double aeroDrag = 0.5 * AIR_DENSITY * s.getAerodynamicCoeficient() * s.getFrontalArea() * Math.pow(relativeSpeed, 2);
-        double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient();
-        double totalForce = aeroDrag + groundDrag;
+        double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient() * Math.cos(roadSlope);
+        double totalForce = slopeDrag + aeroDrag + groundDrag;
 
         return totalForce * s.getAverageSpeed() * calcTime(distance, s.getAverageSpeed()) * JOULE_TO_WATTHOUR_CONVERTER;
     }
