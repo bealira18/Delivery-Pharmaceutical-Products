@@ -3,7 +3,11 @@ package lapr.project.controller;
 import java.util.LinkedList;
 import java.util.List;
 import lapr.project.model.Address;
+import lapr.project.model.Courier;
+import lapr.project.model.Drone;
 import lapr.project.model.Path;
+import lapr.project.model.Product;
+import lapr.project.model.Scooter;
 import lapr.project.utils.Graph;
 import lapr.project.utils.GraphAlgorithms;
 
@@ -118,5 +122,17 @@ public class GraphController {
         } else {
             return GraphAlgorithms.writePathToFile(fileName, gDroneEnergy, la, distance, energy, v);
         }
+    }
+
+    public boolean writePathToFile(String fileName, LinkedList<Address> la, double distance, double energy,
+            Courier c, Scooter s, List<Product> lpro) {
+
+        return GraphAlgorithms.writePathToFile(fileName, gScooterEnergy, la, distance, energy, c, s, lpro);
+    }
+
+    public boolean writePathToFile(String fileName, LinkedList<Address> la, double distance, double energy,
+            Drone d, List<Product> lpro) {
+
+        return GraphAlgorithms.writePathToFile(fileName, gDroneEnergy, la, distance, energy, d, lpro);
     }
 }
