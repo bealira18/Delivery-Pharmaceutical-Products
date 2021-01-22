@@ -26,7 +26,7 @@ import lapr.project.controller.VehicleParkingController;
  */
 public class AssemblyWatcher implements Runnable {
 
-    public WatchService asmWatchService = null;
+    public static WatchService asmWatchService = null;
 
     public AssemblyWatcher() {
         try {
@@ -51,7 +51,6 @@ public class AssemblyWatcher implements Runnable {
                 for (WatchEvent<?> event : key.pollEvents()) {
                     
                     matcher = pattern.matcher(event.context().toString());
-                    System.out.println(event.context().toString());
                     
                     if (matcher.find()) {
                         new VehicleParkingController().interpretChargerInfo(event.context().toString().replace(".flag", ""));
@@ -65,6 +64,7 @@ public class AssemblyWatcher implements Runnable {
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(AssemblyWatcher.class.getName()).log(Level.SEVERE, null, ex);
+            Thread.currentThread().interrupt();
         }
     }
 
