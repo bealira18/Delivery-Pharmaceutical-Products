@@ -1,9 +1,9 @@
 package lapr.project.utils;
 
 public final class Constants {
-    
-    private Constants(){
-        
+
+    private Constants() {
+
     }
 
     /**
@@ -87,4 +87,64 @@ public final class Constants {
      * Unitless string to avoid duplication.
      */
     public static final String UNITLESS_NEWLINE = " (unitless).\n";
+    /**
+     * m2 string to avoid duplication.
+     */
+    public static final String M2_NEWLINE = "m2.\n";
+    /**
+     * km string to avoid duplication.
+     */
+    public static final String KM_NEWLINE = "km.\n";
+    /**
+     * Degrees string to avoid duplication.
+     */
+    public static final String D_NEWLINE = " Degrees.\n";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String V_SPECS = "Vehicle Specifications :\n";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String D_STRING = "Drone";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String P_PATH = "Projected Path :\n";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String T_DIST = "Total Distance = ";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String T_E_CONS = "Total Energy Consumption = ";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String P_STR = "Path Structure :\n";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String P_KIN_CO = "Path Kinetic Coefficient = ";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String P_WIN_A = "Path Wind Angle = ";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String P_WIN_S = "Path Wind Speed = ";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String R_SLO_A = "Road Slope Angle = ";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String DIST = "Distance = ";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String ENERGY = "Energy = ";
 }
