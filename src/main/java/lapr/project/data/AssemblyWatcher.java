@@ -8,6 +8,7 @@ package lapr.project.data;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardWatchEventKinds;
@@ -26,7 +27,7 @@ import lapr.project.controller.VehicleParkingController;
  */
 public class AssemblyWatcher implements Runnable {
 
-    private static WatchService asmWatchService;
+    private WatchService asmWatchService;
 
     public AssemblyWatcher() {
         try {
@@ -54,15 +55,13 @@ public class AssemblyWatcher implements Runnable {
                     
                     if (matcher.find()) {
                         new VehicleParkingController().interpretChargerInfo(event.context().toString().replace(".flag", ""));
-                        File flag = new File(System.getProperty("charger.comm.dir") + event.context().toString());
-                        if (flag.exists())
-                            flag.delete();
+                        Files.delete(FileSystems.getDefault().getPath(System.getProperty("charger.comm.dir") + event.context().toString()));
                     }
 
                 }
                 key.reset();
             }
-        } catch (InterruptedException ex) {
+        } catch (InterruptedException | IOException ex) {
             Logger.getLogger(AssemblyWatcher.class.getName()).log(Level.SEVERE, null, ex);
             Thread.currentThread().interrupt();
         }
