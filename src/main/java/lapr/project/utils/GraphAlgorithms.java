@@ -109,7 +109,6 @@ public class GraphAlgorithms {
             for (int i = 0; i < la.size() - 1; i++) {
                 Path p = g.getEdge(la.get(i), la.get(i + 1)).getElement();
                 double distance2 = PathAlgorithms.calcDistance(la.get(i), la.get(i + 1));
-                totalEnergy += g.getEdge(la.get(i), la.get(i + 1)).getWeight();
                 double roadSlope = Math.toDegrees(Math.atan((p.getAddress2().getAltitude() - p.getAddress1().getAltitude()) / distance2));
 
                 bw.newLine();
@@ -119,7 +118,13 @@ public class GraphAlgorithms {
                 bw.write("Path Wind Speed = " + String.format(Locale.ROOT, "%.2f", p.getWindSpeed()) + M_S_NEWLINE);
                 bw.write("Road Slope Angle = " + String.format(Locale.ROOT, "%.2f", roadSlope) + " Degrees.\n");
                 bw.write("Distance = " + String.format(Locale.ROOT, "%.2f", distance2 / 1000) + "km.\n");
-                bw.write("Energy = " + String.format(Locale.ROOT, "%.2f", g.getEdge(la.get(i), la.get(i + 1)).getWeight()) + WH_NEWLINE);
+                if ("Drone".equalsIgnoreCase(vehicle)) {
+                    totalEnergy += PathAlgorithms.calcDroneEnergy(p);
+                    bw.write("Energy = " + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcDroneEnergy(p)) + WH_NEWLINE);
+                }
+                if ("Scooter".equalsIgnoreCase(vehicle)) {
+                    bw.write("Energy = " + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcScooterEnergy(p)) + WH_NEWLINE);
+                }
             }
             if ("Drone".equalsIgnoreCase(vehicle)) {
                 bw.newLine();

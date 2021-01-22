@@ -341,14 +341,13 @@ public class GraphAlgorithmsTest {
         la.add(a3);
         lp.add(new Path(a1, a2, 0, 90, 12));
         lp.add(new Path(a2, a3, 0, 90, 12));
-        GraphAlgorithms.fillGraphEnergy(false, g, la, lp);
+        GraphAlgorithms.fillGraphEnergy(true, g, la, lp);
 
         LinkedList<Address> lla = new LinkedList<>();
         lla.add(a1);
         lla.add(a2);
         lla.add(a3);
 
-        Scooter s = new Scooter(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1);
         Courier c = new Courier("", "", "", 1, 1, 1, 70);
         List<Product> lpro = new ArrayList<>();
 
@@ -376,7 +375,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Path Wind Speed = 12.00m/s.");
         expResult.add("Road Slope Angle = -0.33 Degrees.");
         expResult.add("Distance = 0.69km.");
-        expResult.add("Energy = 13.49W.h.");
+        expResult.add("Energy = 10.06W.h.");
         expResult.add("");
         expResult.add("conservatorio -> trindade");
         expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
@@ -384,7 +383,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Path Wind Speed = 12.00m/s.");
         expResult.add("Road Slope Angle = 0.33 Degrees.");
         expResult.add("Distance = 1.22km.");
-        expResult.add("Energy = 24.29W.h.");
+        expResult.add("Energy = 21.01W.h.");
 
         GraphAlgorithms.writePathToFile(fileName, g, lla, distance, energy, "Scooter");
         List<String> result = Utils.readFile(fileName);
