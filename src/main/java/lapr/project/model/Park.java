@@ -8,8 +8,9 @@ public class Park {
     private int numChargingStations;
     private String category;
     private Address address;
+    private double maxChargingPotency;
 
-    public Park(int scooterParkId, int pharmacyId, int limit, int numChargingStations, String category, Address address) {
+    public Park(int scooterParkId, int pharmacyId, int limit, int numChargingStations, String category, Address address, double maxChargingPotency) {
 
         this.scooterParkId = scooterParkId;
         this.pharmacyId = pharmacyId;
@@ -17,6 +18,7 @@ public class Park {
         this.numChargingStations = numChargingStations;
         this.category = category;
         this.address = address;
+        this.maxChargingPotency = maxChargingPotency;
     }
 
     public int getScooterParkId() {
@@ -49,6 +51,10 @@ public class Park {
         return address;
     }
 
+    public double getMaxChargingPotency() {
+        return maxChargingPotency;
+    }
+
     public void setScooterParkId(int scooterParkId) {
 
         this.scooterParkId = scooterParkId;
@@ -79,10 +85,21 @@ public class Park {
         this.address = address;
     }
 
+    public void setMaxChargingPotency(double maxChargingPotency) {
+        this.maxChargingPotency = maxChargingPotency;
+    }
+
     @Override
     public String toString() {
-
-        return "ScooterPark{" + "scooterParkId=" + scooterParkId + ", pharmacyId=" + pharmacyId + ", limit=" + limit + ", numChargingStations=" + numChargingStations + ", category=" + category + ", address=" + address + '}';
+        return "Park{" +
+                "scooterParkId=" + scooterParkId +
+                ", pharmacyId=" + pharmacyId +
+                ", limit=" + limit +
+                ", numChargingStations=" + numChargingStations +
+                ", category='" + category + '\'' +
+                ", address=" + address +
+                ", maxChargingPotency=" + maxChargingPotency +
+                '}';
     }
 
     @Override

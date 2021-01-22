@@ -29,7 +29,7 @@ class AddParkControllerTest {
     public static void setUpClass() throws SQLException {
 
         Address a = new Address("TestAddress", 0, 0, 0);
-        Park park = new Park(1, 1, 1,1, "TestCategory", a);
+        Park park = new Park(1, 1, 1,1, "TestCategory", a, 500);
 
         AddressDB aDB = mock(AddressDB.class);
         ParkDB pDB = mock(ParkDB.class);
@@ -52,7 +52,7 @@ class AddParkControllerTest {
         System.out.println("addCourier");
 
         Address a = new Address("TestAddress", 0, 0, 0);
-        Park park = new Park(1, 1, 1,1, "TestCategory", a);
+        Park park = new Park(1, 1, 1,1, "TestCategory", a, 500);
 
         boolean expResult = true;
         boolean result = controller.addPark(park);
