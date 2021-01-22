@@ -60,7 +60,7 @@ class Main {
 
         //AddDroneController
         /*AddDroneController addDroneController = new AddDroneController();
-        Drone drone = new Drone(11, 1, 20, 40, 50, 60, 10, 100, 1, 1, 1, 1);
+        Drone drone = new Drone(11, 1, 20, 40, 0, 60, 10, 100, 1, 1, 1, 1);
         Drone drone1 = new Drone(12, 1, 20, 40, 50, 60, 10, 100, 1, 1, 1, 1);
         Drone drone2 = new Drone(13, 1, 20, 40, 50, 60, 10, 100, 1, 1, 1, 1);
         Drone drone3 = new Drone(14, 1, 20, 40, 50, 60, 10, 100, 1, 1, 1, 1);
@@ -76,13 +76,13 @@ class Main {
 
 
         //AddParkController
-        AddParkController addParkController = new AddParkController();
+        /*AddParkController addParkController = new AddParkController();
         Address a = new Address("teste", 0, 0, 0);
         Park park = new Park(3, 1, 1,1, "scooter", a, 5000);
         System.out.println(addParkController.addPark(park));
         Address a2 = new Address("isep", 0, 0, 0);
         Park park2 = new Park(3, 1, 1,1, "scooter", a2, 50000);
-        System.out.println(addParkController.addPark(park2));
+        System.out.println(addParkController.addPark(park2));*/
 
 
         //AddPharmacyController
@@ -106,14 +106,22 @@ class Main {
 
         //AddScooterController
         /*AddScooterController addScooterController = new AddScooterController();
-        Scooter scooter1 = new Scooter(0, 1, 20, 40, 50, 60, 10, 100, 1);
+        Scooter scooter1 = new Scooter(0, 1, 20, 40, 50, 60, 10, 100, 1, 1);
         System.out.println(addScooterController.addScooter(scooter1));*/
 
 
         //AssignOrderToCourierScooterController --------------------------------------------------------------------------
 
 
+        //CreateInvoiceController ---------------------------------------------------------------------------------------
+
+
+        //GeographicalController ----------------------------------------------------------------------------------------
+
+
         //GetDronesController -------------------------------------------------------------------------------------------
+        /*GetDronesController getDronesController = new GetDronesController();
+        getDronesController.getDrones(1);*/
 
 
         //GetProductsController
@@ -122,9 +130,16 @@ class Main {
 
 
         //GraphController ----------------------------------------------------------------------------------------------
+        GraphController graphController = new GraphController();
+
 
 
         //ManageCreditsController --------------------------------------------------------------------------------------
+
+
+        //PurchaseItemsControlle
+        PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
+        //purchaseItemsController
 
 
         //RegisterClientController

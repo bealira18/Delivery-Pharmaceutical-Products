@@ -46,6 +46,10 @@ public class GeographicalController {
         return aDB.getPharmacyAddresses();
     }
 
+    public List<Path> getPaths(List<Address> la) throws SQLException {
+        return pDB.getPaths(la);
+    }
+
     public void addPaths(List<Path> lp) {
 
         for (Path p : lp) {
@@ -67,4 +71,5 @@ public class GeographicalController {
 
         pDB.removePath(a1, a2);
     }
+
 }

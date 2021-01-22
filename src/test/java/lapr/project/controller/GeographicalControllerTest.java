@@ -94,6 +94,32 @@ public class GeographicalControllerTest {
     }
 
     /**
+     * Test of getPaths method, of class GeographicalController.
+     */
+    @Test
+    public void testGetPaths() throws Exception {
+
+        System.out.println("getPaths");
+        AddressDB aDB = mock(AddressDB.class);
+        PathDB pDB = mock(PathDB.class);
+
+        List<Address> la = new ArrayList<>();
+        la.add(new Address("Test", 0, 0, 0));
+        la.add(new Address("Test2", 0, 0, 0));
+
+        List<Path> expResult = new ArrayList<>();
+        expResult.add(new Path(new Address("Test", 0, 0, 0),
+                new Address("Test2", 0, 0, 0), 0, 0, 0));
+        expResult.add(new Path(new Address("Test2", 0, 0, 0),
+                new Address("Test", 0, 0, 0), 0, 0, 0));
+
+        when(pDB.getPaths(la)).thenReturn(expResult);
+        GeographicalController instance = new GeographicalController(aDB, pDB);
+        List<Path> result = instance.getPaths(la);
+        assertEquals(expResult, result);
+    }
+
+    /**
      * Test of addPaths method, of class GeographicalController.
      */
     @Test
