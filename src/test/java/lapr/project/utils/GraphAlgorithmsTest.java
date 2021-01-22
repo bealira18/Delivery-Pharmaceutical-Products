@@ -10,9 +10,12 @@ import lapr.project.model.Drone;
 import lapr.project.model.Path;
 import lapr.project.model.Product;
 import lapr.project.model.Scooter;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  *
@@ -24,6 +27,14 @@ public class GraphAlgorithmsTest {
     Graph<String, String> incompleteMap;
 
     public GraphAlgorithmsTest() {
+    }
+
+    @BeforeAll
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterAll
+    public static void tearDownClass() throws Exception {
     }
 
     @BeforeEach
@@ -65,6 +76,10 @@ public class GraphAlgorithmsTest {
         incompleteMap.removeEdge("Aveiro", "Viseu");
         incompleteMap.removeEdge("Leiria", "Castelo Branco");
         incompleteMap.removeEdge("Lisboa", "Faro");
+    }
+
+    @AfterEach
+    public void tearDown() throws Exception {
     }
 
     /**
@@ -278,7 +293,7 @@ public class GraphAlgorithmsTest {
         lla.add(a2);
         lla.add(a3);
 
-        Drone d = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 0.5,9,1);
+        Drone d = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 0.5, 9, 1);
         List<Product> lpro = new ArrayList<>();
 
         double distance = PathAlgorithms.calcTotalDistance(lla) / 1000;
@@ -973,5 +988,246 @@ public class GraphAlgorithmsTest {
 
         la = null;
         GraphAlgorithms.fillGraphEnergy(scooterOrDrone, g, la, lp);
+    }
+
+    /**
+     * Test of writePathToFile method, of class GraphAlgorithms.
+     */
+    @Test
+    public void testWritePathToFile_8args() {
+
+        System.out.println("writePathToFile");
+        String fileName = "pathTest.csv";
+
+        Graph<Address, Path> g = new Graph<>(true);
+        List<Address> la = new ArrayList<>();
+        List<Path> lp = new ArrayList<>();
+
+        Address a1 = new Address("casa da musica", 41.158056, 8.630556, 83);
+        Address a2 = new Address("conservatorio", 41.155556, 8.623056, 79);
+        Address a3 = new Address("trindade", 41.151667, 8.609444, 86);
+        la.add(a1);
+        la.add(a2);
+        la.add(a3);
+        lp.add(new Path(a1, a2, 0, 90, 12));
+        lp.add(new Path(a2, a3, 0, 90, 12));
+        lp.add(new Path(a2, a1, 0, 90, 12));
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        LinkedList<Address> lla = new LinkedList<>();
+        lla.add(a1);
+        lla.add(a2);
+        lla.add(a3);
+
+        Courier c = new Courier("TestMail", "TestPass", "Name", 0, 0, 0, 80.0);
+        Scooter s = new Scooter(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1);
+        List<Product> lpro = new ArrayList<>();
+
+        double distance = PathAlgorithms.calcTotalDistance(lla) / 1000;
+        double energy = PathAlgorithms.calcScooterTotalEnergy(g, lla, c, s, lpro);
+
+        boolean expResult = true;
+        boolean result = GraphAlgorithms.writePathToFile(fileName, g, lla, distance, energy, c, s, lpro);
+        assertEquals(expResult, result);
+
+        expResult = false;
+        lla = new LinkedList<>();
+        result = GraphAlgorithms.writePathToFile(fileName, g, lla, distance, energy, c, s, lpro);
+        assertEquals(expResult, result);
+
+        fileName = "    ||    []*  +/8)as0         as:_   asas\\asd\\as.acc<.aa.s.d,,sd";
+        result = GraphAlgorithms.writePathToFile(fileName, g, lla, distance, energy, c, s, lpro);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testWritePathToFile_8args2() {
+
+        System.out.println("writePathToFile3");
+        String fileName = "pathTest4.csv";
+
+        Graph<Address, Path> g = new Graph<>(true);
+        List<Address> la = new ArrayList<>();
+        List<Path> lp = new ArrayList<>();
+
+        Address a1 = new Address("casa da musica", 41.158056, 8.630556, 83);
+        Address a2 = new Address("conservatorio", 41.155556, 8.623056, 79);
+        Address a3 = new Address("trindade", 41.151667, 8.609444, 86);
+        la.add(a1);
+        la.add(a2);
+        la.add(a3);
+        lp.add(new Path(a1, a2, 0, 90, 12));
+        lp.add(new Path(a2, a3, 0, 90, 12));
+        GraphAlgorithms.fillGraphEnergy(true, g, la, lp);
+
+        LinkedList<Address> lla = new LinkedList<>();
+        lla.add(a1);
+        lla.add(a2);
+        lla.add(a3);
+
+        Courier c = new Courier("", "", "", 1, 1, 1, 70);
+        Scooter s = new Scooter(1, 1, 15, 1.1, 1.1, 200, 200, 200, 8.9, 1);
+        List<Product> lpro = new ArrayList<>();
+        lpro.add(new Product(1, "", 0, 20, 0));
+
+        double distance = PathAlgorithms.calcTotalDistance(lla) / 1000;
+        double energy = PathAlgorithms.calcScooterTotalEnergy(g, lla, c, s, lpro);
+
+        List<String> expResult = new ArrayList<>();
+        expResult.add("Vehicle Type -> Scooter");
+        expResult.add("Vehicle Specifications :");
+        expResult.add("Scooter Speed = 8.90m/s.");
+        expResult.add("Scooter Weight (excluding load) = 15.00kg.");
+        expResult.add("Courier Weight = 70.00kg.");
+        expResult.add("Load Weight = 20.00kg.");
+        expResult.add("Scooter Aerodynamic Coefficient = 1.10 (unitless).");
+        expResult.add("Scooter Frontal Area (considering upright human) = 1.10m2.");
+        expResult.add("");
+        expResult.add("Projected Path :");
+        expResult.add("Total Distance = 1.91km.");
+        expResult.add("Total Energy Consumption = 31.23W.h.");
+        expResult.add("");
+        expResult.add("Path Structure :");
+        expResult.add("");
+        expResult.add("casa da musica -> conservatorio");
+        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Wind Angle = 90.00 Degrees.");
+        expResult.add("Path Wind Speed = 12.00m/s.");
+        expResult.add("Road Slope Angle = -0.33 Degrees.");
+        expResult.add("Distance = 0.69km.");
+        expResult.add("Energy = 9.84W.h.");
+        expResult.add("");
+        expResult.add("conservatorio -> trindade");
+        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Wind Angle = 90.00 Degrees.");
+        expResult.add("Path Wind Speed = 12.00m/s.");
+        expResult.add("Road Slope Angle = 0.33 Degrees.");
+        expResult.add("Distance = 1.22km.");
+        expResult.add("Energy = 21.39W.h.");
+
+        GraphAlgorithms.writePathToFile(fileName, g, lla, distance, energy, c, s, lpro);
+        List<String> result = Utils.readFile(fileName);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of writePathToFile method, of class GraphAlgorithms.
+     */
+    @Test
+    public void testWritePathToFile_7args() {
+
+        System.out.println("writePathToFile");
+        String fileName = "pathTest.csv";
+
+        Graph<Address, Path> g = new Graph<>(true);
+        List<Address> la = new ArrayList<>();
+        List<Path> lp = new ArrayList<>();
+
+        Address a1 = new Address("casa da musica", 41.158056, 8.630556, 83);
+        Address a2 = new Address("conservatorio", 41.155556, 8.623056, 79);
+        Address a3 = new Address("trindade", 41.151667, 8.609444, 86);
+        la.add(a1);
+        la.add(a2);
+        la.add(a3);
+        lp.add(new Path(a1, a2, 0, 90, 12));
+        lp.add(new Path(a2, a3, 0, 90, 12));
+        lp.add(new Path(a2, a1, 0, 90, 12));
+        GraphAlgorithms.fillGraph(g, la, lp);
+
+        LinkedList<Address> lla = new LinkedList<>();
+        lla.add(a1);
+        lla.add(a2);
+        lla.add(a3);
+
+        Drone d = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1, 0.5, 9);
+        List<Product> lpro = new ArrayList<>();
+
+        double distance = PathAlgorithms.calcTotalDistance(lla) / 1000;
+        double energy = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
+
+        boolean expResult = true;
+        boolean result = GraphAlgorithms.writePathToFile(fileName, g, lla, distance, energy, d, lpro);
+        assertEquals(expResult, result);
+
+        expResult = false;
+        lla = new LinkedList<>();
+        result = GraphAlgorithms.writePathToFile(fileName, g, lla, distance, energy, d, lpro);
+        assertEquals(expResult, result);
+
+        fileName = "    ||    []*  +/8)as0         as:_   asas\\asd\\as.acc<.aa.s.d,,sd";
+        result = GraphAlgorithms.writePathToFile(fileName, g, lla, distance, energy, d, lpro);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testWritePathToFile_7args2() {
+
+        System.out.println("writePathToFile2");
+        String fileName = "pathTest5.csv";
+
+        Graph<Address, Path> g = new Graph<>(true);
+        List<Address> la = new ArrayList<>();
+        List<Path> lp = new ArrayList<>();
+
+        Address a1 = new Address("casa da musica", 41.158056, 8.630556, 83);
+        Address a2 = new Address("conservatorio", 41.155556, 8.623056, 79);
+        Address a3 = new Address("trindade", 41.151667, 8.609444, 86);
+        la.add(a1);
+        la.add(a2);
+        la.add(a3);
+        lp.add(new Path(a1, a2, 0, 90, 12));
+        lp.add(new Path(a2, a3, 0, 90, 12));
+        GraphAlgorithms.fillGraphEnergy(false, g, la, lp);
+
+        LinkedList<Address> lla = new LinkedList<>();
+        lla.add(a1);
+        lla.add(a2);
+        lla.add(a3);
+
+        Drone d = new Drone(1, 1, 5.0, 0.6, 0.4, 1.0, 1.0, 1.0, 22.36, 0.5, 9, 1);
+        List<Product> lpro = new ArrayList<>();
+        lpro.add(new Product(1, "", 0, 3, 0));
+
+        double distance = PathAlgorithms.calcTotalDistance(lla) / 1000;
+        double energy = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
+
+        List<String> expResult = new ArrayList<>();
+        expResult.add("Vehicle Type -> Drone");
+        expResult.add("Vehicle Specifications :");
+        expResult.add("Drone Horizontal Speed = 22.36m/s.");
+        expResult.add("Drone Vertical Speed = 9.00m/s.");
+        expResult.add("Drone Weight (excluding load) = 5.00kg.");
+        expResult.add("Load Weight = 3.00kg.");
+        expResult.add("Drone Aerodynamic Coefficient = 0.60 (unitless).");
+        expResult.add("Drone Frontal Area = 0.40m2.");
+        expResult.add("Drone Width = 0.50m.");
+        expResult.add("");
+        expResult.add("Projected Path :");
+        expResult.add("Total Distance = 1.91km.");
+        expResult.add("Total Energy Consumption = 38.60W.h.");
+        expResult.add("");
+        expResult.add("Path Structure :");
+        expResult.add("");
+        expResult.add("casa da musica -> conservatorio");
+        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Wind Angle = 90.00 Degrees.");
+        expResult.add("Path Wind Speed = 12.00m/s.");
+        expResult.add("Road Slope Angle = -0.33 Degrees.");
+        expResult.add("Distance = 0.69km.");
+        expResult.add("Energy = 13.49W.h.");
+        expResult.add("");
+        expResult.add("conservatorio -> trindade");
+        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Wind Angle = 90.00 Degrees.");
+        expResult.add("Path Wind Speed = 12.00m/s.");
+        expResult.add("Road Slope Angle = 0.33 Degrees.");
+        expResult.add("Distance = 1.22km.");
+        expResult.add("Energy = 24.29W.h.");
+        expResult.add("");
+        expResult.add("Vertical Energy Consumption = 0.82W.h.");
+
+        GraphAlgorithms.writePathToFile(fileName, g, lla, distance, energy, d, lpro);
+        List<String> result = Utils.readFile(fileName);
+        assertEquals(expResult, result);
     }
 }
