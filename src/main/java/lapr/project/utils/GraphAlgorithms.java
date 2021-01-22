@@ -85,24 +85,24 @@ public class GraphAlgorithms {
             bw.write("Vehicle Type -> " + vehicle + "\n");
             bw.write("Vehicle Specifications :\n");
             if ("Drone".equalsIgnoreCase(vehicle)) {
-                bw.write("Drone Horizontal Speed = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_H_SPEED) + "m/s.\n");
-                bw.write("Drone Vertical Speed = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_V_SPEED) + "m/s.\n");
-                bw.write("Drone Weight (excluding load) = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_WEIGHT) + "kg.\n");
-                bw.write("Drone Aerodynamic Coefficient = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_DRAG) + " (unitless).\n");
+                bw.write("Drone Horizontal Speed = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_H_SPEED) + M_S_NEWLINE);
+                bw.write("Drone Vertical Speed = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_V_SPEED) + M_S_NEWLINE);
+                bw.write("Drone Weight (excluding load) = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_WEIGHT) + KG_NEWLINE);
+                bw.write("Drone Aerodynamic Coefficient = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_DRAG) + UNITLESS_NEWLINE);
                 bw.write("Drone Frontal Area = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_FRONTAL) + "m2.\n");
                 bw.write("Drone Width = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_WIDTH) + "m.\n");
             }
             if ("Scooter".equalsIgnoreCase(vehicle)) {
-                bw.write("Scooter Speed = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_SPEED) + "m/s.\n");
-                bw.write("Scooter Weight (excluding load) = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_WEIGHT) + "kg.\n");
-                bw.write("Courier Weight = " + String.format(Locale.ROOT, "%.2f", AVG_COURIER_WEIGHT) + "kg.\n");
-                bw.write("Scooter Aerodynamic Coefficient = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_DRAG) + " (unitless).\n");
+                bw.write("Scooter Speed = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_SPEED) + M_S_NEWLINE);
+                bw.write("Scooter Weight (excluding load) = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_WEIGHT) + KG_NEWLINE);
+                bw.write("Courier Weight = " + String.format(Locale.ROOT, "%.2f", AVG_COURIER_WEIGHT) + KG_NEWLINE);
+                bw.write("Scooter Aerodynamic Coefficient = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_DRAG) + UNITLESS_NEWLINE);
                 bw.write("Scooter Frontal Area (considering upright human) = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_FRONTAL) + "m2.\n");
             }
             bw.newLine();
             bw.write("Projected Path :\n");
             bw.write("Total Distance = " + String.format(Locale.ROOT, "%.2f", distance) + "km.\n");
-            bw.write("Total Energy Consumption = " + String.format(Locale.ROOT, "%.2f", energy) + "W.h.\n");
+            bw.write("Total Energy Consumption = " + String.format(Locale.ROOT, "%.2f", energy) + WH_NEWLINE);
             bw.newLine();
             bw.write("Path Structure :\n");
 
@@ -114,16 +114,16 @@ public class GraphAlgorithms {
 
                 bw.newLine();
                 bw.write(p.getAddress1().getDescription() + " -> " + p.getAddress2().getDescription() + "\n");
-                bw.write("Path Kinetic Coefficient = " + String.format(Locale.ROOT, "%.2f", p.getKineticCoeficient()) + " (unitless).\n");
+                bw.write("Path Kinetic Coefficient = " + String.format(Locale.ROOT, "%.2f", p.getKineticCoeficient()) + UNITLESS_NEWLINE);
                 bw.write("Path Wind Angle = " + String.format(Locale.ROOT, "%.2f", p.getWindAngle()) + " Degrees.\n");
-                bw.write("Path Wind Speed = " + String.format(Locale.ROOT, "%.2f", p.getWindSpeed()) + "m/s.\n");
+                bw.write("Path Wind Speed = " + String.format(Locale.ROOT, "%.2f", p.getWindSpeed()) + M_S_NEWLINE);
                 bw.write("Road Slope Angle = " + String.format(Locale.ROOT, "%.2f", roadSlope) + " Degrees.\n");
                 bw.write("Distance = " + String.format(Locale.ROOT, "%.2f", distance2 / 1000) + "km.\n");
-                bw.write("Energy = " + String.format(Locale.ROOT, "%.2f", g.getEdge(la.get(i), la.get(i + 1)).getWeight()) + "W.h.\n");
+                bw.write("Energy = " + String.format(Locale.ROOT, "%.2f", g.getEdge(la.get(i), la.get(i + 1)).getWeight()) + WH_NEWLINE);
             }
             if ("Drone".equalsIgnoreCase(vehicle)) {
                 bw.newLine();
-                bw.write("Vertical Energy Consumption = " + String.format(Locale.ROOT, "%.2f", energy - totalEnergy) + "W.h.\n");
+                bw.write("Vertical Energy Consumption = " + String.format(Locale.ROOT, "%.2f", energy - totalEnergy) + WH_NEWLINE);
             }
         } catch (IOException ex) {
             Logger.getLogger(GraphAlgorithms.class.getName()).log(Level.SEVERE, null, ex);

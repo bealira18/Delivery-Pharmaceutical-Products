@@ -67,4 +67,20 @@ public final class Constants {
      * How many Wh a J is worth.
      */
     public static final double JOULE_TO_WATTHOUR_CONVERTER = 0.00027777777777778;
+    /**
+     * m/s string to avoid duplication.
+     */
+    public static final String M_S_NEWLINE = "m/s.\n";
+    /**
+     * kg string to avoid duplication.
+     */
+    public static final String KG_NEWLINE = "kg.\n";
+    /**
+     * W.h string to avoid duplication.
+     */
+    public static final String WH_NEWLINE = "W.h.\n";
+    /**
+     * Unitless string to avoid duplication.
+     */
+    public static final String UNITLESS_NEWLINE = " (unitless).\n";
 }
