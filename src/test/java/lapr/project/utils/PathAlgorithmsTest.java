@@ -87,20 +87,20 @@ public class PathAlgorithmsTest {
         Courier c = new Courier("TestMail", "TestPass", "TestName", 0, 0, 1, 80);
         List<Product> lp = new ArrayList<>();
 
-        double expResult = 59443.430256389234;
+        double expResult = 62192.8232407537;
         double result = PathAlgorithms.calcScooterEnergy(p, c, lp);
         assertEquals(expResult, result, 0);
 
         p = new Path(a1, a2, 0.7, 90, 12);
         c = new Courier("TestMail", "TestPass", "TestName", 0, 0, 1, 100);
 
-        expResult = 71475.48697977564;
+        expResult = 74224.87996414013;
         result = PathAlgorithms.calcScooterEnergy(p, c, lp);
         assertEquals(expResult, result, 0);
 
         lp.add(new Product(0, "Test", 0.0, -10, 0));
 
-        expResult = 65459.45861808243;
+        expResult = 68208.85160244691;
         result = PathAlgorithms.calcScooterEnergy(p, c, lp);
         assertEquals(expResult, result, 0);
 
@@ -177,7 +177,7 @@ public class PathAlgorithmsTest {
 
         Courier c = new Courier("TestMail", "TestPass", "Name", 0, 0, 0, 80.0);
         List<Product> lpro = new ArrayList<>();
-        double expResult = 14.576764266689551;
+        double expResult = 31.150622467562194;
         double result = PathAlgorithms.calcScooterTotalEnergy(g, lla, c, lpro);
         assertEquals(expResult, result, 0);
 
@@ -564,7 +564,7 @@ public class PathAlgorithmsTest {
         Address a2 = new Address("Test2", 46, 48.7749, 678);
         Path p = new Path(a1, a2, 0.7, 90, 12);
 
-        double expResult = 53370.57654629474;
+        double expResult = 56119.96953065921;
         double result = PathAlgorithms.calcScooterEnergy(p);
         assertEquals(expResult, result, 0);
 

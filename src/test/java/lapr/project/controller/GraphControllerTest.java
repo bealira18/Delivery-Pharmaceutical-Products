@@ -404,16 +404,28 @@ public class GraphControllerTest {
         Address aDest = new Address("Test2", 0, 0, 0);
         la.add(aOrig);
         la.add(aDest);
+        Path p = new Path(aOrig, aDest, 0, 0, 0);
+        List<Address> la2 = new ArrayList<>(la);
+        List<Path> lp = new ArrayList<>();
+        lp.add(p);
         double distance = 200;
         double energy = 300;
         GraphController instance = new GraphController();
+        instance.fillGraphScooterEnergy(la2, lp);
+        instance.fillGraphDroneEnergy(la2, lp);
         boolean expResult = true;
-        boolean result = instance.writePathToFile(fileName, la, distance, energy, "Vehicle");
+        boolean result = instance.writePathToFile(true, fileName, la, distance, energy, "Scooter");
+        assertEquals(expResult, result);
+
+        result = instance.writePathToFile(false, fileName, la, distance, energy, "Drone");
         assertEquals(expResult, result);
 
         fileName = "";
         expResult = false;
-        result = instance.writePathToFile(fileName, la, distance, energy, "Vehicle");
+        result = instance.writePathToFile(true, fileName, la, distance, energy, "Scooter");
+        assertEquals(expResult, result);
+
+        result = instance.writePathToFile(false, fileName, la, distance, energy, "Drone");
         assertEquals(expResult, result);
     }
 
@@ -582,7 +594,7 @@ public class GraphControllerTest {
         gCont.fillGraphScooterEnergy(la, lp);
 
         LinkedList<Address> shortPath = new LinkedList<>();
-        double expResult = 4.52594775871151;
+        double expResult = 14.64144806910326;
         double result = gCont.getShortestPathEnergy(scooterOrDrone, a1, a11, shortPath);
         assertEquals(expResult, result, 0);
 
@@ -686,7 +698,7 @@ public class GraphControllerTest {
         Address aOrig = a1;
         Address aDest = a2;
 
-        double expResult = 95.29854083854472;
+        double expResult = 210.770867458709;
         double result = gCont.getShortestPathThroughNodesEnergy(scooterOrDrone, aOrig, aDest, lNodes, path);
         assertEquals(expResult, result, 0);
 

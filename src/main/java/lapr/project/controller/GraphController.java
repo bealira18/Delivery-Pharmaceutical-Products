@@ -110,9 +110,14 @@ public class GraphController {
         }
     }
 
-    public boolean writePathToFile(String fileName, LinkedList<Address> la,
+    public boolean writePathToFile(boolean scooterOrDrone, String fileName, LinkedList<Address> la,
             double distance, double energy, String v) {
 
-        return GraphAlgorithms.writePathToFile(fileName, la, distance, energy, v);
+        if (scooterOrDrone) {
+            return GraphAlgorithms.writePathToFile(fileName, gScooterEnergy, la, distance, energy, v);
+
+        } else {
+            return GraphAlgorithms.writePathToFile(fileName, gDroneEnergy, la, distance, energy, v);
+        }
     }
 }
