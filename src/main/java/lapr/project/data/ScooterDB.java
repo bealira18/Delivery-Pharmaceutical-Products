@@ -18,7 +18,8 @@ public class ScooterDB extends DataHandler {
         try {
             openConnection();
             return addScooter(scooter.getIdVehicle(), scooter.getIdPharmacy(), scooter.getWeight(), scooter.getAerodynamicCoeficient(),
-                    scooter.getFrontalArea(), scooter.getMotor(), scooter.getCurrentBattery(), scooter.getMaxBattery(), scooter.getScooterStatusId());
+                    scooter.getFrontalArea(), scooter.getMotor(), scooter.getCurrentBattery(), scooter.getMaxBattery(),
+                    scooter.getAverageSpeed(), scooter.getScooterStatusId());
 
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -28,12 +29,12 @@ public class ScooterDB extends DataHandler {
     }
 
     public boolean addScooter(int idScooter, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
-            double motor, double currentBattery, double maxBattery, int scooterStatusId) throws SQLException {
+            double motor, double currentBattery, double maxBattery, double averageSpeed, int scooterStatusId) throws SQLException {
 
         CallableStatement callStmt = null;
 
         try {
-            callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1, idScooter);
             callStmt.setInt(2, idPharmacy);
@@ -43,7 +44,8 @@ public class ScooterDB extends DataHandler {
             callStmt.setDouble(6, motor);
             callStmt.setDouble(7, currentBattery);
             callStmt.setDouble(8, maxBattery);
-            callStmt.setInt(9, scooterStatusId);
+            callStmt.setDouble(9, averageSpeed);
+            callStmt.setInt(10, scooterStatusId);
 
             callStmt.execute();
             return true;

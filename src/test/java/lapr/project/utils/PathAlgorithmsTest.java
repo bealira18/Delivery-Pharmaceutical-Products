@@ -376,7 +376,7 @@ public class PathAlgorithmsTest {
         Address a1 = new Address("Test1", 45, 45, 0);
         Address a2 = new Address("Test2", 46, 48.7749, 0);
         Path p = new Path(a1, a2, 0.7, 90, 12);
-        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 1);
+        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 0.5, 9, 1);
         List<Product> lp = new ArrayList<>();
 
         double expResult = 6325.0361044119;
@@ -478,7 +478,7 @@ public class PathAlgorithmsTest {
         lla.add(a2);
         lla.add(a3);
 
-        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 1);
+        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 0.5, 9, 1);
         List<Product> lpro = new ArrayList<>();
         double expResult = 38.207430834455025;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
@@ -530,7 +530,7 @@ public class PathAlgorithmsTest {
         lla.add(a2);
         lla.add(a3);
 
-        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 1);
+        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 0.5, 9, 1);
         List<Product> lpro = new ArrayList<>();
         double expResult = 2416.8419555951587;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);

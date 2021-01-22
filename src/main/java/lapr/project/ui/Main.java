@@ -47,9 +47,9 @@ class Main {
 
 
         //AddAdministratorController
-        AddAdministratorController addAdministratorController = new AddAdministratorController();
+        /*AddAdministratorController addAdministratorController = new AddAdministratorController();
         Administrator administrator1 = new Administrator("teste@gmail.com", "teste", 2, "teste", 223445365, 11254852163L);
-        System.out.println(addAdministratorController.addAdministrator(administrator1));
+        System.out.println(addAdministratorController.addAdministrator(administrator1));*/
 
 
         //AddCourierController

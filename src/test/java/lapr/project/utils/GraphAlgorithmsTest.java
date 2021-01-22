@@ -278,7 +278,7 @@ public class GraphAlgorithmsTest {
         lla.add(a2);
         lla.add(a3);
 
-        Drone d = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1);
+        Drone d = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 0.5,9,1);
         List<Product> lpro = new ArrayList<>();
 
         double distance = PathAlgorithms.calcTotalDistance(lla) / 1000;

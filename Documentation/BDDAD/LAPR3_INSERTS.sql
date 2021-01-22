@@ -144,11 +144,11 @@ INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(4, 1);
 INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(5, 1);
 
 -- ## table Drone ##
-INSERT INTO drone(id_drone, id_vehicle_status) VALUES(6, 1);
-INSERT INTO drone(id_drone, id_vehicle_status) VALUES(7, 1);
-INSERT INTO drone(id_drone, id_vehicle_status) VALUES(8, 1);
-INSERT INTO drone(id_drone, id_vehicle_status) VALUES(9, 1);
-INSERT INTO drone(id_drone, id_vehicle_status) VALUES(10, 1);
+INSERT INTO drone(id_drone, witdh, average_vertical_speed, id_vehicle_status) VALUES(6, 0.5, 9, 1);
+INSERT INTO drone(id_drone, witdh, average_vertical_speed, id_vehicle_status) VALUES(7, 0.5, 9, 1);
+INSERT INTO drone(id_drone, witdh, average_vertical_speed, id_vehicle_status) VALUES(8, 0.5, 9, 1);
+INSERT INTO drone(id_drone, witdh, average_vertical_speed, id_vehicle_status) VALUES(9, 0.5, 9, 1);
+INSERT INTO drone(id_drone, witdh, average_vertical_speed, id_vehicle_status) VALUES(10, 0.5, 9, 1);
 
 -- ## table ParkingSpace ##
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (1, 1, null, 0);
