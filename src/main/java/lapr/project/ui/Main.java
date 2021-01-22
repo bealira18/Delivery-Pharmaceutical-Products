@@ -45,6 +45,13 @@ class Main {
         //dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
         //dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
 
+
+        //AddAdministratorController
+        AddAdministratorController addAdministratorController = new AddAdministratorController();
+        Administrator administrator1 = new Administrator("teste@gmail.com", "teste", 2, "teste", 223445365, 11254852163L);
+        System.out.println(addAdministratorController.addAdministrator(administrator1));
+
+
         //AddCourierController
         /*AddCourierController addCourierController = new AddCourierController();
         System.out.println(addCourierController.addCourier("courier6@gmail.com", "qwerty", "John", 958752502, 11254852166L, 1, 85));
@@ -195,7 +202,7 @@ class Main {
         
         //Dont uncomment this, poor andré
 //        EmailService eS = new EmailService();
-//        eS.sendEmail("1171060@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");
+//        eS.sendEmail("11710602@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");
         
     }
 
