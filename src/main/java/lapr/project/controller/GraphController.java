@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import lapr.project.model.Address;
 import lapr.project.model.Path;
-import lapr.project.model.Vehicle;
 import lapr.project.utils.Graph;
 import lapr.project.utils.GraphAlgorithms;
 

@@ -1,6 +1,10 @@
 package lapr.project.utils;
 
 public final class Constants {
+    
+    private Constants(){
+        
+    }
 
     /**
      * Earth radius in Km. Irrelevant for lower distances.
