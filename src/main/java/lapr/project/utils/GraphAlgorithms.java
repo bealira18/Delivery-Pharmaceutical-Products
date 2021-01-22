@@ -109,7 +109,7 @@ public class GraphAlgorithms {
             }
             bw.newLine();
             bw.write(P_PATH);
-            bw.write("Total Distance = " + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
+            bw.write(T_DIST + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
             bw.write(T_E_CONS + String.format(Locale.ROOT, "%.2f", energy) + WH_NEWLINE);
             bw.newLine();
             bw.write(P_STR);
@@ -164,7 +164,7 @@ public class GraphAlgorithms {
 
             bw2.newLine();
             bw2.write(P_PATH);
-            bw2.write("Total Distance = " + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
+            bw2.write(T_DIST + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
             bw2.write(T_E_CONS + String.format(Locale.ROOT, "%.2f", energy) + WH_NEWLINE);
             bw2.newLine();
             bw2.write(P_STR);
@@ -212,7 +212,7 @@ public class GraphAlgorithms {
 
             bw3.newLine();
             bw3.write(P_PATH);
-            bw3.write("Total Distance = " + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
+            bw3.write(T_DIST + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
             bw3.write(T_E_CONS + String.format(Locale.ROOT, "%.2f", energy) + WH_NEWLINE);
             bw3.newLine();
             bw3.write(P_STR);

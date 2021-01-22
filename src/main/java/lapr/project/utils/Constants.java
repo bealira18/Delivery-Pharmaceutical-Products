@@ -114,6 +114,10 @@ public final class Constants {
     /**
      * Duplication avoidance.
      */
+    public static final String T_DIST = "Total Distance = ";
+    /**
+     * Duplication avoidance.
+     */
     public static final String T_E_CONS = "Total Energy Consumption = ";
     /**
      * Duplication avoidance.
