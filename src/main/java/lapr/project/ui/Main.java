@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -117,6 +118,11 @@ class Main {
 
 
         //GeographicalController ----------------------------------------------------------------------------------------
+        GeographicalController geographicalController = new GeographicalController();
+        List<Address> addressList = geographicalController.getAddresses();
+        List<Path> pathList = geographicalController.getPaths(addressList);
+        List<Address> pharmaciesAddress = geographicalController.getPharmacyAddresses();
+        System.out.println(pharmaciesAddress);
 
 
         //GetDronesController -------------------------------------------------------------------------------------------
@@ -131,13 +137,16 @@ class Main {
 
         //GraphController ----------------------------------------------------------------------------------------------
         GraphController graphController = new GraphController();
+        graphController.fillGraphDrone(addressList, pathList);
+        Address address = new Address("isep", 41.178333, 8.606389, 103);
+        System.out.println(graphController.getNearestPharmacy(address, pharmaciesAddress));
 
 
 
         //ManageCreditsController --------------------------------------------------------------------------------------
 
 
-        //PurchaseItemsControlle
+        //PurchaseItemsController
         PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
         //purchaseItemsController
 
