@@ -9,124 +9,172 @@
 
 regex_t regex;
 pthread_t tID;
+
 int stopProgram = 0;
+int vehicleCount = 0;
+int validVehicleCount = 0;
+int maxPower = 0;
+
+typedef struct {
+	int wellParked;
+	char name[48];
+	int timestamp;
+	int vehicleID;
+	int maxCapacity;
+	int currentCapacity;
+} t_vehicle;
+
+t_vehicle *vehicleArray;
+
+void resizeArray()
+{
+	t_vehicle *placeHolder = (t_vehicle *) realloc(vehicleArray, (vehicleCount+1)*sizeof(t_vehicle));
+	if (placeHolder == NULL)
+	{
+		printf("ERROR: Ran out of memory, terminating.\n");
+		exit(1);
+	}
+	vehicleArray = placeHolder;
+}
 
 void deleteFlag(char *fileName)
 {
-	char deletePath[64] = "../";
+	char deletePath[64] = "../lock_";
 	strcat(deletePath, fileName);
+	strcat(deletePath, ".data");
+	remove(deletePath);
+	strcat(deletePath, ".flag");
 	remove(deletePath);
 }
 
-void writeFinal(char *fileName, char *lineToWrite)
+void writeFinal(int vehicleIndex, float estimate)
 {
-	char pathToEstimate[64] = "../estimate";
-	strcat(pathToEstimate, fileName);
+	char pathToEstimate[64] = "../estimate_";
+	strcat(pathToEstimate, vehicleArray[vehicleIndex].name);
+	strcat(pathToEstimate, ".data");
 
 	FILE* stream = fopen(pathToEstimate, "w");
-	fprintf(stream, lineToWrite);
+	if (stream == NULL)
+	{
+		printf("Something went wrong while creating the file %s. File not created.\n", pathToEstimate);
+		return;
+	}
+	fprintf(stream, "%d;%d;%.2f", vehicleArray[vehicleIndex].timestamp, vehicleArray[vehicleIndex].vehicleID, estimate);
 	fclose(stream);
+
 	printf("Successfully wrote %s\n", pathToEstimate);
 	strcat(pathToEstimate, ".flag");
 	stream = fopen(pathToEstimate, "w");
+	if (stream == NULL)
+	{
+		printf("Something went wrong while creating the file %s. File not created.\n", pathToEstimate);
+		return;
+	}
 	fclose(stream);
 }
 
 void dealWithIt(char *fileName)
 {
-	char format[26];
-	strncpy(format, fileName+4, 25);
-	*(format+25) = '\0';
+	char format[20];
+	strncpy(format, fileName+5, 19);
+	*(format+19) = '\0';
 
-	char fullPath[64] = "../lock";
+	char fullPath[64] = "../lock_";
 	strcat(fullPath, format);
+	strcat(fullPath, ".data");
+
 	printf("Opening %s\n", fullPath);
 
 	FILE* stream = fopen(fullPath, "r");
 	if (stream == NULL)
 	{
 		printf("File does not exist. Flag was deleted.\n");
-		deleteFlag(fileName);
+		deleteFlag(format);
 		return;
 	}
-	char fullLine[1024], splitter[1024], finalLine[1024];
+
+	vehicleCount++;
+	resizeArray();
+
+	/*Store the original name, idk, just do it*/
+
+	strcpy(vehicleArray[vehicleCount - 1].name, format);
+	
+	char fullLine[1024], splitter[1024];
 
 	fgets(fullLine, 1024, stream);
 	fclose(stream);
 	strcpy(splitter, fullLine);
-	/*line 1: email*/
+	/*line 1: epoch time. Idk, its just useful*/
 	char *tok = strtok(splitter, ";");
 	if (tok == NULL)
 	{
-		printf("Failed on 1st Argument. Flag was deleted. Not enough info to return a error output.\n");
-		deleteFlag(fileName);
+		printf("Failed on 1st Argument. Files deleted. Not enough info to return a error output.\n");
+		vehicleArray[vehicleCount - 1].wellParked = 0;
+		deleteFlag(format);
 		return;
 	}
-	strcpy(finalLine, tok);
-	strcat(finalLine, ";");
+	vehicleArray[vehicleCount - 1].timestamp = atoi(tok);
 
-	/*line 2: scooterid*/
+	/*line 2: vehicleID*/
 	tok = strtok(NULL, ";");
 	if (tok == NULL)
 	{
-		printf("Failed on 2nd Argument. Flag was deleted. Not enough info to return a error output.\n");
-		deleteFlag(fileName);
+		printf("Failed on 2nd Argument. Files deleted. Not enough info to return a error output.\n");
+		vehicleArray[vehicleCount - 1].wellParked = 0;
+		deleteFlag(format);
 		return;
 	}
-	strcat(finalLine, tok);
-	strcat(finalLine, ";");
+	vehicleArray[vehicleCount - 1].vehicleID = atoi(tok);
 
-	/*line 3: maxVehicleCharge*/
+	/*line 3: maxCharge*/
 	tok = strtok(NULL, ";");
 	if (tok == NULL)
 	{
-		printf("Failed on 3rd Argument. Flag was deleted. Returned error info.\n");
+		printf("Failed on 3rd Argument. Files deleted. Returned error info.\n");
 		/*this is to simulate a not connected bike*/
-		deleteFlag(fileName);
-		strcat(finalLine, "-1");
-		writeFinal(format, finalLine);
+		vehicleArray[vehicleCount - 1].wellParked = 0;
+		deleteFlag(format);
+		writeFinal(vehicleCount - 1, -1.0f);
 		return;
 	}
-	int maxVehicleCharge = atoi(tok);
+	vehicleArray[vehicleCount - 1].maxCapacity = atoi(tok);
 
-	/*line 4: chargingPointCapacity*/
+	/*line 4: currentCapacity*/
 	tok = strtok(NULL, ";");
 	if (tok == NULL)
 	{
-		printf("Failed on 4th Argument. Flag was deleted. Returned error info.\n");
+		printf("Failed on 4th Argument. Files deleted. Returned error info.\n");
 		/*this is to simulate a not connected bike*/
-		deleteFlag(fileName);
-		strcat(finalLine, "-1");
-		writeFinal(format, finalLine);
+		vehicleArray[vehicleCount - 1].wellParked = 0;
+		deleteFlag(format);
+		writeFinal(vehicleCount - 1, -1.0f);
 		return;
 	}
-	int chargingPointCapacity = atoi(tok);
-
-	/*line 5: currentPercentage*/
-	tok = strtok(NULL, ";");
-	if (tok == NULL)
-	{
-		printf("Failed on 5th Argument. Flag was deleted. Returned error info.\n");
-		/*this is to simulate a not connected bike*/
-		deleteFlag(fileName);
-		strcat(finalLine, "-1");
-		writeFinal(format, finalLine);
-		return;
-	}
-	int currentPercentage = atoi(tok);
+	vehicleArray[vehicleCount - 1].currentCapacity = atoi(tok);	
 
 	printf("All info detected, calculating.\n");
+	validVehicleCount++;
+	vehicleArray[vehicleCount - 1].wellParked = 1;
 
-	int result = est_battery(maxVehicleCharge, chargingPointCapacity, currentPercentage*10);
+	int i = 0;
 
-	float realRes = (float) result / 100.0;
+	/*printf("VehicleCount: %d; WellParkedCount: %d\n", vehicleCount, validVehicleCount);*/
 
-	char sResult[32];
-	sprintf(sResult, "%.2f", realRes);
+	for (i = 0; i < vehicleCount; i++)
+	{
+		if (vehicleArray[i].wellParked == 1)
+		{
+			int result = est_battery((vehicleArray[i].maxCapacity - vehicleArray[i].currentCapacity) * 10000, maxPower/validVehicleCount);
+			float realRes = (float) result / 100.0;
 
-	deleteFlag(fileName);
-	strcat(finalLine, sResult);
-	writeFinal(format, finalLine);
+			/*printf("Power: %d; Vehicle Index: %d; To Charge: %d; Result: %d; Real Result %.2f\n", maxPower/validVehicleCount, i, (vehicleArray[i].maxCapacity - vehicleArray[i].currentCapacity), result, realRes);*/
+			writeFinal(i, realRes);
+		}
+		
+	}
+
+	deleteFlag(format);
 
 }
 
@@ -170,10 +218,21 @@ int main(void)
 		return 0;
 	}
 
+	vehicleArray = (t_vehicle *) malloc(sizeof(t_vehicle));
+
+	printf("Type this parks maximum allowed power.\n");
+	scanf("%d", &maxPower);
+
+	if (maxPower <= 0)
+	{
+		printf("Invalid power value, exiting.\n");
+		return 0;
+	}
+	
 	pthread_create(&tID, NULL, &timerThread, NULL);
 	
 	int testInteger;
-	printf("Type anything to stop the daemon.\n");
+	printf("Max Power set to: %d\nType anything to stop the daemon.\n", maxPower);
 	scanf("%d", &testInteger);
 	stopProgram = 1;
 	return 0;
