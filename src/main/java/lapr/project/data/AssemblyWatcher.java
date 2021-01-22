@@ -26,7 +26,7 @@ import lapr.project.controller.VehicleParkingController;
  */
 public class AssemblyWatcher implements Runnable {
 
-    public static WatchService asmWatchService = null;
+    private static WatchService asmWatchService;
 
     public AssemblyWatcher() {
         try {
