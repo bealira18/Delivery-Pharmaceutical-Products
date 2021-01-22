@@ -60,12 +60,12 @@ class Main {
 
         //AddDroneController
         /*AddDroneController addDroneController = new AddDroneController();
-        Drone drone = new Drone(11, 1, 20, 40, 50, 60, 10, 100, 1);
-        Drone drone1 = new Drone(12, 1, 20, 40, 50, 60, 10, 100, 1);
-        Drone drone2 = new Drone(13, 1, 20, 40, 50, 60, 10, 100, 1);
-        Drone drone3 = new Drone(14, 1, 20, 40, 50, 60, 10, 100, 1);
-        Drone drone4 = new Drone(15, 1, 20, 40, 50, 60, 10, 100, 1);
-        Drone drone5 = new Drone(16, 1, 20, 40, 50, 60, 10, 100, 1);
+        Drone drone = new Drone(11, 1, 20, 40, 50, 60, 10, 100, 1, 1, 1, 1);
+        Drone drone1 = new Drone(12, 1, 20, 40, 50, 60, 10, 100, 1, 1, 1, 1);
+        Drone drone2 = new Drone(13, 1, 20, 40, 50, 60, 10, 100, 1, 1, 1, 1);
+        Drone drone3 = new Drone(14, 1, 20, 40, 50, 60, 10, 100, 1, 1, 1, 1);
+        Drone drone4 = new Drone(15, 1, 20, 40, 50, 60, 10, 100, 1, 1, 1, 1);
+        Drone drone5 = new Drone(16, 1, 20, 40, 50, 60, 10, 100, 1, 1, 1, 1);
 
         addDroneController.addDrone(drone);
         addDroneController.addDrone(drone1);
@@ -76,13 +76,13 @@ class Main {
 
 
         //AddParkController
-        /*AddParkController addParkController = new AddParkController();
+        AddParkController addParkController = new AddParkController();
         Address a = new Address("teste", 0, 0, 0);
-        Park park = new Park(3, 1, 1,1, "scooter", a);
+        Park park = new Park(3, 1, 1,1, "scooter", a, 5000);
         System.out.println(addParkController.addPark(park));
         Address a2 = new Address("isep", 0, 0, 0);
-        Park park2 = new Park(3, 1, 1,1, "scooter", a2);
-        System.out.println(addParkController.addPark(park2));*/
+        Park park2 = new Park(3, 1, 1,1, "scooter", a2, 50000);
+        System.out.println(addParkController.addPark(park2));
 
 
         //AddPharmacyController

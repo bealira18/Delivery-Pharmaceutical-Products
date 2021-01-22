@@ -21,6 +21,6 @@ BEGIN
     VALUES (p_email, 'qwerty', 'administrator');
 
     INSERT INTO administrator(email, id_pharmacy, name, nif, social_security)
-    VALUES(email, idPharmacy, name, nif, social_security);
+    VALUES(p_email, p_idPharmacy, p_name, p_nif, p_social_security);
 
 END;
