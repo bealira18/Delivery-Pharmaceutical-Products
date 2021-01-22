@@ -111,8 +111,8 @@ public class GraphAlgorithms {
                 double distance2 = PathAlgorithms.calcDistance(la.get(i), la.get(i + 1));
                 totalEnergy += g.getEdge(la.get(i), la.get(i + 1)).getWeight();
                 double roadSlope = Math.toDegrees(Math.atan((p.getAddress2().getAltitude() - p.getAddress1().getAltitude()) / distance2));
-                bw.newLine();
 
+                bw.newLine();
                 bw.write(p.getAddress1().getDescription() + " -> " + p.getAddress2().getDescription() + "\n");
                 bw.write("Path Kinetic Coefficient = " + String.format(Locale.ROOT, "%.2f", p.getKineticCoeficient()) + " (unitless).\n");
                 bw.write("Path Wind Angle = " + String.format(Locale.ROOT, "%.2f", p.getWindAngle()) + " Degrees.\n");
