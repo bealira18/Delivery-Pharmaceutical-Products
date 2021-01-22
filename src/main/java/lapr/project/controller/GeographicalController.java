@@ -31,9 +31,9 @@ public class GeographicalController {
         }
     }
 
-    public void addAddress(Address a) {
+    public boolean addAddress(Address a) {
 
-        aDB.addAddress(a);
+        return aDB.addAddress(a);
     }
 
     public List<Address> getAddresses() throws SQLException {
