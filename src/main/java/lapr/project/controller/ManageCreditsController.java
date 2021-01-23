@@ -57,5 +57,9 @@ public class ManageCreditsController {
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
         
     }
+
+    //recebe email do cliente retorna nº creditos
+    //verifica se cliente tem mais creditos que o das properties
+    //retorna 0 ou delivery fee
     
 }

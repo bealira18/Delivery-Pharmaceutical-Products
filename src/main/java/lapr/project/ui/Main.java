@@ -155,6 +155,15 @@ class Main {
 
 
         //ManageCreditsController --------------------------------------------------------------------------------------
+        /*ManageCreditsController manageCreditsController = new ManageCreditsController();
+        CreditCard creditCard = new CreditCard(5295360011327825L, LocalDate.of(2077, Month.MARCH, 1), (short) 454);
+        Address address = new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411);
+        Client client = new Client("client1@gmail.com", "qwerty", "user", 123456789, creditCard, address, 1);
+        System.out.println("\n\nManageCreditsController");
+        //manageCreditsController.setCreditConversionRatio(0.2);
+        System.out.println(manageCreditsController.getCreditConversionRatio());
+        System.out.println(manageCreditsController.addCreditsAfterPurchase(client, 30.00));
+        System.out.println(manageCreditsController.addCreditsAfterPurchase(client, 22.00));*/
 
 
         //NotifyClientController
@@ -218,10 +227,10 @@ class Main {
         System.out.println(updateCourierController.updateCourier(c.getEmail(),c));*/
 
 
-        //UpdateDeliveryFeeController           --- correr isto removeu a ligaçao à bddad... ta a apagar as coisas das properties......
+        //UpdateDeliveryFeeController
         /*UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
         updateDeliveryFeeController.updateDeliveryFee(2.90);
-        System.out.println(new PurchaseOrder(1,1,"a", LocalDate.now()).getDeliveryFee());*/
+        System.out.println(PurchaseOrder.getDeliveryFee());*/
 
 
         //UpdateDroneController
