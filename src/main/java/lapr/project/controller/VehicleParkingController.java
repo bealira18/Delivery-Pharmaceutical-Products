@@ -16,10 +16,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Scanner;
-import lapr.project.data.CourierDB;
 import lapr.project.data.EmailService;
 import lapr.project.data.VehicleDB;
 import lapr.project.model.Vehicle;
+import lapr.project.utils.Constants;
 import lapr.project.utils.Utils;
 
 
@@ -55,6 +55,8 @@ public class VehicleParkingController {
             {
                 throw new IllegalArgumentException("Unexpected number of arguments");
             }
+            
+            sc.close();
             
             //Check if the vehicle ID is real and what type it is
             String vehicleType = vDB.typeOfVehicleByID(Integer.parseInt(arrBuffer[1]));
@@ -95,23 +97,22 @@ public class VehicleParkingController {
     private void sendStatusEmail(String email, String name, LocalDateTime date, int vehicleID, String vehicleType, float timeToFull) {
         StringBuilder buildStatus = new StringBuilder("Caro Sr/a ");
         buildStatus.append(name).append(",");
-        buildStatus.append(System.getProperty("line.separator"));
-        buildStatus.append(System.getProperty("line.separator"));
+        buildStatus.append(System.getProperty(Constants.LINE_BREAK));
+        buildStatus.append(System.getProperty(Constants.LINE_BREAK));
         buildStatus.append("O veículo do tipo ").append(vehicleType).append(" de ID ").append(vehicleID).append(" estacionado às ");
         buildStatus.append(date.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)));
         
         if(timeToFull < 0.0)
         {
-            buildStatus.append(" foi mal estacionado.").append(System.getProperty("line.separator"));
+            buildStatus.append(" foi mal estacionado.").append(System.getProperty(Constants.LINE_BREAK));
             buildStatus.append("Por favor, regresse ao parque e estacione o veículo apropriadamente.");
         }
         else
         {
-            buildStatus.append(" foi propriamente estacionado.").append(System.getProperty("line.separator"));
+            buildStatus.append(" foi propriamente estacionado.").append(System.getProperty(Constants.LINE_BREAK));
             buildStatus.append(String.format("A bateria desta estará carregada em %.2f horas.", timeToFull));
         }
         
-        String body = String.format("Caro Sr/a %s, \n \nO veículo do tipo %s de ID %d estacionado às %s foi mal estacionado. \nPor favor, regresse ao parque e estacione o veículo apropriadamente.", name, vehicleType, vehicleID, date.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)));
-        eS.sendEmail(email, "Notificação de estacionamento", body);
+        eS.sendEmail(email, "Notificação de estacionamento", buildStatus.toString());
     }    
 }

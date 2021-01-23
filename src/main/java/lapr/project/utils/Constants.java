@@ -147,4 +147,8 @@ public final class Constants {
      * Duplication avoidance.
      */
     public static final String ENERGY = "Energy = ";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String LINE_BREAK = "line.separator";
 }
