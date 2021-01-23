@@ -1,5 +1,6 @@
-create or replace FUNCTION getParkById(idp INT) RETURN
-SYS_REFCURSOR is resultado sys_refcursor;
+CREATE OR REPLACE FUNCTION getParkById(
+idp IN INT) 
+RETURN SYS_REFCURSOR IS resultado SYS_REFCURSOR;
 
 BEGIN
     OPEN resultado FOR
@@ -9,4 +10,3 @@ BEGIN
 
 RETURN (resultado);
 END;
-/

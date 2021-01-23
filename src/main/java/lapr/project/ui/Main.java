@@ -1,8 +1,7 @@
 package lapr.project.ui;
 
 import lapr.project.controller.*;
-import lapr.project.data.CourierDB;
-import lapr.project.data.DataHandler;
+import lapr.project.data.*;
 import lapr.project.model.*;
 
 import java.io.FileInputStream;
@@ -20,9 +19,6 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lapr.project.data.AssemblyWatcher;
-import lapr.project.data.EmailService;
-import lapr.project.data.SettingsHandler;
 
 
 class Main {
@@ -92,8 +88,8 @@ class Main {
 
 
         //AddPharmacyController
-        /*Address a = new Address("testeAddress", 0, 0, 0);
-        Pharmacy p = new Pharmacy(0, "TestPharma", a);
+       /* Address a = new Address("gaia shopping", 0, 0, 0);
+        Pharmacy p = new Pharmacy(2, "farmacia gaia shopping", a);
         AddPharmacyController addPharmacyController = new AddPharmacyController();
         System.out.println(addPharmacyController.addPharmacy(a,p,2,2));*/
 
@@ -123,11 +119,11 @@ class Main {
 
 
         //GeographicalController ----------------------------------------------------------------------------------------
-//        GeographicalController geographicalController = new GeographicalController();
-//        List<Address> addressList = geographicalController.getAddresses();
-//        List<Path> pathList = geographicalController.getPaths(addressList);
-//        List<Address> pharmaciesAddress = geographicalController.getPharmacyAddresses();
-//        System.out.println(pharmaciesAddress);
+        /*GeographicalController geographicalController = new GeographicalController();
+        List<Address> addressList = geographicalController.getAddresses();
+        List<Path> pathList = geographicalController.getPaths(addressList);
+        List<Address> pharmaciesAddress = geographicalController.getPharmacyAddresses();
+        System.out.println(pharmaciesAddress);*/
 
 
         //GetDronesController -------------------------------------------------------------------------------------------
@@ -141,20 +137,25 @@ class Main {
 
 
         //GraphController ----------------------------------------------------------------------------------------------
-        //GraphController graphController = new GraphController();
-        //graphController.fillGraphDrone(addressList, pathList);
-        //Address address = new Address("isep", 41.178333, 8.606389, 103);
-        //System.out.println(graphController.getNearestPharmacy(address, pharmaciesAddress));
-
+        /*GraphController graphController = new GraphController();
+        graphController.fillGraphDrone(addressList, pathList);
+        System.out.println();
+        Address address = new Address("el corte ingles", 41.178333, 8.606389, 103);
+        System.out.println(graphController.getNearestPharmacy(address, pharmaciesAddress));
+        Address address2 = new Address("se do porto", 41.178333, 8.606389, 103);
+        System.out.println(graphController.getNearestPharmacy(address2, pharmaciesAddress));*/
 
 
         //ManageCreditsController --------------------------------------------------------------------------------------
 
 
         //PurchaseItemsController
-        //PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
-        //purchaseItemsController
-
+        PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
+        System.out.println("PurchaseItemsController");
+        System.out.println(purchaseItemsController.getPharmacies());
+        purchaseItemsController.getProductsFromPharmacy(1);
+        System.out.println(purchaseItemsController.getProductCategories());
+        
 
         //RegisterClientController
         /*RegisterClientController registerClientController = new RegisterClientController();
@@ -233,7 +234,7 @@ class Main {
 //        EmailService eS = new EmailService();
 //        eS.sendEmail("11710602@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");
 
-        AssemblyWatcher asmWatch = new AssemblyWatcher();
+        /*AssemblyWatcher asmWatch = new AssemblyWatcher();
 
         Thread thr = new Thread(asmWatch);
         thr.setDaemon(true);
@@ -241,7 +242,7 @@ class Main {
 
         System.out.println("Type anything to stop program");
         Scanner in = new Scanner(System.in);
-        in.nextLine();
+        in.nextLine();*/
         
     }
 

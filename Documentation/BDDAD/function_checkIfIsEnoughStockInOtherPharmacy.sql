@@ -1,4 +1,3 @@
-
 CREATE OR REPLACE FUNCTION checkIfIsEnoughStockInOtherPharmacy(idOrder IN INTEGER)
 RETURN BOOLEAN
 IS
