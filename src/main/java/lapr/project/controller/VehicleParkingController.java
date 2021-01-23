@@ -14,6 +14,7 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -87,7 +88,13 @@ public class VehicleParkingController {
         Utils.writeFile(" ", fileName + ".flag");
     }
 
-    private void sendStatusEmail(String email, String name, LocalDateTime date, int vehicleID, String vehicleType, float timeToFull) {
+    protected void sendStatusEmail(String email, String name, LocalDateTime date, int vehicleID, String vehicleType, float timeToFull) {
+        
+        eS.sendEmail(email, "Notificação de estacionamento", buildStatusEmail(name, date, vehicleID, vehicleType, timeToFull).toString());
+    }
+    
+    public static StringBuilder buildStatusEmail(String name, LocalDateTime date, int vehicleID, String vehicleType, float timeToFull)
+    {
         StringBuilder buildStatus = new StringBuilder("Caro Sr/a ");
         buildStatus.append(name).append(",");
         buildStatus.append(System.getProperty(Constants.LINE_BREAK));
@@ -95,14 +102,14 @@ public class VehicleParkingController {
         buildStatus.append("O veículo do tipo ").append(vehicleType).append(" de ID ").append(vehicleID).append(" estacionado às ");
         buildStatus.append(date.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)));
 
-        if (timeToFull < 0.0) {
+        if (timeToFull >= 0.0) {
+            buildStatus.append(" foi propriamente estacionado.").append(System.getProperty(Constants.LINE_BREAK));
+            buildStatus.append(String.format(Locale.ROOT,"A bateria desta estará carregada em %.2f horas.", timeToFull));
+        } else {
             buildStatus.append(" foi mal estacionado.").append(System.getProperty(Constants.LINE_BREAK));
             buildStatus.append("Por favor, regresse ao parque e estacione o veículo apropriadamente.");
-        } else {
-            buildStatus.append(" foi propriamente estacionado.").append(System.getProperty(Constants.LINE_BREAK));
-            buildStatus.append(String.format("A bateria desta estará carregada em %.2f horas.", timeToFull));
+            
         }
-
-        eS.sendEmail(email, "Notificação de estacionamento", buildStatus.toString());
+        return buildStatus;
     }
 }
