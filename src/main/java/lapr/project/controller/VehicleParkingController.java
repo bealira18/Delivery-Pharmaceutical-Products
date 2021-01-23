@@ -16,8 +16,6 @@ import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lapr.project.data.EmailService;
 import lapr.project.data.VehicleDB;
 import lapr.project.model.Vehicle;
