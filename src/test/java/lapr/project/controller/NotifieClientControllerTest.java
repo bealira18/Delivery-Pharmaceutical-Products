@@ -8,7 +8,6 @@ import lapr.project.model.PurchaseOrder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.ClientInfoStatus;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
@@ -41,10 +40,11 @@ class NotifieClientControllerTest {
         when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
         when(stockDB.checkIfIsEnoughStockInOtherPharmacy(order1.getId())).thenReturn(Boolean.TRUE);
 
-        when(deliveryStatusDB.updateDeliveryStatusInDelivery(order1.getId())).thenReturn(Boolean.TRUE);
         when(deliveryDB.getClientEmailFromOrder(order1.getId())).thenReturn(client.getEmail());
         when(clientDB.getClientByEmail(client.getEmail())).thenReturn(client);
-        when(emailService.sendEmail(client.getEmail(),"Delivery Run Starts", "Dear "+client.getName()+". This email is just to let you know that the delivery is on the way")).thenReturn(Boolean.TRUE);
+        when(deliveryStatusDB.updateDeliveryStatusInDelivery(order1.getId())).thenReturn(Boolean.TRUE);
+        when(deliveryDB.getClientEmailFromOrder(order1.getId())).thenReturn(order1.getClientEmail());
+        when(emailService.sendEmail("clientemen0652@gmail.com","Delivery Run Starts", "Dear "+client.getName()+". This email is just to let you know that the delivery is on the way")).thenReturn(Boolean.TRUE);
 
         controller = new NotifyClientController();
         controller = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, clientDB, emailService);
@@ -68,8 +68,8 @@ class NotifieClientControllerTest {
         StockDB stockDB = mock(StockDB.class);
         DeliveryDB deliveryDB = mock(DeliveryDB.class);
         DeliveryStatusDB deliveryStatusDB = mock(DeliveryStatusDB.class);
-        ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
+        ClientDB clientDB = mock(ClientDB.class);
 
         when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
 
@@ -105,9 +105,8 @@ class NotifieClientControllerTest {
         Address address = new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411);
         Client client = new Client("test@email.com", "qwerty", "user", 123456789, creditCard, address, 1);
 
-
         boolean result = controller.notifyClientDeliveryRunStarts(order1);
-        assertEquals(false, result);
+        assertEquals(true, result);
 
         StockDB stockDB = mock(StockDB.class);
         DeliveryDB deliveryDB = mock(DeliveryDB.class);
@@ -115,9 +114,12 @@ class NotifieClientControllerTest {
         ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
 
+        when(deliveryDB.getClientEmailFromOrder(order1.getId())).thenReturn(client.getEmail());
+        when(clientDB.getClientByEmail(client.getEmail())).thenReturn(client);
         when(deliveryStatusDB.updateDeliveryStatusInDelivery(order1.getId())).thenReturn(Boolean.FALSE);
-        when(deliveryDB.getClientEmailFromOrder(order1.getId())).thenReturn("test@email.com");
-        when(clientDB.getClientByEmail("test@email.com")).thenReturn(client);
+        when(deliveryDB.getClientEmailFromOrder(order1.getId())).thenReturn(order1.getClientEmail());
+        when(emailService.sendEmail("clientemen0652@gmail.com","Delivery Run Starts", "Dear "+client.getName()+". This email is just to let you know that the delivery is on the way")).thenReturn(Boolean.TRUE);
+
 
         NotifyClientController controller1 = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, clientDB, emailService);
 
@@ -125,7 +127,8 @@ class NotifieClientControllerTest {
         assertEquals(false, result);
 
         when(deliveryStatusDB.updateDeliveryStatusInDelivery(order1.getId())).thenReturn(Boolean.TRUE);
-        when(emailService.sendEmail("test@email.com","Delivery Run Starts", "Dear Joaquim Alberto. This email is just to let you know that the delivery is on the way")).thenReturn(Boolean.FALSE);
+        when(deliveryDB.getClientEmailFromOrder(order1.getId())).thenReturn("test@email.com");
+        when(emailService.sendEmail("clientemen0652@gmail.com","Delivery Run Starts", "Dear "+client.getName()+". This email is just to let you know that the delivery is on the way")).thenReturn(Boolean.FALSE);
 
         result = controller1.notifyClientDeliveryRunStarts(order1);
         assertEquals(false, result);
