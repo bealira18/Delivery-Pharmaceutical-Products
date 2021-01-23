@@ -6,6 +6,7 @@ import lapr.project.model.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
+import lapr.project.utils.Constants;
 
 public class CreateInvoiceController {
 
@@ -70,30 +71,30 @@ public class CreateInvoiceController {
     public StringBuilder makeEmailBody(Invoice invoice, Pharmacy pharmacy, Client client) throws SQLException {
         StringBuilder emailBody = new StringBuilder("Receipt #"+invoice.getId());
         String slash = "------------------------------------------------------------";
-        emailBody.append(System.getProperty("line.separator"));
-        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append(System.getProperty(Constants.LINE_BREAK));
+        emailBody.append(System.getProperty(Constants.LINE_BREAK));
         emailBody.append("Pharmacy: ").append(pharmacy.getName()).append("\tid: ").append(pharmacy.getId());
-        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append(System.getProperty(Constants.LINE_BREAK));
         emailBody.append(slash);
-        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append(System.getProperty(Constants.LINE_BREAK));
 
         emailBody.append("Order:");
-        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append(System.getProperty(Constants.LINE_BREAK));
         emailBody.append(String.format("%-40s%-10s%-10s", "Item", "Number", "Price"));
-        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append(System.getProperty(Constants.LINE_BREAK));
         emailBody.append(slash);
-        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append(System.getProperty(Constants.LINE_BREAK));
 
         for(ProductLine productLine : productLineList) {
             Product p = productDB.getProduct(productLine.getProductId());
             emailBody.append(String.format(Locale.ROOT, "%-40s%-10d€%-10.2f", p.getName(), productLine.getProductQuantity(), productLine.getPrice()));
-            emailBody.append(System.getProperty("line.separator"));
+            emailBody.append(System.getProperty(Constants.LINE_BREAK));
             emailBody.append(slash);
-            emailBody.append(System.getProperty("line.separator"));
+            emailBody.append(System.getProperty(Constants.LINE_BREAK));
         }
         emailBody.append(String.format(Locale.ROOT, "%51s%.2f", "€", totalPrice));
-        emailBody.append(System.getProperty("line.separator"));
-        emailBody.append(System.getProperty("line.separator"));
+        emailBody.append(System.getProperty(Constants.LINE_BREAK));
+        emailBody.append(System.getProperty(Constants.LINE_BREAK));
         emailBody.append("NIF: ").append(client.getNif());
 
         return emailBody;
