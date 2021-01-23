@@ -1,9 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.data.CourierDB;
-import lapr.project.data.ProductDB;
 import lapr.project.model.Courier;
-import lapr.project.model.Product;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

@@ -188,8 +188,12 @@ CREATE TABLE scooter (
 );
 
 CREATE TABLE drone (
-    id_drone                INTEGER                       CONSTRAINT pkDroneIdDrone           PRIMARY KEY,                             
-    id_vehicle_status       INTEGER                       CONSTRAINT nnDroneIdVehicleStatus   NOT NULL
+    id_drone                INTEGER                       CONSTRAINT pkDroneIdDrone                 PRIMARY KEY,
+    width                   NUMERIC(5,2)                  CONSTRAINT nnDroneWidth                   NOT NULL
+                                                          CONSTRAINT ckDroneWidth                   CHECK(width>0),
+    average_vertical_speed  NUMERIC(6,2)                  CONSTRAINT nnDroneAverageVerticalSpeed    NOT NULL
+                                                          CONSTRAINT ckDroneAverageVerticalSpeed    CHECK(average_vertical_speed>=0),
+    id_vehicle_status       INTEGER                       CONSTRAINT nnDroneIdVehicleStatus         NOT NULL
 );
 
 CREATE TABLE parkingSpace (

@@ -28,6 +28,8 @@ INSERT INTO address(address, latitude, longitude, altitude) VALUES ('el corte in
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('parque de serralves', 41.159722, 8.659722, 60);
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('pavilhao rosa mota', 41.148333, 8.625278, 72);
 INSERT INTO address(address, latitude, longitude, altitude) VALUES ('estadio do bessa', 41.162222, 8.643333, 66);
+INSERT INTO address(address, latitude, longitude, altitude) VALUES('gaia shopping', 41.11, 8.623611, 89);
+INSERT INTO address(address, latitude, longitude, altitude) VALUES('ponte da arrabida', 41.147222, 8.64, 66);
 
 -- ## table Path ##
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'conservatorio', 0, 90, 12);
@@ -44,12 +46,16 @@ INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'torre dos clerigos', 0, 90, 12);
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('torre dos clerigos', 'conservatorio', 0, 90, 12);
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('torre dos clerigos', 'se do porto', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('se do porto', 'torre dos clerigos', 0, 90, 12);
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('se do porto', 'el corte ingles', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('el corte ingles', 'se do porto', 0, 90, 12);
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('trindade', 'isep', 0, 90, 12);
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('isep', 'feup', 0, 90, 12);
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('feup', 'trindade', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('el corte ingles', 'gaia shopping', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('gaia shopping', 'el corte ingles', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('gaia shopping', 'ponte da arrabida', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('ponte da arrabida', 'gaia shopping', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'ponte da arrabida', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('ponte da arrabida', 'casa da musica', 0, 90, 12);
 
 -- ## table Pharmacy ##
 INSERT INTO pharmacy(name, address) VALUES ('farmacia da boavista', 'casa da musica');
@@ -144,11 +150,11 @@ INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(4, 1);
 INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(5, 1);
 
 -- ## table Drone ##
-INSERT INTO drone(id_drone, id_vehicle_status) VALUES(6, 1);
-INSERT INTO drone(id_drone, id_vehicle_status) VALUES(7, 1);
-INSERT INTO drone(id_drone, id_vehicle_status) VALUES(8, 1);
-INSERT INTO drone(id_drone, id_vehicle_status) VALUES(9, 1);
-INSERT INTO drone(id_drone, id_vehicle_status) VALUES(10, 1);
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(6, 0.5, 9, 1);
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(7, 0.5, 9, 1);
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(8, 0.5, 9, 1);
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(9, 0.5, 9, 1);
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(10, 0.5, 9, 1);
 
 -- ## table ParkingSpace ##
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (1, 1, null, 0);

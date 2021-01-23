@@ -1,5 +1,5 @@
-create or replace FUNCTION getAddress(ad VARCHAR) RETURN
-SYS_REFCURSOR is resultado sys_refcursor;
+CREATE OR REPLACE FUNCTION getAddress(ad IN VARCHAR2) RETURN
+SYS_REFCURSOR IS resultado SYS_REFCURSOR;
 
 BEGIN
     OPEN resultado FOR
@@ -9,4 +9,3 @@ BEGIN
 
 RETURN (resultado);
 END;
-/

@@ -37,10 +37,20 @@ public class GeographicalControllerTest {
 
         System.out.println("addAddresses");
         List<Address> la = new ArrayList<>();
-        la.add(new Address("Test", 0, 0, 0));
-        la.add(new Address("Test2", 0, 0, 0));
-        GeographicalController instance = new GeographicalController();
+        Address a1 = new Address("Test", 0, 0, 0);
+        Address a2 = new Address("Test2", 0, 0, 0);
+        la.add(a1);
+        la.add(a2);
+
+        AddressDB aDB = mock(AddressDB.class);
+        PathDB pDB = mock(PathDB.class);
+
+        when(aDB.addAddress(a1)).thenReturn(Boolean.TRUE);
+        when(aDB.addAddress(a2)).thenReturn(Boolean.TRUE);
+
+        GeographicalController instance = new GeographicalController(aDB, pDB);
         instance.addAddresses(la);
+
     }
 
     /**
@@ -51,8 +61,23 @@ public class GeographicalControllerTest {
 
         System.out.println("addAddress");
         Address a = new Address("Test", 0, 0, 0);
-        GeographicalController instance = new GeographicalController();
-        instance.addAddress(a);
+        Address a2 = new Address("Test2", 0, 0, 0);
+
+        AddressDB aDB = mock(AddressDB.class);
+        PathDB pDB = mock(PathDB.class);
+
+        when(aDB.addAddress(a)).thenReturn(Boolean.TRUE);
+        when(aDB.addAddress(a2)).thenReturn(Boolean.FALSE);
+
+        GeographicalController instance = new GeographicalController(aDB, pDB);
+
+        boolean expResult = true;
+        boolean result = instance.addAddress(a);
+        assertEquals(expResult, result);
+
+        expResult = false;
+        result = instance.addAddress(a2);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -94,6 +119,32 @@ public class GeographicalControllerTest {
     }
 
     /**
+     * Test of getPaths method, of class GeographicalController.
+     */
+    @Test
+    public void testGetPaths() throws Exception {
+
+        System.out.println("getPaths");
+        AddressDB aDB = mock(AddressDB.class);
+        PathDB pDB = mock(PathDB.class);
+
+        List<Address> la = new ArrayList<>();
+        la.add(new Address("Test", 0, 0, 0));
+        la.add(new Address("Test2", 0, 0, 0));
+
+        List<Path> expResult = new ArrayList<>();
+        expResult.add(new Path(new Address("Test", 0, 0, 0),
+                new Address("Test2", 0, 0, 0), 0, 0, 0));
+        expResult.add(new Path(new Address("Test2", 0, 0, 0),
+                new Address("Test", 0, 0, 0), 0, 0, 0));
+
+        when(pDB.getPaths(la)).thenReturn(expResult);
+        GeographicalController instance = new GeographicalController(aDB, pDB);
+        List<Path> result = instance.getPaths(la);
+        assertEquals(expResult, result);
+    }
+
+    /**
      * Test of addPaths method, of class GeographicalController.
      */
     @Test
@@ -101,9 +152,18 @@ public class GeographicalControllerTest {
 
         System.out.println("addPaths");
         List<Path> lp = new ArrayList<>();
-        lp.add(new Path(new Address("Test", 0, 0, 0), new Address("Test2", 0, 0, 0), 0, 0, 0));
-        lp.add(new Path(new Address("Test3", 0, 0, 0), new Address("Test4", 0, 0, 0), 0, 0, 0));
-        GeographicalController instance = new GeographicalController();
+        Path p1 = new Path(new Address("Test", 0, 0, 0), new Address("Test2", 0, 0, 0), 0, 0, 0);
+        Path p2 = new Path(new Address("Test3", 0, 0, 0), new Address("Test4", 0, 0, 0), 0, 0, 0);
+        lp.add(p1);
+        lp.add(p2);
+
+        AddressDB aDB = mock(AddressDB.class);
+        PathDB pDB = mock(PathDB.class);
+
+        when(pDB.addPath(p1)).thenReturn(Boolean.TRUE);
+        when(pDB.addPath(p2)).thenReturn(Boolean.TRUE);
+
+        GeographicalController instance = new GeographicalController(aDB, pDB);
         instance.addPaths(lp);
     }
 
@@ -115,8 +175,23 @@ public class GeographicalControllerTest {
 
         System.out.println("addPath");
         Path p = new Path(new Address("Test", 0, 0, 0), new Address("Test2", 0, 0, 0), 0, 0, 0);
-        GeographicalController instance = new GeographicalController();
-        instance.addPath(p);
+        Path p2 = new Path(new Address("Test2", 0, 0, 0), new Address("Test1", 0, 0, 0), 0, 0, 0);
+
+        AddressDB aDB = mock(AddressDB.class);
+        PathDB pDB = mock(PathDB.class);
+
+        when(pDB.addPath(p)).thenReturn(Boolean.TRUE);
+        when(pDB.addPath(p2)).thenReturn(Boolean.FALSE);
+
+        GeographicalController instance = new GeographicalController(aDB, pDB);
+
+        boolean expResult = true;
+        boolean result = instance.addPath(p);
+        assertEquals(expResult, result);
+
+        expResult = false;
+        result = instance.addPath(p2);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -127,8 +202,23 @@ public class GeographicalControllerTest {
 
         System.out.println("updatePath");
         Path p = new Path(new Address("Test", 0, 0, 0), new Address("Test2", 0, 0, 0), 0, 0, 0);
-        GeographicalController instance = new GeographicalController();
-        instance.updatePath(p);
+        Path p2 = new Path(new Address("Test2", 0, 0, 0), new Address("Test1", 0, 0, 0), 0, 0, 0);
+
+        AddressDB aDB = mock(AddressDB.class);
+        PathDB pDB = mock(PathDB.class);
+
+        when(pDB.updatePath(p)).thenReturn(Boolean.TRUE);
+        when(pDB.updatePath(p2)).thenReturn(Boolean.FALSE);
+
+        GeographicalController instance = new GeographicalController(aDB, pDB);
+
+        boolean expResult = true;
+        boolean result = instance.updatePath(p);
+        assertEquals(expResult, result);
+
+        expResult = false;
+        result = instance.updatePath(p2);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -138,9 +228,23 @@ public class GeographicalControllerTest {
     public void testRemovePath() {
 
         System.out.println("removePath");
+
         Address a1 = new Address("Test", 0, 0, 0);
         Address a2 = new Address("Test2", 0, 0, 0);
-        GeographicalController instance = new GeographicalController();
-        instance.removePath(a1, a2);
+
+        AddressDB aDB = mock(AddressDB.class);
+        PathDB pDB = mock(PathDB.class);
+
+        when(pDB.removePath(a1, a2)).thenReturn(Boolean.TRUE);
+        when(pDB.removePath(a2, a1)).thenReturn(Boolean.FALSE);
+
+        GeographicalController instance = new GeographicalController(aDB, pDB);
+        boolean result = instance.removePath(a1, a2);
+        boolean expResult = true;
+        assertEquals(result, expResult);
+
+        result = instance.removePath(a2, a1);
+        expResult = false;
+        assertEquals(expResult, result);
     }
 }

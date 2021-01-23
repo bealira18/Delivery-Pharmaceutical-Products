@@ -18,10 +18,5 @@ BEGIN
     END IF;
     
     INSERT INTO pharmacy(name, address) VALUES(p_name, a_name);
-    
-    SELECT id_pharmacy INTO v_pharmacy_id
-    FROM pharmacy
-    ORDER BY id_pharmacy DESC
-    FETCH FIRST 1 ROWS ONLY;
 
 END;

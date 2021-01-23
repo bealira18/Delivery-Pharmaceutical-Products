@@ -4,19 +4,41 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import lapr.project.model.Address;
+import lapr.project.model.Courier;
+import lapr.project.model.Drone;
 import lapr.project.model.Path;
-import lapr.project.model.Vehicle;
+import lapr.project.model.Product;
+import lapr.project.model.Scooter;
 import lapr.project.utils.Graph;
 import lapr.project.utils.GraphAlgorithms;
-import lapr.project.utils.PathAlgorithms;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 public class GraphControllerTest {
 
     private static GraphController gCont;
 
     public GraphControllerTest() {
+    }
+
+    @BeforeAll
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterAll
+    public static void tearDownClass() throws Exception {
+    }
+
+    @BeforeEach
+    public void setUp() throws Exception {
+    }
+
+    @AfterEach
+    public void tearDown() throws Exception {
     }
 
     /**
@@ -405,17 +427,28 @@ public class GraphControllerTest {
         Address aDest = new Address("Test2", 0, 0, 0);
         la.add(aOrig);
         la.add(aDest);
+        Path p = new Path(aOrig, aDest, 0, 0, 0);
+        List<Address> la2 = new ArrayList<>(la);
+        List<Path> lp = new ArrayList<>();
+        lp.add(p);
         double distance = 200;
         double energy = 300;
-        Vehicle v = new Vehicle(1, 1, 1, 1, 1, 1, 1, 1, 1);
         GraphController instance = new GraphController();
+        instance.fillGraphScooterEnergy(la2, lp);
+        instance.fillGraphDroneEnergy(la2, lp);
         boolean expResult = true;
-        boolean result = instance.writePathToFile(fileName, la, distance, energy, v);
+        boolean result = instance.writePathToFile(true, fileName, la, distance, energy, "Scooter");
+        assertEquals(expResult, result);
+
+        result = instance.writePathToFile(false, fileName, la, distance, energy, "Drone");
         assertEquals(expResult, result);
 
         fileName = "";
         expResult = false;
-        result = instance.writePathToFile(fileName, la, distance, energy, v);
+        result = instance.writePathToFile(true, fileName, la, distance, energy, "Scooter");
+        assertEquals(expResult, result);
+
+        result = instance.writePathToFile(false, fileName, la, distance, energy, "Drone");
         assertEquals(expResult, result);
     }
 
@@ -584,7 +617,7 @@ public class GraphControllerTest {
         gCont.fillGraphScooterEnergy(la, lp);
 
         LinkedList<Address> shortPath = new LinkedList<>();
-        double expResult = 8.429583591993126;
+        double expResult = 14.64144806910326;
         double result = gCont.getShortestPathEnergy(scooterOrDrone, a1, a11, shortPath);
         assertEquals(expResult, result, 0);
 
@@ -594,7 +627,7 @@ public class GraphControllerTest {
         scooterOrDrone = false;
         expResult = 23.38608343497005;
         result = gCont.getShortestPathEnergy(scooterOrDrone, a1, a11, shortPath);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
     }
 
     /**
@@ -688,15 +721,83 @@ public class GraphControllerTest {
         Address aOrig = a1;
         Address aDest = a2;
 
-        double expResult = 96.22693885013689;
+        double expResult = 210.770867458709;
         double result = gCont.getShortestPathThroughNodesEnergy(scooterOrDrone, aOrig, aDest, lNodes, path);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         scooterOrDrone = false;
         path = new LinkedList<>();
         gCont.fillGraphDroneEnergy(la, lp);
         expResult = 264.89236813841075;
         result = gCont.getShortestPathThroughNodesEnergy(scooterOrDrone, aOrig, aDest, lNodes, path);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
+    }
+
+    /**
+     * Test of writePathToFile method, of class GraphController.
+     */
+    @Test
+    public void testWritePathToFile_7args() {
+
+        System.out.println("writePathToFile");
+        String fileName = "pathTest.csv";
+
+        LinkedList<Address> la = new LinkedList<>();
+        Address aOrig = new Address("Test", 0, 0, 0);
+        Address aDest = new Address("Test2", 0, 0, 0);
+        la.add(aOrig);
+        la.add(aDest);
+        Path p = new Path(aOrig, aDest, 0, 0, 0);
+        List<Address> la2 = new ArrayList<>(la);
+        List<Path> lp = new ArrayList<>();
+        lp.add(p);
+        double distance = 200;
+        double energy = 300;
+        GraphController instance = new GraphController();
+        instance.fillGraphScooterEnergy(la2, lp);
+        Courier c = new Courier("", "", "", 1, 1, 1, 70);
+        Scooter s = new Scooter(1, 1, 15, 1.1, 1.1, 200, 200, 200, 8.9, 1);
+        List<Product> lpro = new ArrayList<>();
+        boolean expResult = true;
+        boolean result = instance.writePathToFile(fileName, la, distance, energy, c, s, lpro);
+        assertEquals(expResult, result);
+
+        fileName = "";
+        expResult = false;
+        result = instance.writePathToFile(fileName, la, distance, energy, c, s, lpro);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of writePathToFile method, of class GraphController.
+     */
+    @Test
+    public void testWritePathToFile_6args2() {
+        System.out.println("writePathToFile");
+        String fileName = "pathTest.csv";
+
+        LinkedList<Address> la = new LinkedList<>();
+        Address aOrig = new Address("Test", 0, 0, 0);
+        Address aDest = new Address("Test2", 0, 0, 0);
+        la.add(aOrig);
+        la.add(aDest);
+        Path p = new Path(aOrig, aDest, 0, 0, 0);
+        List<Address> la2 = new ArrayList<>(la);
+        List<Path> lp = new ArrayList<>();
+        lp.add(p);
+        double distance = 200;
+        double energy = 300;
+        GraphController instance = new GraphController();
+        instance.fillGraphDroneEnergy(la2, lp);
+        Drone d = new Drone(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1, 0.5, 9);
+        List<Product> lpro = new ArrayList<>();
+        boolean expResult = true;
+        boolean result = instance.writePathToFile(fileName, la, distance, energy, d, lpro);
+        assertEquals(expResult, result);
+
+        fileName = "";
+        expResult = false;
+        result = instance.writePathToFile(fileName, la, distance, energy, d, lpro);
+        assertEquals(expResult, result);
     }
 }

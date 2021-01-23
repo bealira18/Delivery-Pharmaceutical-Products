@@ -18,7 +18,8 @@ public class ScooterDB extends DataHandler {
         try {
             openConnection();
             return addScooter(scooter.getIdVehicle(), scooter.getIdPharmacy(), scooter.getWeight(), scooter.getAerodynamicCoeficient(),
-                    scooter.getFrontalArea(), scooter.getMotor(), scooter.getCurrentBattery(), scooter.getMaxBattery(), scooter.getScooterStatusId());
+                    scooter.getFrontalArea(), scooter.getMotor(), scooter.getCurrentBattery(), scooter.getMaxBattery(),
+                    scooter.getAverageSpeed(), scooter.getScooterStatusId());
 
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -28,12 +29,12 @@ public class ScooterDB extends DataHandler {
     }
 
     public boolean addScooter(int idScooter, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
-            double motor, double currentBattery, double maxBattery, int scooterStatusId) throws SQLException {
+            double motor, double currentBattery, double maxBattery, double averageSpeed, int scooterStatusId) throws SQLException {
 
         CallableStatement callStmt = null;
 
         try {
-            callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1, idScooter);
             callStmt.setInt(2, idPharmacy);
@@ -43,7 +44,8 @@ public class ScooterDB extends DataHandler {
             callStmt.setDouble(6, motor);
             callStmt.setDouble(7, currentBattery);
             callStmt.setDouble(8, maxBattery);
-            callStmt.setInt(9, scooterStatusId);
+            callStmt.setDouble(9, averageSpeed);
+            callStmt.setInt(10, scooterStatusId);
 
             callStmt.execute();
             return true;
@@ -153,15 +155,18 @@ public class ScooterDB extends DataHandler {
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ call updateScooter(?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call updateScooter(?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1, s.getIdVehicle());
-            callStmt.setInt(2, s.getIdPharmacy());
-            callStmt.setDouble(3, s.getWeight());
-            callStmt.setDouble(4, s.getFrontalArea());
-            callStmt.setDouble(5, s.getMotor());
-            callStmt.setDouble(6, s.getCurrentBattery());
-            callStmt.setDouble(7, s.getMaxBattery());
+            callStmt.setInt(2, s.getScooterStatusId());
+            callStmt.setInt(3, s.getIdPharmacy());
+            callStmt.setDouble(4, s.getWeight());
+            callStmt.setDouble(5, s.getAerodynamicCoeficient());
+            callStmt.setDouble(6, s.getFrontalArea());
+            callStmt.setDouble(7, s.getMotor());
+            callStmt.setDouble(8, s.getCurrentBattery());
+            callStmt.setDouble(9, s.getMaxBattery());
+            callStmt.setDouble(10, s.getAverageSpeed());
 
             callStmt.execute();
 

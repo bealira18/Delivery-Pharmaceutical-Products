@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION getClientByEmail(
-    emailClient IN VARCHAR) 
+    emailClient IN VARCHAR2) 
 RETURN SYS_REFCURSOR 
 IS 
     matching_client SYS_REFCURSOR;

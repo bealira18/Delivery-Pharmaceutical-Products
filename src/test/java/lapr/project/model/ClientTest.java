@@ -7,15 +7,19 @@ package lapr.project.model;
 
 import java.time.LocalDate;
 import java.time.Month;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
  * @author Ricardo
  */
 public class ClientTest {
-    
+
     public ClientTest() {
     }
 
@@ -155,5 +159,40 @@ public class ClientTest {
         String result = instance.toString();
         assertEquals(expResult, result);
     }
-    
+
+    /**
+     * Test of hashCode method, of class Client.
+     */
+    @Test
+    public void testHashCode() {
+
+        System.out.println("hashCode");
+        Client instance = new Client("a@b.c", "qwerty", "Joaquim Alberto", 1, new CreditCard(5295360011327825L, LocalDate.of(2077, Month.MARCH, 1), (short) 454), new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411), 66);
+        int expResult = 204;
+        int result = instance.hashCode();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of equals method, of class Client.
+     */
+    @Test
+    public void testEquals() {
+
+        System.out.println("equals");
+        Object obj = null;
+        Client instance = new Client("a@b.c", "qwerty", "Joaquim Alberto", 123456789, new CreditCard(5295360011327825L, LocalDate.of(2077, Month.MARCH, 1), (short) 454), new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411), 66);
+        boolean expResult = true;
+        boolean result = instance.equals(instance);
+        assertEquals(expResult, result);
+
+        result = instance.equals(obj);
+        assertEquals(false, result);
+
+        result = instance.equals(new Client("a@b.c2", "qwerty", "Joaquim Alberto", 123456789, new CreditCard(5295360011327825L, LocalDate.of(2077, Month.MARCH, 1), (short) 454), new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411), 66));
+        assertEquals(false, result);
+
+        result = instance.equals(new Client("a@b.c", "qwerty", "Joaquim Alberto", 1234567893, new CreditCard(5295360011327825L, LocalDate.of(2077, Month.MARCH, 1), (short) 454), new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411), 66));
+        assertEquals(false, result);
+    }
 }

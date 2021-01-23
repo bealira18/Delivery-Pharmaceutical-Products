@@ -19,7 +19,8 @@ public class DroneDB extends DataHandler {
 
         try {
             return addDrone(drone.getIdVehicle(), drone.getIdPharmacy(), drone.getWeight(), drone.getAerodynamicCoeficient(),
-                    drone.getFrontalArea(), drone.getMotor(), drone.getCurrentBattery(), drone.getMaxBattery(), drone.getDroneStatusId());
+                    drone.getFrontalArea(), drone.getMotor(), drone.getCurrentBattery(), drone.getMaxBattery(), drone.getAverageSpeed(),
+                    drone.getWidth(), drone.getAverageVerticalSpeed(), drone.getDroneStatusId());
 
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -29,12 +30,13 @@ public class DroneDB extends DataHandler {
     }
 
     public boolean addDrone(int idDrone, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
-            double motor, double currentBattery, double maxBattery, int droneStatusId) throws SQLException {
+            double motor, double currentBattery, double maxBattery,  double averageSpeed, double width, double averageVerticalSpeed,
+                            int droneStatusId) throws SQLException {
 
         CallableStatement callStmt = null;
 
         try {
-            callStmt = getConnection().prepareCall("{ call addDrone(?,?,?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addDrone(?,?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1, idDrone);
             callStmt.setInt(2, idPharmacy);
@@ -44,7 +46,10 @@ public class DroneDB extends DataHandler {
             callStmt.setDouble(6, motor);
             callStmt.setDouble(7, currentBattery);
             callStmt.setDouble(8, maxBattery);
-            callStmt.setInt(9, droneStatusId);
+            callStmt.setDouble(9, averageSpeed);
+            callStmt.setDouble(10, width);
+            callStmt.setDouble(11, averageVerticalSpeed);
+            callStmt.setInt(12, droneStatusId);
 
             callStmt.execute();
             return true;
@@ -72,20 +77,19 @@ public class DroneDB extends DataHandler {
 
             callStmt = getConnection().prepareCall("{ ? = call getDroneById(?) }");
 
-            // Regista o tipo de dados SQL para interpretar o resultado obtido.
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            // Especifica o parâmetro de entrada da função "getSailor".
             callStmt.setInt(2, idDrone);
-            // Executa a invocação da função "getSailor".
             callStmt.execute();
-            // Guarda o cursor retornado num objeto "ResultSet".
+
             rSet = (ResultSet) callStmt.getObject(1);
 
             if (rSet.next()) {
                 int id = rSet.getInt(1);
-                int droneStatus = rSet.getInt(2);
+                double width = rSet.getDouble(2);
+                double averageVerticalSpeed = rSet.getDouble(3);
+                int droneStatus = rSet.getInt(4);
 
-                d = new Drone(id, droneStatus);
+                d = new Drone(id, width, averageVerticalSpeed, droneStatus);
             } else {
                 return null;
             }
@@ -122,15 +126,21 @@ public class DroneDB extends DataHandler {
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ call updateDrone(?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call updateDrone(?,?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1, d.getIdVehicle());
-            callStmt.setInt(2, d.getIdPharmacy());
-            callStmt.setDouble(3, d.getWeight());
-            callStmt.setDouble(4, d.getFrontalArea());
-            callStmt.setDouble(5, d.getMotor());
-            callStmt.setDouble(6, d.getCurrentBattery());
-            callStmt.setDouble(7, d.getMaxBattery());
+            callStmt.setDouble(2, d.getWidth());
+            callStmt.setDouble(3, d.getAverageVerticalSpeed());
+            callStmt.setInt(4, d.getDroneStatusId());
+            callStmt.setInt(5, d.getIdPharmacy());
+            callStmt.setDouble(6, d.getWeight());
+            callStmt.setDouble(7, d.getAerodynamicCoeficient());
+            callStmt.setDouble(8, d.getFrontalArea());
+            callStmt.setDouble(9, d.getMotor());
+            callStmt.setDouble(10, d.getCurrentBattery());
+            callStmt.setDouble(11, d.getMaxBattery());
+            callStmt.setDouble(12, d.getAverageSpeed());
+
 
             callStmt.execute();
             closeAll();

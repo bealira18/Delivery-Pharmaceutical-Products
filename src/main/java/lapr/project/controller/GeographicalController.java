@@ -31,9 +31,9 @@ public class GeographicalController {
         }
     }
 
-    public void addAddress(Address a) {
+    public boolean addAddress(Address a) {
 
-        aDB.addAddress(a);
+        return aDB.addAddress(a);
     }
 
     public List<Address> getAddresses() throws SQLException {
@@ -46,6 +46,10 @@ public class GeographicalController {
         return aDB.getPharmacyAddresses();
     }
 
+    public List<Path> getPaths(List<Address> la) throws SQLException {
+        return pDB.getPaths(la);
+    }
+
     public void addPaths(List<Path> lp) {
 
         for (Path p : lp) {
@@ -53,18 +57,19 @@ public class GeographicalController {
         }
     }
 
-    public void addPath(Path p) {
+    public boolean addPath(Path p) {
 
-        pDB.addPath(p);
+        return pDB.addPath(p);
     }
 
-    public void updatePath(Path p) {
+    public boolean updatePath(Path p) {
 
-        pDB.updatePath(p);
+        return pDB.updatePath(p);
     }
 
-    public void removePath(Address a1, Address a2) {
+    public boolean removePath(Address a1, Address a2) {
 
-        pDB.removePath(a1, a2);
+        return pDB.removePath(a1, a2);
     }
+
 }

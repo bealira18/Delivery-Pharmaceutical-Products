@@ -55,4 +55,40 @@ public class ScooterTest {
         String result = instance.toString();
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of hashCode method, of class Scooter.
+     */
+    @Test
+    public void testHashCode() {
+
+        System.out.println("hashCode");
+        Scooter instance = new Scooter(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1);
+        int expResult = 134;
+        int result = instance.hashCode();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of equals method, of class Scooter.
+     */
+    @Test
+    public void testEquals() {
+
+        System.out.println("equals");
+        Object obj = null;
+        Scooter instance = new Scooter(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1);
+        boolean expResult = true;
+        boolean result = instance.equals(instance);
+        assertEquals(expResult, result);
+
+        result = instance.equals(obj);
+        assertEquals(false, result);
+
+        result = instance.equals(new Scooter(1, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 2));
+        assertEquals(false, result);
+
+        result = instance.equals(new Scooter(2, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1));
+        assertEquals(false, result);
+    }
 }

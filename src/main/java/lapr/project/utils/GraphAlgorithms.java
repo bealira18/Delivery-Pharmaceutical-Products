@@ -4,12 +4,20 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lapr.project.model.Address;
+import lapr.project.model.Courier;
+import lapr.project.model.Drone;
 import lapr.project.model.Path;
-import lapr.project.model.Vehicle;
+import lapr.project.model.Product;
+import lapr.project.model.Scooter;
+import static lapr.project.utils.Constants.*;
 
 public class GraphAlgorithms {
 
@@ -25,7 +33,9 @@ public class GraphAlgorithms {
             }
         }
         if (lp != null) {
-            addPathsToGraph(g, la, lp);
+            List<Address> lad = new ArrayList<>();
+            g.vertices().forEach(lad::add);
+            addPathsToGraph(g, lad, lp);
         }
     }
 
@@ -37,7 +47,9 @@ public class GraphAlgorithms {
             }
         }
         if (lp != null) {
-            addPathsToGraphEnergy(scooterOrDrone, g, la, lp);
+            List<Address> lad = new ArrayList<>();
+            g.vertices().forEach(lad::add);
+            addPathsToGraphEnergy(scooterOrDrone, g, lad, lp);
         }
     }
 
@@ -68,48 +80,160 @@ public class GraphAlgorithms {
         return 0;
     }
 
-    /**
-     * @param <V>
-     * @param <E>
-     * @param g Graph instance
-     * @param vOrig information of the Vertex origin
-     * @param vDest information of the Vertex destination
-     * @return paths ArrayList with all paths from voInf to vdInf
-     */
-    public static <V, E> ArrayList<LinkedList<V>> allPaths(Graph<V, E> g, V vOrig, V vDest) {
-
-        LinkedList<V> path = new LinkedList<>();
-
-        if (!g.validVertex(vOrig) || !g.validVertex(vDest)) {
-            return new ArrayList<>();
-        }
-        ArrayList<LinkedList<V>> paths = new ArrayList<>();
-
-        allPaths(g, vOrig, vDest, path, paths);
-
-        return paths;
-    }
-
-    public static boolean writePathToFile(String fileName, LinkedList<Address> la,
-            double distance, double energy, Vehicle v) {
+    public static boolean writePathToFile(String fileName, Graph<Address, Path> g, LinkedList<Address> la,
+            double distance, double energy, String vehicle) {
 
         if (la.isEmpty()) {
             return false;
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
 
-            bw.write("Vehicle of ID " + v.getIdVehicle());
-            bw.newLine();
-            bw.write("Total Distance = " + String.format(Locale.ROOT, "%.2f", distance) + "km.");
-            bw.newLine();
-            bw.write("Total Energy Consumption = " + String.format(Locale.ROOT, "%.2f", energy) + "W.h.");
-            bw.newLine();
-            bw.write("Path Structure");
-            bw.newLine();
+            double totalEnergy = 0;
 
-            for (int i = 0; i < la.size(); i++) {
-                bw.write(la.get(i).getDescription() + ";");
+            bw.write("Vehicle Type -> " + vehicle + "\n");
+            bw.write(V_SPECS);
+            if (D_STRING.equalsIgnoreCase(vehicle)) {
+                bw.write("Drone Horizontal Speed = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_H_SPEED) + M_S_NEWLINE);
+                bw.write("Drone Vertical Speed = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_V_SPEED) + M_S_NEWLINE);
+                bw.write("Drone Weight (excluding load) = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_WEIGHT) + KG_NEWLINE);
+                bw.write("Drone Aerodynamic Coefficient = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_DRAG) + UNITLESS_NEWLINE);
+                bw.write("Drone Frontal Area = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_FRONTAL) + M2_NEWLINE);
+                bw.write("Drone Width = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_WIDTH) + "m.\n");
             }
+            if ("Scooter".equalsIgnoreCase(vehicle)) {
+                bw.write("Scooter Speed = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_SPEED) + M_S_NEWLINE);
+                bw.write("Scooter Weight (excluding load) = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_WEIGHT) + KG_NEWLINE);
+                bw.write("Courier Weight = " + String.format(Locale.ROOT, "%.2f", AVG_COURIER_WEIGHT) + KG_NEWLINE);
+                bw.write("Scooter Aerodynamic Coefficient = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_DRAG) + UNITLESS_NEWLINE);
+                bw.write("Scooter Frontal Area (considering upright human) = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_FRONTAL) + M2_NEWLINE);
+            }
+            bw.newLine();
+            bw.write(P_PATH);
+            bw.write(T_DIST + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
+            bw.write(T_E_CONS + String.format(Locale.ROOT, "%.2f", energy) + WH_NEWLINE);
+            bw.newLine();
+            bw.write(P_STR);
+
+            for (int i = 0; i < la.size() - 1; i++) {
+                Path p = g.getEdge(la.get(i), la.get(i + 1)).getElement();
+                double distance2 = PathAlgorithms.calcDistance(la.get(i), la.get(i + 1));
+                double roadSlope = Math.toDegrees(Math.atan((p.getAddress2().getAltitude() - p.getAddress1().getAltitude()) / distance2));
+
+                bw.newLine();
+                bw.write(p.getAddress1().getDescription() + " -> " + p.getAddress2().getDescription() + "\n");
+                bw.write(P_KIN_CO + String.format(Locale.ROOT, "%.2f", p.getKineticCoeficient()) + UNITLESS_NEWLINE);
+                bw.write(P_WIN_A + String.format(Locale.ROOT, "%.2f", p.getWindAngle()) + D_NEWLINE);
+                bw.write(P_WIN_S + String.format(Locale.ROOT, "%.2f", p.getWindSpeed()) + M_S_NEWLINE);
+                bw.write(R_SLO_A + String.format(Locale.ROOT, "%.2f", roadSlope) + D_NEWLINE);
+                bw.write(DIST + String.format(Locale.ROOT, "%.2f", distance2 / 1000) + KM_NEWLINE);
+                if (D_STRING.equalsIgnoreCase(vehicle)) {
+                    totalEnergy += PathAlgorithms.calcDroneEnergy(p);
+                    bw.write(ENERGY + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcDroneEnergy(p)) + WH_NEWLINE);
+                }
+                if ("Scooter".equalsIgnoreCase(vehicle)) {
+                    bw.write(ENERGY + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcScooterEnergy(p)) + WH_NEWLINE);
+                }
+            }
+            if (D_STRING.equalsIgnoreCase(vehicle)) {
+                bw.newLine();
+                bw.write("Vertical Energy Consumption = " + String.format(Locale.ROOT, "%.2f", energy - totalEnergy) + WH_NEWLINE);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(GraphAlgorithms.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean writePathToFile(String fileName, Graph<Address, Path> g, LinkedList<Address> la,
+            double distance, double energy, Courier c, Scooter s, List<Product> lPro) {
+
+        if (la.isEmpty()) {
+            return false;
+        }
+        try (BufferedWriter bw2 = new BufferedWriter(new FileWriter(fileName))) {
+
+            bw2.write("Vehicle Type -> Scooter\n");
+            bw2.write(V_SPECS);
+            bw2.write("Scooter Speed = " + String.format(Locale.ROOT, "%.2f", s.getAverageSpeed()) + M_S_NEWLINE);
+            bw2.write("Scooter Weight (excluding load) = " + String.format(Locale.ROOT, "%.2f", s.getWeight()) + KG_NEWLINE);
+            bw2.write("Courier Weight = " + String.format(Locale.ROOT, "%.2f", c.getWeight()) + KG_NEWLINE);
+            bw2.write("Load Weight = " + String.format(Locale.ROOT, "%.2f", lPro.stream().mapToDouble(Product::getWeight).sum()) + KG_NEWLINE);
+            bw2.write("Scooter Aerodynamic Coefficient = " + String.format(Locale.ROOT, "%.2f", s.getAerodynamicCoeficient()) + UNITLESS_NEWLINE);
+            bw2.write("Scooter Frontal Area (considering upright human) = " + String.format(Locale.ROOT, "%.2f", s.getFrontalArea()) + M2_NEWLINE);
+
+            bw2.newLine();
+            bw2.write(P_PATH);
+            bw2.write(T_DIST + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
+            bw2.write(T_E_CONS + String.format(Locale.ROOT, "%.2f", energy) + WH_NEWLINE);
+            bw2.newLine();
+            bw2.write(P_STR);
+
+            for (int i = 0; i < la.size() - 1; i++) {
+                Path p2 = g.getEdge(la.get(i), la.get(i + 1)).getElement();
+                double distance3 = PathAlgorithms.calcDistance(la.get(i), la.get(i + 1));
+                double roadSlope = Math.toDegrees(Math.atan((p2.getAddress2().getAltitude() - p2.getAddress1().getAltitude()) / distance3));
+
+                bw2.newLine();
+                bw2.write(p2.getAddress1().getDescription() + " -> " + p2.getAddress2().getDescription() + "\n");
+                bw2.write(P_KIN_CO + String.format(Locale.ROOT, "%.2f", p2.getKineticCoeficient()) + UNITLESS_NEWLINE);
+                bw2.write(P_WIN_A + String.format(Locale.ROOT, "%.2f", p2.getWindAngle()) + D_NEWLINE);
+                bw2.write(P_WIN_S + String.format(Locale.ROOT, "%.2f", p2.getWindSpeed()) + M_S_NEWLINE);
+                bw2.write(R_SLO_A + String.format(Locale.ROOT, "%.2f", roadSlope) + D_NEWLINE);
+                bw2.write(DIST + String.format(Locale.ROOT, "%.2f", distance3 / 1000) + KM_NEWLINE);
+                bw2.write(ENERGY + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcScooterEnergy(p2, c, s, lPro)) + WH_NEWLINE);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(GraphAlgorithms.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean writePathToFile(String fileName, Graph<Address, Path> g, LinkedList<Address> la,
+            double distance, double energy, Drone d, List<Product> lPro) {
+
+        if (la.isEmpty()) {
+            return false;
+        }
+        try (BufferedWriter bw3 = new BufferedWriter(new FileWriter(fileName))) {
+
+            double totalEnergy = 0;
+
+            bw3.write("Vehicle Type -> Drone\n");
+            bw3.write(V_SPECS);
+            bw3.write("Drone Horizontal Speed = " + String.format(Locale.ROOT, "%.2f", d.getAverageSpeed()) + M_S_NEWLINE);
+            bw3.write("Drone Vertical Speed = " + String.format(Locale.ROOT, "%.2f", d.getAverageVerticalSpeed()) + M_S_NEWLINE);
+            bw3.write("Drone Weight (excluding load) = " + String.format(Locale.ROOT, "%.2f", d.getWeight()) + KG_NEWLINE);
+            bw3.write("Load Weight = " + String.format(Locale.ROOT, "%.2f", lPro.stream().mapToDouble(Product::getWeight).sum()) + KG_NEWLINE);
+            bw3.write("Drone Aerodynamic Coefficient = " + String.format(Locale.ROOT, "%.2f", d.getAerodynamicCoeficient()) + UNITLESS_NEWLINE);
+            bw3.write("Drone Frontal Area = " + String.format(Locale.ROOT, "%.2f", d.getFrontalArea()) + M2_NEWLINE);
+            bw3.write("Drone Width = " + String.format(Locale.ROOT, "%.2f", d.getWidth()) + "m.\n");
+
+            bw3.newLine();
+            bw3.write(P_PATH);
+            bw3.write(T_DIST + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
+            bw3.write(T_E_CONS + String.format(Locale.ROOT, "%.2f", energy) + WH_NEWLINE);
+            bw3.newLine();
+            bw3.write(P_STR);
+
+            for (int i = 0; i < la.size() - 1; i++) {
+                Path p = g.getEdge(la.get(i), la.get(i + 1)).getElement();
+                totalEnergy += PathAlgorithms.calcDroneEnergy(p);
+                double distance4 = PathAlgorithms.calcDistance(la.get(i), la.get(i + 1));
+                double roadSlope = Math.toDegrees(Math.atan((p.getAddress2().getAltitude() - p.getAddress1().getAltitude()) / distance4));
+
+                bw3.newLine();
+                bw3.write(p.getAddress1().getDescription() + " -> " + p.getAddress2().getDescription() + "\n");
+                bw3.write(P_KIN_CO + String.format(Locale.ROOT, "%.2f", p.getKineticCoeficient()) + UNITLESS_NEWLINE);
+                bw3.write(P_WIN_A + String.format(Locale.ROOT, "%.2f", p.getWindAngle()) + D_NEWLINE);
+                bw3.write(P_WIN_S + String.format(Locale.ROOT, "%.2f", p.getWindSpeed()) + M_S_NEWLINE);
+                bw3.write(R_SLO_A + String.format(Locale.ROOT, "%.2f", roadSlope) + D_NEWLINE);
+                bw3.write(DIST + String.format(Locale.ROOT, "%.2f", distance4 / 1000) + KM_NEWLINE);
+                bw3.write(ENERGY + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcDroneEnergy(p)) + WH_NEWLINE);
+            }
+            bw3.newLine();
+            bw3.write("Vertical Energy Consumption = " + String.format(Locale.ROOT, "%.2f", energy - totalEnergy) + WH_NEWLINE);
 
         } catch (IOException ex) {
             Logger.getLogger(GraphAlgorithms.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,24 +326,25 @@ public class GraphAlgorithms {
         lOrig.addAll(lAddon);
     }
 
-    public static Address getNearestPharmacy(Graph<Address, Path> g, Address aOrig, List<Address> la) {
+    public static Address getNearestPharmacy(Graph<Address, Path> g, Address aDest, List<Address> la) {
 
-        if (la.isEmpty() || g == null || !g.validVertex(aOrig)) {
+        if (la.isEmpty() || g == null || !g.validVertex(aDest)) {
             return null;
         }
-        LinkedList<Address> dummyList = new LinkedList<>();
-        Address nearestPharmacy = la.get(0);
-        double lowestDistance = shortestPath(g, aOrig, la.get(0), dummyList);
-        double currentDistance;
+        Address nearestPharmacy = null;
+        double lowestDistance = Double.MAX_VALUE;
 
-        for (int i = 1; i < la.size(); i++) {
+        for (int i = 0; i < la.size(); i++) {
 
-            dummyList = new LinkedList<>();
-            currentDistance = shortestPath(g, aOrig, la.get(i), dummyList);
+            if (g.validVertex(la.get(i))) {
 
-            if (currentDistance < lowestDistance) {
-                lowestDistance = currentDistance;
-                nearestPharmacy = la.get(i);
+                LinkedList<Address> dummyList = new LinkedList<>();
+                double currentDistance = shortestPath(g, la.get(i), aDest, dummyList);
+
+                if (currentDistance < lowestDistance) {
+                    lowestDistance = currentDistance;
+                    nearestPharmacy = la.get(i);
+                }
             }
         }
         return nearestPharmacy;
@@ -347,36 +472,5 @@ public class GraphAlgorithms {
                 }
             }
         }
-    }
-
-    /**
-     * Returns all paths from vOrig to vDest
-     *
-     * @param g Graph instance
-     * @param vOrig Vertex that will be the source of the path
-     * @param vDest Vertex that will be the end of the path //* @param visited
-     * set of discovered vertices
-     * @param path stack with vertices of the current path (the path is in
-     * reverse order)
-     * @param paths ArrayList with all the paths (in correct order)
-     */
-    private static <V, E> void allPaths(Graph<V, E> g, V vOrig, V vDest, LinkedList<V> path, ArrayList<LinkedList<V>> paths) {
-
-        path.push(vOrig);
-
-        for (V vAdj : g.adjVertices(vOrig)) {
-
-            if (vAdj.equals(vDest)) {
-                path.push(vDest);
-                paths.add(path);
-                path.pop();
-
-            } else {
-                if (!path.contains(vAdj)) {
-                    allPaths(g, vAdj, vDest, path, paths);
-                }
-            }
-        }
-        path.pop();
     }
 }

@@ -10,6 +10,7 @@ import lapr.project.model.Scooter;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class AssignOrderToCourierScooterController {
         List<Scooter> listScooters = getAllAvailableScooters(orderList.get(0));
         ArrayList<Delivery> deliveries = new ArrayList<>();
         LocalDate startDate = LocalDate.now();
-        LocalDate endDate = null;
+        LocalDate endDate = LocalDate.of(2077, Month.MARCH, 1);
         Delivery nextAvailable;
 
         if(listCouriers.isEmpty()) {

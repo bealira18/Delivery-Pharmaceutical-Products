@@ -16,7 +16,7 @@ public class ParkDB extends DataHandler {
         openConnection();
 
         try {
-            return addPark(p.getPharmacyId(), p.getLimit(), p.getNumChargingStations(), p.getCategory(), p.getAddress().getDescription());
+            return addPark(p.getPharmacyId(), p.getLimit(), p.getNumChargingStations(), p.getCategory(), p.getAddress().getDescription(), p.getMaxChargingPotency());
 
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -25,18 +25,19 @@ public class ParkDB extends DataHandler {
         }
     }
 
-    private boolean addPark(int pharmacyId, int limit, int numChargingStations, String category, String address) throws SQLException {
+    private boolean addPark(int pharmacyId, int limit, int numChargingStations, String category, String address, double maxChargingPotency) throws SQLException {
 
         CallableStatement callStmt = null;
 
         try {
-            callStmt = getConnection().prepareCall("{ call addPark(?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call addPark(?,?,?,?,?,?) }");
 
             callStmt.setInt(1, pharmacyId);
             callStmt.setInt(2, limit);
             callStmt.setInt(3, numChargingStations);
             callStmt.setString(4, category);
             callStmt.setString(5, address);
+            callStmt.setDouble(6, maxChargingPotency);
 
             callStmt.execute();
             return true;
@@ -154,16 +155,21 @@ public class ParkDB extends DataHandler {
                 int numChargingStations = rSet.getInt(4);
                 String category = rSet.getString(5);
                 String address = rSet.getString(6);
+                double maxChargingPotency = rSet.getDouble(7);
 
                 AddressDB adb = new AddressDB();
                 Address a = adb.getAddressByAd(address);
 
-                p = new Park(idP, pharmacyId, limit, numChargingStations, category, a);
+                p = new Park(idP, pharmacyId, limit, numChargingStations, category, a, maxChargingPotency);
             }
             closeAll();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("No Park with id:" + id);
+        } finally {
+            if (callStmt3 != null) callStmt3.close();
+            if (rSet != null) rSet.close();
+            closeAll();
         }
 
         return p;

@@ -8,78 +8,13 @@ import lapr.project.model.Drone;
 import lapr.project.model.Path;
 import lapr.project.model.Product;
 import lapr.project.model.Scooter;
+import static lapr.project.utils.Constants.*;
 
 public class PathAlgorithms {
 
     private PathAlgorithms() {
 
     }
-
-    /**
-     * Earth radius in Km. Irrelevant for lower distances.
-     */
-    private static final int EARTH_RADIUS = 6371;
-    /**
-     * Wind degrees (non-radian).
-     */
-    private static final double AIR_DENSITY = 1.2041;
-    /**
-     * Gravitational acceleration in 9.8 m/s2.
-     */
-    private static final double GRAVITATIONAL_ACCELERATION = 9.8;
-    /**
-     * Average scooter speed in m/s.
-     */
-    private static final double AVG_SCOOTER_SPEED = 8.9;
-    /**
-     * Average scooter weight in kg.
-     */
-    private static final double AVG_SCOOTER_WEIGHT = 15;
-    /**
-     * Average scooter drag.
-     */
-    private static final double AVG_SCOOTER_DRAG = 1.1;
-    /**
-     * Average scooter frontal area in m2.
-     */
-    private static final double AVG_SCOOTER_FRONTAL = 0.5;
-    /**
-     * Average commercial drone horizontal speed in m/s.
-     */
-    private static final double AVG_DRONE_H_SPEED = 22.36;
-    /**
-     * Average commercial drone vertical speed in m/s.
-     */
-    private static final double AVG_DRONE_V_SPEED = 9;
-    /**
-     * Average drone weight in kg.
-     */
-    private static final double AVG_DRONE_WEIGHT = 5;
-    /**
-     * Average drone drag.
-     */
-    private static final double AVG_DRONE_DRAG = 0.6;
-    /**
-     * Average drone frontal area in m2.
-     */
-    private static final double AVG_DRONE_FRONTAL = 0.4;
-    /**
-     * Average courier weight in kg.
-     */
-    private static final double AVG_COURIER_WEIGHT = 70;
-    /**
-     * Drone altitude in meters, taking into account it parks at 10m above
-     * ground.
-     */
-    private static final double DRONE_ALTITUDE = 140;
-    /**
-     * Average drone width in m.
-     */
-    private static final double AVG_DRONE_WIDTH = 0.5;
-    /**
-     * How many Wh a J is worth.
-     */
-    private static final double JOULE_TO_WATTHOUR_CONVERTER = 0.00027777777777778;
 
     public static double calcDistance(Address a1, Address a2) {
 
@@ -111,9 +46,12 @@ public class PathAlgorithms {
             return 0;
         }
         double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), AVG_SCOOTER_SPEED);
+        double roadSlope = Math.atan((p.getAddress2().getAltitude() - p.getAddress1().getAltitude()) / distance);
+
+        double slopeDrag = (AVG_COURIER_WEIGHT + AVG_SCOOTER_WEIGHT) * GRAVITATIONAL_ACCELERATION * Math.sin(roadSlope);
         double aeroDrag = 0.5 * AIR_DENSITY * AVG_SCOOTER_DRAG * AVG_SCOOTER_FRONTAL * Math.pow(relativeSpeed, 2);
-        double groundDrag = GRAVITATIONAL_ACCELERATION * (AVG_COURIER_WEIGHT + AVG_SCOOTER_WEIGHT) * p.getKineticCoeficient();
-        double totalForce = aeroDrag + groundDrag;
+        double groundDrag = GRAVITATIONAL_ACCELERATION * (AVG_COURIER_WEIGHT + AVG_SCOOTER_WEIGHT) * p.getKineticCoeficient() * Math.cos(roadSlope);
+        double totalForce = slopeDrag + aeroDrag + groundDrag;
 
         return totalForce * AVG_SCOOTER_SPEED * calcTime(distance, AVG_SCOOTER_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
     }
@@ -125,11 +63,13 @@ public class PathAlgorithms {
             return 0;
         }
         double totalWeight = c.getWeight() + AVG_SCOOTER_WEIGHT + lp.stream().mapToDouble(Product::getWeight).sum();
-
         double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), AVG_SCOOTER_SPEED);
+        double roadSlope = Math.atan((p.getAddress2().getAltitude() - p.getAddress1().getAltitude()) / distance);
+
+        double slopeDrag = totalWeight * GRAVITATIONAL_ACCELERATION * Math.sin(roadSlope);
         double aeroDrag = 0.5 * AIR_DENSITY * AVG_SCOOTER_DRAG * AVG_SCOOTER_FRONTAL * Math.pow(relativeSpeed, 2);
-        double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient();
-        double totalForce = aeroDrag + groundDrag;
+        double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient() * Math.cos(roadSlope);
+        double totalForce = slopeDrag + aeroDrag + groundDrag;
 
         return totalForce * AVG_SCOOTER_SPEED * calcTime(distance, AVG_SCOOTER_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
     }
@@ -141,11 +81,13 @@ public class PathAlgorithms {
             return 0;
         }
         double totalWeight = c.getWeight() + s.getWeight() + lp.stream().mapToDouble(Product::getWeight).sum();
-
         double relativeSpeed = getRelativeSpeed(p.getWindSpeed(), p.getWindAngle(), s.getAverageSpeed());
+        double roadSlope = Math.atan((p.getAddress2().getAltitude() - p.getAddress1().getAltitude()) / distance);
+
+        double slopeDrag = totalWeight * GRAVITATIONAL_ACCELERATION * Math.sin(roadSlope);
         double aeroDrag = 0.5 * AIR_DENSITY * s.getAerodynamicCoeficient() * s.getFrontalArea() * Math.pow(relativeSpeed, 2);
-        double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient();
-        double totalForce = aeroDrag + groundDrag;
+        double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient() * Math.cos(roadSlope);
+        double totalForce = slopeDrag + aeroDrag + groundDrag;
 
         return totalForce * s.getAverageSpeed() * calcTime(distance, s.getAverageSpeed()) * JOULE_TO_WATTHOUR_CONVERTER;
     }

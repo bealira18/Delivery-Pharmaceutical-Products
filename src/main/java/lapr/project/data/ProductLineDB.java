@@ -27,6 +27,8 @@ public class ProductLineDB extends DataHandler {
             callStmt.setInt(3,quantity);
             callStmt.setDouble(4,price);
 
+            callStmt.execute();
+
             return true;
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,20 +1,21 @@
 CREATE OR REPLACE PROCEDURE addPark(
-    pharmacy_id IN INTEGER, 
+    p_pharmacy_id IN INTEGER, 
     p_limit IN INTEGER,
     p_num_charging_stations IN INTEGER, 
     p_category IN VARCHAR2,
-    p_address IN VARCHAR2) 
+    p_address IN VARCHAR2,
+    p_maxChargingPotency IN NUMERIC) 
 IS
-    v_park_id           NUMBER;
-    i                   INTEGER;
+    v_park_id NUMERIC;
+    i INTEGER;
 BEGIN
 
     IF p_limit < p_num_charging_stations THEN
         RAISE_APPLICATION_ERROR(-20001, 'Cant have more charging stations than spaces.');
     END IF;
 
-    INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address)
-    VALUES(pharmacy_id, p_limit, p_num_charging_stations, p_category, p_address);
+    INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency)
+    VALUES(p_pharmacy_id, p_limit, p_num_charging_stations, p_category, p_address, p_maxChargingPotency);
     
     SELECT id_park INTO v_park_id 
     FROM park

@@ -81,28 +81,28 @@ public class PathAlgorithmsTest {
     public void testCalcScooterEnergy() {
 
         System.out.println("calcScooterEnergy");
-        Address a1 = new Address("Test1", 45, 45, 0);
-        Address a2 = new Address("Test2", 46, 48.7749, 0);
+        Address a1 = new Address("Test1", 45, 45, 23);
+        Address a2 = new Address("Test2", 46, 48.7749, 890);
         Path p = new Path(a1, a2, 0.7, 90, 12);
         Courier c = new Courier("TestMail", "TestPass", "TestName", 0, 0, 1, 80);
         List<Product> lp = new ArrayList<>();
 
-        double expResult = 59219.43;
+        double expResult = 62192.8232407537;
         double result = PathAlgorithms.calcScooterEnergy(p, c, lp);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         p = new Path(a1, a2, 0.7, 90, 12);
         c = new Courier("TestMail", "TestPass", "TestName", 0, 0, 1, 100);
 
-        expResult = 71204.33;
+        expResult = 74224.87996414013;
         result = PathAlgorithms.calcScooterEnergy(p, c, lp);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         lp.add(new Product(0, "Test", 0.0, -10, 0));
 
-        expResult = 65211.88;
+        expResult = 68208.85160244691;
         result = PathAlgorithms.calcScooterEnergy(p, c, lp);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         a1 = new Address("Test1", 45, 45, 0);
         a2 = new Address("Test2", 45, 45, 0);
@@ -131,9 +131,9 @@ public class PathAlgorithmsTest {
         la.add(a2);
         la.add(a3);
 
-        double expResult = 1904.97;
+        double expResult = 1905.6519783285971;
         double result = PathAlgorithms.calcTotalDistance(la);
-        assertEquals(expResult, result, 2);
+        assertEquals(expResult, result, 0);
 
         la = new LinkedList<>();
 
@@ -177,9 +177,9 @@ public class PathAlgorithmsTest {
 
         Courier c = new Courier("TestMail", "TestPass", "Name", 0, 0, 0, 80.0);
         List<Product> lpro = new ArrayList<>();
-        double expResult = 13.87;
+        double expResult = 31.150622467562194;
         double result = PathAlgorithms.calcScooterTotalEnergy(g, lla, c, lpro);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         lla = new LinkedList<>();
 
@@ -206,9 +206,9 @@ public class PathAlgorithmsTest {
 
         lp.add(new Product(0, "Test", 0.0, -10, 0));
 
-        expResult = 6325.03;
+        expResult = 6325.0361044119;
         result = PathAlgorithms.calcDroneEnergy(p, lp);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         a1 = new Address("Test1", 45, 45, 0);
         a2 = new Address("Test2", 45, 45, 0);
@@ -272,15 +272,15 @@ public class PathAlgorithmsTest {
         lla.add(a3);
 
         List<Product> lpro = new ArrayList<>();
-        double expResult = 38.20;
+        double expResult = 38.207430834455025;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         lpro.add(new Product(1, "Test", 0, 180, 1));
 
-        expResult = 172.24;
+        expResult = 172.24160458590814;
         result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         lla = new LinkedList<>();
 
@@ -321,9 +321,9 @@ public class PathAlgorithmsTest {
 
         List<Product> lpro = new ArrayList<>();
         lpro.add(new Product(1, "Test", 0, 999, 1));
-        double expResult = 226012.56;
+        double expResult = 226012.56916245815;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, lpro);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
     }
 
     /**
@@ -333,29 +333,29 @@ public class PathAlgorithmsTest {
     public void testCalcScooterEnergy_4args() {
 
         System.out.println("calcScooterEnergy");
-        Address a1 = new Address("Test1", 45, 45, 0);
-        Address a2 = new Address("Test2", 46, 48.7749, 0);
+        Address a1 = new Address("Test1", 45, 45, 23);
+        Address a2 = new Address("Test2", 46, 48.7749, 890);
         Path p = new Path(a1, a2, 0.7, 90, 12);
         Courier c = new Courier("TestMail", "TestPass", "TestName", 0, 0, 1, 80);
         Scooter s = new Scooter(1, 1, 15, 1.1, 0.5, 200, 200, 200, 8.9, 1);
         List<Product> lp = new ArrayList<>();
 
-        double expResult = 59219.43;
+        double expResult = 59443.430256389234;
         double result = PathAlgorithms.calcScooterEnergy(p, c, s, lp);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         p = new Path(a1, a2, 0.7, 90, 12);
         c = new Courier("TestMail", "TestPass", "TestName", 0, 0, 1, 100);
 
-        expResult = 71204.33;
+        expResult = 71475.48697977564;
         result = PathAlgorithms.calcScooterEnergy(p, c, s, lp);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         lp.add(new Product(0, "Test", 0.0, -10, 0));
 
-        expResult = 65211.88;
+        expResult = 65459.45861808243;
         result = PathAlgorithms.calcScooterEnergy(p, c, s, lp);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         a1 = new Address("Test1", 45, 45, 0);
         a2 = new Address("Test2", 45, 45, 0);
@@ -376,18 +376,18 @@ public class PathAlgorithmsTest {
         Address a1 = new Address("Test1", 45, 45, 0);
         Address a2 = new Address("Test2", 46, 48.7749, 0);
         Path p = new Path(a1, a2, 0.7, 90, 12);
-        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 1);
+        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 0.5, 9, 1);
         List<Product> lp = new ArrayList<>();
 
-        double expResult = 6325.03;
+        double expResult = 6325.0361044119;
         double result = PathAlgorithms.calcDroneEnergy(p, d, lp);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         lp.add(new Product(0, "Test", 0.0, -10, 0));
 
-        expResult = 6325.03;
+        expResult = 6325.0361044119;
         result = PathAlgorithms.calcDroneEnergy(p, d, lp);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         a1 = new Address("Test1", 45, 45, 0);
         a2 = new Address("Test2", 45, 45, 0);
@@ -434,9 +434,9 @@ public class PathAlgorithmsTest {
         Courier c = new Courier("TestMail", "TestPass", "Name", 0, 0, 0, 80.0);
         Scooter s = new Scooter(1, 1, 15, 1.1, 0.5, 200, 200, 200, 8.9, 1);
         List<Product> lpro = new ArrayList<>();
-        double expResult = 13.87;
+        double expResult = 14.576764266689551;
         double result = PathAlgorithms.calcScooterTotalEnergy(g, lla, c, s, lpro);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         lla = new LinkedList<>();
 
@@ -478,17 +478,17 @@ public class PathAlgorithmsTest {
         lla.add(a2);
         lla.add(a3);
 
-        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 1);
+        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 0.5, 9, 1);
         List<Product> lpro = new ArrayList<>();
-        double expResult = 38.2;
+        double expResult = 38.207430834455025;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         lpro.add(new Product(1, "Test", 0, 180, 1));
 
-        expResult = 172.24;
+        expResult = 172.24160458590814;
         result = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
 
         lla = new LinkedList<>();
 
@@ -530,11 +530,11 @@ public class PathAlgorithmsTest {
         lla.add(a2);
         lla.add(a3);
 
-        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 1);
+        Drone d = new Drone(1, 1, 5, 0.6, 0.4, 200, 200, 200, 22.36, 0.5, 9, 1);
         List<Product> lpro = new ArrayList<>();
-        double expResult = 2416.84;
+        double expResult = 2416.8419555951587;
         double result = PathAlgorithms.calcDroneTotalEnergy(g, lla, d, lpro);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
     }
 
     /**
@@ -548,9 +548,9 @@ public class PathAlgorithmsTest {
         double windDegrees = 175;
         double speed = 90;
 
-        double expResult = 119.88;
+        double expResult = 119.88584094275237;
         double result = PathAlgorithms.getRelativeSpeed(windSpeed, windDegrees, speed);
-        assertEquals(expResult, result, 1);
+        assertEquals(expResult, result, 0);
     }
 
     /**
@@ -560,11 +560,11 @@ public class PathAlgorithmsTest {
     public void testCalcScooterEnergy_Path() {
 
         System.out.println("calcScooterEnergy");
-        Address a1 = new Address("Test1", 45, 45, 0);
-        Address a2 = new Address("Test2", 46, 48.7749, 0);
+        Address a1 = new Address("Test1", 45, 45, 57);
+        Address a2 = new Address("Test2", 46, 48.7749, 678);
         Path p = new Path(a1, a2, 0.7, 90, 12);
 
-        double expResult = 53226.98667030415;
+        double expResult = 56119.96953065921;
         double result = PathAlgorithms.calcScooterEnergy(p);
         assertEquals(expResult, result, 0);
 

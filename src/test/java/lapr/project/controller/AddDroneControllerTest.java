@@ -22,7 +22,7 @@ class AddDroneControllerTest {
     @BeforeAll
     public static void setUpClass() throws SQLException {
 
-        Drone drone1 = new Drone(1, 1, 20, 40, 50, 60, 10, 100, 22.36, 1);
+        Drone drone1 = new Drone(1, 1, 20, 40, 50, 60, 10, 100, 22.36, 1,1,1);
 
         DroneDB droneDB = mock(DroneDB.class);
         ParkDB parkDB = mock(ParkDB.class);
@@ -45,7 +45,7 @@ class AddDroneControllerTest {
 
         System.out.println("addDrone");
 
-        Drone drone1 = new Drone(1, 1, 20, 40, 50, 60, 10, 100, 22.36, 1);
+        Drone drone1 = new Drone(1, 1, 20, 40, 50, 60, 10, 100, 22.36, 1,1,1);
 
         boolean result = controller.addDrone(drone1);
         assertEquals(true, result);

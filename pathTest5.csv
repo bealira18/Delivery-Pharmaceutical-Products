@@ -1,15 +1,16 @@
-Vehicle Type -> Scooter
+Vehicle Type -> Drone
 Vehicle Specifications :
-Scooter Speed = 8.90m/s.
-Scooter Weight (excluding load) = 1.00kg.
-Courier Weight = 80.00kg.
-Load Weight = 0.00kg.
-Scooter Aerodynamic Coefficient = 1.00 (unitless).
-Scooter Frontal Area (considering upright human) = 1.00m2.
+Drone Horizontal Speed = 22.36m/s.
+Drone Vertical Speed = 9.00m/s.
+Drone Weight (excluding load) = 5.00kg.
+Load Weight = 3.00kg.
+Drone Aerodynamic Coefficient = 0.60 (unitless).
+Drone Frontal Area = 0.40m2.
+Drone Width = 0.50m.
 
 Projected Path :
 Total Distance = 1.91km.
-Total Energy Consumption = 25.76W.h.
+Total Energy Consumption = 38.60W.h.
 
 Path Structure :
 
@@ -19,7 +20,7 @@ Path Wind Angle = 90.00 Degrees.
 Path Wind Speed = 12.00m/s.
 Road Slope Angle = -0.33 Degrees.
 Distance = 0.69km.
-Energy = 8.20W.h.
+Energy = 13.49W.h.
 
 conservatorio -> trindade
 Path Kinetic Coefficient = 0.00 (unitless).
@@ -27,4 +28,6 @@ Path Wind Angle = 90.00 Degrees.
 Path Wind Speed = 12.00m/s.
 Road Slope Angle = 0.33 Degrees.
 Distance = 1.22km.
-Energy = 17.57W.h.
+Energy = 24.29W.h.
+
+Vertical Energy Consumption = 0.82W.h.
