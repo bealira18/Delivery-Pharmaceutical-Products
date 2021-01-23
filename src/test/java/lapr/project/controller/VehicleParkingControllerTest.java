@@ -5,6 +5,7 @@
  */
 package lapr.project.controller;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -52,19 +53,19 @@ public class VehicleParkingControllerTest {
      * Test of interpretChargerInfo method, of class VehicleParkingController.
      */
     @Test
-    public void testInterpretChargerInfo() {
+    public void testInterpretChargerInfo() throws FileNotFoundException {
         System.out.println("interpretChargerInfo");
-
-        boolean result = vpC.interpretChargerInfo(null);
-        assertEquals(false, result);
+        
+        assertThrows(FileNotFoundException.class, () -> {
+            vpC.interpretChargerInfo(null);
+        });
+        
         
         String fileName = "park_test.data";
-        result = vpC.interpretChargerInfo(fileName);
-        assertEquals(true, result);
+        vpC.interpretChargerInfo(fileName);
 
         fileName = "park_test_fail.data";
-        result = vpC.interpretChargerInfo(fileName);
-        assertEquals(true, result);
+        vpC.interpretChargerInfo(fileName);
 
         final String fileName2 = "park_test_bad.data";
         Exception ex = assertThrows(IllegalArgumentException.class, () -> {

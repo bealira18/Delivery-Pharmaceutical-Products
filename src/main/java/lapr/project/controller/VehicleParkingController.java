@@ -43,31 +43,25 @@ public class VehicleParkingController {
         this.eS = new EmailService();
     }
 
-    public boolean interpretChargerInfo(String fileName) {
+    public void interpretChargerInfo(String fileName) throws FileNotFoundException {
 
-        try (Scanner sc = new Scanner(new File(System.getProperty("charger.comm.dir") + fileName))) {
+        Scanner sc = new Scanner(new File(System.getProperty("charger.comm.dir") + fileName));
+        String buffer = sc.nextLine();
+        String[] arrBuffer = buffer.split(";");
 
-            String buffer = sc.nextLine();
-            String[] arrBuffer = buffer.split(";");
-
-            if (arrBuffer.length != 3) {
-                throw new IllegalArgumentException("Unexpected number of arguments");
-            }
-
-            //Check if the vehicle ID is real and what type it is
-            String vehicleType = vDB.typeOfVehicleByID(Integer.parseInt(arrBuffer[1]));
-            List<String> nameNemail = vDB.getEmailNameFromParkedVehicleResponsible(Integer.parseInt(arrBuffer[1]));
-            LocalDateTime date;
-
-            date = LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(arrBuffer[0])), ZoneId.of("Z"));
-            
-            eS.sendEmail(nameNemail.get(1), "Notificação de estacionamento", buildStatusEmail(nameNemail.get(0), date, Integer.parseInt(arrBuffer[1]), vehicleType, Float.parseFloat(arrBuffer[2])).toString());
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(VehicleParkingController.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+        if (arrBuffer.length != 3) {
+            throw new IllegalArgumentException("Unexpected number of arguments");
         }
-        return true;
+
+        //Check if the vehicle ID is real and what type it is
+        String vehicleType = vDB.typeOfVehicleByID(Integer.parseInt(arrBuffer[1]));
+        List<String> nameNemail = vDB.getEmailNameFromParkedVehicleResponsible(Integer.parseInt(arrBuffer[1]));
+        LocalDateTime date;
+
+        date = LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(arrBuffer[0])), ZoneId.of("Z"));
+
+        eS.sendEmail(nameNemail.get(1), "Notificação de estacionamento", buildStatusEmail(nameNemail.get(0), date, Integer.parseInt(arrBuffer[1]), vehicleType, Float.parseFloat(arrBuffer[2])).toString());
+
     }
 
     public void writeChargerRequest(Vehicle vehicle, boolean isReal) {
@@ -78,13 +72,12 @@ public class VehicleParkingController {
         String fileName = System.getProperty("charger.comm.dir") + date.format(dtf);
 
         String buffer = writeChargerInfo(vehicle, timestamp, isReal);
-                
+
         Utils.writeFile(buffer, fileName);
         Utils.writeFile(" ", fileName + ".flag");
     }
-    
-    public static String writeChargerInfo(Vehicle vehicle, long timestamp, boolean isReal)
-    {
+
+    public static String writeChargerInfo(Vehicle vehicle, long timestamp, boolean isReal) {
         String buffer = String.format(Locale.ROOT, "%d;%d", timestamp, vehicle.getIdVehicle());
 
         if (isReal) {
@@ -93,9 +86,8 @@ public class VehicleParkingController {
         }
         return buffer;
     }
-    
-    public static StringBuilder buildStatusEmail(String name, LocalDateTime date, int vehicleID, String vehicleType, float timeToFull)
-    {
+
+    public static StringBuilder buildStatusEmail(String name, LocalDateTime date, int vehicleID, String vehicleType, float timeToFull) {
         StringBuilder buildStatus = new StringBuilder("Caro Sr/a ");
         buildStatus.append(name).append(",");
         buildStatus.append(System.getProperty(Constants.LINE_BREAK));
@@ -105,11 +97,11 @@ public class VehicleParkingController {
 
         if (timeToFull >= 0.0) {
             buildStatus.append(" foi propriamente estacionado.").append(System.getProperty(Constants.LINE_BREAK));
-            buildStatus.append(String.format(Locale.ROOT,"A bateria desta estará carregada em %.2f horas.", timeToFull));
+            buildStatus.append(String.format(Locale.ROOT, "A bateria desta estará carregada em %.2f horas.", timeToFull));
         } else {
             buildStatus.append(" foi mal estacionado.").append(System.getProperty(Constants.LINE_BREAK));
             buildStatus.append("Por favor, regresse ao parque e estacione o veículo apropriadamente.");
-            
+
         }
         return buildStatus;
     }
