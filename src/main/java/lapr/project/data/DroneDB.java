@@ -126,15 +126,21 @@ public class DroneDB extends DataHandler {
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ call updateDrone(?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call updateDrone(?,?,?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1, d.getIdVehicle());
-            callStmt.setInt(2, d.getIdPharmacy());
-            callStmt.setDouble(3, d.getWeight());
-            callStmt.setDouble(4, d.getFrontalArea());
-            callStmt.setDouble(5, d.getMotor());
-            callStmt.setDouble(6, d.getCurrentBattery());
-            callStmt.setDouble(7, d.getMaxBattery());
+            callStmt.setDouble(2, d.getWidth());
+            callStmt.setDouble(3, d.getAverageVerticalSpeed());
+            callStmt.setInt(4, d.getDroneStatusId());
+            callStmt.setInt(5, d.getIdPharmacy());
+            callStmt.setDouble(6, d.getWeight());
+            callStmt.setDouble(7, d.getAerodynamicCoeficient());
+            callStmt.setDouble(8, d.getFrontalArea());
+            callStmt.setDouble(9, d.getMotor());
+            callStmt.setDouble(10, d.getCurrentBattery());
+            callStmt.setDouble(11, d.getMaxBattery());
+            callStmt.setDouble(12, d.getAverageSpeed());
+
 
             callStmt.execute();
             closeAll();

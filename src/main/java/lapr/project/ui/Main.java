@@ -161,10 +161,10 @@ class Main {
         /*
           Falta testar o CheckIfIsEnoughStock
          */
-        NotifyClientController notifyClientController = new NotifyClientController();
+        /*NotifyClientController notifyClientController = new NotifyClientController();
         System.out.println("\n\nNotifyClientController");
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1,"a", LocalDate.now());
-        System.out.println(notifyClientController.notifyClientDeliveryRunStarts(purchaseOrder));
+        System.out.println(notifyClientController.notifyClientDeliveryRunStarts(purchaseOrder));*/
 
 
         //PurchaseItemsController
@@ -203,7 +203,7 @@ class Main {
         System.out.println(removeProductFromPharmacyCatalogController.removeProductFromPharmacyCatalog(stock1));*/
 
 
-        //SetDeliveryFeeController      --- not saving after execution finished
+        //SetDeliveryFeeController
         /*SetDeliveryFeeController setDeliveryFeeController = new SetDeliveryFeeController();
         System.out.println(setDeliveryFeeController.setDeliveryFee(2.90));
         System.out.println(new PurchaseOrder(1,1,"a", LocalDate.now()).getDeliveryFee());*/
@@ -219,19 +219,20 @@ class Main {
 
 
         //UpdateDeliveryFeeController           --- correr isto removeu a ligaçao à bddad... ta a apagar as coisas das properties......
-        //UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
-        //updateDeliveryFeeController.updateDeliveryFee(2.90);
+        /*UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
+        updateDeliveryFeeController.updateDeliveryFee(2.90);
+        System.out.println(new PurchaseOrder(1,1,"a", LocalDate.now()).getDeliveryFee());*/
 
 
         //UpdateDroneController
         /*UpdateDroneController updateDroneController = new UpdateDroneController();
-        Drone drone = new Drone(6, 1, 2, 40, 50, 60, 10, 100, 1);
+        Drone drone = new Drone(6, 1, 2, 0.5, 50, 60, 10, 100, 1, 1,1,1);
         System.out.println(updateDroneController.updateDrone(drone.getIdVehicle(), drone));*/
 
 
         //UpdateNrChargingStationsController
-        /*UpdateNrChargingStationsController updateNrChargingStationsController = new UpdateNrChargingStationsController();
-        System.out.println(updateNrChargingStationsController.updateNrChargingStations(1,5));*/
+       /* UpdateNrChargingStationsController updateNrChargingStationsController = new UpdateNrChargingStationsController();
+        System.out.println(updateNrChargingStationsController.updateNrChargingStations(1,1));*/
 
 
         //UpdatePharmacyController
