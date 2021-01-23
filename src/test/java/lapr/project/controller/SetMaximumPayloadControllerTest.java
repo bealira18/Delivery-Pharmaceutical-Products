@@ -1,10 +1,8 @@
 package lapr.project.controller;
 
-import lapr.project.data.CourierDB;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
 public class SetMaximumPayloadControllerTest {
 
@@ -16,10 +14,7 @@ public class SetMaximumPayloadControllerTest {
     @BeforeAll
     public static void setUpClass() {
 
-        CourierDB cDB = mock(CourierDB.class);
-
         cCont = new SetMaximumPayloadController();
-        cCont = new SetMaximumPayloadController(cDB);
     }
 
     /**
