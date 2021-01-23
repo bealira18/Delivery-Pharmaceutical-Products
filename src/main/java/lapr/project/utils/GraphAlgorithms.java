@@ -326,24 +326,25 @@ public class GraphAlgorithms {
         lOrig.addAll(lAddon);
     }
 
-    public static Address getNearestPharmacy(Graph<Address, Path> g, Address aOrig, List<Address> la) {
+    public static Address getNearestPharmacy(Graph<Address, Path> g, Address aDest, List<Address> la) {
 
-        if (la.isEmpty() || g == null || !g.validVertex(aOrig)) {
+        if (la.isEmpty() || g == null || !g.validVertex(aDest)) {
             return null;
         }
-        LinkedList<Address> dummyList = new LinkedList<>();
-        Address nearestPharmacy = la.get(0);
-        double lowestDistance = shortestPath(g, aOrig, la.get(0), dummyList);
-        double currentDistance;
+        Address nearestPharmacy = null;
+        double lowestDistance = Double.MAX_VALUE;
 
-        for (int i = 1; i < la.size(); i++) {
+        for (int i = 0; i < la.size(); i++) {
 
-            dummyList = new LinkedList<>();
-            currentDistance = shortestPath(g, aOrig, la.get(i), dummyList);
+            if (g.validVertex(la.get(i))) {
 
-            if (currentDistance < lowestDistance) {
-                lowestDistance = currentDistance;
-                nearestPharmacy = la.get(i);
+                LinkedList<Address> dummyList = new LinkedList<>();
+                double currentDistance = shortestPath(g, la.get(i), aDest, dummyList);
+
+                if (currentDistance < lowestDistance) {
+                    lowestDistance = currentDistance;
+                    nearestPharmacy = la.get(i);
+                }
             }
         }
         return nearestPharmacy;
