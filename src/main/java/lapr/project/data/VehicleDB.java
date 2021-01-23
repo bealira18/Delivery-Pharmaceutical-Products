@@ -36,7 +36,7 @@ public class VehicleDB extends DataHandler {
         throw new IllegalArgumentException("Could not find a vehicle matching this id");
     }
 
-    public List<String> getEmailNameFromParkedVehicleResponsible(int vehicleID) throws SQLException {
+    public List<String> getEmailNameFromParkedVehicleResponsible(int vehicleID) {
 
         List<String> emailName = new ArrayList<>();
 
@@ -63,9 +63,16 @@ public class VehicleDB extends DataHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally{
-            if(callStmt!=null) callStmt.close();
-            if(rSet!=null) rSet.close();
-            closeAll();
+            try
+            {
+                if(callStmt!=null) callStmt.close();
+                if(rSet!=null) rSet.close();
+                closeAll();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+   
         }
         return emailName;
     }

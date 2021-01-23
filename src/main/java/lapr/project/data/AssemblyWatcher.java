@@ -55,6 +55,7 @@ public class AssemblyWatcher implements Runnable {
                     if (matcher.find()) {
                         new VehicleParkingController().interpretChargerInfo(event.context().toString().replace(".flag", ""));
                         Files.delete(FileSystems.getDefault().getPath(System.getProperty("charger.comm.dir") + event.context().toString()));
+                        Files.delete(FileSystems.getDefault().getPath(System.getProperty("charger.comm.dir") + event.context().toString().replace(".flag", "")));
                     }
 
                 }
