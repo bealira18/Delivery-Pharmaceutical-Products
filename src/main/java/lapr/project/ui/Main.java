@@ -43,9 +43,9 @@ class Main {
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
         
         //Initial Database Setup
-        //DataHandler dh = new DataHandler();
-        //dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
-        //dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
+        DataHandler dh = new DataHandler();
+        dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
+        dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
 
 
         //AddAdministratorController
@@ -119,11 +119,12 @@ class Main {
 
 
         //GeographicalController ----------------------------------------------------------------------------------------
-        /*GeographicalController geographicalController = new GeographicalController();
+        GeographicalController geographicalController = new GeographicalController();
+        System.out.println("\n\nGeographicalController");
         List<Address> addressList = geographicalController.getAddresses();
         List<Path> pathList = geographicalController.getPaths(addressList);
         List<Address> pharmaciesAddress = geographicalController.getPharmacyAddresses();
-        System.out.println(pharmaciesAddress);*/
+        System.out.println(pharmaciesAddress);
 
 
         //GetDronesController -------------------------------------------------------------------------------------------
@@ -137,13 +138,13 @@ class Main {
 
 
         //GraphController ----------------------------------------------------------------------------------------------
-        /*GraphController graphController = new GraphController();
+        GraphController graphController = new GraphController();
         graphController.fillGraphDrone(addressList, pathList);
-        System.out.println();
+        System.out.println("\n\nGraphController");
         Address address = new Address("el corte ingles", 41.178333, 8.606389, 103);
         System.out.println(graphController.getNearestPharmacy(address, pharmaciesAddress));
         Address address2 = new Address("se do porto", 41.178333, 8.606389, 103);
-        System.out.println(graphController.getNearestPharmacy(address2, pharmaciesAddress));*/
+        System.out.println(graphController.getNearestPharmacy(address2, pharmaciesAddress));
 
 
         //ManageCreditsController --------------------------------------------------------------------------------------
@@ -151,11 +152,19 @@ class Main {
 
         //PurchaseItemsController
         PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
-        System.out.println("PurchaseItemsController");
+        System.out.println("\n\nPurchaseItemsController");
         System.out.println(purchaseItemsController.getPharmacies());
         purchaseItemsController.getProductsFromPharmacy(1);
         System.out.println(purchaseItemsController.getProductCategories());
-        
+        ProductCategory productCategory = new ProductCategory(1,"a");
+        System.out.println(purchaseItemsController.getProductsFromCategory(productCategory));
+        Product product1 = new Product(1, "teste", 10, 3, 1);
+        Product product2 = new Product(2, "teste1", 5, 2, 1);
+        System.out.println(purchaseItemsController.addToBasket(product1, 3));
+        System.out.println(purchaseItemsController.addToBasket(product2, 2));
+        System.out.println(purchaseItemsController.addToBasket(product2, 15));
+        System.out.println(purchaseItemsController.purchaseItems(1, 1, "client1@gmail.com"));
+
 
         //RegisterClientController
         /*RegisterClientController registerClientController = new RegisterClientController();
