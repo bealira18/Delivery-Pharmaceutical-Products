@@ -7,7 +7,7 @@ BEGIN
     
     SELECT COUNT(*) INTO does_client_exist
     FROM registeredUser
-    WHERE email = p_clientEmail;
+    WHERE email = p_emailClient;
 
     IF does_client_exist = 0 THEN
         RAISE_APPLICATION_ERROR(-20001, 'No client with this email');
