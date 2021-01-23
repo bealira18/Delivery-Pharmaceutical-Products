@@ -5,8 +5,6 @@
  */
 package lapr.project.controller;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +78,5 @@ public class VehicleParkingControllerTest {
         isReal = true;
         vpC.writeChargerRequest(vehicle, isReal);
         
-    }
-    
+    }   
 }
