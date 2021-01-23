@@ -20,7 +20,6 @@ BEGIN
                         ORDER BY id_order DESC
                         FETCH FIRST 1 ROW ONLY);
         
-        CLOSE matching_user;
     END IF;
     
     IF (vehicle_type = 'drone') THEN
@@ -33,7 +32,6 @@ BEGIN
                                 FROM vehicle
                                 WHERE id_vehicle = idVehicle);
         
-        CLOSE matching_user;
     END IF;
     
 RETURN matching_user;

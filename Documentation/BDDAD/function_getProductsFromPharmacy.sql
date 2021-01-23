@@ -15,8 +15,6 @@ BEGIN
                                 FROM stock
                                 WHERE id_pharmacy = idPharmacy)
         ORDER BY pc.id_category, p.id_product;
-        
-    CLOSE products;
-    
+            
 RETURN products;
 END;
