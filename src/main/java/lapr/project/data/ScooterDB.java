@@ -155,15 +155,18 @@ public class ScooterDB extends DataHandler {
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ call updateScooter(?,?,?,?,?,?,?) }");
+            callStmt = getConnection().prepareCall("{ call updateScooter(?,?,?,?,?,?,?,?,?,?) }");
 
             callStmt.setInt(1, s.getIdVehicle());
-            callStmt.setInt(2, s.getIdPharmacy());
-            callStmt.setDouble(3, s.getWeight());
-            callStmt.setDouble(4, s.getFrontalArea());
-            callStmt.setDouble(5, s.getMotor());
-            callStmt.setDouble(6, s.getCurrentBattery());
-            callStmt.setDouble(7, s.getMaxBattery());
+            callStmt.setInt(2, s.getScooterStatusId());
+            callStmt.setInt(3, s.getIdPharmacy());
+            callStmt.setDouble(4, s.getWeight());
+            callStmt.setDouble(5, s.getAerodynamicCoeficient());
+            callStmt.setDouble(6, s.getFrontalArea());
+            callStmt.setDouble(7, s.getMotor());
+            callStmt.setDouble(8, s.getCurrentBattery());
+            callStmt.setDouble(9, s.getMaxBattery());
+            callStmt.setDouble(10, s.getAverageSpeed());
 
             callStmt.execute();
 

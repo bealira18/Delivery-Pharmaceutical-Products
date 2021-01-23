@@ -248,7 +248,7 @@ class Main {
 
         //UpdateScooterController
         /*UpdateScooterController updateScooterController = new UpdateScooterController();
-        Scooter s=new Scooter(1,1,2.0,2.5,1,2.0,35.0,40.0,0);
+        Scooter s=new Scooter(1,1,2.0,2.5,1,2.0,35.0,40.0,0,1);
         System.out.println(updateScooterController.updateScooter(s.getIdVehicle(), s));*/
 
 
