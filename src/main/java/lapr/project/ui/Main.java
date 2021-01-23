@@ -10,12 +10,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lapr.project.data.AssemblyWatcher;
 import lapr.project.data.EmailService;
 import lapr.project.data.SettingsHandler;
 
@@ -42,7 +47,7 @@ class Main {
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
         
         //Initial Database Setup
-        DataHandler dh = new DataHandler();
+        //DataHandler dh = new DataHandler();
         //dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
         //dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
 
@@ -118,11 +123,11 @@ class Main {
 
 
         //GeographicalController ----------------------------------------------------------------------------------------
-        GeographicalController geographicalController = new GeographicalController();
-        List<Address> addressList = geographicalController.getAddresses();
-        List<Path> pathList = geographicalController.getPaths(addressList);
-        List<Address> pharmaciesAddress = geographicalController.getPharmacyAddresses();
-        System.out.println(pharmaciesAddress);
+//        GeographicalController geographicalController = new GeographicalController();
+//        List<Address> addressList = geographicalController.getAddresses();
+//        List<Path> pathList = geographicalController.getPaths(addressList);
+//        List<Address> pharmaciesAddress = geographicalController.getPharmacyAddresses();
+//        System.out.println(pharmaciesAddress);
 
 
         //GetDronesController -------------------------------------------------------------------------------------------
@@ -136,10 +141,10 @@ class Main {
 
 
         //GraphController ----------------------------------------------------------------------------------------------
-        GraphController graphController = new GraphController();
-        graphController.fillGraphDrone(addressList, pathList);
-        Address address = new Address("isep", 41.178333, 8.606389, 103);
-        System.out.println(graphController.getNearestPharmacy(address, pharmaciesAddress));
+        //GraphController graphController = new GraphController();
+        //graphController.fillGraphDrone(addressList, pathList);
+        //Address address = new Address("isep", 41.178333, 8.606389, 103);
+        //System.out.println(graphController.getNearestPharmacy(address, pharmaciesAddress));
 
 
 
@@ -147,7 +152,7 @@ class Main {
 
 
         //PurchaseItemsController
-        PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
+        //PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
         //purchaseItemsController
 
 
@@ -227,6 +232,16 @@ class Main {
         //Dont uncomment this, poor andré
 //        EmailService eS = new EmailService();
 //        eS.sendEmail("11710602@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");
+
+        AssemblyWatcher asmWatch = new AssemblyWatcher();
+
+        Thread thr = new Thread(asmWatch);
+        thr.setDaemon(true);
+        thr.start();
+
+        System.out.println("Type anything to stop program");
+        Scanner in = new Scanner(System.in);
+        in.nextLine();
         
     }
 
