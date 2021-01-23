@@ -9,7 +9,7 @@ public class Client extends RegisteredUser {
     private int credits;
 
     public Client(String email, String password, String name, int nif, CreditCard creditCard, Address address, int credits) {
-        
+
         super(email, password, "client");
         this.name = name;
         this.nif = nif;
@@ -73,4 +73,22 @@ public class Client extends RegisteredUser {
 
         return "Client{" + "email=" + super.getEmail() + ", name=" + name + ", nif=" + nif + ", creditCard=" + creditCard + ", address=" + address + ", credits=" + credits + '}';
     }
+
+    @Override
+    public int hashCode() {
+
+        int hash = 7;
+        hash = 29 * hash + this.nif;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj instanceof Client) {
+            return super.equals(obj) && nif == ((Client) obj).nif;
+        }
+        return false;
+    }
+
 }

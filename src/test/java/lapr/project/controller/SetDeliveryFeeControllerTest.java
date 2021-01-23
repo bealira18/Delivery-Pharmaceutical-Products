@@ -16,10 +16,7 @@ public class SetDeliveryFeeControllerTest {
     @BeforeAll
     public static void setUpClass() {
 
-        PurchaseOrderDB pOrdDB = mock(PurchaseOrderDB.class);
-
         sDelFCont = new SetDeliveryFeeController();
-        sDelFCont = new SetDeliveryFeeController(pOrdDB);
     }
 
     /**
