@@ -1,9 +1,6 @@
 package lapr.project.controller;
 
-import lapr.project.data.DeliveryDB;
-import lapr.project.data.DeliveryStatusDB;
-import lapr.project.data.EmailService;
-import lapr.project.data.StockDB;
+import lapr.project.data.*;
 import lapr.project.model.PurchaseOrder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -30,6 +27,7 @@ class NotifieClientControllerTest {
         StockDB stockDB = mock(StockDB.class);
         DeliveryDB deliveryDB = mock(DeliveryDB.class);
         DeliveryStatusDB deliveryStatusDB = mock(DeliveryStatusDB.class);
+        ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
 
         when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
@@ -40,7 +38,7 @@ class NotifieClientControllerTest {
         when(emailService.sendEmail(order1.getClientEmail(),"Delivery Run Starts", "This email is just to let you know that the delivery is on the way")).thenReturn(Boolean.TRUE);
 
         controller = new NotifyClientController();
-        controller = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, emailService);
+        controller = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, clientDB, emailService);
     }
 
     /**
@@ -61,11 +59,12 @@ class NotifieClientControllerTest {
         StockDB stockDB = mock(StockDB.class);
         DeliveryDB deliveryDB = mock(DeliveryDB.class);
         DeliveryStatusDB deliveryStatusDB = mock(DeliveryStatusDB.class);
+        ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
 
         when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
 
-        NotifyClientController controller1 = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, emailService);
+        NotifyClientController controller1 = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, clientDB, emailService);
 
         result = controller1.checkIfIsEnoughStock(order1);
         assertEquals(true, result);
@@ -100,11 +99,12 @@ class NotifieClientControllerTest {
         StockDB stockDB = mock(StockDB.class);
         DeliveryDB deliveryDB = mock(DeliveryDB.class);
         DeliveryStatusDB deliveryStatusDB = mock(DeliveryStatusDB.class);
+        ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
 
         when(deliveryStatusDB.updateDeliveryStatusInDelivery(order1.getId())).thenReturn(Boolean.FALSE);
 
-        NotifyClientController controller1 = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, emailService);
+        NotifyClientController controller1 = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, clientDB, emailService);
 
         result = controller1.notifyClientDeliveryRunStarts(order1);
         assertEquals(false, result);

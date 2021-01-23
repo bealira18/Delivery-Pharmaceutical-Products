@@ -14,6 +14,7 @@ import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
@@ -43,9 +44,9 @@ class Main {
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
         
         //Initial Database Setup
-        DataHandler dh = new DataHandler();
-        dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
-        dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
+        //DataHandler dh = new DataHandler();
+        //dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
+        //dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
 
 
         //AddAdministratorController
@@ -113,18 +114,24 @@ class Main {
 
 
         //AssignOrderToCourierScooterController --------------------------------------------------------------------------
+        /*AssignOrderToCourierScooterController assignOrderToCourierScooterController = new AssignOrderToCourierScooterController();
+        System.out.println("\n\nAssignOrderToCourierScooterController");
+        PurchaseOrder purchaseOrder = new PurchaseOrder(1,1,"a", LocalDate.now());
+        List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
+        purchaseOrderList.add(purchaseOrder);
+        System.out.println(assignOrderToCourierScooterController.addDeliveries(purchaseOrderList));*/
 
 
         //CreateInvoiceController ---------------------------------------------------------------------------------------
 
 
         //GeographicalController ----------------------------------------------------------------------------------------
-        GeographicalController geographicalController = new GeographicalController();
+        /*GeographicalController geographicalController = new GeographicalController();
         System.out.println("\n\nGeographicalController");
         List<Address> addressList = geographicalController.getAddresses();
         List<Path> pathList = geographicalController.getPaths(addressList);
         List<Address> pharmaciesAddress = geographicalController.getPharmacyAddresses();
-        System.out.println(pharmaciesAddress);
+        System.out.println(pharmaciesAddress);*/
 
 
         //GetDronesController -------------------------------------------------------------------------------------------
@@ -138,20 +145,33 @@ class Main {
 
 
         //GraphController ----------------------------------------------------------------------------------------------
-        GraphController graphController = new GraphController();
+        /*GraphController graphController = new GraphController();
         graphController.fillGraphDrone(addressList, pathList);
         System.out.println("\n\nGraphController");
         Address address = new Address("el corte ingles", 41.178333, 8.606389, 103);
         System.out.println(graphController.getNearestPharmacy(address, pharmaciesAddress));
         Address address2 = new Address("se do porto", 41.178333, 8.606389, 103);
-        System.out.println(graphController.getNearestPharmacy(address2, pharmaciesAddress));
+        System.out.println(graphController.getNearestPharmacy(address2, pharmaciesAddress));*/
 
 
         //ManageCreditsController --------------------------------------------------------------------------------------
 
 
+        //NotifyClientController
+        /*
+          Falta testar o CheckIfIsEnoughStock
+         */
+        NotifyClientController notifyClientController = new NotifyClientController();
+        System.out.println("\n\nNotifyClientController");
+        PurchaseOrder purchaseOrder = new PurchaseOrder(1,1,"a", LocalDate.now());
+        System.out.println(notifyClientController.notifyClientDeliveryRunStarts(purchaseOrder));
+
+
         //PurchaseItemsController
-        PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
+        /*O cenario ideal funciona como esperado,
+          Falta a parte de se há ou nao stock disponivel...
+         */
+        /*PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
         System.out.println("\n\nPurchaseItemsController");
         System.out.println(purchaseItemsController.getPharmacies());
         purchaseItemsController.getProductsFromPharmacy(1);
@@ -162,8 +182,8 @@ class Main {
         Product product2 = new Product(2, "teste1", 5, 2, 1);
         System.out.println(purchaseItemsController.addToBasket(product1, 3));
         System.out.println(purchaseItemsController.addToBasket(product2, 2));
-        System.out.println(purchaseItemsController.addToBasket(product2, 15));
-        System.out.println(purchaseItemsController.purchaseItems(1, 1, "client1@gmail.com"));
+        System.out.println(purchaseItemsController.addToBasket(product2, 1));
+        System.out.println(purchaseItemsController.purchaseItems(1, 1, "client1@gmail.com"));*/
 
 
         //RegisterClientController
@@ -178,7 +198,7 @@ class Main {
 
 
         //RemoveProductFromPharmacyCatalogController
-        /*Stock stock1 = new Stock(1, 1, 10);
+        /*Stock stock1 = new Stock(1, 1, 0);
         RemoveProductFromPharmacyCatalogController removeProductFromPharmacyCatalogController = new RemoveProductFromPharmacyCatalogController();
         System.out.println(removeProductFromPharmacyCatalogController.removeProductFromPharmacyCatalog(stock1));*/
 

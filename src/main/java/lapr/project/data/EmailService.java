@@ -41,7 +41,8 @@ public class EmailService {
             message.setSubject(subjectLine);
             message.setText(emailBody);
 
-            Transport.send(message);
+            //Transport.send(message);
+            System.out.println(destinationEmaail+"\n"+subjectLine+"\n"+emailBody);
 
             return true;
         } catch (MessagingException e) {
