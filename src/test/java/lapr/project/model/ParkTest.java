@@ -16,7 +16,7 @@ public class ParkTest {
 
         System.out.println("getScooterParkId");
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         int expResult = 1;
         int result = instance.getScooterParkId();
         assertEquals(expResult, result);
@@ -30,7 +30,7 @@ public class ParkTest {
 
         System.out.println("getPharmacyId");
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         int expResult = 1;
         int result = instance.getPharmacyId();
         assertEquals(expResult, result);
@@ -44,7 +44,7 @@ public class ParkTest {
 
         System.out.println("getLimit");
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         int expResult = 1;
         int result = instance.getLimit();
         assertEquals(expResult, result);
@@ -58,7 +58,7 @@ public class ParkTest {
 
         System.out.println("getNumChargingStations");
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         int expResult = 1;
         int result = instance.getNumChargingStations();
         assertEquals(expResult, result);
@@ -72,7 +72,7 @@ public class ParkTest {
 
         System.out.println("getCategory");
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         String expResult = "Test";
         String result = instance.getCategory();
         assertEquals(expResult, result);
@@ -86,7 +86,7 @@ public class ParkTest {
 
         System.out.println("getAddress");
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         Address expResult = new Address("Test", 1, 1, 1);
         Address result = instance.getAddress();
         assertEquals(expResult, result);
@@ -101,7 +101,7 @@ public class ParkTest {
         System.out.println("setScooterParkId");
         int scooterParkId = 2;
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         instance.setScooterParkId(scooterParkId);
         int result = instance.getScooterParkId();
         assertEquals(scooterParkId, result);
@@ -116,7 +116,7 @@ public class ParkTest {
         System.out.println("setPharmacyId");
         int pharmacyId = 2;
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         instance.setPharmacyId(pharmacyId);
         int result = instance.getPharmacyId();
         assertEquals(pharmacyId, result);
@@ -131,7 +131,7 @@ public class ParkTest {
         System.out.println("setLimit");
         int limit = 2;
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         instance.setLimit(limit);
         int result = instance.getLimit();
         assertEquals(limit, result);
@@ -146,7 +146,7 @@ public class ParkTest {
         System.out.println("setNumChargingStations");
         int numChargingStations = 2;
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         instance.setNumChargingStations(numChargingStations);
         int result = instance.getNumChargingStations();
         assertEquals(numChargingStations, result);
@@ -161,7 +161,7 @@ public class ParkTest {
         System.out.println("setCategory");
         String category = "Test";
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         instance.setCategory(category);
         String result = instance.getCategory();
         assertEquals(category, result);
@@ -176,7 +176,7 @@ public class ParkTest {
         System.out.println("setAddress");
         Address address = new Address("Test2", 2, 2, 2);
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         instance.setAddress(address);
         Address result = instance.getAddress();
         assertEquals(address, result);
@@ -190,9 +190,9 @@ public class ParkTest {
 
         System.out.println("toString");
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
-        String expResult = "Park{scooterParkId=1, pharmacyId=1, limit=1, numChargingStations=1, category='Test'," +
-                " address=Address{description=Test, latitude=1.0, longitude=1.0, altitude=1.0}, maxChargingPotency=500.0}";
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
+        String expResult = "Park{scooterParkId=1, pharmacyId=1, limit=1, numChargingStations=1, category='Test',"
+                + " address=Address{description=Test, latitude=1.0, longitude=1.0, altitude=1.0}, maxChargingPotency=500.0}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -205,7 +205,7 @@ public class ParkTest {
 
         System.out.println("hashCode");
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         int expResult = 184;
         int result = instance.hashCode();
         assertEquals(expResult, result);
@@ -219,7 +219,7 @@ public class ParkTest {
         System.out.println("equals");
         Object obj = null;
         Address a = new Address("Test", 1, 1, 1);
-        Park instance = new Park(1, 1, 1, 1, "Test",a, 500);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         boolean expResult = true;
         boolean result = instance.equals(instance);
         assertEquals(expResult, result);
@@ -231,10 +231,39 @@ public class ParkTest {
         result = instance.equals(obj);
         assertEquals(false, result);
 
-        result = instance.equals(new Park(2, 1, 1, 1, "Test",a, 500));
+        result = instance.equals(new Park(2, 1, 1, 1, "Test", a, 500));
         assertEquals(false, result);
 
-        result = instance.equals(new Park(1, 2, 2, 2, "Test",a, 500));
+        result = instance.equals(new Park(1, 2, 2, 2, "Test", a, 500));
         assertEquals(true, result);
+    }
+
+    /**
+     * Test of getMaxChargingPotency method, of class Park.
+     */
+    @Test
+    public void testGetMaxChargingPotency() {
+
+        System.out.println("getMaxChargingPotency");
+        Address a = new Address("Test", 1, 1, 1);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
+        double expResult = 500;
+        double result = instance.getMaxChargingPotency();
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of setMaxChargingPotency method, of class Park.
+     */
+    @Test
+    public void testSetMaxChargingPotency() {
+
+        System.out.println("setMaxChargingPotency");
+        double maxChargingPotency = 501;
+        Address a = new Address("Test", 1, 1, 1);
+        Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
+        instance.setMaxChargingPotency(maxChargingPotency);
+        double result = instance.getMaxChargingPotency();
+        assertEquals(maxChargingPotency, result, 0.0);
     }
 }

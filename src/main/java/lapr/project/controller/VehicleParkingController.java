@@ -7,7 +7,6 @@ package lapr.project.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -44,9 +43,11 @@ public class VehicleParkingController {
 
     public void interpretChargerInfo(String fileName) {
         
+        Scanner sc = null;
+        
         try {
             File fileBuffer = new File(System.getProperty("charger.comm.dir") + fileName);
-            Scanner sc = new Scanner(fileBuffer);
+            sc = new Scanner(fileBuffer);
             String buffer = sc.nextLine();
             
             String[] arrBuffer = buffer.split(";");
@@ -55,8 +56,6 @@ public class VehicleParkingController {
             {
                 throw new IllegalArgumentException("Unexpected number of arguments");
             }
-            
-            sc.close();
             
             //Check if the vehicle ID is real and what type it is
             String vehicleType = vDB.typeOfVehicleByID(Integer.parseInt(arrBuffer[1]));
@@ -67,8 +66,13 @@ public class VehicleParkingController {
             
             sendStatusEmail(nameNemail.get(1), nameNemail.get(0), date, Integer.parseInt(arrBuffer[1]), vehicleType, Float.parseFloat(arrBuffer[2]));
                         
-        } catch (FileNotFoundException | SQLException ex) {
+        } catch (FileNotFoundException ex) {
             ex.printStackTrace();
+        }
+        finally
+        {
+            if (sc != null)
+                sc.close();
         }
     }
     
