@@ -43,7 +43,7 @@ public class VehicleParkingController {
         this.eS = new EmailService();
     }
 
-    public void interpretChargerInfo(String fileName) {
+    public boolean interpretChargerInfo(String fileName) {
 
         try (Scanner sc = new Scanner(new File(System.getProperty("charger.comm.dir") + fileName))) {
 
@@ -60,12 +60,14 @@ public class VehicleParkingController {
             LocalDateTime date;
 
             date = LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(arrBuffer[0])), ZoneId.of("Z"));
-
-            sendStatusEmail(nameNemail.get(1), nameNemail.get(0), date, Integer.parseInt(arrBuffer[1]), vehicleType, Float.parseFloat(arrBuffer[2]));
-
+            
+            eS.sendEmail(nameNemail.get(1), "Notificação de estacionamento", buildStatusEmail(nameNemail.get(0), date, Integer.parseInt(arrBuffer[1]), vehicleType, Float.parseFloat(arrBuffer[2])).toString());
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(VehicleParkingController.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     public void writeChargerRequest(Vehicle vehicle, boolean isReal) {
@@ -75,22 +77,21 @@ public class VehicleParkingController {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("'lock_'yyyy'_'MM'_'dd'_'HH'_'mm'_'ss'.data'");
         String fileName = System.getProperty("charger.comm.dir") + date.format(dtf);
 
-        String buffer;
-
-        buffer = String.format("%d;%d", timestamp, vehicle.getIdVehicle());
-
-        if (isReal) {
-            //Yes, I'm aware I'm writing longs to a system that expects ints: timestamp wont be a problem until 2038, the others will never crack the integer limit.
-            buffer = String.format("%s;%d;%d", buffer, Math.round(vehicle.getMaxBattery()), Math.round(vehicle.getCurrentBattery()));
-        }
-
+        String buffer = writeChargerInfo(vehicle, timestamp, isReal);
+                
         Utils.writeFile(buffer, fileName);
         Utils.writeFile(" ", fileName + ".flag");
     }
+    
+    public static String writeChargerInfo(Vehicle vehicle, long timestamp, boolean isReal)
+    {
+        String buffer = String.format(Locale.ROOT, "%d;%d", timestamp, vehicle.getIdVehicle());
 
-    protected void sendStatusEmail(String email, String name, LocalDateTime date, int vehicleID, String vehicleType, float timeToFull) {
-        
-        eS.sendEmail(email, "Notificação de estacionamento", buildStatusEmail(name, date, vehicleID, vehicleType, timeToFull).toString());
+        if (isReal) {
+            //Yes, I'm aware I'm writing longs to a system that expects ints: timestamp wont be a problem until 2038, the others will never crack the integer limit.
+            buffer = String.format(Locale.ROOT, "%s;%d;%d", buffer, Math.round(vehicle.getMaxBattery()), Math.round(vehicle.getCurrentBattery()));
+        }
+        return buffer;
     }
     
     public static StringBuilder buildStatusEmail(String name, LocalDateTime date, int vehicleID, String vehicleType, float timeToFull)

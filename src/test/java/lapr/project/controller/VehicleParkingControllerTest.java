@@ -55,12 +55,16 @@ public class VehicleParkingControllerTest {
     public void testInterpretChargerInfo() {
         System.out.println("interpretChargerInfo");
 
-        vpC.interpretChargerInfo(null);
+        boolean result = vpC.interpretChargerInfo(null);
+        assertEquals(false, result);
+        
         String fileName = "park_test.data";
-        vpC.interpretChargerInfo(fileName);
+        result = vpC.interpretChargerInfo(fileName);
+        assertEquals(true, result);
 
         fileName = "park_test_fail.data";
-        vpC.interpretChargerInfo(fileName);
+        result = vpC.interpretChargerInfo(fileName);
+        assertEquals(true, result);
 
         final String fileName2 = "park_test_bad.data";
         Exception ex = assertThrows(IllegalArgumentException.class, () -> {
@@ -79,24 +83,6 @@ public class VehicleParkingControllerTest {
         Vehicle vehicle = new Vehicle(2, 1, 1.0, 1.0, 1.0, 1.0, 84.0, 120.0, 999.0);
         boolean isReal = false;
         vpC.writeChargerRequest(vehicle, isReal);
-        isReal = true;
-        vpC.writeChargerRequest(vehicle, isReal);
-
-    }
-
-    /**
-     * Test of sendStatusEmail method, of class VehicleParkingController.
-     */
-    @Test
-    public void testSendStatusEmail() {
-        System.out.println("sendStatusEmail");
-        String email = "Name";
-        String name = "example@me.too";
-        LocalDateTime date = LocalDateTime.now();
-        int vehicleID = 2;
-        String vehicleType = "scooter";
-        float timeToFull = 13.37F;
-        vpC.sendStatusEmail(email, name, date, vehicleID, vehicleType, timeToFull);
     }
 
     /**
@@ -138,5 +124,23 @@ public class VehicleParkingControllerTest {
                 + "Por favor, regresse ao parque e estacione o veículo apropriadamente.";
         result = VehicleParkingController.buildStatusEmail(name, date, vehicleID, vehicleType, timeToFull);
         assertEquals(expResult, result.toString());
+    }
+
+    /**
+     * Test of writeChargerInfo method, of class VehicleParkingController.
+     */
+    @Test
+    public void testWriteChargerInfo() {
+        System.out.println("writeChargerInfo");
+        Vehicle vehicle = new Vehicle(2, 1, 1.0, 1.0, 1.0, 1.0, 84.0, 120.0, 999.0);
+        long timestamp = 1611423663L;
+        boolean isReal = true;
+        String expResult = "1611423663;2;120;84";
+        String result = VehicleParkingController.writeChargerInfo(vehicle, timestamp, isReal);
+        assertEquals(expResult, result);
+        isReal = false;
+        expResult = "1611423663;2";
+        result = VehicleParkingController.writeChargerInfo(vehicle, timestamp, isReal);
+        assertEquals(expResult, result);
     }
 }
