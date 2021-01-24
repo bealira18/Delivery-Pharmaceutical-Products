@@ -65,7 +65,7 @@ public class CreateInvoiceController {
 
         StringBuilder emailBody = makeEmailBody(invoice, pharmacy, client);
 
-        return emailService.sendEmail(client.getEmail(), subjectLine, emailBody.toString());
+        return emailService.sendEmail("clientemen0652@gmail.com", subjectLine, emailBody.toString());
     }
 
     public StringBuilder makeEmailBody(Invoice invoice, Pharmacy pharmacy, Client client) throws SQLException {

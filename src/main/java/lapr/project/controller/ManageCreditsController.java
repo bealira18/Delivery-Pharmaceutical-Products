@@ -70,4 +70,16 @@ public class ManageCreditsController {
 
         return cDB.updateCreditsClient(email, newClientsAmount);
     }
+
+    /*public boolean payDeliveryFee(String clientEmail) throws SQLException {
+        int clientCredits = getCreditsByClientEmail(clientEmail);
+        int creditsToPayDeliveryFee = getCreditValueDeliveryFee();
+
+        if(clientCredits >= creditsToPayDeliveryFee) {
+            int newCredits = clientCredits - creditsToPayDeliveryFee;
+            updateCreditsClient(clientEmail, newCredits);
+            return true;
+        }
+        return false;
+    }*/
 }
