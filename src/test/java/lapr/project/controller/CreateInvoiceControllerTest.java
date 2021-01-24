@@ -51,9 +51,6 @@ class CreateInvoiceControllerTest {
         ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
         ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
-        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
-
-        updateDeliveryFeeController.updateDeliveryFee(2.90);
 
         when(invoiceDB.addInvoice(invoice, 2.90)).thenReturn(Boolean.TRUE);
         when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
@@ -78,7 +75,7 @@ class CreateInvoiceControllerTest {
         when(manageCreditsController.payDeliveryFee(purchaseOrder.getClientEmail())).thenReturn(Boolean.TRUE);
 
         controller = new CreateInvoiceController();
-        controller = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController, updateDeliveryFeeController);
+        controller = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController);
         controller.getProductLinesFromOrder(purchaseOrder);
 
     }
@@ -87,6 +84,8 @@ class CreateInvoiceControllerTest {
     void testCreateInvoice() throws SQLException {
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
         Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
+        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
+        updateDeliveryFeeController.updateDeliveryFee(2.90);
 
         boolean expResult = true;
         boolean result = controller.createInvoice(1, purchaseOrder);
@@ -100,12 +99,11 @@ class CreateInvoiceControllerTest {
         ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
         ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
-        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
 
         when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
         when(invoiceDB.addInvoice(invoice, 2.90)).thenReturn(Boolean.FALSE);
 
-        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController, updateDeliveryFeeController);
+        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController);
 
         result = controller2.createInvoice(1, purchaseOrder);
         expResult = false;
@@ -169,7 +167,7 @@ class CreateInvoiceControllerTest {
                 System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.FALSE);
 
-        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController, updateDeliveryFeeController);
+        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController);
         controller2.getProductLinesFromOrder(purchaseOrder);
 
         expResult = false;

@@ -17,7 +17,6 @@ public class CreateInvoiceController {
     private final ClientDB clientDB;
     private final EmailService emailService;
     private final ManageCreditsController manageCreditsController;
-    private final UpdateDeliveryFeeController updateDeliveryFeeController;
     private List<ProductLine> productLineList;
     private double totalPrice;
 
@@ -29,12 +28,10 @@ public class CreateInvoiceController {
         clientDB = new ClientDB();
         emailService = new EmailService();
         manageCreditsController = new ManageCreditsController();
-        updateDeliveryFeeController = new UpdateDeliveryFeeController();
     }
 
     public CreateInvoiceController(InvoiceDB invoiceDB, ProductLineDB productLineDB, ProductDB productDB, PharmacyDB pharmacyDB,
-                                   ClientDB clientDB, EmailService emailService, ManageCreditsController manageCreditsController,
-                                   UpdateDeliveryFeeController updateDeliveryFeeController) {
+                                   ClientDB clientDB, EmailService emailService, ManageCreditsController manageCreditsController) {
         this.invoiceDB = invoiceDB;
         this.productLineDB = productLineDB;
         this.productDB = productDB;
@@ -42,13 +39,14 @@ public class CreateInvoiceController {
         this.clientDB = clientDB;
         this.emailService = emailService;
         this.manageCreditsController = manageCreditsController;
-        this.updateDeliveryFeeController = updateDeliveryFeeController;
     }
 
     public boolean createInvoice(int idInvoice, PurchaseOrder po) throws SQLException {
         double deliveryFee = 0;
         getProductLinesFromOrder(po);
         totalPrice = getTotalPriceFromOrder();
+
+        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
 
         if(manageCreditsController.payDeliveryFee(po.getClientEmail())) {
             deliveryFee = updateDeliveryFeeController.getDeliveryFee();
