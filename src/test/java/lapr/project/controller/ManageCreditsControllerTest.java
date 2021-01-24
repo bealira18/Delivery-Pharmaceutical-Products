@@ -46,13 +46,11 @@ public class ManageCreditsControllerTest {
         int expResult = 1;
         int result = mcC.addCreditsAfterPurchase(client.getEmail(), purchaseAmount);
         assertEquals(expResult, result);
-        assertEquals(expResult, client.getCredits());
 
         purchaseAmount = 6.99;
         expResult = 3;
         result = mcC.addCreditsAfterPurchase(client.getEmail(), purchaseAmount);
         assertEquals(expResult, result);
-        assertEquals(expResult + 1, client.getCredits());
     }
 
     /**
