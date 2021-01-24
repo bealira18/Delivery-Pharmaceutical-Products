@@ -90,8 +90,8 @@ class CreateInvoiceControllerTest {
         UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
         updateDeliveryFeeController.updateDeliveryFee(2.90);
 
-        boolean expResult = true;
-        boolean result = controller.createInvoice(1, purchaseOrder);
+        Invoice expResult = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00);
+        Invoice result = controller.createInvoice(1, purchaseOrder);
         assertEquals(expResult, result);
 
 
@@ -109,8 +109,7 @@ class CreateInvoiceControllerTest {
         CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController);
 
         result = controller2.createInvoice(1, purchaseOrder);
-        expResult = false;
-        assertEquals(expResult, result);
+        assertNull(result);
     }
 
     @Test
