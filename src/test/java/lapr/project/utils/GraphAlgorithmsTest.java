@@ -217,7 +217,7 @@ public class GraphAlgorithmsTest {
     public void testWritePathToFile() throws Exception {
 
         System.out.println("writePathToFile");
-        String fileName = "pathTest.csv";
+        String fileName = "target/test-classes/pathTest.csv";
 
         Graph<Address, Path> g = new Graph<>(true);
         List<Address> la = new ArrayList<>();
@@ -272,7 +272,7 @@ public class GraphAlgorithmsTest {
     public void testWritePathToFile2() throws Exception {
 
         System.out.println("writePathToFile2");
-        String fileName = "pathTest2.csv";
+        String fileName = "target/test-classes/pathTest2.csv";
 
         Graph<Address, Path> g = new Graph<>(true);
         List<Address> la = new ArrayList<>();
@@ -342,7 +342,7 @@ public class GraphAlgorithmsTest {
     public void testWritePathFile3() {
 
         System.out.println("writePathToFile3");
-        String fileName = "pathTest3.csv";
+        String fileName = "target/test-classes/pathTest3.csv";
 
         Graph<Address, Path> g = new Graph<>(true);
         List<Address> la = new ArrayList<>();
@@ -1196,7 +1196,7 @@ public class GraphAlgorithmsTest {
     public void testWritePathToFile_8args() {
 
         System.out.println("writePathToFile");
-        String fileName = "pathTest.csv";
+        String fileName = "target/test-classes/pathTest.csv";
 
         Graph<Address, Path> g = new Graph<>(true);
         List<Address> la = new ArrayList<>();
@@ -1243,7 +1243,7 @@ public class GraphAlgorithmsTest {
     public void testWritePathToFile_8args2() {
 
         System.out.println("writePathToFile3");
-        String fileName = "pathTest4.csv";
+        String fileName = "target/test-classes/pathTest4.csv";
 
         Graph<Address, Path> g = new Graph<>(true);
         List<Address> la = new ArrayList<>();
@@ -1316,7 +1316,7 @@ public class GraphAlgorithmsTest {
     public void testWritePathToFile_7args() {
 
         System.out.println("writePathToFile");
-        String fileName = "pathTest.csv";
+        String fileName = "target/test-classes/pathTest.csv";
 
         Graph<Address, Path> g = new Graph<>(true);
         List<Address> la = new ArrayList<>();
@@ -1362,7 +1362,7 @@ public class GraphAlgorithmsTest {
     public void testWritePathToFile_7args2() {
 
         System.out.println("writePathToFile2");
-        String fileName = "pathTest5.csv";
+        String fileName = "target/test-classes/pathTest5.csv";
 
         Graph<Address, Path> g = new Graph<>(true);
         List<Address> la = new ArrayList<>();
