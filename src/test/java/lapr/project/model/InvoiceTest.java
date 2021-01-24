@@ -60,6 +60,18 @@ public class InvoiceTest {
     }
 
     /**
+     * Test of getDeliveryFee method, of class Invoice.
+     */
+    @Test
+    public void testGetDeliveryFee() {
+        System.out.println("getDeliveryFee");
+        Invoice instance = new Invoice(1, 1, 1, "Test", 2.90, 1);
+        double expResult = 2.90;
+        double result = instance.getDeliveryFee();
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
      * Test of getTotalPrice method, of class Invoice.
      */
     @Test
@@ -126,6 +138,21 @@ public class InvoiceTest {
         String expResult = instance.getClientEmail();
         assertEquals(expResult, clientEmail);
     }
+
+    /**
+     * Test of setDeliveryFee method, of class Invoice.
+     */
+    @Test
+    public void testSetDeliveryFee() {
+
+        System.out.println("setDeliveryFee");
+        double deliveryFee = 2.0;
+        Invoice instance = new Invoice(1, 1, 1, "Test", 2.90, 1);
+        instance.setDeliveryFee(deliveryFee);
+        double expResult = instance.getDeliveryFee();
+        assertEquals(expResult, deliveryFee, 0.0);
+    }
+
 
     /**
      * Test of setTotalPrice method, of class Invoice.
