@@ -53,6 +53,17 @@ class RemoveProductFromPharmacyCatalogControllerTest {
 
         boolean result = controller.removeProductFromPharmacyCatalog(stock1);
         assertEquals(true, result);
+
+        StockDB stockDB = mock(StockDB.class);
+
+        when(stockDB.removeProductFromPharmacyCatalog(stock1)).thenReturn(Boolean.FALSE);
+
+        RemoveProductFromPharmacyCatalogController controller2 = new RemoveProductFromPharmacyCatalogController(stockDB);
+
+        result = controller2.removeProductFromPharmacyCatalog(stock1);
+        boolean expResult = false;
+        assertEquals(expResult, result);
+
     }
 
 }
