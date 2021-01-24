@@ -163,17 +163,19 @@ class Main {
         //manageCreditsController.setCreditConversionRatio(0.2);
         System.out.println(manageCreditsController.getCreditConversionRatio());
         System.out.println(manageCreditsController.addCreditsAfterPurchase(client, 30.00));
-        System.out.println(manageCreditsController.addCreditsAfterPurchase(client, 22.00));*/
+        System.out.println(manageCreditsController.addCreditsAfterPurchase(client, 22.00));
+        //manageCreditsController.setCreditValueDeliveryFee(5);
+        System.out.println(manageCreditsController.getCreditValueDeliveryFee());*/
 
 
         //NotifyClientController
         /*
           Falta testar o CheckIfIsEnoughStock
          */
-        NotifyClientController notifyClientController = new NotifyClientController();
+        /*NotifyClientController notifyClientController = new NotifyClientController();
         System.out.println("\n\nNotifyClientController");
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1,"a", LocalDate.now());
-        System.out.println(notifyClientController.notifyClientDeliveryRunStarts(purchaseOrder));
+        System.out.println(notifyClientController.notifyClientDeliveryRunStarts(purchaseOrder));*/
 
 
         //PurchaseItemsController

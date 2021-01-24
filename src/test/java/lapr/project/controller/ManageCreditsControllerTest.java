@@ -179,6 +179,11 @@ public class ManageCreditsControllerTest {
         });
         assertEquals("The amount of credits to pay a delivery fee cannot be negative or zero.", ex.getMessage());
     }
+
+    /**
+     * Test of getCreditsByClientEmail method, of class
+     * ManageCreditsController.
+     */
     @Test
     public void testGetCreditsByClientEmail() throws SQLException {
 
@@ -187,6 +192,10 @@ public class ManageCreditsControllerTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of updateCreditsClient method, of class
+     * ManageCreditsController.
+     */
     @Test
     public void testUpdateCreditsClient() throws SQLException {
 
@@ -205,4 +214,33 @@ public class ManageCreditsControllerTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of payDeliveryFee method, of class
+     * ManageCreditsController.
+     */
+    @Test
+    public void testPayDeliveryFee() throws SQLException {
+        boolean expResult = true;
+        mcC.setCreditValueDeliveryFee(5);
+        boolean result = mcC.payDeliveryFee("test@gmail.com");
+        assertEquals(result, expResult);
+
+        SettingsHandler sh = mock(SettingsHandler.class);
+        ClientDB cDB = mock(ClientDB.class);
+
+        when(cDB.getCreditsByClientEmail("test@gmail.com")).thenReturn(2);
+        when(cDB.updateCreditsClient("test@gmail.com", 0)).thenReturn(Boolean.TRUE);
+
+        ManageCreditsController controller = new ManageCreditsController(sh, cDB);
+
+        expResult = false;
+        result = controller.payDeliveryFee("test@gmail.com");
+        assertEquals(expResult, result);
+
+        when(cDB.getCreditsByClientEmail("test@gmail.com")).thenReturn(5);
+        when(cDB.updateCreditsClient("test@gmail.com", 0)).thenReturn(Boolean.FALSE);
+        expResult = false;
+        result = controller.payDeliveryFee("test@gmail.com");
+        assertEquals(expResult, result);
+    }
 }

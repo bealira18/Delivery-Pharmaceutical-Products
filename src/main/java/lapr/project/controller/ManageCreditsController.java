@@ -44,8 +44,7 @@ public class ManageCreditsController {
 
         if(clientCredits >= creditsToPayDeliveryFee) {
             int newCredits = clientCredits - creditsToPayDeliveryFee;
-            updateCreditsClient(clientEmail, newCredits);
-            return true;
+            return updateCreditsClient(clientEmail, newCredits);
         }
         return false;
     }
