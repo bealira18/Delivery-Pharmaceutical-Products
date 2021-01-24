@@ -32,6 +32,15 @@ public class Drone extends Vehicle {
     public double getAverageVerticalSpeed() {
         return averageVerticalSpeed;
     }
+    
+    public static double getDroneMaxPayload() {
+        
+        double droneMaxPayload = Double.parseDouble(System.getProperty("drone.max.payload", "0.0"));
+        if (droneMaxPayload <= 0) {
+            throw new IllegalArgumentException("Invalid Numeric Value (Negative or 0 Drone Max Payload). Please check your configuration file.");
+        }
+        return droneMaxPayload;
+    }
 
     public void setDroneStatusId(int droneStatusId) {
         this.droneStatusId = droneStatusId;
@@ -43,6 +52,14 @@ public class Drone extends Vehicle {
 
     public void setAverageVerticalSpeed(double averageVerticalSpeed) {
         this.averageVerticalSpeed = averageVerticalSpeed;
+    }
+    
+    public static void setDroneMaxPayload(double droneMaxPayload) {
+
+        if (droneMaxPayload <= 0) {
+            throw new IllegalArgumentException("Invalid Numeric Value (Negative or 0 Drone Max Payload)");
+        }
+        System.setProperty("drone.max.payload", String.valueOf(droneMaxPayload));
     }
 
     @Override

@@ -21,10 +21,27 @@ public class Scooter extends Vehicle {
 
         return scooterStatusId;
     }
+    
+    public static double getScooterMaxPayload() {
+        
+        double scooterMaxPayload = Double.parseDouble(System.getProperty("scooter.max.payload", "0.0"));
+        if (scooterMaxPayload <= 0) {
+            throw new IllegalArgumentException("Invalid Numeric Value (Negative or 0 Scooter Max Payload). Please check your configuration file.");
+        }
+        return scooterMaxPayload;
+    }
 
     public void setScooterStatusId(int scooterStatusId) {
 
         this.scooterStatusId = scooterStatusId;
+    }
+    
+    public static void setScooterMaxPayload(double scooterMaxPayload) {
+
+        if (scooterMaxPayload <= 0) {
+            throw new IllegalArgumentException("Invalid Numeric Value (Negative or 0 Scooter Max Payload)");
+        }
+        System.setProperty("scooter.max.payload", String.valueOf(scooterMaxPayload));
     }
 
     @Override

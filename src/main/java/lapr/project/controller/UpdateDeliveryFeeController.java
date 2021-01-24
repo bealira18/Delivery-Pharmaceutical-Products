@@ -31,10 +31,10 @@ public class UpdateDeliveryFeeController {
         return PurchaseOrder.getDeliveryFee();
     }
 
-    public void updateDeliveryFee(double fee) {
+    public boolean updateDeliveryFee(double fee) {
 
         PurchaseOrder.setDeliveryFee(fee);
-        sH.saveSettings(SettingsHandler.SETTINGS_FILE);
+        return sH.saveSettings(SettingsHandler.SETTINGS_FILE);
     }
 
 }

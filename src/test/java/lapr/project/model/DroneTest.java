@@ -2,10 +2,11 @@ package lapr.project.model;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 
 public class DroneTest {
@@ -159,5 +160,60 @@ public class DroneTest {
 
         result = instance.equals(new Drone(2, 1, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 8.9, 1, 1, 1));
         assertEquals(false, result);
+    }
+
+    /**
+     * Test of getDroneMaxPayload method, of class Drone.
+     */
+    @Test
+    public void testGetDroneMaxPayload() {
+        System.out.println("getDroneMaxPayload");
+        System.setProperty("drone.max.payload", "12.54");
+        double expResult = 12.54;
+        double result = Drone.getDroneMaxPayload();
+        assertEquals(expResult, result, 0.01);
+        
+        System.setProperty("drone.max.payload", "5.4");
+        expResult = 5.4;
+        result = Drone.getDroneMaxPayload();
+        assertEquals(expResult, result, 0.01);
+        
+        System.setProperty("drone.max.payload", "0.0");
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            Drone.getDroneMaxPayload();
+        });
+        assertEquals("Invalid Numeric Value (Negative or 0 Drone Max Payload). Please check your configuration file.", ex.getMessage());
+        
+        
+        System.setProperty("drone.max.payload", "-5.4");
+        ex = assertThrows(IllegalArgumentException.class, () -> {
+            Drone.getDroneMaxPayload();
+        });
+        assertEquals("Invalid Numeric Value (Negative or 0 Drone Max Payload). Please check your configuration file.", ex.getMessage());
+    }
+
+    /**
+     * Test of setDroneMaxPayload method, of class Drone.
+     */
+    @Test
+    public void testSetDroneMaxPayload() {
+        System.out.println("setDroneMaxPayload");
+        System.setProperty("drone.max.payload", "5.4");
+        double droneMaxPayload = 1.0;
+        Drone.setDroneMaxPayload(droneMaxPayload);
+        double result = Double.parseDouble(System.getProperty("drone.max.payload"));
+        assertEquals(droneMaxPayload, result, 0.0);
+
+        final double droneMaxPayload2 = 0.0;
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            Drone.setDroneMaxPayload(droneMaxPayload2);
+        });
+        assertEquals("Invalid Numeric Value (Negative or 0 Drone Max Payload)", ex.getMessage());
+
+        final double droneMaxPayload3 = -1.0;
+        ex = assertThrows(IllegalArgumentException.class, () -> {
+            Drone.setDroneMaxPayload(droneMaxPayload3);
+        });
+        assertEquals("Invalid Numeric Value (Negative or 0 Drone Max Payload)", ex.getMessage());
     }
 }

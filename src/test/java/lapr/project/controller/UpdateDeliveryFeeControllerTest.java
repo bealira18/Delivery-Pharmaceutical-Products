@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class UpdateDeliveryFeeControllerTest {
 
@@ -17,6 +18,8 @@ public class UpdateDeliveryFeeControllerTest {
     public static void setUpClass() {
 
         SettingsHandler sh = mock(SettingsHandler.class);
+        
+        when(sh.saveSettings(SettingsHandler.SETTINGS_FILE)).thenReturn(true);
 
         uDFC = new UpdateDeliveryFeeController();
         uDFC = new UpdateDeliveryFeeController(sh);
@@ -31,9 +34,24 @@ public class UpdateDeliveryFeeControllerTest {
 
         System.out.println("updateDeliveryFee");
         double fee = 5.0;
-        uDFC.updateDeliveryFee(fee);
+        boolean bResult = uDFC.updateDeliveryFee(fee);
         double result = Double.parseDouble(System.getProperty("purchase.order.delivery.fee"));
         assertEquals(fee, result);
+        assertEquals(true, bResult);
+        
+        SettingsHandler sh = mock(SettingsHandler.class);
+        
+        when(sh.saveSettings(SettingsHandler.SETTINGS_FILE)).thenReturn(false);
+
+        UpdateDeliveryFeeController instance = new UpdateDeliveryFeeController(sh);
+        bResult = instance.updateDeliveryFee(fee);
+        assertEquals(false, bResult);
+        
+        final double deliveryFee2 = -1.0;
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            uDFC.updateDeliveryFee(deliveryFee2);
+        });
+        assertEquals("Invalid Numeric Value (Negative Delivery Fee)", ex.getMessage());
     }
 
     /**

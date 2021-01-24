@@ -32,7 +32,7 @@ public class SettingsHandler {
         }
     }
 
-    public void saveSettings(String filePath) {
+    public boolean saveSettings(String filePath) {
         try {
             FileOutputStream output = new FileOutputStream(filePath);
             System.getProperties().store(output, null);
@@ -40,7 +40,9 @@ public class SettingsHandler {
 
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
 }
