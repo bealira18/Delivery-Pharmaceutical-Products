@@ -1,9 +1,14 @@
 package lapr.project.data;
 
+import lapr.project.model.Address;
+import lapr.project.model.Product;
 import lapr.project.model.Stock;
 import oracle.jdbc.OracleTypes;
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -161,35 +166,48 @@ public class StockDB extends DataHandler {
         }
     }
 
+    public List<Address> getOthersPharmacyAddressWithProductStock(int idPharmacy, int idProduct, int productQuantity) throws SQLException {
 
-
-
-
-
-
-
-    /*public boolean checkIfIsEnoughStockInOtherPharmacy(int idOrder) throws SQLException {
-        CallableStatement callStmt = null;
+        List<Address> listAddress = new ArrayList<>();
+        CallableStatement callStmt1 = null;
+        ResultSet rs1 = null;
 
         try {
             openConnection();
 
-            callStmt = getConnection().prepareCall("{ ? = call checkIfIsEnoughStockInOtherPharmacy(?) }");
+            callStmt1 = getConnection().prepareCall("{ ? = call getOthersPharmacyAddressWithProductStock(?,?,?) }");
 
-            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
-            callStmt.setInt(2, idOrder);
-            callStmt.execute();
+            callStmt1.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt1.setInt(2, idPharmacy);
+            callStmt1.setInt(3, idProduct);
+            callStmt1.setInt(4, productQuantity);
+            callStmt1.execute();
 
-            return callStmt.getInt(1) > 0;
-        } catch (NullPointerException | NumberFormatException | SQLException ex) {
+            rs1 = (ResultSet) callStmt1.getObject(1);
+
+            while (rs1.next()) {
+
+                String address = rs1.getString(1);
+                double longitude = rs1.getDouble(2);
+                double latitude = rs1.getDouble(3);
+                double altitude = rs1.getDouble(4);
+
+                listAddress.add(new Address(address, longitude, latitude, altitude));
+            }
+
+            return listAddress;
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return listAddress;
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
+            if (callStmt1 != null) {
+                callStmt1.close();
+
+                if (rs1 != null) {
+                    rs1.close();
+                }
             }
             closeAll();
         }
     }
-     */
 }
