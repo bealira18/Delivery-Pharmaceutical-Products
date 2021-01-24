@@ -19,6 +19,7 @@ public class VehicleDB extends DataHandler {
         CallableStatement callStmt = null;
 
         try {
+            openConnection();
 
             callStmt = getConnection().prepareCall("{ ? = call typeOfVehicleByID(?) }");
             callStmt.registerOutParameter(1, OracleTypes.VARCHAR);
@@ -44,6 +45,7 @@ public class VehicleDB extends DataHandler {
         ResultSet rSet = null;
 
         try {
+            openConnection();
 
             callStmt = getConnection().prepareCall("{ ? = call getEmailNameFromParkedVehicleResponsible(?) }");
             callStmt.registerOutParameter(1, OracleTypes.CURSOR);

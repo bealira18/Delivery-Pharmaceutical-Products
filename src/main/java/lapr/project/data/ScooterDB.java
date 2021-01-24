@@ -28,7 +28,7 @@ public class ScooterDB extends DataHandler {
         }
     }
 
-    public boolean addScooter(int idScooter, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
+    private boolean addScooter(int idScooter, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
             double motor, double currentBattery, double maxBattery, double averageSpeed, int scooterStatusId) throws SQLException {
 
         CallableStatement callStmt = null;

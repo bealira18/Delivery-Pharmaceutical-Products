@@ -212,12 +212,6 @@ class Main {
         System.out.println(removeProductFromPharmacyCatalogController.removeProductFromPharmacyCatalog(stock1));*/
 
 
-        //SetDeliveryFeeController
-        /*SetDeliveryFeeController setDeliveryFeeController = new SetDeliveryFeeController();
-        System.out.println(setDeliveryFeeController.setDeliveryFee(2.90));
-        System.out.println(new PurchaseOrder(1,1,"a", LocalDate.now()).getDeliveryFee());*/
-
-
         //SetMaximumPayloadController       -- definir nas application.properties?
 
 
@@ -270,8 +264,8 @@ class Main {
         //UseCreditsController      ------------------------------------------------------------------------------------
         
         //Dont uncomment this, poor andré
-//        EmailService eS = new EmailService();
-//        eS.sendEmail("11710602@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");
+        EmailService eS = new EmailService();
+        eS.sendEmail("1171060@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");
 
         /*AssemblyWatcher asmWatch = new AssemblyWatcher();
 
