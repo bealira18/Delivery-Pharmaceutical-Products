@@ -38,6 +38,28 @@ public class ManageCreditsController {
         return creditsEarned;
     }
 
+    public boolean payDeliveryFee(String clientEmail) throws SQLException {
+        int clientCredits = getCreditsByClientEmail(clientEmail);
+        int creditsToPayDeliveryFee = getCreditValueDeliveryFee();
+
+        if(clientCredits >= creditsToPayDeliveryFee) {
+            int newCredits = clientCredits - creditsToPayDeliveryFee;
+            updateCreditsClient(clientEmail, newCredits);
+            return true;
+        }
+        return false;
+    }
+
+    public int getCreditsByClientEmail(String email) throws SQLException {
+
+        return cDB.getCreditsByClientEmail(email);
+    }
+
+    public boolean updateCreditsClient(String email, int newClientsAmount) throws SQLException {
+
+        return cDB.updateCreditsClient(email, newClientsAmount);
+    }
+
     public double getCreditConversionRatio() {
 
         double ratio = Double.parseDouble(System.getProperty("client.credits.purchase.ratio", "0.0"));
@@ -76,28 +98,5 @@ public class ManageCreditsController {
         System.setProperty("client.credits.delivery.fee.payment", String.valueOf(newCredits));
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
     }
-    //recebe email do cliente retorna nº creditos
-    //verifica se cliente tem mais creditos que o das properties
-    //retorna 0 ou delivery fee
-    public int getCreditsByClientEmail(String email) throws SQLException {
 
-        return cDB.getCreditsByClientEmail(email);
-    }
-
-    public boolean updateCreditsClient(String email, int newClientsAmount) throws SQLException {
-
-        return cDB.updateCreditsClient(email, newClientsAmount);
-    }
-
-    /*public boolean payDeliveryFee(String clientEmail) throws SQLException {
-        int clientCredits = getCreditsByClientEmail(clientEmail);
-        int creditsToPayDeliveryFee = getCreditValueDeliveryFee();
-
-        if(clientCredits >= creditsToPayDeliveryFee) {
-            int newCredits = clientCredits - creditsToPayDeliveryFee;
-            updateCreditsClient(clientEmail, newCredits);
-            return true;
-        }
-        return false;
-    }*/
 }
