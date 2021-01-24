@@ -44,9 +44,9 @@ class Main {
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
         
         //Initial Database Setup
-        //DataHandler dh = new DataHandler();
-        //dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
-        //dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
+        DataHandler dh = new DataHandler();
+        dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
+        dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
 
 
         //AddAdministratorController
@@ -89,10 +89,10 @@ class Main {
 
 
         //AddPharmacyController
-       /* Address a = new Address("gaia shopping", 0, 0, 0);
+        Address a = new Address("gaia shopping", 0, 0, 0);
         Pharmacy p = new Pharmacy(2, "farmacia gaia shopping", a);
         AddPharmacyController addPharmacyController = new AddPharmacyController();
-        System.out.println(addPharmacyController.addPharmacy(a,p,2,2));*/
+        System.out.println(addPharmacyController.addPharmacy(a,p,2,2));
 
 
         //AddProductController
@@ -123,13 +123,13 @@ class Main {
 
 
         //CreateInvoiceController ---------------------------------------------------------------------------------------
-        ManageCreditsController manageCreditsController = new ManageCreditsController();
+        /*ManageCreditsController manageCreditsController = new ManageCreditsController();
         manageCreditsController.setCreditValueDeliveryFee(5);
         CreateInvoiceController createInvoiceController = new CreateInvoiceController();
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "client1@gmail.com", LocalDate.now());
         Invoice invoice;
         invoice = createInvoiceController.createInvoice(1, purchaseOrder);
-        createInvoiceController.sendInvoiceByEmail(invoice);
+        createInvoiceController.sendInvoiceByEmail(invoice);*/
 
 
         //GeographicalController ----------------------------------------------------------------------------------------
@@ -138,7 +138,7 @@ class Main {
         List<Address> addressList = geographicalController.getAddresses();
         List<Path> pathList = geographicalController.getPaths(addressList);
         List<Address> pharmaciesAddress = geographicalController.getPharmacyAddresses();
-        System.out.println(pharmaciesAddress);*/
+        //System.out.println(pharmaciesAddress);*/
 
 
         //GetDronesController -------------------------------------------------------------------------------------------
@@ -283,7 +283,42 @@ class Main {
         System.out.println("Type anything to stop program");
         Scanner in = new Scanner(System.in);
         in.nextLine();*/
+
+
+        //scenario1();
         
     }
 
+
+    public static void scenario1() throws SQLException {
+        System.out.println("filling graph");
+        GeographicalController geographicalController = new GeographicalController();
+        System.out.println("\n\nGeographicalController");
+        List<Address> addressList = geographicalController.getAddresses();
+        List<Path> pathList = geographicalController.getPaths(addressList);
+        List<Address> pharmaciesAddress = geographicalController.getPharmacyAddresses();
+        GraphController graphController = new GraphController();
+        graphController.fillGraphDrone(addressList, pathList);
+        graphController.fillGraphScooter(addressList, pathList);
+        graphController.fillGraphDroneEnergy(addressList, pathList);
+        graphController.fillGraphScooterEnergy(addressList,pathList);
+
+
+
+        PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
+        System.out.println("\n\nPurchaseItemsController");
+        Product product1 = new Product(1, "Ben-u-ron", 2.40, 0.1, 1);
+        Product product2 = new Product(2, "Ibuprofeno", 4.70, 0.2, 1);
+        Product product3 = new Product(6, "Fio Dentario Colgate", 3.49, 0.05, 2);
+        System.out.println(purchaseItemsController.addToBasket(product1, 3));
+        System.out.println(purchaseItemsController.addToBasket(product2, 2));
+        System.out.println(purchaseItemsController.addToBasket(product2, 1));
+        PurchaseOrder purchaseOrder = purchaseItemsController.purchaseItems(1, 1, "client1@gmail.com");
+        System.out.println(purchaseOrder);
+
+
+        CreateInvoiceController createInvoiceController = new CreateInvoiceController();
+        Invoice invoice = createInvoiceController.createInvoice(1, purchaseOrder);
+        createInvoiceController.sendInvoiceByEmail(invoice);
+    }
 }

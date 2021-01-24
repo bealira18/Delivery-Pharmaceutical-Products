@@ -4,8 +4,10 @@ import lapr.project.data.*;
 import lapr.project.model.Pharmacy;
 import lapr.project.model.Product;
 import lapr.project.model.ProductCategory;
+import lapr.project.model.PurchaseOrder;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,23 +71,23 @@ public class PurchaseItemsController {
         return true;
     }
 
-    public boolean purchaseItems(int idOrder, int idPharmacy, String email) throws SQLException {
+    public PurchaseOrder purchaseItems(int idOrder, int idPharmacy, String email) throws SQLException {
 
         if (basket.isEmpty()) {
-            return false;
+            return null;
         }
 
         if (!po.newOrder(idOrder, idPharmacy, email)) {
-            return false;
+            return null;
         }
 
         for (Map.Entry<Product, Integer> p : basket.entrySet()) {
             if (!pl.newProductLine(idOrder, p.getKey().getId(), p.getValue(), p.getKey().getPrice() * p.getValue())) {
-                return false;
+                return null;
             }
         }
         s.updateProductStockAfterSale(idOrder);
-
-        return true;
+        PurchaseOrder purchaseOrder = new PurchaseOrder(idOrder, idPharmacy, email, LocalDate.now());
+        return purchaseOrder;
     }
 }

@@ -1,15 +1,13 @@
 package lapr.project.controller;
 
 import lapr.project.data.*;
-import lapr.project.model.Address;
-import lapr.project.model.Pharmacy;
-import lapr.project.model.Product;
-import lapr.project.model.ProductCategory;
+import lapr.project.model.*;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -128,8 +126,8 @@ class PurchaseItemsControllerTest {
 
     @Test
     void purchaseItemsTest() throws SQLException {
-        boolean expResult=false;
-        boolean result=controller.purchaseItems(0,0,"email");
+        PurchaseOrder expResult = null;
+        PurchaseOrder result=controller.purchaseItems(1,1, "testEmail@gmail.com");
         assertEquals(expResult,result);
     }
 }

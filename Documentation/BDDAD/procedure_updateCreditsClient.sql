@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE updateCreditsClient(
+    CREATE OR REPLACE PROCEDURE updateCreditsClient(
     p_emailClient IN VARCHAR2,
     p_newCreditAmount IN INTEGER)
 IS
