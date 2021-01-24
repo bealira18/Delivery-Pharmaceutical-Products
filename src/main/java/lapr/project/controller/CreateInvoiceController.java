@@ -52,8 +52,6 @@ public class CreateInvoiceController {
             deliveryFee = updateDeliveryFeeController.getDeliveryFee();
         }
 
-        System.out.println("Ganhou "+manageCreditsController.addCreditsAfterPurchase(po.getClientEmail(), totalPrice)+" creditos");
-
         Invoice invoice = new Invoice(idInvoice, po.getId(), po.getPharmacyId(), po.getClientEmail(), deliveryFee, totalPrice);
         if(!invoiceDB.addInvoice(invoice)) return null;
         return invoice;

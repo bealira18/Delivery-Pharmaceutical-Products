@@ -105,6 +105,7 @@ class CreateInvoiceControllerTest {
 
         when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
         when(invoiceDB.addInvoice(invoice)).thenReturn(Boolean.FALSE);
+        when(manageCreditsController.payDeliveryFee(purchaseOrder.getClientEmail())).thenReturn(Boolean.FALSE);
 
         CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController);
 

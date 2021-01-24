@@ -47,7 +47,7 @@ class AddParkControllerTest {
      * @throws java.lang.Exception
      */
     @Test
-    public void testAddCourier() throws Exception {
+    public void testAddPark() throws Exception {
 
         System.out.println("addCourier");
 

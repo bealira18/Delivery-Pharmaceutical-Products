@@ -54,13 +54,13 @@ class AddDroneControllerTest {
         ParkDB parkDB = mock(ParkDB.class);
 
         when(parkDB.getNumberOfDronesInPharmacy(drone1.getIdPharmacy())).thenReturn(1);
+        when(droneDB.addDrone(drone1)).thenReturn(Boolean.FALSE);
 
         AddDroneController controller1 = new AddDroneController(droneDB, parkDB);
 
         result = controller1.addDrone(drone1);
         assertEquals(false, result);
 
-        when(droneDB.addDrone(drone1)).thenReturn(Boolean.FALSE);
         when(parkDB.getNumberOfDronesInPharmacy(drone1.getIdPharmacy())).thenReturn(0);
 
         result = controller1.addDrone(drone1);

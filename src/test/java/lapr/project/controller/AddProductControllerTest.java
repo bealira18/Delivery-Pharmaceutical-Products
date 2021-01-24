@@ -49,5 +49,14 @@ class AddProductControllerTest {
 
         boolean result = controller.addProduct(product1);
         assertEquals(true, result);
+
+        ProductDB productDB = mock(ProductDB.class);
+
+        when(productDB.addProduct(product1)).thenReturn(Boolean.FALSE);
+
+        AddProductController controller2 = new AddProductController(productDB);
+
+        result = controller2.addProduct(product1);
+        assertEquals(false, result);
     }
 }
