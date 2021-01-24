@@ -27,7 +27,7 @@ class CreateInvoiceControllerTest {
 
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
 
-        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
+        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00);
 
         ProductLine productLine1 = new ProductLine(1,1,1,5.50);
         ProductLine productLine2 = new ProductLine(1,2,1,4.50);
@@ -52,13 +52,13 @@ class CreateInvoiceControllerTest {
         EmailService emailService = mock(EmailService.class);
         ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
 
-        when(invoiceDB.addInvoice(invoice, 2.90)).thenReturn(Boolean.TRUE);
+        when(invoiceDB.addInvoice(invoice)).thenReturn(Boolean.TRUE);
         when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
         when(productDB.getProduct(productLine1.getProductId())).thenReturn(product1);
         when(productDB.getProduct(productLine2.getProductId())).thenReturn(product2);
         when(pharmacyDB.getPhamacyByID(invoice.getPharmacyId())).thenReturn(pharmacy);
         when(clientDB.getClientByEmail(invoice.getClientEmail())).thenReturn(client);
-        when(emailService.sendEmail("clientemen0652@gmail.com", "Receipt", "Receipt #1"+ System.getProperty("line.separator") +
+        when(emailService.sendEmail("clientemen0652@gmail.com", "Receipt", "Receipt #1" + System.getProperty("line.separator") +
                 System.getProperty("line.separator") +
                 "Pharmacy: testPharmacy\tid: 1"+ System.getProperty("line.separator") +
                 "------------------------------------------------------------"+ System.getProperty("line.separator") +
@@ -70,6 +70,9 @@ class CreateInvoiceControllerTest {
                 "testProduct2                            1         €4.50      "+ System.getProperty("line.separator") +
                 "------------------------------------------------------------"+ System.getProperty("line.separator") +
                 "                                                  €10.00"+ System.getProperty("line.separator") +
+                "Delivery fee: 2.90€" +
+                System.getProperty("line.separator") +
+                "Total: 12.90€" +
                 System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.TRUE);
         when(manageCreditsController.payDeliveryFee(purchaseOrder.getClientEmail())).thenReturn(Boolean.TRUE);
@@ -83,7 +86,7 @@ class CreateInvoiceControllerTest {
     @Test
     void testCreateInvoice() throws SQLException {
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
-        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
+        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00);
         UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
         updateDeliveryFeeController.updateDeliveryFee(2.90);
 
@@ -101,7 +104,7 @@ class CreateInvoiceControllerTest {
         ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
 
         when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
-        when(invoiceDB.addInvoice(invoice, 2.90)).thenReturn(Boolean.FALSE);
+        when(invoiceDB.addInvoice(invoice)).thenReturn(Boolean.FALSE);
 
         CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController);
 
@@ -119,7 +122,7 @@ class CreateInvoiceControllerTest {
 
     @Test
     void TestSendInvoiceByEmail() throws SQLException {
-        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
+        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00);
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
         controller.getTotalPriceFromOrder();
         controller.getProductLinesFromOrder(purchaseOrder);
@@ -152,7 +155,7 @@ class CreateInvoiceControllerTest {
         when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
         when(productDB.getProduct(productLine1.getProductId())).thenReturn(product1);
         when(productDB.getProduct(productLine2.getProductId())).thenReturn(product2);
-        when(emailService.sendEmail("clientemen0652@gmail.com", "Receipt", "Receipt #1"+ System.getProperty("line.separator") +
+        when(emailService.sendEmail("clientemen0652@gmail.com", "Receipt", "Receipt #1" + System.getProperty("line.separator") +
                 System.getProperty("line.separator") +
                 "Pharmacy: testPharmacy\tid: 1"+ System.getProperty("line.separator") +
                 "------------------------------------------------------------"+ System.getProperty("line.separator") +
@@ -164,6 +167,9 @@ class CreateInvoiceControllerTest {
                 "testProduct2                            1         €4.50      "+ System.getProperty("line.separator") +
                 "------------------------------------------------------------"+ System.getProperty("line.separator") +
                 "                                                  €10.00"+ System.getProperty("line.separator") +
+                "Delivery fee: 2.90€" +
+                System.getProperty("line.separator") +
+                "Total: 12.90€" +
                 System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.FALSE);
 
@@ -181,7 +187,7 @@ class CreateInvoiceControllerTest {
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
         controller.getProductLinesFromOrder(purchaseOrder);
 
-        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
+        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00);
         Address address = new Address("testAddress",1,1,1);
         Pharmacy pharmacy = new Pharmacy(1, "testPharmacy", address);
 
@@ -200,6 +206,9 @@ class CreateInvoiceControllerTest {
                 "testProduct2                            1         €4.50      "+ System.getProperty("line.separator") +
                 "------------------------------------------------------------"+ System.getProperty("line.separator") +
                 "                                                  €10.00"+ System.getProperty("line.separator") +
+                "Delivery fee: 2.90€" +
+                System.getProperty("line.separator") +
+                "Total: 12.90€" +
                 System.getProperty("line.separator") +
                 "NIF: 1";
 

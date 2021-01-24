@@ -54,8 +54,8 @@ public class CreateInvoiceController {
 
         manageCreditsController.addCreditsAfterPurchase(po.getClientEmail(), totalPrice);
 
-        Invoice invoice = new Invoice(idInvoice, po.getId(), po.getPharmacyId(), po.getClientEmail(), totalPrice);
-        return invoiceDB.addInvoice(invoice, deliveryFee);
+        Invoice invoice = new Invoice(idInvoice, po.getId(), po.getPharmacyId(), po.getClientEmail(), deliveryFee, totalPrice);
+        return invoiceDB.addInvoice(invoice);
     }
 
     public void getProductLinesFromOrder (PurchaseOrder po) throws SQLException {
@@ -107,6 +107,9 @@ public class CreateInvoiceController {
         }
         emailBody.append(String.format(Locale.ROOT, "%51s%.2f", "€", totalPrice));
         emailBody.append(System.getProperty(Constants.LINE_BREAK));
+        emailBody.append("Delivery fee: ").append(String.format(Locale.ROOT,"%.2f",invoice.getDeliveryFee())).append("€");
+        emailBody.append(System.getProperty(Constants.LINE_BREAK));
+        emailBody.append("Total: ").append(String.format(Locale.ROOT,"%.2f",invoice.getDeliveryFee()+totalPrice)).append("€");
         emailBody.append(System.getProperty(Constants.LINE_BREAK));
         emailBody.append("NIF: ").append(client.getNif());
 

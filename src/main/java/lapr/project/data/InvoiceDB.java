@@ -9,12 +9,12 @@ import java.util.logging.Logger;
 
 public class InvoiceDB extends DataHandler {
 
-    public boolean addInvoice(Invoice i, double deliveryFee) {
+    public boolean addInvoice(Invoice i) {
 
         openConnection();
 
         try {
-            return addInvoice(i.getOrderId(), i.getPharmacyId(), i.getClientEmail(), deliveryFee, i.getTotalPrice());
+            return addInvoice(i.getOrderId(), i.getPharmacyId(), i.getClientEmail(), i.getDeliveryFee(), i.getTotalPrice());
 
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(InvoiceDB.class.getName()).log(Level.SEVERE, null, ex);
