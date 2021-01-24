@@ -166,6 +166,7 @@ public class EdgeTest {
         Edge<String, String> instance = new Edge<>();
         
         Vertex<String, String> vertex1 = new Vertex<>(1, "Vertex1");
+        
         Edge<String, String> otherEdge = new Edge<>("edge1", 1.0, vertex1, vertex1);
 
         assertFalse(instance.equals(null), "should not be equal to null");
@@ -175,7 +176,8 @@ public class EdgeTest {
 
         assertFalse(instance.equals(otherEdge), "should not be equal to otherEdge");
         
-        assertFalse(otherEdge.equals(instance), "should not be equal to otherEdge");
+        Vertex<String, String> vertex2 = new Vertex<>(1, "Vertex2");
+        instance = new Edge<>("edge1", 1.0, vertex2, vertex2);
     }
 
     /**
