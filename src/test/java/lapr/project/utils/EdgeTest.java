@@ -164,17 +164,18 @@ public class EdgeTest {
         System.out.println("equals");
 
         Edge<String, String> instance = new Edge<>();
-
-        assertFalse(instance.equals(null), "should not be equal to null");
-
-        assertTrue(instance.equals(instance), "should be equal to itself");
-
-        assertTrue(instance.equals(instance.clone()), "should be equal to a clone");
-
+        
         Vertex<String, String> vertex1 = new Vertex<>(1, "Vertex1");
         Edge<String, String> otherEdge = new Edge<>("edge1", 1.0, vertex1, vertex1);
 
+        assertFalse(instance.equals(null), "should not be equal to null");
+        assertFalse(instance.equals(new String()), "should not be equal to dif type");
+        assertTrue(instance.equals(instance), "should be equal to itself");
+        assertTrue(instance.equals(instance.clone()), "should be equal to a clone");
+
         assertFalse(instance.equals(otherEdge), "should not be equal to otherEdge");
+        
+        assertFalse(otherEdge.equals(instance), "should not be equal to otherEdge");
     }
 
     /**
