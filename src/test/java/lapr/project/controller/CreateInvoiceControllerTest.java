@@ -57,7 +57,7 @@ class CreateInvoiceControllerTest {
         when(productDB.getProduct(productLine2.getProductId())).thenReturn(product2);
         when(pharmacyDB.getPhamacyByID(invoice.getPharmacyId())).thenReturn(pharmacy);
         when(clientDB.getClientByEmail(invoice.getClientEmail())).thenReturn(client);
-        when(emailService.sendEmail(client.getEmail(), "Receipt", "Receipt #1"+ System.getProperty("line.separator") +
+        when(emailService.sendEmail("clientemen0652@gmail.com", "Receipt", "Receipt #1"+ System.getProperty("line.separator") +
                 System.getProperty("line.separator") +
                 "Pharmacy: testPharmacy\tid: 1"+ System.getProperty("line.separator") +
                 "------------------------------------------------------------"+ System.getProperty("line.separator") +
@@ -145,7 +145,7 @@ class CreateInvoiceControllerTest {
         when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
         when(productDB.getProduct(productLine1.getProductId())).thenReturn(product1);
         when(productDB.getProduct(productLine2.getProductId())).thenReturn(product2);
-        when(emailService.sendEmail(client.getEmail(), "Receipt", "Receipt #1"+ System.getProperty("line.separator") +
+        when(emailService.sendEmail("clientemen0652@gmail.com", "Receipt", "Receipt #1"+ System.getProperty("line.separator") +
                 System.getProperty("line.separator") +
                 "Pharmacy: testPharmacy\tid: 1"+ System.getProperty("line.separator") +
                 "------------------------------------------------------------"+ System.getProperty("line.separator") +
