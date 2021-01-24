@@ -13,7 +13,7 @@ import lapr.project.data.SettingsHandler;
  * @author Ricardo
  */
 public class UpdateDeliveryFeeController {
-    
+
     private final SettingsHandler sH;
 
     public UpdateDeliveryFeeController() {
@@ -22,13 +22,19 @@ public class UpdateDeliveryFeeController {
     }
 
     public UpdateDeliveryFeeController(SettingsHandler sh) {
+
         sH = sh;
     }
-    
-    public void updateDeliveryFee(double fee)
-    {
+
+    public double getDeliveryFee() {
+
+        return PurchaseOrder.getDeliveryFee();
+    }
+
+    public void updateDeliveryFee(double fee) {
+
         PurchaseOrder.setDeliveryFee(fee);
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
     }
-    
+
 }

@@ -261,8 +261,6 @@ class Main {
         System.out.println(updateStockController.updateProductStockAfterSale(1));*/
 
 
-        //UseCreditsController      ------------------------------------------------------------------------------------
-        
         //Dont uncomment this, poor andré
         /*EmailService eS = new EmailService();
         eS.sendEmail("11710601@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");*/
