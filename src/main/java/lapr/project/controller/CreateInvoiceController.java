@@ -48,11 +48,11 @@ public class CreateInvoiceController {
 
         UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
 
-        if(manageCreditsController.payDeliveryFee(po.getClientEmail())) {
+        if(!manageCreditsController.payDeliveryFee(po.getClientEmail())) {
             deliveryFee = updateDeliveryFeeController.getDeliveryFee();
         }
 
-        manageCreditsController.addCreditsAfterPurchase(po.getClientEmail(), totalPrice);
+        System.out.println("Ganhou "+manageCreditsController.addCreditsAfterPurchase(po.getClientEmail(), totalPrice)+" creditos");
 
         Invoice invoice = new Invoice(idInvoice, po.getId(), po.getPharmacyId(), po.getClientEmail(), deliveryFee, totalPrice);
         if(!invoiceDB.addInvoice(invoice)) return null;

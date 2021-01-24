@@ -10,8 +10,6 @@ BEGIN
     SELECT *
     FROM productLine
     WHERE id_order = idOrder;
-    
-    CLOSE matching_product_lines;
-    
+        
 RETURN matching_product_lines;
 END;

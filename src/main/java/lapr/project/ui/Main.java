@@ -123,10 +123,13 @@ class Main {
 
 
         //CreateInvoiceController ---------------------------------------------------------------------------------------
+        ManageCreditsController manageCreditsController = new ManageCreditsController();
+        manageCreditsController.setCreditValueDeliveryFee(5);
         CreateInvoiceController createInvoiceController = new CreateInvoiceController();
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "client1@gmail.com", LocalDate.now());
         Invoice invoice;
         invoice = createInvoiceController.createInvoice(1, purchaseOrder);
+        createInvoiceController.sendInvoiceByEmail(invoice);
 
 
         //GeographicalController ----------------------------------------------------------------------------------------
