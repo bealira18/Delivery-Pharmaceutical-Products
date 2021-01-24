@@ -170,10 +170,10 @@ class Main {
         /*
           Falta testar o CheckIfIsEnoughStock
          */
-        /*NotifyClientController notifyClientController = new NotifyClientController();
+        NotifyClientController notifyClientController = new NotifyClientController();
         System.out.println("\n\nNotifyClientController");
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1,"a", LocalDate.now());
-        System.out.println(notifyClientController.notifyClientDeliveryRunStarts(purchaseOrder));*/
+        System.out.println(notifyClientController.notifyClientDeliveryRunStarts(purchaseOrder));
 
 
         //PurchaseItemsController
@@ -264,8 +264,8 @@ class Main {
         //UseCreditsController      ------------------------------------------------------------------------------------
         
         //Dont uncomment this, poor andré
-        EmailService eS = new EmailService();
-        eS.sendEmail("1171060@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");
+        /*EmailService eS = new EmailService();
+        eS.sendEmail("11710601@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");*/
 
         /*AssemblyWatcher asmWatch = new AssemblyWatcher();
 

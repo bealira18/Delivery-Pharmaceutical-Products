@@ -157,4 +157,51 @@ public class ClientDB extends DataHandler {
         return false;
     }
 
+    public int getCreditsByClientEmail(String email) throws SQLException {
+
+        CallableStatement callStmt = null;
+
+        try {
+            openConnection();
+
+            callStmt = getConnection().prepareCall("{ ? = call getCreditsByClientEmail(?) }");
+
+            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+            callStmt.setString(2, email);
+
+            callStmt.execute();
+            return callStmt.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            if(callStmt!=null) callStmt.close();
+            closeAll();
+        }
+    }
+
+    public boolean updateCreditsClient(String email, int newCreditsAmount) throws SQLException {
+
+        CallableStatement callStmt = null;
+
+        try {
+            openConnection();
+
+            callStmt = getConnection().prepareCall("{ call updateCreditsClient(?,?) }");
+
+            callStmt.setString(1, email);
+            callStmt.setInt(2, newCreditsAmount);
+            callStmt.execute();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if(callStmt!=null) callStmt.close();
+            closeAll();
+        }
+    }
+
 }
