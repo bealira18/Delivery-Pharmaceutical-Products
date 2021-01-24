@@ -200,4 +200,46 @@ public class AddressDB extends DataHandler {
             closeAll();
         }
     }
+
+    public Address getAddressPharmacyById(int idPharmacy) throws SQLException {
+        Address address2 = null;
+        CallableStatement callStmt3 = null;
+        ResultSet rs3 = null;
+
+        try {
+            openConnection();
+
+            callStmt3 = getConnection().prepareCall("{ ? = call getAddressPharmacyById(?) }");
+            callStmt3.registerOutParameter(1, OracleTypes.CURSOR);
+            callStmt3.setInt(1, idPharmacy);
+            callStmt3.execute();
+
+            rs3 = (ResultSet) callStmt3.getObject(1);
+
+            if(rs3.next()){
+                String description = rs3.getString(1);
+                double latitude2 = rs3.getDouble(2);
+                double longitude2 = rs3.getDouble(3);
+                double altitude2 = rs3.getDouble(4);
+
+                 address2 = new Address(description, latitude2, longitude2, altitude2);
+            }
+
+            return address2;
+
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(AddressDB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+
+        } finally {
+            if (callStmt3 != null) {
+                callStmt3.close();
+
+                if (rs3 != null) {
+                    rs3.close();
+                }
+            }
+            closeAll();
+        }
+    }
 }

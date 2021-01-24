@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION getAddressPharmacyById(idPharmacy IN INTEGER)
+RETURN SYS_REFCURSOR
+IS
+    address SYS_REFCURSOR;
+
+BEGIN
+    OPEN address FOR
+        SELECT * FROM ADDRESS A
+        INNER JOIN PHARMACY P
+        ON A.ADDRESS = P.ADDRESS
+        WHERE P.ID_PHARMACY = idPharmacy;
+
+    RETURN address;
+END;
