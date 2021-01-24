@@ -1,10 +1,7 @@
 package lapr.project.controller;
 
 import lapr.project.data.*;
-import lapr.project.model.Address;
-import lapr.project.model.Client;
-import lapr.project.model.CreditCard;
-import lapr.project.model.PurchaseOrder;
+import lapr.project.model.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +23,10 @@ class NotifyClientControllerTest {
     @BeforeAll
     public static void setUpClass() throws SQLException {
 
+        int productQuantity1 = 1;
+        Address a = new Address("Test", 0, 0, 0);
+        Pharmacy pharmacy1 = new Pharmacy(1, "TestName", a);
+        Product product1 = new Product(1, "TestName", 30, 3, 1);
         PurchaseOrder order1 = new PurchaseOrder(1, 1, "test@email.com", LocalDate.now());
         CreditCard creditCard = new CreditCard(5295360011327825L, LocalDate.of(2077, Month.MARCH, 1), (short) 454);
         Address address = new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411);
@@ -37,8 +38,7 @@ class NotifyClientControllerTest {
         ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
 
-        when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
-        when(stockDB.checkIfIsEnoughStockInOtherPharmacy(order1.getId())).thenReturn(Boolean.TRUE);
+        when(stockDB.checkIfIsEnoughStock(pharmacy1.getId(), product1.getId(), productQuantity1)).thenReturn(Boolean.TRUE);
 
         when(deliveryDB.getClientEmailFromOrder(order1.getId())).thenReturn(client.getEmail());
         when(clientDB.getClientByEmail(client.getEmail())).thenReturn(client);
@@ -60,9 +60,12 @@ class NotifyClientControllerTest {
 
         System.out.println("checkIfIsEnoughtStock");
 
-        PurchaseOrder order1 = new PurchaseOrder(1, 1, "TestName", LocalDate.now());
+        int productQuantity1 = 1;
+        Address a = new Address("Test", 0, 0, 0);
+        Pharmacy pharmacy1 = new Pharmacy(1, "TestName", a);
+        Product product1 = new Product(1, "TestName", 30, 3, 1);
 
-        boolean result = controller.checkIfIsEnoughStock(order1);
+        boolean result = controller.checkIfIsEnoughStock(pharmacy1, product1, productQuantity1);
         assertEquals(true, result);
 
         StockDB stockDB = mock(StockDB.class);
@@ -71,24 +74,18 @@ class NotifyClientControllerTest {
         EmailService emailService = mock(EmailService.class);
         ClientDB clientDB = mock(ClientDB.class);
 
-        when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.TRUE);
+        when(stockDB.checkIfIsEnoughStock(pharmacy1.getId(), product1.getId(), productQuantity1)).thenReturn(Boolean.TRUE);
 
         NotifyClientController controller1 = new NotifyClientController(stockDB, deliveryDB, deliveryStatusDB, clientDB, emailService);
 
-        result = controller1.checkIfIsEnoughStock(order1);
+        result = controller1.checkIfIsEnoughStock(pharmacy1, product1, productQuantity1);
         assertEquals(true, result);
 
-        when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.FALSE);
-        when(stockDB.checkIfIsEnoughStockInOtherPharmacy(order1.getId())).thenReturn(Boolean.FALSE);
+        when(stockDB.checkIfIsEnoughStock(pharmacy1.getId(), product1.getId(), productQuantity1)).thenReturn(Boolean.FALSE);
 
-        result = controller1.checkIfIsEnoughStock(order1);
+        result = controller1.checkIfIsEnoughStock(pharmacy1, product1, productQuantity1);
         assertEquals(false, result);
 
-        when(stockDB.checkIfIsEnoughStock(order1.getId())).thenReturn(Boolean.FALSE);
-        when(stockDB.checkIfIsEnoughStockInOtherPharmacy(order1.getId())).thenReturn(Boolean.TRUE);
-
-        result = controller1.checkIfIsEnoughStock(order1);
-        assertEquals(true, result);
     }
 
     /**
