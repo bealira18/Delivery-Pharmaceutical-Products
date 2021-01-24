@@ -175,9 +175,6 @@ public class EdgeTest {
         assertTrue(instance.equals(instance.clone()), "should be equal to a clone");
 
         assertFalse(instance.equals(otherEdge), "should not be equal to otherEdge");
-        
-        Vertex<String, String> vertex2 = new Vertex<>(1, "Vertex2");
-        instance = new Edge<>("edge1", 1.0, vertex2, vertex2);
     }
 
     /**
