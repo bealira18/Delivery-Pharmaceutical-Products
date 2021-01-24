@@ -66,9 +66,9 @@ public class GraphController {
         GraphAlgorithms.fillGraphEnergy(false, gDroneEnergy, la, lp);
     }
 
-    public Address getNearestPharmacy(Address a, List<Address> laPharma) {
+    public Address getNearestPharmacy(boolean inverted, Address a, List<Address> laPharma) {
 
-        return GraphAlgorithms.getNearestPharmacy(gDrone, a, laPharma);
+        return GraphAlgorithms.getNearestPharmacy(inverted, gDrone, a, laPharma);
     }
 
     public double getShortestPath(boolean scooterOrDrone, Address aOrig, Address aDest, LinkedList<Address> shortPath) {

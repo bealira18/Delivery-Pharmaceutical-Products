@@ -215,7 +215,7 @@ public class GraphControllerTest {
         Address aOrig = a2;
 
         Address expResult = a9;
-        Address result = gCont.getNearestPharmacy(aOrig, lad);
+        Address result = gCont.getNearestPharmacy(true, aOrig, lad);
         assertEquals(expResult, result);
     }
 
