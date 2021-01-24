@@ -2,6 +2,8 @@ package lapr.project.controller;
 
 import lapr.project.data.*;
 import lapr.project.model.Client;
+import lapr.project.model.Pharmacy;
+import lapr.project.model.Product;
 import lapr.project.model.PurchaseOrder;
 
 import java.sql.SQLException;
@@ -31,10 +33,19 @@ public class NotifyClientController {
     }
 
      //se retornar true é porque ainda tem stock
-     public Boolean checkIfIsEnoughStock(PurchaseOrder order)throws SQLException {
+     public Boolean checkIfIsEnoughStock(Pharmacy pharmacy, Product product, int productQuantity)throws SQLException {
 
-        return stockDB.checkIfIsEnoughStock(order.getId()) || stockDB.checkIfIsEnoughStockInOtherPharmacy(order.getId());
+        return stockDB.checkIfIsEnoughStock(pharmacy.getId(), product.getId(), productQuantity);
      }
+
+
+
+
+
+
+
+
+
 
      public boolean notifyClientDeliveryRunStarts(PurchaseOrder order) throws SQLException {
          String subjectLine = "Delivery Run Starts";

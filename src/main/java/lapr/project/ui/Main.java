@@ -170,10 +170,10 @@ class Main {
         /*
           Falta testar o CheckIfIsEnoughStock
          */
-        /*NotifyClientController notifyClientController = new NotifyClientController();
+        NotifyClientController notifyClientController = new NotifyClientController();
         System.out.println("\n\nNotifyClientController");
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1,"a", LocalDate.now());
-        System.out.println(notifyClientController.notifyClientDeliveryRunStarts(purchaseOrder));*/
+        System.out.println(notifyClientController.notifyClientDeliveryRunStarts(purchaseOrder));
 
 
         //PurchaseItemsController
@@ -210,12 +210,6 @@ class Main {
         /*Stock stock1 = new Stock(1, 1, 0);
         RemoveProductFromPharmacyCatalogController removeProductFromPharmacyCatalogController = new RemoveProductFromPharmacyCatalogController();
         System.out.println(removeProductFromPharmacyCatalogController.removeProductFromPharmacyCatalog(stock1));*/
-
-
-        //SetDeliveryFeeController
-        /*SetDeliveryFeeController setDeliveryFeeController = new SetDeliveryFeeController();
-        System.out.println(setDeliveryFeeController.setDeliveryFee(2.90));
-        System.out.println(new PurchaseOrder(1,1,"a", LocalDate.now()).getDeliveryFee());*/
 
 
         //SetMaximumPayloadController       -- definir nas application.properties?
@@ -267,11 +261,9 @@ class Main {
         System.out.println(updateStockController.updateProductStockAfterSale(1));*/
 
 
-        //UseCreditsController      ------------------------------------------------------------------------------------
-        
         //Dont uncomment this, poor andré
-//        EmailService eS = new EmailService();
-//        eS.sendEmail("11710602@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");
+        /*EmailService eS = new EmailService();
+        eS.sendEmail("11710601@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");*/
 
         /*AssemblyWatcher asmWatch = new AssemblyWatcher();
 

@@ -79,4 +79,25 @@ public class ManageCreditsController {
     //recebe email do cliente retorna nº creditos
     //verifica se cliente tem mais creditos que o das properties
     //retorna 0 ou delivery fee
+    public int getCreditsByClientEmail(String email) throws SQLException {
+
+        return cDB.getCreditsByClientEmail(email);
+    }
+
+    public boolean updateCreditsClient(String email, int newClientsAmount) throws SQLException {
+
+        return cDB.updateCreditsClient(email, newClientsAmount);
+    }
+
+    /*public boolean payDeliveryFee(String clientEmail) throws SQLException {
+        int clientCredits = getCreditsByClientEmail(clientEmail);
+        int creditsToPayDeliveryFee = getCreditValueDeliveryFee();
+
+        if(clientCredits >= creditsToPayDeliveryFee) {
+            int newCredits = clientCredits - creditsToPayDeliveryFee;
+            updateCreditsClient(clientEmail, newCredits);
+            return true;
+        }
+        return false;
+    }*/
 }

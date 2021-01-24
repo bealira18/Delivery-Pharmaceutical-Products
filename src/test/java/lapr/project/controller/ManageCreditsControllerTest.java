@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ManageCreditsControllerTest {
 
@@ -21,10 +22,12 @@ public class ManageCreditsControllerTest {
     }
 
     @BeforeAll
-    public static void setUpClass() {
-
+    public static void setUpClass() throws SQLException {
         SettingsHandler sh = mock(SettingsHandler.class);
         ClientDB cDB = mock(ClientDB.class);
+
+        when(cDB.getCreditsByClientEmail("test@gmail.com")).thenReturn(5);
+        when(cDB.updateCreditsClient("test@gmail.com", 0)).thenReturn(Boolean.TRUE);
 
         mcC = new ManageCreditsController();
         mcC = new ManageCreditsController(sh, cDB);
@@ -176,4 +179,30 @@ public class ManageCreditsControllerTest {
         });
         assertEquals("The amount of credits to pay a delivery fee cannot be negative or zero.", ex.getMessage());
     }
+    @Test
+    public void testGetCreditsByClientEmail() throws SQLException {
+
+        int expResult = 5;
+        int result = mcC.getCreditsByClientEmail("test@gmail.com");
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testUpdateCreditsClient() throws SQLException {
+
+        boolean expResult = true;
+        boolean result = mcC.updateCreditsClient("test@gmail.com", 0);
+        assertEquals(expResult, result);
+
+        SettingsHandler sh = mock(SettingsHandler.class);
+        ClientDB cDB = mock(ClientDB.class);
+
+        when(cDB.updateCreditsClient("test@gmail.com", 0)).thenReturn(Boolean.FALSE);
+        ManageCreditsController controller = new ManageCreditsController(sh, cDB);
+
+        expResult = false;
+        result = controller.updateCreditsClient("test@gmail.com", 0);
+        assertEquals(expResult, result);
+    }
+
 }
