@@ -44,13 +44,13 @@ public class ManageCreditsControllerTest {
         Client client = new Client("a@b.c", "qwerty", "Joaquim Alberto", 123456789, new CreditCard(5295360011327825L, LocalDate.of(2077, Month.MARCH, 1), (short) 454), new Address("Rua Joaquim, 542", 41.15796537787468, -8.62910514603121, 5.200514144411), 0);;
         double purchaseAmount = 3.99;
         int expResult = 1;
-        int result = mcC.addCreditsAfterPurchase(client, purchaseAmount);
+        int result = mcC.addCreditsAfterPurchase(client.getEmail(), purchaseAmount);
         assertEquals(expResult, result);
         assertEquals(expResult, client.getCredits());
 
         purchaseAmount = 6.99;
         expResult = 3;
-        result = mcC.addCreditsAfterPurchase(client, purchaseAmount);
+        result = mcC.addCreditsAfterPurchase(client.getEmail(), purchaseAmount);
         assertEquals(expResult, result);
         assertEquals(expResult + 1, client.getCredits());
     }

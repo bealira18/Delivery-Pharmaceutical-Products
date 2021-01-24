@@ -50,6 +50,10 @@ class CreateInvoiceControllerTest {
         PharmacyDB pharmacyDB = mock(PharmacyDB.class);
         ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
+        ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
+        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
+
+        updateDeliveryFeeController.updateDeliveryFee(2.90);
 
         when(invoiceDB.addInvoice(invoice, 2.90)).thenReturn(Boolean.TRUE);
         when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
@@ -71,9 +75,10 @@ class CreateInvoiceControllerTest {
                 "                                                  €10.00"+ System.getProperty("line.separator") +
                 System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.TRUE);
+        when(manageCreditsController.payDeliveryFee(purchaseOrder.getClientEmail())).thenReturn(Boolean.TRUE);
 
         controller = new CreateInvoiceController();
-        controller = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService);
+        controller = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController, updateDeliveryFeeController);
         controller.getProductLinesFromOrder(purchaseOrder);
 
     }
@@ -84,7 +89,7 @@ class CreateInvoiceControllerTest {
         Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 10.00);
 
         boolean expResult = true;
-        boolean result = controller.createInvoice(1, purchaseOrder, 2.90);
+        boolean result = controller.createInvoice(1, purchaseOrder);
         assertEquals(expResult, result);
 
 
@@ -94,13 +99,15 @@ class CreateInvoiceControllerTest {
         PharmacyDB pharmacyDB = mock(PharmacyDB.class);
         ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
+        ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
+        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
 
         when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
         when(invoiceDB.addInvoice(invoice, 2.90)).thenReturn(Boolean.FALSE);
 
-        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService);
+        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController, updateDeliveryFeeController);
 
-        result = controller2.createInvoice(1, purchaseOrder, 2.90);
+        result = controller2.createInvoice(1, purchaseOrder);
         expResult = false;
         assertEquals(expResult, result);
     }
@@ -129,6 +136,8 @@ class CreateInvoiceControllerTest {
         PharmacyDB pharmacyDB = mock(PharmacyDB.class);
         ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
+        ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
+        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
 
         Address address = new Address("testAddress",1,1,1);
         Pharmacy pharmacy = new Pharmacy(1, "testPharmacy", address);
@@ -160,7 +169,7 @@ class CreateInvoiceControllerTest {
                 System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.FALSE);
 
-        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService);
+        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController, updateDeliveryFeeController);
         controller2.getProductLinesFromOrder(purchaseOrder);
 
         expResult = false;

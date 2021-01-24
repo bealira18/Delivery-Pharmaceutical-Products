@@ -16,6 +16,8 @@ public class CreateInvoiceController {
     private final PharmacyDB pharmacyDB;
     private final ClientDB clientDB;
     private final EmailService emailService;
+    private final ManageCreditsController manageCreditsController;
+    private final UpdateDeliveryFeeController updateDeliveryFeeController;
     private List<ProductLine> productLineList;
     private double totalPrice;
 
@@ -26,20 +28,33 @@ public class CreateInvoiceController {
         pharmacyDB = new PharmacyDB();
         clientDB = new ClientDB();
         emailService = new EmailService();
+        manageCreditsController = new ManageCreditsController();
+        updateDeliveryFeeController = new UpdateDeliveryFeeController();
     }
 
-    public CreateInvoiceController(InvoiceDB invoiceDB, ProductLineDB productLineDB, ProductDB productDB, PharmacyDB pharmacyDB, ClientDB clientDB, EmailService emailService) {
+    public CreateInvoiceController(InvoiceDB invoiceDB, ProductLineDB productLineDB, ProductDB productDB, PharmacyDB pharmacyDB,
+                                   ClientDB clientDB, EmailService emailService, ManageCreditsController manageCreditsController,
+                                   UpdateDeliveryFeeController updateDeliveryFeeController) {
         this.invoiceDB = invoiceDB;
         this.productLineDB = productLineDB;
         this.productDB = productDB;
         this.pharmacyDB = pharmacyDB;
         this.clientDB = clientDB;
         this.emailService = emailService;
+        this.manageCreditsController = manageCreditsController;
+        this.updateDeliveryFeeController = updateDeliveryFeeController;
     }
 
-    public boolean createInvoice(int idInvoice, PurchaseOrder po, double deliveryFee) throws SQLException {
+    public boolean createInvoice(int idInvoice, PurchaseOrder po) throws SQLException {
+        double deliveryFee = 0;
         getProductLinesFromOrder(po);
         totalPrice = getTotalPriceFromOrder();
+
+        if(manageCreditsController.payDeliveryFee(po.getClientEmail())) {
+            deliveryFee = updateDeliveryFeeController.getDeliveryFee();
+        }
+
+        manageCreditsController.addCreditsAfterPurchase(po.getClientEmail(), totalPrice);
 
         Invoice invoice = new Invoice(idInvoice, po.getId(), po.getPharmacyId(), po.getClientEmail(), totalPrice);
         return invoiceDB.addInvoice(invoice, deliveryFee);

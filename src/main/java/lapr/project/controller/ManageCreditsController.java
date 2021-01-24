@@ -30,11 +30,10 @@ public class ManageCreditsController {
         cDB = new ClientDB();
     }
 
-    public int addCreditsAfterPurchase(Client client, double purchaseAmount) throws SQLException {
+    public int addCreditsAfterPurchase(String clientEmail, double purchaseAmount) throws SQLException {
         double ratio = getCreditConversionRatio();
         int creditsEarned = (int) (ratio * purchaseAmount);
-        client.setCredits(client.getCredits() + creditsEarned);
-        cDB.updateCredits(client.getEmail(), creditsEarned);
+        cDB.updateCredits(clientEmail, creditsEarned);
         return creditsEarned;
     }
 
