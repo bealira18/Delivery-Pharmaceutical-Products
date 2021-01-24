@@ -7,7 +7,6 @@ package lapr.project.controller;
 
 import lapr.project.data.ClientDB;
 import lapr.project.data.SettingsHandler;
-import lapr.project.model.Client;
 
 import java.sql.SQLException;
 

@@ -21,7 +21,7 @@ public class PurchaseItemsController {
     private final ProductLineDB pl;
     private final StockDB s;
     private Map<ProductCategory, List<Product>> mapProducts;
-    private Map<Product, Integer> basket;
+    private final Map<Product, Integer> basket;
 
     public PurchaseItemsController() {
         pharmacyDB = new PharmacyDB();
