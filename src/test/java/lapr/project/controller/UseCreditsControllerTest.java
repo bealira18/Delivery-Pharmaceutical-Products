@@ -12,7 +12,7 @@ import static org.mockito.Mockito.mock;
 
 public class UseCreditsControllerTest {
 
-    private static UseCreditsController uPC;
+    private static UseCreditsController controller;
 
     public UseCreditsControllerTest() {
     }
@@ -22,15 +22,10 @@ public class UseCreditsControllerTest {
 
         ClientDB cDB = mock(ClientDB.class);
 
-        uPC = new UseCreditsController();
-        uPC = new UseCreditsController(cDB);
+        controller = new UseCreditsController();
+        controller = new UseCreditsController(cDB);
     }
 
-    @Test
-    void testUpdateProduct1() throws SQLException {
-        boolean actual=uPC.useCredits("email",0);
-        assertFalse(actual); //porque não existem produtos
-    }
 
 
 }
