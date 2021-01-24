@@ -31,23 +31,23 @@ public class ScooterDB extends DataHandler {
     public boolean addScooter(int idScooter, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
             double motor, double currentBattery, double maxBattery, double averageSpeed, int scooterStatusId) throws SQLException {
 
-        CallableStatement callStmt = null;
+        CallableStatement callStmt1 = null;
 
         try {
-            callStmt = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?,?) }");
+            callStmt1 = getConnection().prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?,?) }");
 
-            callStmt.setInt(1, idScooter);
-            callStmt.setInt(2, idPharmacy);
-            callStmt.setDouble(3, weight);
-            callStmt.setDouble(4, aerodynamicCoeficient);
-            callStmt.setDouble(5, frontalArea);
-            callStmt.setDouble(6, motor);
-            callStmt.setDouble(7, currentBattery);
-            callStmt.setDouble(8, maxBattery);
-            callStmt.setDouble(9, averageSpeed);
-            callStmt.setInt(10, scooterStatusId);
+            callStmt1.setInt(1, idScooter);
+            callStmt1.setInt(2, idPharmacy);
+            callStmt1.setDouble(3, weight);
+            callStmt1.setDouble(4, aerodynamicCoeficient);
+            callStmt1.setDouble(5, frontalArea);
+            callStmt1.setDouble(6, motor);
+            callStmt1.setDouble(7, currentBattery);
+            callStmt1.setDouble(8, maxBattery);
+            callStmt1.setDouble(9, averageSpeed);
+            callStmt1.setInt(10, scooterStatusId);
 
-            callStmt.execute();
+            callStmt1.execute();
             return true;
 
         } catch (NullPointerException | SQLException ex) {
@@ -55,8 +55,8 @@ public class ScooterDB extends DataHandler {
             closeAll();
 
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
+            if (callStmt1 != null) {
+                callStmt1.close();
             }
             closeAll();
         }
