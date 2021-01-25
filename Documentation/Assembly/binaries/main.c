@@ -165,10 +165,10 @@ void dealWithIt(char *fileName)
 	{
 		if (vehicleArray[i].wellParked == 1)
 		{
-			int result = est_battery((vehicleArray[i].maxCapacity - vehicleArray[i].currentCapacity) * 10000, maxPower/validVehicleCount);
+			int result = est_battery((vehicleArray[i].maxCapacity - vehicleArray[i].currentCapacity) * 100000, maxPower*10/validVehicleCount);
 			float realRes = (float) result / 100.0;
 
-			/*printf("Power: %d; Vehicle Index: %d; To Charge: %d; Result: %d; Real Result %.2f\n", maxPower/validVehicleCount, i, (vehicleArray[i].maxCapacity - vehicleArray[i].currentCapacity), result, realRes);*/
+			/*printf("Power: %.2f; Vehicle Index: %d; To Charge: %d; Result: %d; Real Result %.2f\n", (float) maxPower/validVehicleCount, i, (vehicleArray[i].maxCapacity - vehicleArray[i].currentCapacity), result, realRes);*/
 			writeFinal(i, realRes);
 		}
 		
