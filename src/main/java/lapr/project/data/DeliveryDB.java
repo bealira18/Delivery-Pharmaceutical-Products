@@ -1,6 +1,7 @@
 package lapr.project.data;
 
 import lapr.project.model.Delivery;
+import lapr.project.model.PurchaseOrder;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
@@ -9,6 +10,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +29,28 @@ public class DeliveryDB extends DataHandler {
         }
         return check;
     }
+
+    public boolean createNewDelivery(int idOrder, int deliveryRun) {
+
+        try (Connection con4 = getConnection()) {
+
+            try (CallableStatement callStmt4 = con4.prepareCall("{ call createDelivery(?,?) }")) {
+
+                callStmt4.setInt(1, idOrder);
+                callStmt4.setInt(2, deliveryRun);
+
+                callStmt4.execute();
+                return true;
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            closeAll();
+        }
+    }
+
+
 
     public Delivery getNextAvailableScooter(int pharmacyId) {
 
@@ -121,6 +145,41 @@ public class DeliveryDB extends DataHandler {
         }
     }
 
+    public List<PurchaseOrder> getPurchaseOrdersByDeliveryRun(int idDeliveryRun) {
+
+        List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
+
+        try (Connection con4 = getConnection()) {
+
+            try (CallableStatement callStmt4 = con4.prepareCall("{ ? = call getPurchaseOrdersByDeliveryRun(?) }")) {
+
+                callStmt4.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt4.setInt(2, idDeliveryRun);
+
+                callStmt4.execute();
+
+                try (ResultSet rs = (ResultSet) callStmt4.getObject(1)) {
+
+                    while (rs.next()) {
+
+                        int orderId = rs.getInt(1);
+                        int pharmacyId = rs.getInt(2);
+                        String emailClient = rs.getString(3);
+                        LocalDate emissionDate = rs.getDate(4).toLocalDate();
+
+                        PurchaseOrder purchaseOrder = new PurchaseOrder(orderId, pharmacyId, emailClient, emissionDate);
+                        purchaseOrderList.add(purchaseOrder);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeAll();
+        }
+        return purchaseOrderList;
+    }
+
     private boolean addDelivery(Delivery d) {
 
         return addDelivery(d.getOrderId(), d.getVehicleId(), d.getCourierEmail(), d.getDeliveryStatusId(), d.getDeliveryStart(),
@@ -128,7 +187,7 @@ public class DeliveryDB extends DataHandler {
     }
 
     private boolean addDelivery(int orderId, int vehicleId, String courierEmail, int deliveryStatusId,
-            LocalDate deliveryStart, LocalDate deliveryEnd, int deliveryRun) {
+                                LocalDate deliveryStart, LocalDate deliveryEnd, int deliveryRun) {
 
         try (Connection con3 = getConnection()) {
 
