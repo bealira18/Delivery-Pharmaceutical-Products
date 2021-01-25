@@ -1,7 +1,6 @@
 package lapr.project.data;
 
 import lapr.project.model.Address;
-import lapr.project.model.Product;
 import lapr.project.model.Stock;
 import oracle.jdbc.OracleTypes;
 
