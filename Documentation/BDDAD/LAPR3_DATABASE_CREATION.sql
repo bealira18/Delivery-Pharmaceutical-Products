@@ -208,7 +208,7 @@ CREATE TABLE parkingSpace (
 );
 
 CREATE TABLE purchaseOrder (
-    id_order              INTEGER GENERATED AS IDENTITY     CONSTRAINT pkOrderId                   PRIMARY KEY,            
+    id_order              INTEGER                           CONSTRAINT pkOrderId                   PRIMARY KEY,            
     id_pharmacy           INTEGER                           CONSTRAINT nnPurchaseOrderIdPharmacy   NOT NULL,                 
     email_client          VARCHAR2(255)                     CONSTRAINT nnPurchaseOrderEmailClient  NOT NULL,
     emission_date         DATE              
@@ -237,7 +237,7 @@ CREATE TABLE delivery (
 );
 
 CREATE TABLE invoice (
-    id_invoice      INTEGER GENERATED AS IDENTITY         CONSTRAINT pkInvoiceIDInvoice            PRIMARY KEY,
+    id_invoice      INTEGER                               CONSTRAINT pkInvoiceIDInvoice            PRIMARY KEY,
     id_order        INTEGER                               CONSTRAINT nnInvoiceIdOrder              NOT NULL,
     id_pharmacy     INTEGER                               CONSTRAINT nnInvoiceIdPharmacy           NOT NULL,
     email_client    VARCHAR2(255)                         CONSTRAINT nnInvoiceEmailClient          NOT NULL,

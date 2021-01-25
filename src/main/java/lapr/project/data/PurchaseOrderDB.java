@@ -12,10 +12,11 @@ public class PurchaseOrderDB extends DataHandler {
 
         try (Connection con = getConnection()) {
 
-            try (CallableStatement callStmt = con.prepareCall("{ call newOrder(?,?) }")) {
+            try (CallableStatement callStmt = con.prepareCall("{ call newOrder(?,?,?) }")) {
 
-                callStmt.setInt(1, idPharmacy);
-                callStmt.setString(2, email);
+                callStmt.setInt(1, idOrder);
+                callStmt.setInt(2, idPharmacy);
+                callStmt.setString(3, email);
 
                 callStmt.execute();
                 return true;
