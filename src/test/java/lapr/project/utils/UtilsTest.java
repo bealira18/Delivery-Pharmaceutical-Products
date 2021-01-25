@@ -22,7 +22,7 @@ public class UtilsTest {
 
         assertNull(Utils.readFile(null));
 
-        String fileName = "testFile.csv";
+        String fileName = "target/test-classes/testFile.csv";
         List<String> expResult = new ArrayList<>();
         List<String> result = Utils.readFile(fileName);
         expResult.add("Path #1");
@@ -54,7 +54,7 @@ public class UtilsTest {
 
         System.out.println("writeFile");
         String s = "Hello.\nThis is a writing Test.\n";
-        String fileName = "writeTest.txt";
+        String fileName = "target/test-classes/writeTest.txt";
 
         boolean expResult = true;
         boolean result = Utils.writeFile(s, fileName);

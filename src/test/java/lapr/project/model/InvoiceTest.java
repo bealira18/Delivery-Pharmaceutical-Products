@@ -220,4 +220,57 @@ public class InvoiceTest {
         result = instance.equals(new Invoice(1, 2, 3, "Test2", 2.90, 4));
         assertEquals(true, result);
     }
+
+    /**
+     * Test of getIVA method, of class Invoice.
+     */
+    @Test
+    public void testGetIVA() {
+        System.out.println("getIVA");
+        System.setProperty("invoice.iva", "0.0");
+        double expResult = 0.0;
+        double result = Invoice.getIVA();
+        assertEquals(expResult, result, 0.01);
+        
+        System.setProperty("invoice.iva", "5.4");
+        expResult = 5.4;
+        result = Invoice.getIVA();
+        assertEquals(expResult, result, 0.01);
+        
+        System.setProperty("invoice.iva", "12.54");
+        expResult = 12.54;
+        result = Invoice.getIVA();
+        assertEquals(expResult, result, 0.01);
+        
+        
+        System.setProperty("invoice.iva", "-5.4");
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            Invoice.getIVA();
+        });
+        assertEquals("Invalid Numeric Value (Negative IVA). Please check your configuration file.", ex.getMessage());
+    }
+
+    /**
+     * Test of setIVA method, of class Invoice.
+     */
+    @Test
+    public void testSetIVA() {
+        System.out.println("setIVA");
+        System.setProperty("invoice.iva", "5.4");
+        double iva = 1.0;
+        Invoice.setIVA(iva);
+        double result = Double.parseDouble(System.getProperty("invoice.iva"));
+        assertEquals(iva, result, 0.0);
+
+        iva = 0;
+        Invoice.setIVA(iva);
+        result = Double.parseDouble(System.getProperty("invoice.iva"));
+        assertEquals(iva, result, 0.0);
+
+        final double iva2 = -1.0;
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            Invoice.setIVA(iva2);
+        });
+        assertEquals("Invalid Numeric Value (Negative IVA)", ex.getMessage());
+    }
 }

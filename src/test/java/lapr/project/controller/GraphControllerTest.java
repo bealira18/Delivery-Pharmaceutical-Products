@@ -421,7 +421,7 @@ public class GraphControllerTest {
     public void testWritePathToFile() {
 
         System.out.println("writePathToFile");
-        String fileName = "pathTest.csv";
+        String fileName = "target/test-classes/pathTest.csv";
         LinkedList<Address> la = new LinkedList<>();
         Address aOrig = new Address("Test", 0, 0, 0);
         Address aDest = new Address("Test2", 0, 0, 0);
@@ -740,7 +740,7 @@ public class GraphControllerTest {
     public void testWritePathToFile_7args() {
 
         System.out.println("writePathToFile");
-        String fileName = "pathTest.csv";
+        String fileName = "target/test-classes/pathTest.csv";
 
         LinkedList<Address> la = new LinkedList<>();
         Address aOrig = new Address("Test", 0, 0, 0);
@@ -774,7 +774,7 @@ public class GraphControllerTest {
     @Test
     public void testWritePathToFile_6args2() {
         System.out.println("writePathToFile");
-        String fileName = "pathTest.csv";
+        String fileName = "target/test-classes/pathTest.csv";
 
         LinkedList<Address> la = new LinkedList<>();
         Address aOrig = new Address("Test", 0, 0, 0);

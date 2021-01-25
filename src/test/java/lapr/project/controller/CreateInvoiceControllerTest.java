@@ -76,9 +76,13 @@ class CreateInvoiceControllerTest {
                 System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.TRUE);
         when(manageCreditsController.payDeliveryFee(purchaseOrder.getClientEmail())).thenReturn(Boolean.TRUE);
+        
+        SettingsHandler sh = mock(SettingsHandler.class);
+        
+        when(sh.saveSettings(SettingsHandler.SETTINGS_FILE)).thenReturn(true);
 
         controller = new CreateInvoiceController();
-        controller = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController);
+        controller = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController, sh);
         controller.getProductLinesFromOrder(purchaseOrder);
 
     }
@@ -102,12 +106,13 @@ class CreateInvoiceControllerTest {
         ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
         ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
+        SettingsHandler sh = mock(SettingsHandler.class);
 
         when(productLineDB.getProductLinesFromOrder(1)).thenReturn(auxProductLineList);
         when(invoiceDB.addInvoice(invoice)).thenReturn(Boolean.FALSE);
         when(manageCreditsController.payDeliveryFee(purchaseOrder.getClientEmail())).thenReturn(Boolean.FALSE);
 
-        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController);
+        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController, sh);
 
         result = controller2.createInvoice(1, purchaseOrder);
         assertNull(result);
@@ -138,6 +143,7 @@ class CreateInvoiceControllerTest {
         ClientDB clientDB = mock(ClientDB.class);
         EmailService emailService = mock(EmailService.class);
         ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
+        SettingsHandler sh = mock(SettingsHandler.class);
         UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
 
         Address address = new Address("testAddress",1,1,1);
@@ -173,7 +179,7 @@ class CreateInvoiceControllerTest {
                 System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.FALSE);
 
-        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController);
+        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController, sh);
         controller2.getProductLinesFromOrder(purchaseOrder);
 
         expResult = false;
@@ -214,6 +220,53 @@ class CreateInvoiceControllerTest {
 
         String result = controller.makeEmailBody(invoice, pharmacy, client).toString();
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getIVA method, of class CreateInvoiceController.
+     */
+    @Test
+    public void testGetIVA() {
+        System.out.println("getIVA");
+        System.setProperty("invoice.iva", "2.0");
+        double expResult = 2.0;
+        double result = controller.getIVA();
+        assertEquals(expResult, result, 0.001);
+    }
+
+    /**
+     * Test of updateDeliveryFee method, of class CreateInvoiceController.
+     */
+    @Test
+    public void testUpdateIVA() {
+        System.out.println("updateDeliveryFee");
+        double iva = 5.0;
+        boolean bResult = controller.updateIVA(iva);
+        double result = Double.parseDouble(System.getProperty("invoice.iva"));
+        assertEquals(iva, result);
+        assertEquals(true, bResult);
+        
+        SettingsHandler sh = mock(SettingsHandler.class);
+        
+        when(sh.saveSettings(SettingsHandler.SETTINGS_FILE)).thenReturn(false);
+        
+        
+        InvoiceDB invoiceDB = mock(InvoiceDB.class);
+        ProductLineDB productLineDB = mock(ProductLineDB.class);
+        ProductDB productDB = mock(ProductDB.class);
+        PharmacyDB pharmacyDB = mock(PharmacyDB.class);
+        ClientDB clientDB = mock(ClientDB.class);
+        EmailService emailService = mock(EmailService.class);
+        ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
+        CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController, sh);
+        bResult = controller2.updateIVA(iva);
+        assertEquals(false, bResult);
+        
+        final double iva2 = -1.0;
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            controller.updateIVA(iva2);
+        });
+        assertEquals("Invalid Numeric Value (Negative IVA)", ex.getMessage());
     }
 
 }
