@@ -150,4 +150,43 @@ public class DroneDB extends DataHandler {
             closeAll();
         }
     }
+
+    public Drone getHighestBatteryDrone(int pharmacyId) {
+
+        try (Connection con4 = getConnection()) {
+
+            try (CallableStatement callStmt4 = con4.prepareCall("{ ? = call getHighestBatteryDrone(?) }")) {
+
+                callStmt4.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt4.setInt(2, pharmacyId);
+
+                callStmt4.execute();
+
+                try (ResultSet rs4 = (ResultSet) callStmt4.getObject(1)) {
+
+                    if (rs4.next()) {
+                        int idDrone = rs4.getInt(1);
+                        int idPharmacy = rs4.getInt(2);
+                        double weight = rs4.getDouble(3);
+                        double aerodynamicCoefficient = rs4.getDouble(4);
+                        double frontalArea = rs4.getDouble(5);
+                        double motor = rs4.getDouble(6);
+                        double currentBattery = rs4.getDouble(7);
+                        double maxBattery = rs4.getDouble(8);
+                        double averageSpeed = rs4.getDouble(9);
+                        double width = rs4.getDouble(10);
+                        double averageVerticalSpeed = rs4.getDouble(11);
+
+                        return new Drone(idDrone, idPharmacy, weight, aerodynamicCoefficient, frontalArea, motor, currentBattery,
+                                maxBattery, averageSpeed, width, averageVerticalSpeed, 1);
+                    }
+                }
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeAll();
+        }
+        return null;
+    }
 }

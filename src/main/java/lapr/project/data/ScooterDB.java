@@ -1,12 +1,10 @@
 package lapr.project.data;
 
+import lapr.project.model.Delivery;
 import lapr.project.model.Scooter;
 import oracle.jdbc.OracleTypes;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -116,7 +114,7 @@ public class ScooterDB extends DataHandler {
     }
 
     private boolean addScooter(int idScooter, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
-            double motor, double currentBattery, double maxBattery, double averageSpeed, int scooterStatusId) {
+                               double motor, double currentBattery, double maxBattery, double averageSpeed, int scooterStatusId) {
 
         try (Connection con3 = getConnection()) {
 
@@ -143,5 +141,42 @@ public class ScooterDB extends DataHandler {
         } finally {
             closeAll();
         }
+    }
+
+    public Scooter getHighestBatteryScooter(int pharmacyId) {
+
+        try (Connection con4 = getConnection()) {
+
+            try (CallableStatement callStmt = con4.prepareCall("{ ? = call getHighestBatteryScooter(?) }")) {
+
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setInt(2, pharmacyId);
+
+                callStmt.execute();
+
+                try (ResultSet rs = (ResultSet) callStmt.getObject(1)) {
+
+                    if (rs.next()) {
+                        int idScooter = rs.getInt(1);
+                        int idPharmacy = rs.getInt(2);
+                        double weight = rs.getDouble(3);
+                        double aerodynamicCoefficient = rs.getDouble(4);
+                        double frontalArea = rs.getDouble(5);
+                        double motor = rs.getDouble(6);
+                        double currentBattery = rs.getDouble(7);
+                        double maxBattery = rs.getDouble(8);
+                        double averageSpeed = rs.getDouble(9);
+
+                        return new Scooter(idScooter, idPharmacy, weight, aerodynamicCoefficient, frontalArea, motor, currentBattery,
+                                maxBattery, averageSpeed, 1);
+                    }
+                }
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeAll();
+        }
+        return null;
     }
 }
