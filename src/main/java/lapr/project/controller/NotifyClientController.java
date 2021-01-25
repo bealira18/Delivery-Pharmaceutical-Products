@@ -38,14 +38,14 @@ public class NotifyClientController {
 
     public Boolean checkForStock(Pharmacy pharmacy, Product product, int productQuantity, Graph<Address, Path> graph)throws SQLException {
 
-        if(checkIfIsEnoughStock(pharmacy, product, productQuantity) || checkIfIsEnoughStockOthersPharmacy(pharmacy, product, productQuantity, graph)){
+        if(checkIfIsEnoughStock(pharmacy, product, productQuantity) == 0 || checkIfIsEnoughStockOthersPharmacy(pharmacy, product, productQuantity, graph)){
             return true;
         }
         return false;
     }
 
-     //se retornar true é porque ainda tem stock
-     public Boolean checkIfIsEnoughStock(Pharmacy pharmacy, Product product, int productQuantity)throws SQLException {
+     //se retornar 0 é porque ainda tem stock, qualquer valor maior que 0 representa a quantidade de produto em falta na farmácia
+     public int checkIfIsEnoughStock(Pharmacy pharmacy, Product product, int productQuantity)throws SQLException {
 
         return stockDB.checkIfIsEnoughStock(pharmacy.getId(), product.getId(), productQuantity);
      }

@@ -13,10 +13,10 @@ BEGIN
     FROM STOCK
     WHERE ID_PHARMACY = idPharmacy AND ID_PRODUCT = idProduct;
 
-    auxQ := maxQuantity - productQuantity;
+    auxQ := productQuantity - maxQuantity;
 
-    IF auxQ >= 0 THEN
-     hasStock := 1;
+    IF auxQ > 0 THEN
+     hasStock := auxQ;
     END IF;
 
     RETURN hasStock;
