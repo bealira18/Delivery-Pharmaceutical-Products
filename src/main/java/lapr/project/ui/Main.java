@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lapr.project.utils.GraphAlgorithms;
 
+
 class Main {
 
     private Main() {
@@ -42,7 +43,10 @@ class Main {
 
         System.out.println(System.getProperties());
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
-
+        
+        //scenario1();
+        //parkingScenario();
+        
         //Initial Database Setup
         //DataHandler dh = new DataHandler();
         //dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
@@ -148,7 +152,7 @@ class Main {
         /*
           Falta testar o CheckIfIsEnoughStock
          */
- /*NotifyClientController notifyClientController = new NotifyClientController();
+         /*NotifyClientController notifyClientController = new NotifyClientController();
         System.out.println("\n\nNotifyClientController");
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1,"a", LocalDate.now());
         System.out.println(notifyClientController.notifyClientDeliveryRunStarts(purchaseOrder));*/
@@ -156,7 +160,7 @@ class Main {
         /*O cenario ideal funciona como esperado,
           Falta a parte de se há ou nao stock disponivel...
          */
- /*PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
+        /*PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
         System.out.println("\n\nPurchaseItemsController");
         System.out.println(purchaseItemsController.getPharmacies());
         purchaseItemsController.getProductsFromPharmacy(1);
@@ -217,7 +221,7 @@ class Main {
         /*EmailService eS = new EmailService();
         eS.sendEmail("11710601@isep.ipp.pt", "Hi", "Did you know that LA's full name is El Pueblo de Nuestra Señora la Reina de los Ángeles de Porciúncula?");*/
 
- /*AssemblyWatcher asmWatch = new AssemblyWatcher();
+        /*AssemblyWatcher asmWatch = new AssemblyWatcher();
 
         Thread thr = new Thread(asmWatch);
         thr.setDaemon(true);
@@ -226,7 +230,7 @@ class Main {
         System.out.println("Type anything to stop program");
         Scanner in = new Scanner(System.in);
         in.nextLine();*/
-        scenario1();
+        
 
         /*VehicleDB vehicleDB = new VehicleDB();
         System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(101));
@@ -371,5 +375,52 @@ class Main {
                 }
             }
         }
+    }
+    
+    //A simulation of parking... yeah...
+    //CHECK THE DB STUFF, IM COMPLETELY OUT OF THE LOOP ON THAT
+    public static void parkingScenario()
+    {
+        //Start the File watcher. This is REQUIRED.
+        AssemblyWatcher asmWatch = new AssemblyWatcher();
+
+        Thread thr = new Thread(asmWatch);
+        thr.setDaemon(true);
+        thr.start();
+        
+        //Get the vehicle from db, here I just created a object. Build the controller.
+        VehicleParkingController vpC = new VehicleParkingController();
+        Vehicle vc = new Vehicle(1, 1, 2, 3.3, 4.4, 5.5, 36.0, 120.0, 56.5);
+        
+        //First one. Real.
+        vpC.writeChargerRequest(vc, true);
+        //Waiting is just for the C part to catch up, allows to see the process happen on the linux box
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Second one. Bad park.
+        vpC.writeChargerRequest(vc, false);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Third one. Real.
+        vpC.writeChargerRequest(vc, true);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Here to make sure it doesnt die before doing all the stuff.
+        System.out.println("Type anything to stop program");
+        Scanner in = new Scanner(System.in);
+        in.nextLine();
+        
     }
 }
