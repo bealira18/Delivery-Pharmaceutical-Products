@@ -1,13 +1,13 @@
-CREATE OR REPLACE FUNCTION checkIfProductExistsInCatalog(
-    idPharmacy IN INTEGER, 
-    idProduct IN INTEGER)
-RETURN INTEGER
-IS
-    is_same_product  INTEGER;
-BEGIN
-    SELECT COUNT(*) INTO is_same_product
-    FROM stock
-    WHERE id_pharmacy = idPharmacy AND id_product = idProduct;
 
-    RETURN is_same_product;
+CREATE OR REPLACE FUNCTION checkIfProductExistsInCatalog(idPharmacy IN INTEGER, idProduct IN INTEGER)
+RETURN BOOLEAN
+IS
+    isSameProduct  INTEGER;
+
+BEGIN
+    SELECT count(*) INTO isSameProduct
+    FROM STOCk
+    WHERE ID_PHARMACY = idPharmacy AND ID_PRODUCT = idProduct;
+
+  RETURN isSameProduct > 0;
 END;

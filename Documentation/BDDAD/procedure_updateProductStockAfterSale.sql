@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE PROCEDURE updateProductStockAfterSale(idOrder in INTEGER)
 IS
     auxQuantity INTEGER;
@@ -5,28 +6,28 @@ IS
 
     CURSOR productLine IS
         SELECT * FROM PRODUCTLINE
-        WHERE id_order = idOrder;
+        WHERE ID_ORDER = idOrder;
       aux productLine%ROWTYPE;
 
 BEGIN
 
-    SELECT id_pharmacy INTO idPharmacy
-    FROM purchaseOrder
-    WHERE id_order = idOrder;
+    SELECT ID_PHARMACY INTO idPharmacy
+    FROM PURCHASEORDER
+    WHERE ID_ORDER = idOrder;
 
     OPEN productLine;
         LOOP
             FETCH productLine INTO aux;
             EXIT WHEN productLine%NOTFOUND;
 
-            SELECT quantity INTO auxQuantity
-            FROM stock
-            WHERE id_pharmacy = idPharmacy AND id_product = aux.id_product;
+            SELECT QUANTITY INTO auxQuantity
+            FROM STOCK
+            WHERE ID_PHARMACY = idPharmacy AND ID_PRODUCT = aux.ID_PRODUCT;
 
-            auxQuantity := auxQuantity - aux.product_quantity;
+            auxQuantity := auxQuantity - aux.PRODUCT_QUANTITY;
 
-            UPDATE stock SET quantity = auxQuantity
-            WHERE id_pharmacy = idPharmacy AND id_product = aux.ID_PRODUCT;
+            UPDATE STOCK SET QUANTITY = auxQuantity
+            WHERE ID_PHARMACY = idPharmacy AND ID_PRODUCT = aux.ID_PRODUCT;
 
         END LOOP;
     CLOSE  productLine;

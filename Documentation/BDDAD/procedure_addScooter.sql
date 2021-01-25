@@ -1,21 +1,12 @@
-CREATE OR REPLACE PROCEDURE addScooter(
-    idScooter IN INTEGER, 
-    idPharmacy IN INTEGER, 
-    v_weight IN NUMERIC, 
-    aerodynamicCoeficient IN NUMERIC, 
-    frontalArea IN NUMERIC, 
-    v_motor IN NUMERIC, 
-    currentBattery IN NUMERIC, 
-    maxBattery IN NUMERIC, 
-    averageSpeed IN NUMERIC,
-    scooterStatusId IN INTEGER) 
-IS
-BEGIN
 
-    INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed)
-    VALUES(idScooter, idPharmacy, v_weight, aerodynamicCoeficient, frontalArea, v_motor,  currentBattery, maxBattery, averageSpeed);
+CREATE OR REPLACE PROCEDURE addScooter(idScooter in INTEGER, idPharmacy in INTEGER, v_weight in NUMERIC, aerodynamicCoeficient in NUMERIC, frontalArea in NUMERIC, v_motor in NUMERIC, currentBattery in NUMERIC, maxBattery in NUMERIC, scooterStatusId in INTEGER) IS
 
-    INSERT INTO scooter(id_scooter, id_vehicle_status)
+begin
+
+    INSERT INTO VEHICLE(ID_VEHICLE, ID_PHARMACY, WEIGHT, AERODYNAMIC_COEFFICIENT, FRONTAL_AREA, MOTOR, CURRENT_BATTERY, MAX_BATTERY)
+    VALUES(idScooter, idPharmacy, v_weight, aerodynamicCoeficient, frontalArea, v_motor,  currentBattery, maxBattery);
+
+    INSERT INTO scooter(ID_SCOOTER, ID_SCOOTER_STATUS)
     VALUES(idScooter, scooterStatusId);
 
-END;
+end;

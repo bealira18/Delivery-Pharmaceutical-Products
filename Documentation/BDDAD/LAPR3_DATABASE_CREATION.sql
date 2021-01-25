@@ -24,6 +24,7 @@ DROP TABLE purchaseOrder		CASCADE CONSTRAINTS PURGE;
 DROP TABLE productLine		    CASCADE CONSTRAINTS PURGE;
 DROP TABLE delivery		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE invoice		        CASCADE CONSTRAINTS PURGE;
+DROP TABLE backOrder            CASCADE CONSTRAINTS PURGE;
 
 
 -- Table Creation
@@ -188,12 +189,8 @@ CREATE TABLE scooter (
 );
 
 CREATE TABLE drone (
-    id_drone                INTEGER                       CONSTRAINT pkDroneIdDrone                 PRIMARY KEY,
-    width                   NUMERIC(5,2)                  CONSTRAINT nnDroneWidth                   NOT NULL
-                                                          CONSTRAINT ckDroneWidth                   CHECK(width>0),
-    average_vertical_speed  NUMERIC(6,2)                  CONSTRAINT nnDroneAverageVerticalSpeed    NOT NULL
-                                                          CONSTRAINT ckDroneAverageVerticalSpeed    CHECK(average_vertical_speed>=0),
-    id_vehicle_status       INTEGER                       CONSTRAINT nnDroneIdVehicleStatus         NOT NULL
+    id_drone                INTEGER                       CONSTRAINT pkDroneIdDrone           PRIMARY KEY,                             
+    id_vehicle_status       INTEGER                       CONSTRAINT nnDroneIdVehicleStatus   NOT NULL
 );
 
 CREATE TABLE parkingSpace (
@@ -240,11 +237,18 @@ CREATE TABLE invoice (
     id_order        INTEGER                               CONSTRAINT nnInvoiceIdOrder              NOT NULL,
     id_pharmacy     INTEGER                               CONSTRAINT nnInvoiceIdPharmacy           NOT NULL,
     email_client    VARCHAR2(255)                         CONSTRAINT nnInvoiceEmailClient          NOT NULL,
-    delivery_fee    INTEGER,
     total_price     NUMERIC(9,2)                          CONSTRAINT nnInvoiceTotalPrice           NOT NULL,
+    delivery_fee    INTEGER,
                                                           CONSTRAINT ckInvoiceTotalPriceNotZero    CHECK(total_price>=0)
 );
 
+CREATE TABLE backOrder (
+    idBackOrder       INTEGER GENERATED AS IDENTITY      CONSTRAINT pkBackOrderIdBackOrder          PRIMARY KEY,
+    idPharmacy1       INTEGER                            CONSTRAINT nnBackOrderIdPharmacy1          NOT NULL,
+    idPharmacy2       INTEGER                            CONSTRAINT nnBackOrderIdPharmacy2          NOT NULL,
+    idProduct         INTEGER                            CONSTRAINT nnBackOrderIdProduct            NOT NULL,
+    quantity          INTEGER                            CONSTRAINT nnBackOrderQuantity             NOT NULL
+);
 
 -- Foreign Keys
 
@@ -296,3 +300,7 @@ ALTER TABLE delivery            ADD CONSTRAINT fkDeliveryDeliveryStatusId       
 ALTER TABLE invoice             ADD CONSTRAINT fkInvoiceOrderId                 FOREIGN KEY(id_order)           REFERENCES purchaseOrder (id_order);
 ALTER TABLE invoice             ADD CONSTRAINT fkInvoicePharmacyId              FOREIGN KEY(id_pharmacy)        REFERENCES pharmacy (id_pharmacy);
 ALTER TABLE invoice             ADD CONSTRAINT fkInvoiceClientEmail             FOREIGN KEY(email_client)       REFERENCES client (email);
+
+ALTER TABLE backOrder           ADD CONSTRAINT fkBackOrderIdPharmacy1           FOREIGN KEY(idPharmacy1)        REFERENCES pharmacy(id_pharmacy);
+ALTER TABLE backOrder           ADD CONSTRAINT fkBackOrderIdPharmacy2           FOREIGN KEY(idPharmacy2)        REFERENCES pharmacy(id_pharmacy);
+ALTER TABLE backOrder           ADD CONSTRAINT fkBackOrderIdProduct             FOREIGN KEY(idProduct)          REFERENCES product(id_product);
