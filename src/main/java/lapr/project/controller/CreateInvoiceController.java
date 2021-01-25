@@ -51,6 +51,7 @@ public class CreateInvoiceController {
         double deliveryFee = 0;
         getProductLinesFromOrder(po);
         totalPrice = getTotalPriceFromOrder();
+        double iva = getIVA()+1;
 
         UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
 
@@ -58,7 +59,9 @@ public class CreateInvoiceController {
             deliveryFee = updateDeliveryFeeController.getDeliveryFee();
         }
 
-        Invoice invoice = new Invoice(idInvoice, po.getId(), po.getPharmacyId(), po.getClientEmail(), deliveryFee, totalPrice);
+        double priceWithoutIVA = (totalPrice + deliveryFee) / iva;
+
+        Invoice invoice = new Invoice(idInvoice, po.getId(), po.getPharmacyId(), po.getClientEmail(), deliveryFee, totalPrice, priceWithoutIVA);
         if (!invoiceDB.addInvoice(invoice)) {
             return null;
         }
@@ -121,6 +124,8 @@ public class CreateInvoiceController {
         emailBody.append("Delivery fee: ").append(String.format(Locale.ROOT, "%.2f", invoice.getDeliveryFee())).append("€");
         emailBody.append(System.getProperty(Constants.LINE_BREAK));
         emailBody.append("Total: ").append(String.format(Locale.ROOT, "%.2f", invoice.getDeliveryFee() + totalPrice)).append("€");
+        emailBody.append(System.getProperty(Constants.LINE_BREAK));
+        emailBody.append(String.format(Locale.ROOT, "Total w/o IVA: %-10.2fIVA: %.0f%%", invoice.getNoVATprice(), getIVA()*100));
         emailBody.append(System.getProperty(Constants.LINE_BREAK));
         emailBody.append("NIF: ").append(client.getNif());
 

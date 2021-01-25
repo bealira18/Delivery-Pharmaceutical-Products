@@ -8,14 +8,16 @@ public class Invoice {
     private String clientEmail;
     private double deliveryFee;
     private double totalPrice;
+    private double noVATprice;
 
-    public Invoice(int id, int orderId, int pharmacyId, String clientEmail, double deliveryFee, double totalPrice) {
+    public Invoice(int id, int orderId, int pharmacyId, String clientEmail, double deliveryFee, double totalPrice, double noVATprice) {
         this.invoiceId = id;
         this.orderId = orderId;
         this.pharmacyId = pharmacyId;
         this.clientEmail = clientEmail;
         this.deliveryFee = deliveryFee;
         this.totalPrice = totalPrice;
+        this.noVATprice = noVATprice;
     }
 
     public int getId() {
@@ -46,7 +48,11 @@ public class Invoice {
 
         return totalPrice;
     }
-    
+
+    public double getNoVATprice() {
+        return noVATprice;
+    }
+
     public static double getIVA() {
         
         double deliveryFee = Double.parseDouble(System.getProperty("invoice.iva", "0.0"));
@@ -85,7 +91,11 @@ public class Invoice {
 
         this.totalPrice = totalPrice;
     }
-    
+
+    public void setNoVATprice(double noVATprice) {
+        this.noVATprice = noVATprice;
+    }
+
     public static void setIVA(double iva) {
 
         if (iva < 0) {
@@ -103,6 +113,7 @@ public class Invoice {
                 ", clientEmail='" + clientEmail + '\'' +
                 ", deliveryFee=" + deliveryFee +
                 ", totalPrice=" + totalPrice +
+                ", noVATprice=" + noVATprice +
                 '}';
     }
 
