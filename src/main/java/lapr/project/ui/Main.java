@@ -226,7 +226,11 @@ class Main {
         System.out.println("Type anything to stop program");
         Scanner in = new Scanner(System.in);
         in.nextLine();*/
-        scenario1();
+        //scenario1();
+
+        /*VehicleDB vehicleDB = new VehicleDB();
+        System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(101));
+        System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(113));*/
 
     }
 

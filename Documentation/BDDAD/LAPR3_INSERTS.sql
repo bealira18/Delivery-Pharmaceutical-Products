@@ -3,13 +3,14 @@
 -- ## table RegisteredUser ##
 INSERT INTO registeredUser(email, password, role) VALUES ('sadmin1@gmail.com', 'qwerty', 'system administrator');
 
-INSERT INTO registeredUser(email, password, role) VALUES ('admin1@gmail.com', 'qwerty', 'administrator');
+INSERT INTO registeredUser(email, password, role) VALUES ('dministratormen0652@gmail.com', 'qwerty', 'administrator');
 
 INSERT INTO registeredUser(email, password, role) VALUES ('courier1@gmail.com', 'qwerty', 'courier');
 INSERT INTO registeredUser(email, password, role) VALUES ('courier2@gmail.com', 'qwerty', 'courier');
 INSERT INTO registeredUser(email, password, role) VALUES ('courier3@gmail.com', 'qwerty', 'courier');
 INSERT INTO registeredUser(email, password, role) VALUES ('courier4@gmail.com', 'qwerty', 'courier');
 INSERT INTO registeredUser(email, password, role) VALUES ('courier5@gmail.com', 'qwerty', 'courier');
+INSERT INTO registeredUser(email, password, role) VALUES ('couriermen0652@gmail.com', 'qwerty', 'courier');
 
 INSERT INTO registeredUser(email, password, role) VALUES ('client1@gmail.com', 'qwerty', 'client');
 INSERT INTO registeredUser(email, password, role) VALUES ('client2@gmail.com', 'qwerty', 'client');
@@ -62,7 +63,7 @@ INSERT INTO pharmacy(name, address) VALUES ('farmacia da boavista', 'casa da mus
 INSERT INTO pharmacy(name, address) VALUES ('farmacia do gaia shopping', 'gaia shopping');
 
 -- ## table Administrator ##
-INSERT INTO administrator(email, id_pharmacy, name, nif, social_security) VALUES('admin1@gmail.com', 1, 'admin1', 111111111, 11111111111);
+INSERT INTO administrator(email, id_pharmacy, name, nif, social_security) VALUES('dministratormen0652@gmail.com', 1, 'admin1', 111111111, 11111111111);
 
 -- ## table Courier ##
 INSERT INTO courier(email, name, nif, social_security, id_pharmacy, weight) VALUES('courier1@gmail.com', 'courier1', 222222201, 22222222201, 1, 84.3);
@@ -70,6 +71,7 @@ INSERT INTO courier(email, name, nif, social_security, id_pharmacy, weight) VALU
 INSERT INTO courier(email, name, nif, social_security, id_pharmacy, weight) VALUES('courier3@gmail.com', 'courier3', 222222203, 22222222203, 1, 73.2);
 INSERT INTO courier(email, name, nif, social_security, id_pharmacy, weight) VALUES('courier4@gmail.com', 'courier4', 222222204, 22222222204, 1, 60.8);
 INSERT INTO courier(email, name, nif, social_security, id_pharmacy, weight) VALUES('courier5@gmail.com', 'courier5', 222222205, 22222222205, 1, 50.5);
+INSERT INTO courier(email, name, nif, social_security, id_pharmacy, weight) VALUES('couriermen0652@gmail.com', 'courierParkTest', 222222210, 22222222210, 1, 50.5);
 
 -- ## table CreditCard ##
 INSERT INTO creditCard(credit_card, validity_date, ccv) VALUES(1111111111111101, TO_DATE('2025-06-16','yyyy-mm-dd'), 111);
@@ -144,6 +146,14 @@ INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, fr
 INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(9, 1, 10, 0, 1, 1, 500, 500, 20);
 INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(10, 1, 13, 0, 1, 1, 500, 500, 20);
 
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(101, 1, 330, 0, 1, 1, 500, 500, 8.9);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(102, 1, 200, 0, 1, 1, 500, 500, 8.9);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(103, 1, 290, 0, 1, 1, 500, 500, 8.9);
+
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(111, 1, 8, 0, 1, 1, 500, 500, 20);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(112, 1, 10, 0, 1, 1, 500, 500, 20);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(113, 1, 13, 0, 1, 1, 500, 500, 20);
+
 -- ## table Scooter ##
 INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(1, 1);
 INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(2, 1);
@@ -151,12 +161,20 @@ INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(3, 1);
 INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(4, 1);
 INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(5, 1);
 
+INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(101, 1);
+INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(102, 1);
+INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(103, 1);
+
 -- ## table Drone ##
 INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(6, 0.5, 9, 1);
 INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(7, 0.5, 9, 1);
 INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(8, 0.5, 9, 1);
 INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(9, 0.5, 9, 1);
 INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(10, 0.5, 9, 1);
+
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(111, 0.5, 9, 1);
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(112, 0.5, 9, 1);
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(113, 0.5, 9, 1);
 
 -- ## table ParkingSpace ##
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (1, 1, null, 0);
@@ -180,3 +198,21 @@ INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_stat
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (8, 2, null, 0);
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (9, 2, null, 0);
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (10, 2, null, 1);
+
+-- ## table PurchaseOrder ##
+INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (101, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
+INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (102, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
+INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (103, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
+
+INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (111, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
+INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (112, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
+INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (113, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
+
+-- ## table Delivery ##
+INSERT INTO delivery(id_order, id_vehicle, email_courier, id_delivery_status) VALUES (101, 101, 'couriermen0652@gmail.com', 1);
+INSERT INTO delivery(id_order, id_vehicle, email_courier, id_delivery_status) VALUES (102, 102, 'couriermen0652@gmail.com', 1);
+INSERT INTO delivery(id_order, id_vehicle, email_courier, id_delivery_status) VALUES (103, 103, 'couriermen0652@gmail.com', 1);
+
+INSERT INTO delivery(id_order, id_vehicle, id_delivery_status) VALUES (111, 111, 1);
+INSERT INTO delivery(id_order, id_vehicle, id_delivery_status) VALUES (112, 112, 1);
+INSERT INTO delivery(id_order, id_vehicle, id_delivery_status) VALUES (113, 113, 1);
