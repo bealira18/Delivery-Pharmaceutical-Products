@@ -7,7 +7,7 @@ BEGIN
 
     OPEN purchase_orders FOR
         SELECT * FROM purchaseOrder
-        WHERE idOrder IN ( SELECT id_order FROM delivery
+        WHERE id_order IN ( SELECT id_order FROM delivery
                             WHERE delivery_run = idDeliveryRun);
                             
     RETURN purchase_orders;

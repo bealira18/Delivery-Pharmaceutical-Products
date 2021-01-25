@@ -38,6 +38,14 @@ public class CreateDeliveryController {
         return check;
     }
 
+    public boolean deliveryRunAssociateVehicle(int idVehicle, int deliveryRun) {
+        return deliveryDB.deliveryRunAssociateVehicle(idVehicle, deliveryRun);
+    }
+
+    public boolean deliveryRunAssociateCourier(String emailCourier, int deliveryRun) {
+        return deliveryDB.deliveryRunAssociateCourier(emailCourier, deliveryRun);
+    }
+
     public List<PurchaseOrder> getDeliveryRunProducts(int deliveryRun) {
         List<PurchaseOrder> purchaseOrderList;
 

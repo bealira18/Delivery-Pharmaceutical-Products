@@ -180,6 +180,46 @@ public class DeliveryDB extends DataHandler {
         return purchaseOrderList;
     }
 
+    public boolean deliveryRunAssociateVehicle(int idVehicle, int deliveryRun) {
+
+        try (Connection con5 = getConnection()) {
+
+            try (CallableStatement callStmt5 = con5.prepareCall("{ call deliveryRunAssociateVehicle(?,?) }")) {
+
+                callStmt5.setInt(1, idVehicle);
+                callStmt5.setInt(2, deliveryRun);
+
+                callStmt5.execute();
+                return true;
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            closeAll();
+        }
+    }
+
+    public boolean deliveryRunAssociateCourier(String emailCourier, int deliveryRun) {
+
+        try (Connection con6 = getConnection()) {
+
+            try (CallableStatement callStmt6 = con6.prepareCall("{ call deliveryRunAssociateCourier(?,?) }")) {
+
+                callStmt6.setString(1, emailCourier);
+                callStmt6.setInt(2, deliveryRun);
+
+                callStmt6.execute();
+                return true;
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(DeliveryDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            closeAll();
+        }
+    }
+
     private boolean addDelivery(Delivery d) {
 
         return addDelivery(d.getOrderId(), d.getVehicleId(), d.getCourierEmail(), d.getDeliveryStatusId(), d.getDeliveryStart(),
