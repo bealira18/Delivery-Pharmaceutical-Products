@@ -1,32 +1,30 @@
 package lapr.project.data;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DeliveryStatusDB extends DataHandler {
 
-    public boolean updateDeliveryStatusInDelivery(int idOrder) throws SQLException {
-        CallableStatement callStmt = null;
+    public boolean updateDeliveryStatusInDelivery(int idOrder) {
 
-        try{
+        try (Connection con = getConnection()) {
 
-            callStmt = getConnection().prepareCall("{ call updateDeliveryStatusInDelivery(?) }");
+            try (CallableStatement callStmt = con.prepareCall("{ call updateDeliveryStatusInDelivery(?) }")) {
 
-            callStmt.setInt(1, idOrder);
+                callStmt.setInt(1, idOrder);
 
-            callStmt.execute();
-
-            return true;
-        } catch (NullPointerException | SQLException ex){
+                callStmt.execute();
+                return true;
+            }
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DeliveryStatusDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
+            return false;
 
         } finally {
-            if(callStmt!=null) callStmt.close();
             closeAll();
         }
-        return false;
     }
 }

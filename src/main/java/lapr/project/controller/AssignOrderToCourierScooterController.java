@@ -19,25 +19,29 @@ public class AssignOrderToCourierScooterController {
     private final DeliveryDB dDB;
     private final CourierDB cDB;
     private final ScooterDB sDB;
-    private static int deleveryRun = 0;
+    private static int deliveryRun = 0;
 
     public AssignOrderToCourierScooterController() {
+        
         dDB = new DeliveryDB();
         cDB = new CourierDB();
         sDB = new ScooterDB();
     }
 
     public AssignOrderToCourierScooterController(DeliveryDB dDB, CourierDB cDB, ScooterDB sDB) {
+        
         this.cDB = cDB;
         this.sDB = sDB;
         this.dDB = dDB;
     }
 
     public List<Courier> getAllAvailableCouriers(PurchaseOrder order) throws SQLException {
+        
         return cDB.getAllAvailableCouriers(order.getId());
     }
 
     public List<Scooter> getAllAvailableScooters(PurchaseOrder order) throws SQLException {
+        
         return sDB.getAllAvailableScooters(order.getId());
     }
 
@@ -45,7 +49,8 @@ public class AssignOrderToCourierScooterController {
        calcular endDate
      */
     public boolean addDeliveries(List<PurchaseOrder> orderList) throws SQLException {
-        deleveryRun++;
+        
+        deliveryRun++;
         String chosenCourier;
         int chosenScooter;
         int idDeliveryStatus = 1;
@@ -56,32 +61,30 @@ public class AssignOrderToCourierScooterController {
         LocalDate endDate = LocalDate.of(2077, Month.MARCH, 1);
         Delivery nextAvailable;
 
-        if(listCouriers.isEmpty()) {
+        if (listCouriers.isEmpty()) {
             nextAvailable = dDB.getNextAvailableCourier(orderList.get(0).getPharmacyId());
             chosenCourier = nextAvailable.getCourierEmail();
             startDate = nextAvailable.getDeliveryEnd();
             idDeliveryStatus = 2;
-        }
-        else {
+            
+        } else {
             chosenCourier = listCouriers.get(0).getEmail();
-        }
-
-        if(listScooters.isEmpty()) {
+        }     
+        if (listScooters.isEmpty()) {
+            
             nextAvailable = dDB.getNextAvailableScooter(orderList.get(0).getPharmacyId());
             chosenScooter = nextAvailable.getVehicleId();
             idDeliveryStatus = 2;
-            if(nextAvailable.getDeliveryEnd().isAfter(startDate)) {
+            
+            if (nextAvailable.getDeliveryEnd().isAfter(startDate)) {
                 startDate = nextAvailable.getDeliveryEnd();
             }
-        }
-        else {
+        } else {
             chosenScooter = listScooters.get(0).getIdVehicle();
         }
-
-        for(PurchaseOrder order : orderList) {
-            deliveries.add(new Delivery(order.getId(), chosenScooter, chosenCourier, idDeliveryStatus, startDate, endDate, deleveryRun));
+        for (PurchaseOrder order : orderList) {
+            deliveries.add(new Delivery(order.getId(), chosenScooter, chosenCourier, idDeliveryStatus, startDate, endDate, deliveryRun));
         }
         return dDB.addDeliveries(deliveries);
     }
-
 }

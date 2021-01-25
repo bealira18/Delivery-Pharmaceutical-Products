@@ -4,6 +4,7 @@ import lapr.project.model.Drone;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,178 +14,140 @@ import java.util.logging.Logger;
 
 public class DroneDB extends DataHandler {
 
-    public boolean addDrone(Drone drone) throws SQLException {
+    public boolean addDrone(Drone drone) {
 
-        openConnection();
-
-        try {
-            return addDrone(drone.getIdVehicle(), drone.getIdPharmacy(), drone.getWeight(), drone.getAerodynamicCoeficient(),
-                    drone.getFrontalArea(), drone.getMotor(), drone.getCurrentBattery(), drone.getMaxBattery(), drone.getAverageSpeed(),
-                    drone.getWidth(), drone.getAverageVerticalSpeed(), drone.getDroneStatusId());
-
-        } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
-            return false;
-        }
+        return addDrone(drone.getIdVehicle(), drone.getIdPharmacy(), drone.getWeight(), drone.getAerodynamicCoeficient(),
+                drone.getFrontalArea(), drone.getMotor(), drone.getCurrentBattery(), drone.getMaxBattery(), drone.getAverageSpeed(),
+                drone.getWidth(), drone.getAverageVerticalSpeed(), drone.getDroneStatusId());
     }
 
-    public boolean addDrone(int idDrone, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
-            double motor, double currentBattery, double maxBattery,  double averageSpeed, double width, double averageVerticalSpeed,
-                            int droneStatusId) throws SQLException {
+    public Drone getIdDrone(int idDrone) {
 
-        CallableStatement callStmt = null;
+        try (Connection con = getConnection()) {
 
-        try {
-            callStmt = getConnection().prepareCall("{ call addDrone(?,?,?,?,?,?,?,?,?,?,?,?) }");
+            try (CallableStatement callStmt = con.prepareCall("{ ? = call getDroneById(?) }")) {
 
-            callStmt.setInt(1, idDrone);
-            callStmt.setInt(2, idPharmacy);
-            callStmt.setDouble(3, weight);
-            callStmt.setDouble(4, aerodynamicCoeficient);
-            callStmt.setDouble(5, frontalArea);
-            callStmt.setDouble(6, motor);
-            callStmt.setDouble(7, currentBattery);
-            callStmt.setDouble(8, maxBattery);
-            callStmt.setDouble(9, averageSpeed);
-            callStmt.setDouble(10, width);
-            callStmt.setDouble(11, averageVerticalSpeed);
-            callStmt.setInt(12, droneStatusId);
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setInt(2, idDrone);
+                callStmt.execute();
 
-            callStmt.execute();
-            return true;
+                try (ResultSet rs = (ResultSet) callStmt.getObject(1)) {
 
+                    if (rs.next()) {
+                        int id = rs.getInt(1);
+                        double width = rs.getDouble(2);
+                        double averageVerticalSpeed = rs.getDouble(3);
+                        int droneStatus = rs.getInt(4);
+
+                        return new Drone(id, width, averageVerticalSpeed, droneStatus);
+                    }
+                }
+            }
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
-
-        } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
-            closeAll();
-        }
-        return false;
-    }
-
-    public Drone getIdDrone(int idDrone) throws SQLException {
-        Drone d = null;
-        CallableStatement callStmt = null;
-        ResultSet rSet = null;
-
-        try {
-            openConnection();
-
-            callStmt = getConnection().prepareCall("{ ? = call getDroneById(?) }");
-
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(2, idDrone);
-            callStmt.execute();
-
-            rSet = (ResultSet) callStmt.getObject(1);
-
-            if (rSet.next()) {
-                int id = rSet.getInt(1);
-                double width = rSet.getDouble(2);
-                double averageVerticalSpeed = rSet.getDouble(3);
-                int droneStatus = rSet.getInt(4);
-
-                d = new Drone(id, width, averageVerticalSpeed, droneStatus);
-            } else {
-                return null;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
             throw new IllegalArgumentException("No Drone with id:" + idDrone);
+
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
-            if (rSet != null) {
-                rSet.close();
-            }
             closeAll();
         }
-        return d;
+        return null;
     }
 
-    public boolean updateDrone(int idd, Drone d) throws SQLException {
-        Drone drone;
+    public boolean updateDrone(int idd, Drone d) {
 
-        try {
-            drone = getIdDrone(idd);
-            if (drone == null) {
-                return false;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        Drone drone = getIdDrone(idd);
+        if (drone == null) {
             return false;
         }
 
-        CallableStatement callStmt = null;
+        try (Connection con1 = getConnection()) {
 
-        try {
-            openConnection();
+            try (CallableStatement callStmt1 = con1.prepareCall("{ call updateDrone(?,?,?,?,?,?,?,?,?,?,?,?) }")) {
 
-            callStmt = getConnection().prepareCall("{ call updateDrone(?,?,?,?,?,?,?,?,?,?,?,?) }");
+                callStmt1.setInt(1, d.getIdVehicle());
+                callStmt1.setDouble(2, d.getWidth());
+                callStmt1.setDouble(3, d.getAverageVerticalSpeed());
+                callStmt1.setInt(4, d.getDroneStatusId());
+                callStmt1.setInt(5, d.getIdPharmacy());
+                callStmt1.setDouble(6, d.getWeight());
+                callStmt1.setDouble(7, d.getAerodynamicCoeficient());
+                callStmt1.setDouble(8, d.getFrontalArea());
+                callStmt1.setDouble(9, d.getMotor());
+                callStmt1.setDouble(10, d.getCurrentBattery());
+                callStmt1.setDouble(11, d.getMaxBattery());
+                callStmt1.setDouble(12, d.getAverageSpeed());
 
-            callStmt.setInt(1, d.getIdVehicle());
-            callStmt.setDouble(2, d.getWidth());
-            callStmt.setDouble(3, d.getAverageVerticalSpeed());
-            callStmt.setInt(4, d.getDroneStatusId());
-            callStmt.setInt(5, d.getIdPharmacy());
-            callStmt.setDouble(6, d.getWeight());
-            callStmt.setDouble(7, d.getAerodynamicCoeficient());
-            callStmt.setDouble(8, d.getFrontalArea());
-            callStmt.setDouble(9, d.getMotor());
-            callStmt.setDouble(10, d.getCurrentBattery());
-            callStmt.setDouble(11, d.getMaxBattery());
-            callStmt.setDouble(12, d.getAverageSpeed());
-
-
-            callStmt.execute();
-            closeAll();
-            return true;
+                callStmt1.execute();
+                return true;
+            }
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
+            return false;
 
+        } finally {
+            closeAll();
         }
-        return false;
     }
 
-    public List<Drone> getAllAvailableDrones(int orderId) throws SQLException {
+    public List<Drone> getAllAvailableDrones(int orderId) {
+
         ArrayList<Drone> drones = new ArrayList<>();
-        CallableStatement callStt = null;
-        ResultSet rSet = null;
-        try {
-            openConnection();
 
-            callStt = getConnection().prepareCall("{ ? = call getAllAvailableDrones(?) }");
+        try (Connection con2 = getConnection()) {
 
-            callStt.registerOutParameter(1, OracleTypes.CURSOR);
+            try (CallableStatement callStmt2 = con2.prepareCall("{ ? = call getAllAvailableDrones(?) }")) {
 
-            callStt.setInt(2, orderId);
+                callStmt2.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt2.setInt(2, orderId);
 
-            callStt.execute();
+                callStmt2.execute();
 
-            rSet = (ResultSet) callStt.getObject(1);
+                try (ResultSet rs1 = (ResultSet) callStmt2.getObject(1)) {
 
-            while (rSet.next()) {
-                drones.add(getIdDrone(rSet.getInt(1)));
+                    while (rs1.next()) {
+                        drones.add(getIdDrone(rs1.getInt(1)));
+                    }
+                }
             }
-        } catch (SQLException e) {
-            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, e);
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally {
-            if (callStt != null) {
-                callStt.close();
-            }
-            if (rSet != null) {
-                rSet.close();
-            }
             closeAll();
         }
         return drones;
     }
 
+    private boolean addDrone(int idDrone, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
+            double motor, double currentBattery, double maxBattery, double averageSpeed, double width, double averageVerticalSpeed,
+            int droneStatusId) {
+
+        try (Connection con3 = getConnection()) {
+
+            try (CallableStatement callStmt3 = con3.prepareCall("{ call addDrone(?,?,?,?,?,?,?,?,?,?,?,?) }")) {
+
+                callStmt3.setInt(1, idDrone);
+                callStmt3.setInt(2, idPharmacy);
+                callStmt3.setDouble(3, weight);
+                callStmt3.setDouble(4, aerodynamicCoeficient);
+                callStmt3.setDouble(5, frontalArea);
+                callStmt3.setDouble(6, motor);
+                callStmt3.setDouble(7, currentBattery);
+                callStmt3.setDouble(8, maxBattery);
+                callStmt3.setDouble(9, averageSpeed);
+                callStmt3.setDouble(10, width);
+                callStmt3.setDouble(11, averageVerticalSpeed);
+                callStmt3.setInt(12, droneStatusId);
+
+                callStmt3.execute();
+                return true;
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } finally {
+            closeAll();
+        }
+    }
 }
