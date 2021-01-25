@@ -3,16 +3,16 @@ package lapr.project.controller;
 import lapr.project.data.ParkDB;
 import lapr.project.model.Park;
 
-public class UpdateNrChargingStationsController {
+public class UpdateParkController {
 
     private final ParkDB spDB;
 
-    public UpdateNrChargingStationsController() {
+    public UpdateParkController() {
 
         spDB = new ParkDB();
     }
 
-    public UpdateNrChargingStationsController(ParkDB spDB) {
+    public UpdateParkController(ParkDB spDB) {
 
         this.spDB = spDB;
     }
@@ -27,5 +27,9 @@ public class UpdateNrChargingStationsController {
         sp.setNumChargingStations(nr);
 
         return spDB.updateChargingStations(sp);
+    }
+
+    public boolean updateParkChargingPotency(int parkId, double chargingPotency) {
+        return spDB.updateParkChargingPotency(parkId, chargingPotency);
     }
 }

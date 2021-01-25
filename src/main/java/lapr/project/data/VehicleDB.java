@@ -63,4 +63,25 @@ public class VehicleDB extends DataHandler {
         }
         return emailName;
     }
+
+    public boolean updateVehicleStatus(int idVehicle, String status) {
+
+        try (Connection con2 = getConnection()) {
+
+            try (CallableStatement callStmt2 = con2.prepareCall("{ call updateVehicleStatus(?,?) }")) {
+
+                callStmt2.setInt(1, idVehicle);
+                callStmt2.setString(2, status);
+
+                callStmt2.execute();
+                return true;
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(DeliveryStatusDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } finally {
+            closeAll();
+        }
+    }
 }

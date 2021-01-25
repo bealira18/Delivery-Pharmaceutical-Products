@@ -1,11 +1,7 @@
 package lapr.project.controller;
 
-import lapr.project.data.DeliveryDB;
-import lapr.project.data.ProductDB;
-import lapr.project.data.ProductLineDB;
-import lapr.project.model.Product;
-import lapr.project.model.ProductLine;
-import lapr.project.model.PurchaseOrder;
+import lapr.project.data.*;
+import lapr.project.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,17 +11,23 @@ public class CreateDeliveryController {
     private final DeliveryDB deliveryDB;
     private final ProductLineDB productLineDB;
     private final ProductDB productDB;
+    private final ScooterDB scooterDB;
+    private final DroneDB droneDB;
 
     public CreateDeliveryController() {
         deliveryDB = new DeliveryDB();
         productLineDB = new ProductLineDB();
         productDB = new ProductDB();
+        scooterDB = new ScooterDB();
+        droneDB = new DroneDB();
     }
 
-    public CreateDeliveryController(DeliveryDB deliveryDB, ProductLineDB productLineDB, ProductDB productDB) {
+    public CreateDeliveryController(DeliveryDB deliveryDB, ProductLineDB productLineDB, ProductDB productDB, ScooterDB scooterDB, DroneDB droneDB) {
         this.deliveryDB = deliveryDB;
         this.productLineDB = productLineDB;
         this.productDB = productDB;
+        this.scooterDB = scooterDB;
+        this.droneDB = droneDB;
     }
 
     public boolean createDeliveries(List<PurchaseOrder> orderList, int deliveryRun) {
@@ -44,6 +46,14 @@ public class CreateDeliveryController {
 
     public boolean deliveryRunAssociateCourier(String emailCourier, int deliveryRun) {
         return deliveryDB.deliveryRunAssociateCourier(emailCourier, deliveryRun);
+    }
+
+    public Scooter getHighestBatteryScooter(int pharmacyId) {
+        return scooterDB.getHighestBatteryScooter(pharmacyId);
+    }
+
+    public Drone getHighestBatteryDrone(int pharmacyId) {
+        return droneDB.getHighestBatteryDrone(pharmacyId);
     }
 
     public List<PurchaseOrder> getDeliveryRunProducts(int deliveryRun) {

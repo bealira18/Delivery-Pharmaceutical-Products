@@ -1,8 +1,6 @@
 package lapr.project.controller;
 
 import lapr.project.data.ParkDB;
-import lapr.project.data.ScooterDB;
-import lapr.project.model.Scooter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +11,7 @@ import static org.mockito.Mockito.mock;
 
 public class UpdateNrChargingStationsControllerTest {
 
-    private static UpdateNrChargingStationsController csC;
+    private static UpdateParkController csC;
 
     public UpdateNrChargingStationsControllerTest() {
     }
@@ -23,8 +21,8 @@ public class UpdateNrChargingStationsControllerTest {
 
         ParkDB pDB = mock(ParkDB.class);
 
-        csC = new UpdateNrChargingStationsController();
-        csC = new UpdateNrChargingStationsController(pDB);
+        csC = new UpdateParkController();
+        csC = new UpdateParkController(pDB);
     }
 
     @Test

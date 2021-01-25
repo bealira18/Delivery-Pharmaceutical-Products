@@ -175,4 +175,25 @@ public class ParkDB extends DataHandler {
             closeAll();
         }
     }
+
+    public boolean updateParkChargingPotency(int idPark, double maxChargingPotency) {
+
+        try (Connection con6 = getConnection()) {
+
+            try (CallableStatement callStmt6 = con6.prepareCall("{ call updateParkChargingPotency(?,?) }")) {
+
+                callStmt6.setInt(1, idPark);
+                callStmt6.setDouble(2, maxChargingPotency);
+
+                callStmt6.execute();
+                return true;
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } finally {
+            closeAll();
+        }
+    }
 }

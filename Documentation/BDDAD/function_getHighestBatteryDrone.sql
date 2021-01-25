@@ -12,11 +12,12 @@ BEGIN
 
     OPEN drone_highest FOR
     
-    SELECT * FROM vehicle
-    WHERE id_vehicle IN ( SELECT id_drone FROM drone
-                            WHERE id_vehicle_status = available_id)
-    AND id_pharmacy = idPharmacy
-    ORDER BY current_battery DESC
+    SELECT * FROM vehicle v
+    INNER JOIN drone d
+    ON v.id_vehicle = d.id_drone
+    WHERE d.id_vehicle_status = available_id
+    AND v.id_pharmacy = idPharmacy
+    ORDER BY v.current_battery DESC
     FETCH FIRST 1 ROW ONLY;
     
     RETURN drone_highest;
