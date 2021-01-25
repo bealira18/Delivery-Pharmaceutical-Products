@@ -1,58 +1,51 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lapr.project.controller;
 
 import lapr.project.data.ClientDB;
 import lapr.project.data.SettingsHandler;
 
-import java.sql.SQLException;
-
-/**
- *
- * @author Ricardo
- */
 public class ManageCreditsController {
 
     private final SettingsHandler sH;
     private final ClientDB cDB;
 
-    public ManageCreditsController(SettingsHandler sH, ClientDB cDB) {
-        this.sH = sH;
-        this.cDB = cDB;
-    }
-
     public ManageCreditsController() {
+
         sH = new SettingsHandler();
         cDB = new ClientDB();
     }
 
-    public int addCreditsAfterPurchase(String clientEmail, double purchaseAmount) throws SQLException {
+    public ManageCreditsController(SettingsHandler sH, ClientDB cDB) {
+
+        this.sH = sH;
+        this.cDB = cDB;
+    }
+
+    public int addCreditsAfterPurchase(String clientEmail, double purchaseAmount) {
+
         double ratio = getCreditConversionRatio();
         int creditsEarned = (int) (ratio * purchaseAmount);
         cDB.updateCredits(clientEmail, creditsEarned);
         return creditsEarned;
     }
 
-    public boolean payDeliveryFee(String clientEmail) throws SQLException {
+    public boolean payDeliveryFee(String clientEmail) {
+
         int clientCredits = getCreditsByClientEmail(clientEmail);
         int creditsToPayDeliveryFee = getCreditValueDeliveryFee();
 
-        if(clientCredits >= creditsToPayDeliveryFee) {
+        if (clientCredits >= creditsToPayDeliveryFee) {
             int newCredits = clientCredits - creditsToPayDeliveryFee;
             return updateCreditsClient(clientEmail, newCredits);
         }
         return false;
     }
 
-    public int getCreditsByClientEmail(String email) throws SQLException {
+    public int getCreditsByClientEmail(String email) {
 
         return cDB.getCreditsByClientEmail(email);
     }
 
-    public boolean updateCreditsClient(String email, int newClientsAmount) throws SQLException {
+    public boolean updateCreditsClient(String email, int newClientsAmount) {
 
         return cDB.updateCreditsClient(email, newClientsAmount);
     }
@@ -95,5 +88,4 @@ public class ManageCreditsController {
         System.setProperty("client.credits.delivery.fee.payment", String.valueOf(newCredits));
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
     }
-
 }

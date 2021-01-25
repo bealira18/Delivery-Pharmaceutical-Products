@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class ProductLineDB extends DataHandler {
 
-    public boolean newProductLine(int idOrder,int idProduct,int quantity,double price) {
+    public boolean newProductLine(int idOrder, int idProduct, int quantity, double price) {
 
         try (Connection con = getConnection()) {
 
@@ -26,48 +26,51 @@ public class ProductLineDB extends DataHandler {
                 callStmt.setDouble(4, price);
 
                 callStmt.execute();
-
                 return true;
             }
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(ProductLineDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+
         } finally {
             closeAll();
         }
     }
 
-    public List<ProductLine> getProductLinesFromOrder (int idOrder) {
+    public List<ProductLine> getProductLinesFromOrder(int idOrder) {
         List<ProductLine> productLineList = new ArrayList<>();
 
-        try (Connection con = getConnection()) {
+        try (Connection con1 = getConnection()) {
 
-            try(CallableStatement callStmt = con.prepareCall("{ ? = call getProductLinesFromOrder(?) }")) {
+            try (CallableStatement callStmt1 = con1.prepareCall("{ ? = call getProductLinesFromOrder(?) }")) {
 
-                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(2, idOrder);
+                callStmt1.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt1.setInt(2, idOrder);
 
-                callStmt.execute();
+                callStmt1.execute();
 
-                try (ResultSet rSet = (ResultSet) callStmt.getObject(1)) {
+                try (ResultSet rs = (ResultSet) callStmt1.getObject(1)) {
 
-                    while (rSet.next()) {
-                        int orderId = rSet.getInt(1);
-                        int productId = rSet.getInt(2);
-                        int productQuantity = rSet.getInt(3);
-                        double price = rSet.getDouble(4);
+                    while (rs.next()) {
+                        int orderId = rs.getInt(1);
+                        int productId = rs.getInt(2);
+                        int productQuantity = rs.getInt(3);
+                        double price = rs.getDouble(4);
 
                         ProductLine productLine = new ProductLine(orderId, productId, productQuantity, price);
                         productLineList.add(productLine);
                     }
                 }
             }
-        } catch (NullPointerException | SQLException e) {
-            Logger.getLogger(ProductLineDB.class.getName()).log(Level.SEVERE, null, e);
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(ProductLineDB.class.getName()).log(Level.SEVERE, null, ex);
+            
         } finally {
             closeAll();
         }
-        if(productLineList.isEmpty()) throw new IllegalArgumentException("No product lines for order " + idOrder);
+        if (productLineList.isEmpty()) {
+            throw new IllegalArgumentException("No product lines for order " + idOrder);
+        }
         return productLineList;
     }
 }

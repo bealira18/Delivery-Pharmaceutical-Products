@@ -33,6 +33,7 @@ public class InvoiceDB extends DataHandler {
         } catch (SQLException ex) {
             Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+
         } finally {
             closeAll();
         }

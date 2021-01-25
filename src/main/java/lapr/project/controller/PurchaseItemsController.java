@@ -6,7 +6,6 @@ import lapr.project.model.Product;
 import lapr.project.model.ProductCategory;
 import lapr.project.model.PurchaseOrder;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +24,7 @@ public class PurchaseItemsController {
     private final Map<Product, Integer> basket;
 
     public PurchaseItemsController() {
+
         pharmacyDB = new PharmacyDB();
         productDB = new ProductDB();
         basket = new HashMap<>();
@@ -34,7 +34,9 @@ public class PurchaseItemsController {
         updateScooterController = new UpdateScooterController();
     }
 
-    public PurchaseItemsController(PharmacyDB pharmacyDB, ProductDB productDB, PurchaseOrderDB po, ProductLineDB pl, StockDB s, UpdateScooterController usc) {
+    public PurchaseItemsController(PharmacyDB pharmacyDB, ProductDB productDB, PurchaseOrderDB po,
+            ProductLineDB pl, StockDB s, UpdateScooterController usc) {
+
         this.pharmacyDB = pharmacyDB;
         this.productDB = productDB;
         basket = new HashMap<>();
@@ -45,10 +47,12 @@ public class PurchaseItemsController {
     }
 
     public List<Pharmacy> getPharmacies() {
+
         return pharmacyDB.getAllPharmacies();
     }
 
-    public void getProductsFromPharmacy(int idPharmacy) throws SQLException {
+    public void getProductsFromPharmacy(int idPharmacy) {
+
         mapProducts = productDB.getProductsFromPharmacy(idPharmacy);
     }
 
@@ -58,10 +62,12 @@ public class PurchaseItemsController {
     }
 
     public List<Product> getProductsFromCategory(ProductCategory pc) {
+
         return mapProducts.get(pc);
     }
 
     public boolean addToBasket(Product p, int quantiyToAdd) {
+
         int quantity;
         if (basket.containsKey(p)) {
             quantity = basket.get(p);
@@ -74,25 +80,22 @@ public class PurchaseItemsController {
         return true;
     }
 
-    public PurchaseOrder purchaseItems(int idOrder, int idPharmacy, String email) throws SQLException {
+    public PurchaseOrder purchaseItems(int idOrder, int idPharmacy, String email) {
 
         if (basket.isEmpty()) {
             return null;
         }
-
         double totalWeight = 0;
+
         for (Map.Entry<Product, Integer> p : basket.entrySet()) {
             totalWeight = totalWeight + (p.getKey().getWeight() * p.getValue());
         }
-
-        if(totalWeight > updateScooterController.getScooterMaxPayload()) {
+        if (totalWeight > updateScooterController.getScooterMaxPayload()) {
             return null;
         }
-
         if (!po.newOrder(idOrder, idPharmacy, email)) {
             return null;
         }
-
         for (Map.Entry<Product, Integer> p : basket.entrySet()) {
             if (!pl.newProductLine(idOrder, p.getKey().getId(), p.getValue(), p.getKey().getPrice() * p.getValue())) {
                 return null;

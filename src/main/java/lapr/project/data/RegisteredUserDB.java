@@ -1,51 +1,43 @@
 package lapr.project.data;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lapr.project.model.RegisteredUser;
 import oracle.jdbc.OracleTypes;
 
 public class RegisteredUserDB extends DataHandler {
 
-    public RegisteredUser findUser(String email, String password) throws SQLException {
+    public RegisteredUser findUser(String email, String password) {
 
-        /* Objeto "callStmt" para invocar a função "findUser" armazenada na BD.
-         *
-         * FUNCTION findUser(email_pr VARCHAR2, password_pr VARCHAR2) RETURN MATCHING_USER.ref_cursor
-         */
-        CallableStatement callStmt = null;
-        ResultSet rSet = null;
+        try (Connection con = getConnection()) {
 
-        try {
-            openConnection();
+            try (CallableStatement callStmt = con.prepareCall("{ ? = call findUser(?, ?) }")) {
 
-            callStmt = getConnection().prepareCall("{ ? = call findUser(?, ?) }");
-            // Regista o tipo de dados SQL para interpretar o resultado obtido.
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            // Especifica o primeiro parâmetro de entrada da função "findUser".
-            callStmt.setString(2, email);
-            // Especifica o segundo parâmetro de entrada da função "findUser".
-            callStmt.setString(3, password);
-            // Executa a invocação da função "getSailor".
-            callStmt.execute();
-            // Guarda o cursor retornado num objeto "ResultSet".
-            rSet = (ResultSet) callStmt.getObject(1);
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setString(2, email);
+                callStmt.setString(3, password);
 
-            if (rSet.next()) {
-                String userEmail = rSet.getString(1);
-                String userPassword = rSet.getString(2);
-                String userRole = rSet.getString(3);
+                callStmt.execute();
 
-                return new RegisteredUser(userEmail, userPassword, userRole);
+                try (ResultSet rs = (ResultSet) callStmt.getObject(1)) {
+
+                    if (rs.next()) {
+                        String userEmail = rs.getString(1);
+                        String userPassword = rs.getString(2);
+                        String userRole = rs.getString(3);
+
+                        return new RegisteredUser(userEmail, userPassword, userRole);
+                    }
+                }
             }
-        } catch (SQLException e) {
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(RegisteredUserDB.class.getName()).log(Level.SEVERE, null, ex);
 
-            e.printStackTrace();
-        }
-        finally{
-            if(callStmt!=null) callStmt.close();
-            if(rSet!=null) rSet.close();
+        } finally {
             closeAll();
         }
         throw new IllegalArgumentException("Could not find a user matching this user and password");
