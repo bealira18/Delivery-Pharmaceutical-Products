@@ -130,6 +130,7 @@ INSERT INTO deliveryStatus(id_delivery_status, name) VALUES (1, 'processing');
 INSERT INTO deliveryStatus(id_delivery_status, name) VALUES (2, 'pending');
 INSERT INTO deliveryStatus(id_delivery_status, name) VALUES (3, 'in delivery');
 INSERT INTO deliveryStatus(id_delivery_status, name) VALUES (4, 'delivered');
+INSERT INTO deliveryStatus(id_delivery_status, name) VALUES (5, 'cancelled');
 
 -- ## table Vehicle ##
 INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed) VALUES(1, 1, 250, 0, 1, 1, 500, 500, 8.9);

@@ -24,6 +24,7 @@ DROP TABLE purchaseOrder		CASCADE CONSTRAINTS PURGE;
 DROP TABLE productLine		    CASCADE CONSTRAINTS PURGE;
 DROP TABLE delivery		        CASCADE CONSTRAINTS PURGE;
 DROP TABLE invoice		        CASCADE CONSTRAINTS PURGE;
+DROP TABLE backOrder            CASCADE CONSTRAINTS PURGE;
 
 
 -- Table Creation
@@ -159,7 +160,7 @@ CREATE TABLE deliveryStatus (
     id_delivery_status    INTEGER                           CONSTRAINT pkDeliveryStatusId              PRIMARY KEY,            
     name                  VARCHAR2(255)                     CONSTRAINT nnDeliveryStatusName            NOT NULL
                                                             CONSTRAINT ukDeliveryStatusName            UNIQUE
-                                                            CONSTRAINT ckDeliveryStatusName            CHECK(name IN ('processing','pending', 'in delivery', 'delivered'))                                                 
+                                                            CONSTRAINT ckDeliveryStatusName            CHECK(name IN ('processing','pending', 'in delivery', 'delivered', 'cancelled'))                                                 
 );
 
 CREATE TABLE vehicle (
@@ -225,8 +226,8 @@ CREATE TABLE productLine (
 CREATE TABLE delivery (
     id_order              INTEGER              CONSTRAINT pkDeliveryIdOrder               PRIMARY KEY
                                                CONSTRAINT nnDeliveryIdOrder               NOT NULL,
-    id_vehicle            INTEGER              CONSTRAINT nnDeliveryIdVehicle             NOT NULL,       
-    email_courier         VARCHAR2(255)        CONSTRAINT nnDeliveryEmailCourier          NOT NULL,
+    id_vehicle            INTEGER,       
+    email_courier         VARCHAR2(255),
     id_delivery_status    INTEGER              CONSTRAINT nnDeliveryIdDeliveryStatus      NOT NULL,
     delivery_start        DATE,           
     delivery_end          DATE,
