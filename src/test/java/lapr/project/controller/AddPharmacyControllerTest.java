@@ -60,7 +60,6 @@ public class AddPharmacyControllerTest {
         assertEquals(expResult, result);
 
         PharmacyDB pDB1 = mock(PharmacyDB.class);
-        when(pDB1.addPharmacy(a, new Pharmacy(0, "TestPharma", a), limitScooterPark, limitDronePark)).thenThrow(new SQLException());
         AddPharmacyController pCont2 = new AddPharmacyController(pDB);
 
         expResult = false;
