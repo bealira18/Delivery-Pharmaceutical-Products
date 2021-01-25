@@ -89,10 +89,10 @@ class Main {
 
 
         //AddPharmacyController
-        Address a = new Address("gaia shopping", 0, 0, 0);
+        /*Address a = new Address("gaia shopping", 0, 0, 0);
         Pharmacy p = new Pharmacy(2, "farmacia gaia shopping", a);
         AddPharmacyController addPharmacyController = new AddPharmacyController();
-        System.out.println(addPharmacyController.addPharmacy(a,p,2,2));
+        System.out.println(addPharmacyController.addPharmacy(a,p,2,2));*/
 
 
         //AddProductController
@@ -285,7 +285,7 @@ class Main {
         in.nextLine();*/
 
 
-        //scenario1();
+        scenario1();
         
     }
 

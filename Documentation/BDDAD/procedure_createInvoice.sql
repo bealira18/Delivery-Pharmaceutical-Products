@@ -7,7 +7,7 @@ CREATE OR REPLACE PROCEDURE createInvoice(
 IS
 BEGIN
 
-    INSERT INTO invoice(id_order, id_pharmacy, email_client, total_price, delivery_fee)
+    INSERT INTO invoice(id_order, id_pharmacy, email_client, delivery_fee, total_price)
     VALUES (idOrder, idPharmacy, emailClient, deliveryFee, totalPrice);
     
 END;

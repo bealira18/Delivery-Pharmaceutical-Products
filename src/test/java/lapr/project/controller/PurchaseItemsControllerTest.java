@@ -65,12 +65,13 @@ class PurchaseItemsControllerTest {
         PurchaseOrderDB purchaseOrderDB=mock(PurchaseOrderDB.class);
         ProductLineDB productLineDB=mock(ProductLineDB.class);
         StockDB stockDB=mock(StockDB.class);
+        UpdateScooterController updateScooterController = new UpdateScooterController();
 
         when(pharmacyDB.getAllPharmacies()).thenReturn(auxListPharmacies);
         when(productDB.getProductsFromPharmacy(1)).thenReturn(auxMapProducts);
 
         controller = new PurchaseItemsController();
-        controller = new PurchaseItemsController(pharmacyDB, productDB, purchaseOrderDB, productLineDB, stockDB);
+        controller = new PurchaseItemsController(pharmacyDB, productDB, purchaseOrderDB, productLineDB, stockDB, updateScooterController);
 
         controller.getProductsFromPharmacy(1);
     }

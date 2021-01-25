@@ -20,6 +20,7 @@ public class PurchaseItemsController {
     private final PurchaseOrderDB po;
     private final ProductLineDB pl;
     private final StockDB s;
+    private final UpdateScooterController updateScooterController;
     private Map<ProductCategory, List<Product>> mapProducts;
     private final Map<Product, Integer> basket;
 
@@ -30,15 +31,17 @@ public class PurchaseItemsController {
         po = new PurchaseOrderDB();
         pl = new ProductLineDB();
         s = new StockDB();
+        updateScooterController = new UpdateScooterController();
     }
 
-    public PurchaseItemsController(PharmacyDB pharmacyDB, ProductDB productDB, PurchaseOrderDB po, ProductLineDB pl, StockDB s) {
+    public PurchaseItemsController(PharmacyDB pharmacyDB, ProductDB productDB, PurchaseOrderDB po, ProductLineDB pl, StockDB s, UpdateScooterController usc) {
         this.pharmacyDB = pharmacyDB;
         this.productDB = productDB;
         basket = new HashMap<>();
         this.po = po;
         this.pl = pl;
         this.s = s;
+        this.updateScooterController = usc;
     }
 
     public List<Pharmacy> getPharmacies() {
@@ -74,6 +77,15 @@ public class PurchaseItemsController {
     public PurchaseOrder purchaseItems(int idOrder, int idPharmacy, String email) throws SQLException {
 
         if (basket.isEmpty()) {
+            return null;
+        }
+
+        double totalWeight = 0;
+        for (Map.Entry<Product, Integer> p : basket.entrySet()) {
+            totalWeight = totalWeight + (p.getKey().getWeight() * p.getValue());
+        }
+
+        if(totalWeight > updateScooterController.getScooterMaxPayload()) {
             return null;
         }
 

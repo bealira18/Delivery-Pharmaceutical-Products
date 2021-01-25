@@ -59,6 +59,7 @@ INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed
 
 -- ## table Pharmacy ##
 INSERT INTO pharmacy(name, address) VALUES ('farmacia da boavista', 'casa da musica');
+INSERT INTO pharmacy(name, address) VALUES ('farmacia do gaia shopping', 'gaia shopping');
 
 -- ## table Administrator ##
 INSERT INTO administrator(email, id_pharmacy, name, nif, social_security) VALUES('admin1@gmail.com', 1, 'admin1', 111111111, 11111111111);
