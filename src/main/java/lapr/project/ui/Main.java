@@ -226,7 +226,7 @@ class Main {
         System.out.println("Type anything to stop program");
         Scanner in = new Scanner(System.in);
         in.nextLine();*/
-        //scenario1();
+        scenario1();
 
         /*VehicleDB vehicleDB = new VehicleDB();
         System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(101));
@@ -260,7 +260,7 @@ class Main {
         System.out.println(purchaseItemsController.addToBasket(product1, 3));
         System.out.println(purchaseItemsController.addToBasket(product2, 2));
         System.out.println(purchaseItemsController.addToBasket(product2, 1));
-        PurchaseOrder purchaseOrder = purchaseItemsController.purchaseItems(1, 1, "client1@gmail.com");
+        PurchaseOrder purchaseOrder = purchaseItemsController.purchaseItems(6, 1, "client1@gmail.com");
         System.out.println(purchaseOrder);
 
         CreateInvoiceController createInvoiceController = new CreateInvoiceController();

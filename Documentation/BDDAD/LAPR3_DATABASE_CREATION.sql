@@ -237,7 +237,7 @@ CREATE TABLE delivery (
 );
 
 CREATE TABLE invoice (
-    id_invoice      INTEGER                               CONSTRAINT pkInvoiceIDInvoice            PRIMARY KEY,
+    id_invoice      INTEGER GENERATED AS IDENTITY         CONSTRAINT pkInvoiceIDInvoice            PRIMARY KEY,
     id_order        INTEGER                               CONSTRAINT nnInvoiceIdOrder              NOT NULL,
     id_pharmacy     INTEGER                               CONSTRAINT nnInvoiceIdPharmacy           NOT NULL,
     email_client    VARCHAR2(255)                         CONSTRAINT nnInvoiceEmailClient          NOT NULL,
