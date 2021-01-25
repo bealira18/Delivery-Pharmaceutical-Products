@@ -1,6 +1,7 @@
 package lapr.project.data;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,48 +53,78 @@ public class AddressDB extends DataHandler {
         return false;
     }
 
-    public List<Address> getAddresses() throws SQLException {
+    public List<Address> getAddresses() {
 
         List<Address> la = new ArrayList<>();
-        CallableStatement callStmt1 = null;
-        ResultSet rs1 = null;
 
-        try {
-            openConnection();
+        try (Connection con = getConnection()) {
 
-            callStmt1 = getConnection().prepareCall("{ ? = call getAddresses() }");
-            callStmt1.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt1.execute();
+            try (CallableStatement callStmt1 = con.prepareCall("{ ? = call getAddresses() }")) {
 
-            rs1 = (ResultSet) callStmt1.getObject(1);
+                callStmt1.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt1.execute();
 
-            while (rs1.next()) {
+                try (ResultSet rs1 = (ResultSet) callStmt1.getObject(1)) {
 
-                String description = rs1.getString(1);
-                double latitude1 = rs1.getDouble(2);
-                double longitude1 = rs1.getDouble(3);
-                double altitude1 = rs1.getDouble(4);
+                    while (rs1.next()) {
 
-                la.add(new Address(description, latitude1, longitude1, altitude1));
+                        String description = rs1.getString(1);
+                        double latitude1 = rs1.getDouble(2);
+                        double longitude1 = rs1.getDouble(3);
+                        double altitude1 = rs1.getDouble(4);
+
+                        la.add(new Address(description, latitude1, longitude1, altitude1));
+                    }
+                    return la;
+                }
             }
-            return la;
-
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(AddressDB.class.getName()).log(Level.SEVERE, null, ex);
             return new ArrayList<>();
-
-        } finally {
-            if (callStmt1 != null) {
-                callStmt1.close();
-
-                if (rs1 != null) {
-                    rs1.close();
-                }
-            }
-            closeAll();
         }
     }
 
+//    public List<Address> getAddresses() throws SQLException {
+//
+//        List<Address> la = new ArrayList<>();
+//        CallableStatement callStmt1 = null;
+//        ResultSet rs1 = null;
+//
+//        try {
+//            openConnection();
+//
+//            callStmt1 = getConnection().prepareCall("{ ? = call getAddresses() }");
+//            callStmt1.registerOutParameter(1, OracleTypes.CURSOR);
+//            callStmt1.execute();
+//
+//            rs1 = (ResultSet) callStmt1.getObject(1);
+//
+//            while (rs1.next()) {
+//
+//                String description = rs1.getString(1);
+//                double latitude1 = rs1.getDouble(2);
+//                double longitude1 = rs1.getDouble(3);
+//                double altitude1 = rs1.getDouble(4);
+//
+//                la.add(new Address(description, latitude1, longitude1, altitude1));
+//            }
+//            return la;
+//
+//        } catch (NullPointerException | SQLException ex) {
+//            Logger.getLogger(AddressDB.class.getName()).log(Level.SEVERE, null, ex);
+//            return new ArrayList<>();
+//
+//        } finally {
+//            if (callStmt1 != null) {
+//                callStmt1.close();
+//
+//                if (rs1 != null) {
+//                    rs1.close();
+//                }
+//            }
+//            closeAll();
+//        }
+//    }
     public Address getAddressByAd(String address) throws SQLException {
         Address a = null;
 
@@ -149,7 +180,8 @@ public class AddressDB extends DataHandler {
             aux = callStmt.getInt(1);
             return aux == 0;
         } catch (NullPointerException | NumberFormatException | SQLException ex) {
-            Logger.getLogger(ParkDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ParkDB.class
+                    .getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             if (callStmt != null) {
@@ -186,7 +218,8 @@ public class AddressDB extends DataHandler {
             return la;
 
         } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(AddressDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddressDB.class
+                    .getName()).log(Level.SEVERE, null, ex);
             return new ArrayList<>();
 
         } finally {
@@ -216,19 +249,20 @@ public class AddressDB extends DataHandler {
 
             rs3 = (ResultSet) callStmt3.getObject(1);
 
-            if(rs3.next()){
+            if (rs3.next()) {
                 String description = rs3.getString(1);
                 double latitude2 = rs3.getDouble(2);
                 double longitude2 = rs3.getDouble(3);
                 double altitude2 = rs3.getDouble(4);
 
-                 address2 = new Address(description, latitude2, longitude2, altitude2);
+                address2 = new Address(description, latitude2, longitude2, altitude2);
             }
 
             return address2;
 
         } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(AddressDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddressDB.class
+                    .getName()).log(Level.SEVERE, null, ex);
             return null;
 
         } finally {
