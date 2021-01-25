@@ -160,7 +160,7 @@ CREATE TABLE deliveryStatus (
     id_delivery_status    INTEGER                           CONSTRAINT pkDeliveryStatusId              PRIMARY KEY,            
     name                  VARCHAR2(255)                     CONSTRAINT nnDeliveryStatusName            NOT NULL
                                                             CONSTRAINT ukDeliveryStatusName            UNIQUE
-                                                            CONSTRAINT ckDeliveryStatusName            CHECK(name IN ('processing','pending', 'in delivery', 'delivered'))                                                 
+                                                            CONSTRAINT ckDeliveryStatusName            CHECK(name IN ('processing','pending', 'in delivery', 'delivered', 'cancelled'))                                                 
 );
 
 CREATE TABLE vehicle (
@@ -189,8 +189,12 @@ CREATE TABLE scooter (
 );
 
 CREATE TABLE drone (
-    id_drone                INTEGER                       CONSTRAINT pkDroneIdDrone           PRIMARY KEY,                             
-    id_vehicle_status       INTEGER                       CONSTRAINT nnDroneIdVehicleStatus   NOT NULL
+    id_drone                INTEGER                       CONSTRAINT pkDroneIdDrone                 PRIMARY KEY,
+    width                   NUMERIC(5,2)                  CONSTRAINT nnDroneWidth                   NOT NULL
+                                                          CONSTRAINT ckDroneWidth                   CHECK(width>0),
+    average_vertical_speed  NUMERIC(6,2)                  CONSTRAINT nnDroneAverageVerticalSpeed    NOT NULL
+                                                          CONSTRAINT ckDroneAverageVerticalSpeed    CHECK(average_vertical_speed>=0),
+    id_vehicle_status       INTEGER                       CONSTRAINT nnDroneIdVehicleStatus         NOT NULL
 );
 
 CREATE TABLE parkingSpace (
@@ -204,7 +208,7 @@ CREATE TABLE parkingSpace (
 );
 
 CREATE TABLE purchaseOrder (
-    id_order              INTEGER GENERATED AS IDENTITY     CONSTRAINT pkOrderId                   PRIMARY KEY,            
+    id_order              INTEGER                           CONSTRAINT pkOrderId                   PRIMARY KEY,            
     id_pharmacy           INTEGER                           CONSTRAINT nnPurchaseOrderIdPharmacy   NOT NULL,                 
     email_client          VARCHAR2(255)                     CONSTRAINT nnPurchaseOrderEmailClient  NOT NULL,
     emission_date         DATE              
@@ -222,8 +226,8 @@ CREATE TABLE productLine (
 CREATE TABLE delivery (
     id_order              INTEGER              CONSTRAINT pkDeliveryIdOrder               PRIMARY KEY
                                                CONSTRAINT nnDeliveryIdOrder               NOT NULL,
-    id_vehicle            INTEGER              CONSTRAINT nnDeliveryIdVehicle             NOT NULL,       
-    email_courier         VARCHAR2(255)        CONSTRAINT nnDeliveryEmailCourier          NOT NULL,
+    id_vehicle            INTEGER,       
+    email_courier         VARCHAR2(255),
     id_delivery_status    INTEGER              CONSTRAINT nnDeliveryIdDeliveryStatus      NOT NULL,
     delivery_start        DATE,           
     delivery_end          DATE,
@@ -237,8 +241,8 @@ CREATE TABLE invoice (
     id_order        INTEGER                               CONSTRAINT nnInvoiceIdOrder              NOT NULL,
     id_pharmacy     INTEGER                               CONSTRAINT nnInvoiceIdPharmacy           NOT NULL,
     email_client    VARCHAR2(255)                         CONSTRAINT nnInvoiceEmailClient          NOT NULL,
-    total_price     NUMERIC(9,2)                          CONSTRAINT nnInvoiceTotalPrice           NOT NULL,
     delivery_fee    INTEGER,
+    total_price     NUMERIC(9,2)                          CONSTRAINT nnInvoiceTotalPrice           NOT NULL,
                                                           CONSTRAINT ckInvoiceTotalPriceNotZero    CHECK(total_price>=0)
 );
 
@@ -249,6 +253,7 @@ CREATE TABLE backOrder (
     idProduct         INTEGER                            CONSTRAINT nnBackOrderIdProduct            NOT NULL,
     quantity          INTEGER                            CONSTRAINT nnBackOrderQuantity             NOT NULL
 );
+
 
 -- Foreign Keys
 

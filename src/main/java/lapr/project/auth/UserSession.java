@@ -73,6 +73,7 @@ public class UserSession {
 
     @Override
     public int hashCode() {
+
         int hash = 7;
         hash = 53 * hash + Objects.hashCode(this.user);
         return hash;
@@ -80,19 +81,14 @@ public class UserSession {
 
     @Override
     public boolean equals(Object obj) {
+
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final UserSession other = (UserSession) obj;
-        if (!Objects.equals(this.user, other.user)) {
-            return false;
-        }
-        return true;
+        UserSession other = (UserSession) obj;
+        return this.user.equals(other.user);
     }
 }

@@ -1,13 +1,12 @@
-
 CREATE OR REPLACE FUNCTION getNumberOfScootersInPharmacy(idPharmacy IN INTEGER)
-return INTEGER
+RETURN INTEGER
 IS
     num_scooters INTEGER;
 
-begin
-    SELECT count(*) into num_scooters
-    from SCOOTER INNER JOIN VEHICLE ON ID_VEHICLE = ID_SCOOTER
-    where ID_PHARMACY = idPharmacy;
+BEGIN
+    SELECT COUNT(*) INTO num_scooters
+    FROM scooter INNER JOIN vehicle ON id_vehicle = id_scooter
+    WHERE id_pharmacy = idPharmacy;
 
-    return (num_scooters);
-end;
+    RETURN (num_scooters);
+END;

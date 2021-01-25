@@ -8,7 +8,6 @@ import lapr.project.model.Delivery;
 import lapr.project.model.PurchaseOrder;
 import lapr.project.model.Scooter;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -22,34 +21,34 @@ public class AssignOrderToCourierScooterController {
     private static int deliveryRun = 0;
 
     public AssignOrderToCourierScooterController() {
-        
+
         dDB = new DeliveryDB();
         cDB = new CourierDB();
         sDB = new ScooterDB();
     }
 
     public AssignOrderToCourierScooterController(DeliveryDB dDB, CourierDB cDB, ScooterDB sDB) {
-        
+
         this.cDB = cDB;
         this.sDB = sDB;
         this.dDB = dDB;
     }
 
-    public List<Courier> getAllAvailableCouriers(PurchaseOrder order) throws SQLException {
-        
+    public List<Courier> getAllAvailableCouriers(PurchaseOrder order) {
+
         return cDB.getAllAvailableCouriers(order.getId());
     }
 
-    public List<Scooter> getAllAvailableScooters(PurchaseOrder order) throws SQLException {
-        
+    public List<Scooter> getAllAvailableScooters(PurchaseOrder order) {
+
         return sDB.getAllAvailableScooters(order.getId());
     }
 
     /*
        calcular endDate
      */
-    public boolean addDeliveries(List<PurchaseOrder> orderList) throws SQLException {
-        
+    public boolean addDeliveries(List<PurchaseOrder> orderList) {
+
         deliveryRun++;
         String chosenCourier;
         int chosenScooter;
@@ -66,16 +65,16 @@ public class AssignOrderToCourierScooterController {
             chosenCourier = nextAvailable.getCourierEmail();
             startDate = nextAvailable.getDeliveryEnd();
             idDeliveryStatus = 2;
-            
+
         } else {
             chosenCourier = listCouriers.get(0).getEmail();
-        }     
+        }
         if (listScooters.isEmpty()) {
-            
+
             nextAvailable = dDB.getNextAvailableScooter(orderList.get(0).getPharmacyId());
             chosenScooter = nextAvailable.getVehicleId();
             idDeliveryStatus = 2;
-            
+
             if (nextAvailable.getDeliveryEnd().isAfter(startDate)) {
                 startDate = nextAvailable.getDeliveryEnd();
             }

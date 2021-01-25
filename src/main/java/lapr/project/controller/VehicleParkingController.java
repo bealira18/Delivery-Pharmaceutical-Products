@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lapr.project.controller;
 
 import java.io.File;
@@ -22,21 +17,19 @@ import lapr.project.model.Vehicle;
 import lapr.project.utils.Constants;
 import lapr.project.utils.Utils;
 
-/**
- *
- * @author Ricardo
- */
 public class VehicleParkingController {
 
     public final VehicleDB vDB;
     public final EmailService eS;
 
     public VehicleParkingController(VehicleDB vDB, EmailService eS) {
+
         this.vDB = vDB;
         this.eS = eS;
     }
 
     public VehicleParkingController() {
+
         this.vDB = new VehicleDB();
         this.eS = new EmailService();
     }
@@ -58,11 +51,12 @@ public class VehicleParkingController {
 
         date = LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(arrBuffer[0])), ZoneId.of("Z"));
 
-        eS.sendEmail(nameNemail.get(1), "Notificação de estacionamento", buildStatusEmail(nameNemail.get(0), date, Integer.parseInt(arrBuffer[1]), vehicleType, Float.parseFloat(arrBuffer[2])).toString());
-
+        eS.sendEmail(nameNemail.get(1), "Notificação de estacionamento", buildStatusEmail(nameNemail.get(0), date,
+                Integer.parseInt(arrBuffer[1]), vehicleType, Float.parseFloat(arrBuffer[2])).toString());
     }
 
     public void writeChargerRequest(Vehicle vehicle, boolean isReal) {
+
         LocalDateTime date = LocalDateTime.now();
         long timestamp = date.toEpochSecond(ZoneOffset.UTC);
 
@@ -76,6 +70,7 @@ public class VehicleParkingController {
     }
 
     public static String writeChargerInfo(Vehicle vehicle, long timestamp, boolean isReal) {
+
         String buffer = String.format(Locale.ROOT, "%d;%d", timestamp, vehicle.getIdVehicle());
 
         if (isReal) {
@@ -85,7 +80,9 @@ public class VehicleParkingController {
         return buffer;
     }
 
-    public static StringBuilder buildStatusEmail(String name, LocalDateTime date, int vehicleID, String vehicleType, float timeToFull) {
+    public static StringBuilder buildStatusEmail(String name, LocalDateTime date, int vehicleID, String vehicleType,
+            float timeToFull) {
+
         StringBuilder buildStatus = new StringBuilder("Caro Sr/a ");
         buildStatus.append(name).append(",");
         buildStatus.append(System.getProperty(Constants.LINE_BREAK));

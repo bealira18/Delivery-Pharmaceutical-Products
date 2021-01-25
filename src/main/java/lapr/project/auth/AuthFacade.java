@@ -3,20 +3,18 @@ package lapr.project.auth;
 import lapr.project.data.RegisteredUserDB;
 import lapr.project.model.RegisteredUser;
 
-import java.sql.SQLException;
-
 public class AuthFacade {
-    
+
     private final RegisteredUserDB ruDB;
 
     public AuthFacade() {
         ruDB = new RegisteredUserDB();
     }
-    
-    public AuthFacade(RegisteredUserDB db){
+
+    public AuthFacade(RegisteredUserDB db) {
         ruDB = db;
     }
-    
+
     /**
      * Holds the information about the user that is currently logged in.
      */
@@ -30,7 +28,7 @@ public class AuthFacade {
      * @return valid UserSession object if the process is successfull. Otherwise
      * it returns null.
      */
-    public UserSession doLogin(String strEmail, String strPwd) throws SQLException {
+    public UserSession doLogin(String strEmail, String strPwd) {
 
         RegisteredUser utlz = ruDB.findUser(strEmail, strPwd);
 

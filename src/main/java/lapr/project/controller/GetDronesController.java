@@ -3,7 +3,6 @@ package lapr.project.controller;
 import lapr.project.data.DroneDB;
 import lapr.project.model.Drone;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class GetDronesController {
@@ -20,7 +19,7 @@ public class GetDronesController {
         this.dDB = dDB;
     }
 
-    public List<Drone> getDrones(int orderId) throws SQLException {
+    public List<Drone> getDrones(int orderId) {
 
         return dDB.getAllAvailableDrones(orderId);
     }

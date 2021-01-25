@@ -1,6 +1,5 @@
 package lapr.project.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 import lapr.project.data.AddressDB;
 import lapr.project.data.PathDB;
@@ -36,17 +35,17 @@ public class GeographicalController {
         return aDB.addAddress(a);
     }
 
-    public List<Address> getAddresses() throws SQLException {
+    public List<Address> getAddresses() {
 
         return aDB.getAddresses();
     }
 
-    public List<Address> getPharmacyAddresses() throws SQLException {
+    public List<Address> getPharmacyAddresses() {
 
         return aDB.getPharmacyAddresses();
     }
 
-    public List<Path> getPaths(List<Address> la) throws SQLException {
+    public List<Path> getPaths(List<Address> la) {
         return pDB.getPaths(la);
     }
 

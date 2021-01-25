@@ -23,11 +23,11 @@ class CreateInvoiceControllerTest {
     }
 
     @BeforeAll
-    public static void setUp() throws SQLException {
+    public static void setUp() {
 
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
 
-        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00);
+        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00, 10.32);
 
         ProductLine productLine1 = new ProductLine(1,1,1,5.50);
         ProductLine productLine2 = new ProductLine(1,2,1,4.50);
@@ -74,6 +74,8 @@ class CreateInvoiceControllerTest {
                 System.getProperty("line.separator") +
                 "Total: 12.90€" +
                 System.getProperty("line.separator") +
+                "Total w/o IVA: €10.32     IVA: 23%" +
+                System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.TRUE);
         when(manageCreditsController.payDeliveryFee(purchaseOrder.getClientEmail())).thenReturn(Boolean.TRUE);
         
@@ -90,11 +92,10 @@ class CreateInvoiceControllerTest {
     @Test
     void testCreateInvoice() throws SQLException {
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
-        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00);
-        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
-        updateDeliveryFeeController.updateDeliveryFee(2.90);
+        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00, 10.32);
+        System.setProperty("purchase.order.delivery.fee", "2.90");
 
-        Invoice expResult = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00);
+        Invoice expResult = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00, 10.32);
         Invoice result = controller.createInvoice(1, purchaseOrder);
         assertEquals(expResult, result);
 
@@ -127,10 +128,11 @@ class CreateInvoiceControllerTest {
 
     @Test
     void TestSendInvoiceByEmail() throws SQLException {
-        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00);
+        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00, 10.32);
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
         controller.getTotalPriceFromOrder();
         controller.getProductLinesFromOrder(purchaseOrder);
+        System.setProperty("invoice.iva", "0.23");
 
         boolean result = controller.sendInvoiceByEmail(invoice);
         boolean expResult = true;
@@ -144,7 +146,6 @@ class CreateInvoiceControllerTest {
         EmailService emailService = mock(EmailService.class);
         ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
         SettingsHandler sh = mock(SettingsHandler.class);
-        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
 
         Address address = new Address("testAddress",1,1,1);
         Pharmacy pharmacy = new Pharmacy(1, "testPharmacy", address);
@@ -177,6 +178,8 @@ class CreateInvoiceControllerTest {
                 System.getProperty("line.separator") +
                 "Total: 12.90€" +
                 System.getProperty("line.separator") +
+                "Total w/o IVA: €10.32     IVA: 23%" +
+                System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.FALSE);
 
         CreateInvoiceController controller2 = new CreateInvoiceController(invoiceDB, productLineDB, productDB, pharmacyDB, clientDB, emailService, manageCreditsController, sh);
@@ -192,8 +195,9 @@ class CreateInvoiceControllerTest {
         controller.getTotalPriceFromOrder();
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
         controller.getProductLinesFromOrder(purchaseOrder);
+        controller.updateIVA(0.23);
 
-        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00);
+        Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00, 10.32);
         Address address = new Address("testAddress",1,1,1);
         Pharmacy pharmacy = new Pharmacy(1, "testPharmacy", address);
 
@@ -215,6 +219,8 @@ class CreateInvoiceControllerTest {
                 "Delivery fee: 2.90€" +
                 System.getProperty("line.separator") +
                 "Total: 12.90€" +
+                System.getProperty("line.separator") +
+                "Total w/o IVA: €10.32     IVA: 23%" +
                 System.getProperty("line.separator") +
                 "NIF: 1";
 

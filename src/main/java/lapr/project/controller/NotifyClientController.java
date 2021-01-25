@@ -5,7 +5,6 @@ import lapr.project.model.*;
 import lapr.project.utils.Graph;
 import lapr.project.utils.GraphAlgorithms;
 
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +18,7 @@ public class NotifyClientController {
     private final AddressDB addressDB;
 
     public NotifyClientController() {
+
         stockDB = new StockDB();
         deliveryDB = new DeliveryDB();
         deliveryStatusDB = new DeliveryStatusDB();
@@ -27,7 +27,9 @@ public class NotifyClientController {
         addressDB = new AddressDB();
     }
 
-    public NotifyClientController(StockDB stockDB, DeliveryDB deliveryDB, DeliveryStatusDB deliveryStatusDB, ClientDB clientDB, EmailService emailService, AddressDB addressDB) {
+    public NotifyClientController(StockDB stockDB, DeliveryDB deliveryDB, DeliveryStatusDB deliveryStatusDB,
+            ClientDB clientDB, EmailService emailService, AddressDB addressDB) {
+
         this.stockDB = stockDB;
         this.deliveryDB = deliveryDB;
         this.deliveryStatusDB = deliveryStatusDB;
@@ -36,31 +38,28 @@ public class NotifyClientController {
         this.addressDB = addressDB;
     }
 
-    public Boolean checkForStock(Pharmacy pharmacy, Product product, int productQuantity, Graph<Address, Path> graph)throws SQLException {
+    public Boolean checkForStock(Pharmacy pharmacy, Product product, int productQuantity,
+            Graph<Address, Path> graph) {
 
-        if(checkIfIsEnoughStock(pharmacy, product, productQuantity) == 0 || checkIfIsEnoughStockOthersPharmacy(pharmacy, product, productQuantity, graph)){
-            return true;
-        }
-        return false;
+        return (checkIfIsEnoughStock(pharmacy, product, productQuantity) == 0 || checkIfIsEnoughStockOthersPharmacy(pharmacy, product, productQuantity, graph));
     }
 
-     //se retornar 0 é porque ainda tem stock, qualquer valor maior que 0 representa a quantidade de produto em falta na farmácia
-     public int checkIfIsEnoughStock(Pharmacy pharmacy, Product product, int productQuantity)throws SQLException {
+    //se retornar 0 é porque ainda tem stock, qualquer valor maior que 0 representa a quantidade de produto em falta na farmácia
+    public int checkIfIsEnoughStock(Pharmacy pharmacy, Product product, int productQuantity) {
 
         return stockDB.checkIfIsEnoughStock(pharmacy.getId(), product.getId(), productQuantity);
-     }
+    }
 
-     //the graph received as parameter must be graphScooterEnergy
-     public Boolean checkIfIsEnoughStockOthersPharmacy(Pharmacy pharmacy, Product product, int productQuantity, Graph<Address, Path> graph)throws SQLException {
+    //the graph received as parameter must be graphScooterEnergy
+    public Boolean checkIfIsEnoughStockOthersPharmacy(Pharmacy pharmacy, Product product, int productQuantity,
+            Graph<Address, Path> graph) {
 
         List<Address> addressList = stockDB.getOthersPharmacyAddressWithProductStock(pharmacy.getId(), product.getId(), productQuantity);
 
-        if(addressList.isEmpty()){
+        if (addressList.isEmpty()) {
             return false;
         }
-
         Address addressPharmacy = addressDB.getAddressPharmacyById(pharmacy.getId());
-
         Address address = GraphAlgorithms.getNearestPharmacy(true, graph, addressPharmacy, addressList);
 
         LinkedList<Address> llGoing = new LinkedList<>();
@@ -69,24 +68,23 @@ public class NotifyClientController {
         double energyGoing = GraphAlgorithms.shortestPath(graph, addressPharmacy, address, llGoing);
         double energyReturn = GraphAlgorithms.shortestPath(graph, addressPharmacy, address, llReturn);
 
-        if(llGoing.size() != 0 && llReturn.size() != 0){
+        if (!llGoing.isEmpty() && !llReturn.isEmpty()) {
             return energyGoing + energyReturn <= 700;
         }
-
         return false;
-     }
+    }
 
-     public boolean notifyClientDeliveryRunStarts(PurchaseOrder order) throws SQLException {
-         String subjectLine = "Delivery Run Starts";
+    public boolean notifyClientDeliveryRunStarts(PurchaseOrder order) {
 
-         String clientEmail = deliveryDB.getClientEmailFromOrder(order.getId());
-         Client client = clientDB.getClientByEmail(clientEmail);
+        String subjectLine = "Delivery Run Starts";
+        String clientEmail = deliveryDB.getClientEmailFromOrder(order.getId());
+        Client client = clientDB.getClientByEmail(clientEmail);
 
-         String emailBody = "Dear "+client.getName()+". This email is just to let you know that the delivery is on the way";
+        String emailBody = "Dear " + client.getName() + ". This email is just to let you know that the delivery is on the way";
 
-         if(deliveryStatusDB.updateDeliveryStatusInDelivery(order.getId())){
-           return emailService.sendEmail("clientemen0652@gmail.com", subjectLine, emailBody);
+        if (deliveryStatusDB.updateDeliveryStatusInDelivery(order.getId())) {
+            return emailService.sendEmail("clientemen0652@gmail.com", subjectLine, emailBody);
         }
         return false;
-     }
+    }
 }

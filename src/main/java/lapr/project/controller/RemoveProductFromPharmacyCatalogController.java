@@ -3,8 +3,6 @@ package lapr.project.controller;
 import lapr.project.data.StockDB;
 import lapr.project.model.Stock;
 
-import java.sql.SQLException;
-
 public class RemoveProductFromPharmacyCatalogController {
 
     private final StockDB stockDB;
@@ -19,9 +17,9 @@ public class RemoveProductFromPharmacyCatalogController {
         this.stockDB = stockDB;
     }
 
-    public boolean removeProductFromPharmacyCatalog(Stock stock) throws SQLException {
+    public boolean removeProductFromPharmacyCatalog(Stock stock) {
 
-            return stockDB.removeProductFromPharmacyCatalog(stock);
+        return stockDB.removeProductFromPharmacyCatalog(stock);
     }
 
 }

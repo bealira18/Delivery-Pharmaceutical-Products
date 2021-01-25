@@ -15,10 +15,6 @@ public class VehicleDB extends DataHandler {
 
     public String typeOfVehicleByID(int vehicleID) {
 
-        /* Objeto "callStmt" para invocar a função "findUser" armazenada na BD.
-         *
-         * FUNCTION typeOfVehicleByID(email_pr VARCHAR2, password_pr VARCHAR2) RETURN MATCHING_USER.ref_cursor
-         */
         try (Connection con = getConnection()) {
 
             try (CallableStatement callStmt = con.prepareCall("{ ? = call typeOfVehicleByID(?) }")) {
@@ -28,8 +24,9 @@ public class VehicleDB extends DataHandler {
                 callStmt.execute();
                 return callStmt.getString(1);
             }
-        } catch (NullPointerException | SQLException e) {
-            Logger.getLogger(VehicleDB.class.getName()).log(Level.SEVERE, null, e);
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(VehicleDB.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally {
             closeAll();
         }
@@ -40,29 +37,51 @@ public class VehicleDB extends DataHandler {
 
         List<String> emailName = new ArrayList<>();
 
-        try (Connection con = getConnection()) {
+        try (Connection con1 = getConnection()) {
 
-            try (CallableStatement callStmt = con.prepareCall("{ ? = call getEmailNameFromParkedVehicleResponsible(?) }")) {
-                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt.setInt(2, vehicleID);
+            try (CallableStatement callStmt1 = con1.prepareCall("{ ? = call getEmailNameFromParkedVehicleResponsible(?) }")) {
+                callStmt1.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt1.setInt(2, vehicleID);
 
-                callStmt.execute();
+                callStmt1.execute();
 
-                try (ResultSet rSet = (ResultSet) callStmt.getObject(1)) {
+                try (ResultSet rs = (ResultSet) callStmt1.getObject(1)) {
 
-                    if (rSet.next()) {
-                        String email = rSet.getString(1);
-                        String name = rSet.getString(2);
+                    if (rs.next()) {
+                        String email = rs.getString(1);
+                        String name = rs.getString(2);
                         emailName.add(email);
                         emailName.add(name);
                     }
                 }
             }
-        } catch (NullPointerException | SQLException e) {
-            Logger.getLogger(VehicleDB.class.getName()).log(Level.SEVERE, null, e);
-        } finally{
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(VehicleDB.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
             closeAll();
         }
         return emailName;
+    }
+
+    public boolean updateVehicleStatus(int idVehicle, String status) {
+
+        try (Connection con2 = getConnection()) {
+
+            try (CallableStatement callStmt2 = con2.prepareCall("{ call updateVehicleStatus(?,?) }")) {
+
+                callStmt2.setInt(1, idVehicle);
+                callStmt2.setString(2, status);
+
+                callStmt2.execute();
+                return true;
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(DeliveryStatusDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } finally {
+            closeAll();
+        }
     }
 }

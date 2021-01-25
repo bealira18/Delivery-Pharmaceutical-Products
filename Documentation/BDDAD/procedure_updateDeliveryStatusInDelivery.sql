@@ -1,13 +1,17 @@
 CREATE OR REPLACE PROCEDURE updateDeliveryStatusInDelivery(idOrder in INTEGER)
 IS
     idDeliveryStatus INTEGER;
+    name VARCHAR2(255);
 
 BEGIN
-    SELECT ID_DELIVERY_STATUS INTO idDeliveryStatus
-    FROM DELIVERYSTATUS
-    WHERE NAME = 'in delivery';
 
-    UPDATE DELIVERY SET ID_DELIVERY_STATUS = idDeliveryStatus
+    name := 'in delivery';
+
+    SELECT ID_DELIVERY_STATUS INTO idDeliveryStatus
+    FROM DELIVERY
     WHERE ID_ORDER = idOrder;
+
+    UPDATE DELIVERYSTATUS SET NAME = name
+    WHERE ID_DELIVERY_STATUS = idDeliveryStatus;
 
 END;

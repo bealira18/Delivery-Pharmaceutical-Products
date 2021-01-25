@@ -8,15 +8,15 @@ import java.util.logging.Logger;
 
 public class PurchaseOrderDB extends DataHandler {
 
-    public boolean newOrder (int idOrder,int idPharmacy,String email) {
+    public boolean newOrder(int idOrder, int idPharmacy, String email) {
 
         try (Connection con = getConnection()) {
 
-            try(CallableStatement callStmt = con.prepareCall("{ call newOrder(?,?) }")) {
+            try (CallableStatement callStmt = con.prepareCall("{ call newOrder(?,?,?) }")) {
 
-
-                callStmt.setInt(1, idPharmacy);
-                callStmt.setString(2, email);
+                callStmt.setInt(1, idOrder);
+                callStmt.setInt(2, idPharmacy);
+                callStmt.setString(3, email);
 
                 callStmt.execute();
                 return true;
@@ -24,6 +24,7 @@ public class PurchaseOrderDB extends DataHandler {
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(PurchaseOrderDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+
         } finally {
             closeAll();
         }
