@@ -1,57 +1,113 @@
 package lapr.project.data;
 
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import lapr.project.model.Address;
 import lapr.project.model.Pharmacy;
 import oracle.jdbc.OracleTypes;
 
 public class PharmacyDB extends DataHandler {
 
-    public boolean addPharmacy(Address a, Pharmacy p, int limitScooterPark, int limitDronePark) throws SQLException {
-
-        openConnection();
-
-        try {
-            return addPharmacy(a.getDescription(), a.getLatitude(), a.getLongitude(), a.getAltitude(), p.getName(), limitScooterPark, limitDronePark);
-
-        } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
-            return false;
-        }
+    public boolean addPharmacy(Address a, Pharmacy p, int limitScooterPark, int limitDronePark) {
+        return addPharmacy(a.getDescription(), a.getLatitude(), a.getLongitude(), a.getAltitude(), p.getName(), limitScooterPark, limitDronePark);
     }
 
-    private boolean addPharmacy(String address, double lat, double lon, double alt, String name, int limitScooterPark, int limitDronePark) throws SQLException {
+    public Pharmacy getPhamacyByID(int pharmacyID) {
 
-        CallableStatement callStmt = null;
+        Pharmacy p;
+
+        try (Connection con = getConnection()) {
+
+            try (CallableStatement callStmt = con.prepareCall("{ ? = call getPharmacyById(?) }")) {
+
+                p = callGetPharmacy(pharmacyID, callStmt);
+
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IllegalArgumentException("No Pharmacy with ID:" + pharmacyID);
+        } finally {
+            closeAll();
+        }
+        return p;
+    }
+
+    public List<Pharmacy> getAllPharmacies() {
+        ArrayList<Pharmacy> pharmacies = new ArrayList<>();
+
+        try (Connection con = getConnection()) {
+
+            try (Statement stmt = con.createStatement()) {
+
+                try (ResultSet rs = stmt.executeQuery("SELECT id_pharmacy FROM pharmacy")) {
+
+                    while (rs.next()) {
+                        pharmacies.add(getPhamacyByID(rs.getInt(1)));
+                    }
+
+                }
+            }
+        } catch (NullPointerException | SQLException e) {
+            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeAll();
+        }
+        return pharmacies;
+    }
+
+    public boolean updatePharmacy(int id, String name) {
+        Pharmacy a;
 
         try {
-            callStmt = getConnection().prepareCall("{ call addPharmacy(?,?,?,?,?,?,?) }");
+            a = getPhamacyByID(id);
+            if (a == null) return false;
+        } catch (NullPointerException e) {
+            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, e);
+            return false;
+        }
 
-            callStmt.setString(1, address);
-            callStmt.setDouble(2, lat);
-            callStmt.setDouble(3, lon);
-            callStmt.setDouble(4, alt);
-            callStmt.setString(5, name);
-            callStmt.setInt(6, limitScooterPark);
-            callStmt.setInt(7, limitDronePark);
+        try (Connection con = getConnection()) {
 
-            callStmt.execute();
-            return true;
+            try (CallableStatement callStmt = con.prepareCall("{ call updatePharmacy(?,?) }")) {
 
-        } catch (SQLException ex) {
+                callStmt.setInt(1, id);
+                callStmt.setString(2, name);
+
+                callStmt.execute();
+                return true;
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeAll();
+        }
+        return false;
+    }
+
+    private boolean addPharmacy(String address, double lat, double lon, double alt, String name, int limitScooterPark, int limitDronePark) {
+
+        try (Connection con = getConnection()) {
+            try (CallableStatement callStmt = con.prepareCall("{ call addPharmacy(?,?,?,?,?,?,?) }")) {
+
+                callStmt.setString(1, address);
+                callStmt.setDouble(2, lat);
+                callStmt.setDouble(3, lon);
+                callStmt.setDouble(4, alt);
+                callStmt.setString(5, name);
+                callStmt.setInt(6, limitScooterPark);
+                callStmt.setInt(7, limitDronePark);
+
+                callStmt.execute();
+                return true;
+            }
+        } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-
         } finally {
-            if(callStmt!=null) callStmt.close();
             closeAll();
         }
     }
@@ -79,92 +135,4 @@ public class PharmacyDB extends DataHandler {
         return null;
     }
 
-    public Pharmacy getPhamacyByID(int pharmacyID) throws SQLException {
-
-        CallableStatement callStmt = null;
-        Pharmacy p;
-
-        try {
-            openConnection();
-
-            callStmt = getConnection().prepareCall("{ ? = call getPharmacyById(?) }");
-            p = callGetPharmacy(pharmacyID, callStmt);
-        } catch (SQLException ex) {
-            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IllegalArgumentException("No Pharmacy with ID:" + pharmacyID);
-        } finally {
-            if(callStmt!=null) callStmt.close();
-            closeAll();
-        }
-        return p;
-    }
-
-    public List<Pharmacy> getAllPharmacies() {
-        ArrayList<Pharmacy> pharmacies = new ArrayList<>();
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            openConnection();
-
-            stmt = getConnection().createStatement();
-            rs = stmt.executeQuery("SELECT id_pharmacy FROM pharmacy");
-
-            while (rs.next()) {
-                pharmacies.add(getPhamacyByID(rs.getInt(1)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (rs != null) {
-                    try {
-                        rs.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-            closeAll();
-        }
-        return pharmacies;
-    }
-
-    public boolean updatePharmacy(int id,String name) throws SQLException {
-        Pharmacy a;
-
-        try{
-            a=getPhamacyByID(id);
-            if (a == null) return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        CallableStatement callStmt = null;
-
-        try{
-            openConnection();
-
-            callStmt = getConnection().prepareCall("{ call updatePharmacy(?,?) }");
-
-            callStmt.setInt(1,id);
-            callStmt.setString(2,name);
-
-            callStmt.execute();
-            return true;
-        } catch (NullPointerException | SQLException ex){
-            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
-
-        } finally {
-            if(callStmt!=null) callStmt.close();
-            closeAll();
-        }
-        return false;
-    }
 }

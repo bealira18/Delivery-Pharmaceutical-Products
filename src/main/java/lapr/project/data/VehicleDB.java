@@ -1,10 +1,13 @@
 package lapr.project.data;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import oracle.jdbc.OracleTypes;
 
@@ -16,21 +19,17 @@ public class VehicleDB extends DataHandler {
          *
          * FUNCTION typeOfVehicleByID(email_pr VARCHAR2, password_pr VARCHAR2) RETURN MATCHING_USER.ref_cursor
          */
-        CallableStatement callStmt = null;
+        try (Connection con = getConnection()) {
 
-        try {
-            openConnection();
+            try (CallableStatement callStmt = con.prepareCall("{ ? = call typeOfVehicleByID(?) }")) {
+                callStmt.registerOutParameter(1, OracleTypes.VARCHAR);
+                callStmt.setInt(2, vehicleID);
 
-            callStmt = getConnection().prepareCall("{ ? = call typeOfVehicleByID(?) }");
-            callStmt.registerOutParameter(1, OracleTypes.VARCHAR);
-            callStmt.setInt(2, vehicleID);
-
-            callStmt.execute();
-            return callStmt.getString(1);
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
+                callStmt.execute();
+                return callStmt.getString(1);
+            }
+        } catch (NullPointerException | SQLException e) {
+            Logger.getLogger(VehicleDB.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             closeAll();
         }
@@ -41,40 +40,28 @@ public class VehicleDB extends DataHandler {
 
         List<String> emailName = new ArrayList<>();
 
-        CallableStatement callStmt = null;
-        ResultSet rSet = null;
+        try (Connection con = getConnection()) {
 
-        try {
-            openConnection();
+            try (CallableStatement callStmt = con.prepareCall("{ ? = call getEmailNameFromParkedVehicleResponsible(?) }")) {
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setInt(2, vehicleID);
 
-            callStmt = getConnection().prepareCall("{ ? = call getEmailNameFromParkedVehicleResponsible(?) }");
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(2, vehicleID);
+                callStmt.execute();
 
-            callStmt.execute();
+                try (ResultSet rSet = (ResultSet) callStmt.getObject(1)) {
 
-            rSet = (ResultSet) callStmt.getObject(1);
-
-            if (rSet.next()) {
-                String email = rSet.getString(1);
-                String name = rSet.getString(2);
-                emailName.add(email);
-                emailName.add(name);
+                    if (rSet.next()) {
+                        String email = rSet.getString(1);
+                        String name = rSet.getString(2);
+                        emailName.add(email);
+                        emailName.add(name);
+                    }
+                }
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (NullPointerException | SQLException e) {
+            Logger.getLogger(VehicleDB.class.getName()).log(Level.SEVERE, null, e);
         } finally{
-            try
-            {
-                if(callStmt!=null) callStmt.close();
-                if(rSet!=null) rSet.close();
-                closeAll();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-   
+            closeAll();
         }
         return emailName;
     }
