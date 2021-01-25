@@ -13,4 +13,9 @@
       <module name="lapr3-2020-template" target="1.8" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="lapr3-2020-template" options="-Werror -Xlint:all" />
+    </option>
+  </component>
 </project>
