@@ -46,6 +46,16 @@ public class Invoice {
 
         return totalPrice;
     }
+    
+    public static double getIVA() {
+        
+        double deliveryFee = Double.parseDouble(System.getProperty("invoice.iva", "0.0"));
+        if (deliveryFee < 0) {
+            throw new IllegalArgumentException("Invalid Numeric Value (Negative IVA). Please check your configuration file.");
+        }
+        return deliveryFee;
+    }
+
 
     public void setId(int id) {
 
@@ -74,6 +84,14 @@ public class Invoice {
     public void setTotalPrice(double totalPrice) {
 
         this.totalPrice = totalPrice;
+    }
+    
+    public static void setIVA(double iva) {
+
+        if (iva < 0) {
+            throw new IllegalArgumentException("Invalid Numeric Value (Negative IVA)");
+        }
+        System.setProperty("invoice.iva", String.valueOf(iva));
     }
 
     @Override

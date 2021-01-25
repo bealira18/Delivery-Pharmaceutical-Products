@@ -17,6 +17,7 @@ public class CreateInvoiceController {
     private final ClientDB clientDB;
     private final EmailService emailService;
     private final ManageCreditsController manageCreditsController;
+    private final SettingsHandler sH;
     private List<ProductLine> productLineList;
     private double totalPrice;
 
@@ -28,10 +29,11 @@ public class CreateInvoiceController {
         clientDB = new ClientDB();
         emailService = new EmailService();
         manageCreditsController = new ManageCreditsController();
+        sH = new SettingsHandler();
     }
 
     public CreateInvoiceController(InvoiceDB invoiceDB, ProductLineDB productLineDB, ProductDB productDB, PharmacyDB pharmacyDB,
-                                   ClientDB clientDB, EmailService emailService, ManageCreditsController manageCreditsController) {
+                                   ClientDB clientDB, EmailService emailService, ManageCreditsController manageCreditsController, SettingsHandler sH) {
         this.invoiceDB = invoiceDB;
         this.productLineDB = productLineDB;
         this.productDB = productDB;
@@ -39,6 +41,7 @@ public class CreateInvoiceController {
         this.clientDB = clientDB;
         this.emailService = emailService;
         this.manageCreditsController = manageCreditsController;
+        this.sH = sH;
     }
 
     public Invoice createInvoice(int idInvoice, PurchaseOrder po) throws SQLException {
@@ -68,6 +71,8 @@ public class CreateInvoiceController {
         }
         return totalPrice;
     }
+    
+    
 
     public boolean sendInvoiceByEmail(Invoice invoice) throws SQLException {
         Pharmacy pharmacy = pharmacyDB.getPhamacyByID(invoice.getPharmacyId());
@@ -113,6 +118,17 @@ public class CreateInvoiceController {
         emailBody.append("NIF: ").append(client.getNif());
 
         return emailBody;
+    }
+    
+    public double getIVA() {
+
+        return Invoice.getIVA();
+    }
+
+    public boolean updateIVA(double iva) {
+
+        Invoice.setIVA(iva);
+        return sH.saveSettings(SettingsHandler.SETTINGS_FILE);
     }
 
 }
