@@ -74,7 +74,7 @@ class CreateInvoiceControllerTest {
                 System.getProperty("line.separator") +
                 "Total: 12.90€" +
                 System.getProperty("line.separator") +
-                "Total w/o IVA: 10.32     IVA: 23%" +
+                "Total w/o IVA: €10.32     IVA: 23%" +
                 System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.TRUE);
         when(manageCreditsController.payDeliveryFee(purchaseOrder.getClientEmail())).thenReturn(Boolean.TRUE);
@@ -180,7 +180,7 @@ class CreateInvoiceControllerTest {
                 System.getProperty("line.separator") +
                 "Total: 12.90€" +
                 System.getProperty("line.separator") +
-                "Total w/o IVA: 10.32     IVA: 23%" +
+                "Total w/o IVA: €10.32     IVA: 23%" +
                 System.getProperty("line.separator") +
                 "NIF: 1")).thenReturn(Boolean.FALSE);
 
@@ -222,7 +222,7 @@ class CreateInvoiceControllerTest {
                 System.getProperty("line.separator") +
                 "Total: 12.90€" +
                 System.getProperty("line.separator") +
-                "Total w/o IVA: 10.32     IVA: 23%" +
+                "Total w/o IVA: €10.32     IVA: 23%" +
                 System.getProperty("line.separator") +
                 "NIF: 1";
 
