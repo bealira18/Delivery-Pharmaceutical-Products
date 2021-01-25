@@ -273,4 +273,29 @@ public class InvoiceTest {
         });
         assertEquals("Invalid Numeric Value (Negative IVA)", ex.getMessage());
     }
+
+    /**
+     * Test of getNoVATprice method, of class Invoice.
+     */
+    @Test
+    public void testGetNoVATprice() {
+        System.out.println("getNoVATprice");
+        Invoice instance = new Invoice(1, 1, 1, "Test", 2.90, 1,1.50);
+        double expResult = 1.50;
+        double result = instance.getNoVATprice();
+        assertEquals(expResult, result, 0.001);
+    }
+
+    /**
+     * Test of setNoVATprice method, of class Invoice.
+     */
+    @Test
+    public void testSetNoVATprice() {
+        System.out.println("setNoVATprice");
+        double noVATprice = 55.0;
+        Invoice instance = new Invoice(1, 1, 1, "Test", 2.90, 1,1);
+        instance.setNoVATprice(noVATprice);
+        double result = instance.getNoVATprice();
+        assertEquals(noVATprice, result, 0.001);
+    }
 }
