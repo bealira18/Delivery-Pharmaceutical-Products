@@ -1,12 +1,23 @@
+CREATE OR REPLACE PROCEDURE addDrone(
+    idDrone IN INTEGER, 
+    idPharmacy IN INTEGER, 
+    v_weight IN NUMERIC, 
+    aerodynamicCoeficient IN NUMERIC, 
+    frontalArea IN NUMERIC, 
+    v_motor IN NUMERIC, 
+    currentBattery IN NUMERIC, 
+    maxBattery IN NUMERIC,
+    averageSpeed IN NUMERIC,
+    width IN NUMERIC,
+    averageVerticalSpeed IN NUMERIC,
+    droneStatusId IN INTEGER) 
+IS
+BEGIN
 
-CREATE OR REPLACE PROCEDURE addDrone(idDrone in INTEGER, idPharmacy in INTEGER, v_weight in NUMERIC, aerodynamicCoeficient in NUMERIC, frontalArea in NUMERIC, v_motor in NUMERIC, currentBattery in NUMERIC, maxBattery in NUMERIC, droneStatusId in INTEGER) IS
+    INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed)
+    VALUES(idDrone, idPharmacy, v_weight, aerodynamicCoeficient, frontalArea, v_motor, currentBattery, maxBattery, averageSpeed);
 
-begin
+    INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status)
+    VALUES(idDrone, width, averageVerticalSpeed, droneStatusId);
 
-    INSERT INTO VEHICLE(ID_VEHICLE, ID_PHARMACY, WEIGHT, AERODYNAMIC_COEFFICIENT, FRONTAL_AREA, MOTOR, CURRENT_BATTERY, MAX_BATTERY)
-    VALUES(idDrone, idPharmacy, v_weight, aerodynamicCoeficient, frontalArea, v_motor,  currentBattery, maxBattery);
-
-    INSERT INTO DRONE(ID_DRONE, ID_VEHICLE_STATUS)
-    VALUES(idDrone, droneStatusId);
-
-end;
+END;
