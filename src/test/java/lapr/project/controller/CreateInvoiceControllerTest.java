@@ -93,8 +93,7 @@ class CreateInvoiceControllerTest {
     void testCreateInvoice() throws SQLException {
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
         Invoice invoice = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00, 10.32);
-        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
-        updateDeliveryFeeController.updateDeliveryFee(2.90);
+        System.setProperty("purchase.order.delivery.fee", "2.90");
 
         Invoice expResult = new Invoice(1,1,1, "clientEmail@gmail.com", 2.90, 10.00, 10.32);
         Invoice result = controller.createInvoice(1, purchaseOrder);
@@ -133,7 +132,7 @@ class CreateInvoiceControllerTest {
         PurchaseOrder purchaseOrder = new PurchaseOrder(1,1, "clientEmail@gmail.com", LocalDate.now());
         controller.getTotalPriceFromOrder();
         controller.getProductLinesFromOrder(purchaseOrder);
-        controller.updateIVA(0.23);
+        System.setProperty("invoice.iva", "0.23");
 
         boolean result = controller.sendInvoiceByEmail(invoice);
         boolean expResult = true;
@@ -147,7 +146,6 @@ class CreateInvoiceControllerTest {
         EmailService emailService = mock(EmailService.class);
         ManageCreditsController manageCreditsController = mock(ManageCreditsController.class);
         SettingsHandler sh = mock(SettingsHandler.class);
-        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
 
         Address address = new Address("testAddress",1,1,1);
         Pharmacy pharmacy = new Pharmacy(1, "testPharmacy", address);

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lapr.project.utils.Constants;
 
 public class SettingsHandler {
 
@@ -30,7 +31,19 @@ public class SettingsHandler {
 
         try {
             FileOutputStream output = new FileOutputStream(filePath);
-            System.getProperties().store(output, null);
+            Properties props = new Properties();
+            String propInfo;
+            for (String prop : Constants.CONFIG_PROP_LIST) 
+            {
+                propInfo = System.getProperty(prop);
+                if (propInfo == null)
+                {
+                    continue;
+                }
+                
+                props.setProperty(prop, propInfo);
+            }
+            props.store(output, null);
             output.close();
 
         } catch (IOException ex) {
