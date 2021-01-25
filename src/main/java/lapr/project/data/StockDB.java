@@ -4,7 +4,9 @@ import lapr.project.model.Address;
 import lapr.project.model.Product;
 import lapr.project.model.Stock;
 import oracle.jdbc.OracleTypes;
+
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,200 +16,153 @@ import java.util.logging.Logger;
 
 public class StockDB extends DataHandler {
 
-    public boolean addProductToPharmacyCatalog(Stock stock) throws SQLException {
-
-        openConnection();
-
-        try {
-            return addProductToPharmacyCatalog(stock.getPharmacyId(), stock.getProductId());
-
-        } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
-            return false;
-        }
+    public boolean addProductToPharmacyCatalog(Stock stock) {
+        return addProductToPharmacyCatalog(stock.getPharmacyId(), stock.getProductId());
     }
 
-    public boolean removeProductFromPharmacyCatalog(Stock stock) throws SQLException {
-
-        openConnection();
-
-        try {
-            return removeProductFromPharmacyCatalog(stock.getPharmacyId(), stock.getProductId());
-
-        } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
-            return false;
-        }
+    public boolean removeProductFromPharmacyCatalog(Stock stock) {
+        return removeProductFromPharmacyCatalog(stock.getPharmacyId(), stock.getProductId());
     }
 
-    private boolean addProductToPharmacyCatalog(int idPharmacy, int idProduct) throws SQLException {
+    public boolean checkIfProductExistsInCatalog(int idPharmacy, int idProduct) {
 
-        CallableStatement callStmt1 = null;
+        try (Connection con = getConnection()){
 
-        try {
-            callStmt1 = getConnection().prepareCall("{ call addProductToPharmacyCatalog(?,?) }");
+            try (CallableStatement callStmt = con.prepareCall("{ ? = call checkIfProductExistsInCatalog(?,?) }")) {
 
-            callStmt1.setInt(1, idPharmacy);
-            callStmt1.setInt(2, idProduct);
+                callStmt.registerOutParameter(1, OracleTypes.INTEGER);
+                callStmt.setInt(2, idPharmacy);
+                callStmt.setInt(3, idProduct);
+                callStmt.execute();
 
-            callStmt1.execute();
-            return true;
-
-        } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
-
-        } finally {
-            if (callStmt1 != null) {
-                callStmt1.close();
+                return callStmt.getInt(1) > 0;
             }
-            closeAll();
-        }
-        return false;
-    }
-
-    private boolean removeProductFromPharmacyCatalog(int idPharmacy, int idProduct) throws SQLException {
-
-        CallableStatement callStmt2 = null;
-
-        try {
-            callStmt2 = getConnection().prepareCall("{ call removeProductFromCatalog(?,?) }");
-
-            callStmt2.setInt(1, idPharmacy);
-            callStmt2.setInt(2, idProduct);
-
-            callStmt2.execute();
-            return true;
-
-        } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
-
-        } finally {
-            if (callStmt2 != null) {
-                callStmt2.close();
-            }
-            closeAll();
-        }
-        return false;
-    }
-
-    public boolean checkIfProductExistsInCatalog(int idPharmacy, int idProduct) throws SQLException {
-        CallableStatement callStmt = null;
-
-        try {
-            openConnection();
-
-            callStmt = getConnection().prepareCall("{ ? = call checkIfProductExistsInCatalog(?,?) }");
-
-            callStmt.registerOutParameter(1, OracleTypes.INTEGER);
-            callStmt.setInt(2, idPharmacy);
-            callStmt.setInt(3, idProduct);
-            callStmt.execute();
-
-            return callStmt.getInt(1) > 0;
         } catch (NullPointerException | NumberFormatException | SQLException ex) {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
-            if (callStmt != null) {
-                callStmt.close();
-            }
             closeAll();
         }
     }
 
-    public boolean updateProductStockAfterSale(int idOrder) throws SQLException {
-        CallableStatement callStmt = null;
+    public boolean updateProductStockAfterSale(int idOrder) {
 
-        try {
-            openConnection();
+        try (Connection con = getConnection()) {
 
-            callStmt = getConnection().prepareCall("{ call updateProductStockAfterSale(?) }");
+            try (CallableStatement callStmt = con.prepareCall("{ call updateProductStockAfterSale(?) }")) {
 
-            callStmt.setInt(1, idOrder);
+                callStmt.setInt(1, idOrder);
 
-            callStmt.execute();
-            closeAll();
-            return true;
-
+                callStmt.execute();
+                closeAll();
+                return true;
+            }
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
             closeAll();
         }
-        return false;
     }
 
-    public boolean checkIfIsEnoughStock(int idPharmacy, int idProduct, int productQuantity) throws SQLException {
-        CallableStatement callStm = null;
+    public boolean checkIfIsEnoughStock(int idPharmacy, int idProduct, int productQuantity) {
 
-        try {
-            openConnection();
+        try (Connection con = getConnection()) {
 
-            callStm = getConnection().prepareCall("{ ? = call checkIfIsEnoughStock(?,?,?) }");
+            try (CallableStatement callStm = con.prepareCall("{ ? = call checkIfIsEnoughStock(?,?,?) }")) {
 
-            callStm.registerOutParameter(1, OracleTypes.INTEGER);
-            callStm.setInt(2, idPharmacy);
-            callStm.setInt(3, idProduct);
-            callStm.setInt(4, productQuantity);
-            callStm.execute();
+                callStm.registerOutParameter(1, OracleTypes.INTEGER);
+                callStm.setInt(2, idPharmacy);
+                callStm.setInt(3, idProduct);
+                callStm.setInt(4, productQuantity);
+                callStm.execute();
 
-            return callStm.getInt(1) == 1;
+                return callStm.getInt(1) == 1;
+            }
         } catch (NullPointerException | NumberFormatException | SQLException ex) {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
-            if (callStm != null) {
-                callStm.close();
-            }
             closeAll();
         }
     }
 
-    public List<Address> getOthersPharmacyAddressWithProductStock(int idPharmacy, int idProduct, int productQuantity) throws SQLException {
+    public List<Address> getOthersPharmacyAddressWithProductStock(int idPharmacy, int idProduct, int productQuantity) {
 
         List<Address> listAddress = new ArrayList<>();
-        CallableStatement callStmt1 = null;
-        ResultSet rs1 = null;
 
-        try {
-            openConnection();
+        try (Connection con = getConnection()) {
 
-            callStmt1 = getConnection().prepareCall("{ ? = call getOthersPharmacyAddressWithProductStock(?,?,?) }");
+            try (CallableStatement callStmt1 = con.prepareCall("{ ? = call getOthersPharmacyAddressWithProductStock(?,?,?) }")) {
 
-            callStmt1.registerOutParameter(1, OracleTypes.INTEGER);
-            callStmt1.setInt(2, idPharmacy);
-            callStmt1.setInt(3, idProduct);
-            callStmt1.setInt(4, productQuantity);
-            callStmt1.execute();
+                callStmt1.registerOutParameter(1, OracleTypes.INTEGER);
+                callStmt1.setInt(2, idPharmacy);
+                callStmt1.setInt(3, idProduct);
+                callStmt1.setInt(4, productQuantity);
+                callStmt1.execute();
 
-            rs1 = (ResultSet) callStmt1.getObject(1);
+                try (ResultSet rs1 = (ResultSet) callStmt1.getObject(1)) {
 
-            while (rs1.next()) {
+                    while (rs1.next()) {
 
-                String address = rs1.getString(1);
-                double longitude = rs1.getDouble(2);
-                double latitude = rs1.getDouble(3);
-                double altitude = rs1.getDouble(4);
+                        String address = rs1.getString(1);
+                        double longitude = rs1.getDouble(2);
+                        double latitude = rs1.getDouble(3);
+                        double altitude = rs1.getDouble(4);
 
-                listAddress.add(new Address(address, longitude, latitude, altitude));
+                        listAddress.add(new Address(address, longitude, latitude, altitude));
+                    }
+
+                    return listAddress;
+                }
             }
-
-            return listAddress;
         } catch (NullPointerException | SQLException ex) {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return listAddress;
         } finally {
-            if (callStmt1 != null) {
-                callStmt1.close();
-
-                if (rs1 != null) {
-                    rs1.close();
-                }
-            }
             closeAll();
         }
     }
+
+    private boolean addProductToPharmacyCatalog(int idPharmacy, int idProduct) {
+
+        try (Connection con = getConnection()) {
+
+            try (CallableStatement callStmt1 = con.prepareCall("{ call addProductToPharmacyCatalog(?,?) }")) {
+
+                callStmt1.setInt(1, idPharmacy);
+                callStmt1.setInt(2, idProduct);
+
+                callStmt1.execute();
+                return true;
+
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            closeAll();
+        }
+    }
+
+    private boolean removeProductFromPharmacyCatalog(int idPharmacy, int idProduct) {
+
+        try (Connection con = getConnection()) {
+
+            try (CallableStatement callStmt2 = con.prepareCall("{ call removeProductFromCatalog(?,?) }")) {
+
+                callStmt2.setInt(1, idPharmacy);
+                callStmt2.setInt(2, idProduct);
+
+                callStmt2.execute();
+                return true;
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            closeAll();
+        }
+    }
+
 }

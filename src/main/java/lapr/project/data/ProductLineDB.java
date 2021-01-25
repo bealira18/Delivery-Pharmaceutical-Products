@@ -4,6 +4,7 @@ import lapr.project.model.ProductLine;
 import oracle.jdbc.OracleTypes;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,71 +14,57 @@ import java.util.logging.Logger;
 
 public class ProductLineDB extends DataHandler {
 
-    public boolean newProductLine(int idOrder,int idProduct,int quantity,double price) throws SQLException {
+    public boolean newProductLine(int idOrder,int idProduct,int quantity,double price) {
 
-        CallableStatement callStmt = null;
+        try (Connection con = getConnection()) {
 
-        try{
-            openConnection();
+            try (CallableStatement callStmt = con.prepareCall("{ call newProductLine(?,?,?,?) }")) {
 
-            callStmt = getConnection().prepareCall("{ call newProductLine(?,?,?,?) }");
+                callStmt.setInt(1, idOrder);
+                callStmt.setInt(2, idProduct);
+                callStmt.setInt(3, quantity);
+                callStmt.setDouble(4, price);
 
-            callStmt.setInt(1,idOrder);
-            callStmt.setInt(2,idProduct);
-            callStmt.setInt(3,quantity);
-            callStmt.setDouble(4,price);
+                callStmt.execute();
 
-            callStmt.execute();
-
-            return true;
+                return true;
+            }
         } catch (NullPointerException | SQLException ex) {
-            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
-            closeAll();
-
+            Logger.getLogger(ProductLineDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         } finally {
-            if(callStmt!=null) callStmt.close();
             closeAll();
         }
-
-        return false;
     }
 
-    public List<ProductLine> getProductLinesFromOrder (int idOrder) throws SQLException {
+    public List<ProductLine> getProductLinesFromOrder (int idOrder) {
         List<ProductLine> productLineList = new ArrayList<>();
 
-        CallableStatement callStmt = null;
-        ResultSet rSet = null;
-        try {
-            openConnection();
+        try (Connection con = getConnection()) {
 
-            callStmt = getConnection().prepareCall("{ ? = call getProductLinesFromOrder(?) }");
+            try(CallableStatement callStmt = con.prepareCall("{ ? = call getProductLinesFromOrder(?) }")) {
 
-            callStmt.registerOutParameter(1, OracleTypes.CURSOR);
-            callStmt.setInt(2, idOrder);
+                callStmt.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt.setInt(2, idOrder);
 
-            callStmt.execute();
+                callStmt.execute();
 
-            rSet = (ResultSet) callStmt.getObject(1);
+                try (ResultSet rSet = (ResultSet) callStmt.getObject(1)) {
 
-            while (rSet.next()) {
-                int orderId = rSet.getInt(1);
-                int productId = rSet.getInt(2);
-                int productQuantity = rSet.getInt(3);
-                double price = rSet.getDouble(4);
+                    while (rSet.next()) {
+                        int orderId = rSet.getInt(1);
+                        int productId = rSet.getInt(2);
+                        int productQuantity = rSet.getInt(3);
+                        double price = rSet.getDouble(4);
 
-                ProductLine productLine = new ProductLine(orderId, productId, productQuantity, price);
-                productLineList.add(productLine);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (callStmt != null) {
-                callStmt.close();
-
-                if (rSet != null) {
-                    rSet.close();
+                        ProductLine productLine = new ProductLine(orderId, productId, productQuantity, price);
+                        productLineList.add(productLine);
+                    }
                 }
             }
+        } catch (NullPointerException | SQLException e) {
+            Logger.getLogger(ProductLineDB.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
             closeAll();
         }
         if(productLineList.isEmpty()) throw new IllegalArgumentException("No product lines for order " + idOrder);
