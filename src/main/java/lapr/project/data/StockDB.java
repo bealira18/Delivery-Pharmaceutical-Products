@@ -65,7 +65,7 @@ public class StockDB extends DataHandler {
         }
     }
 
-    public boolean checkIfIsEnoughStock(int idPharmacy, int idProduct, int productQuantity) {
+    public int checkIfIsEnoughStock(int idPharmacy, int idProduct, int productQuantity) {
 
         try (Connection con = getConnection()) {
 
@@ -77,11 +77,11 @@ public class StockDB extends DataHandler {
                 callStm.setInt(4, productQuantity);
                 callStm.execute();
 
-                return callStm.getInt(1) == 1;
+                return callStm.getInt(1);
             }
         } catch (NullPointerException | NumberFormatException | SQLException ex) {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return -1;
         } finally {
             closeAll();
         }
@@ -120,6 +120,27 @@ public class StockDB extends DataHandler {
             Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
             return listAddress;
         } finally {
+            closeAll();
+        }
+    }
+
+    public boolean backOrder(int idPharmacy1, int idPharmacy2, int idProduct, int productQuantity) {
+
+        try (Connection con = getConnection()) {
+            try (CallableStatement callStmt = con.prepareCall("{ call backOrder(?,?,?,?) }")) {
+
+                callStmt.setInt(1, idPharmacy1);
+                callStmt.setInt(2, idPharmacy2);
+                callStmt.setInt(3, idProduct);
+                callStmt.setInt(4, productQuantity);
+
+                callStmt.execute();
+                return true;
+            }
+        }catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(StockDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }finally {
             closeAll();
         }
     }
