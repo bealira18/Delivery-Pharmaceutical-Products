@@ -44,9 +44,9 @@ class Main {
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
 
         //Initial Database Setup
-        DataHandler dh = new DataHandler();
-        dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
-        dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
+        //DataHandler dh = new DataHandler();
+        //dh.scriptRunner("Documentation/BDDAD/LAPR3_DATABASE_CREATION.sql");
+        //dh.scriptRunner("Documentation/BDDAD/LAPR3_INSERTS.sql");
 
         //AddAdministratorController
         /*AddAdministratorController addAdministratorController = new AddAdministratorController();
@@ -228,9 +228,18 @@ class Main {
         in.nextLine();*/
         scenario1();
 
+        /*VehicleDB vehicleDB = new VehicleDB();
+        System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(101));
+        System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(113));*/
+
     }
 
-    public static void scenario1() throws SQLException {
+    public static void scenario1() {
+        UpdateScooterController updateScooterController = new UpdateScooterController();
+        ManageCreditsController manageCreditsController = new ManageCreditsController();
+        manageCreditsController.setCreditConversionRatio(0.2);
+        manageCreditsController.setCreditValueDeliveryFee(5);
+        updateScooterController.updateScooterMaxPayload(5);
         System.out.println("filling graph");
         GeographicalController geographicalController = new GeographicalController();
         System.out.println("\n\nGeographicalController");
@@ -251,7 +260,7 @@ class Main {
         System.out.println(purchaseItemsController.addToBasket(product1, 3));
         System.out.println(purchaseItemsController.addToBasket(product2, 2));
         System.out.println(purchaseItemsController.addToBasket(product2, 1));
-        PurchaseOrder purchaseOrder = purchaseItemsController.purchaseItems(1, 1, "client1@gmail.com");
+        PurchaseOrder purchaseOrder = purchaseItemsController.purchaseItems(6, 1, "client1@gmail.com");
         System.out.println(purchaseOrder);
 
         CreateInvoiceController createInvoiceController = new CreateInvoiceController();

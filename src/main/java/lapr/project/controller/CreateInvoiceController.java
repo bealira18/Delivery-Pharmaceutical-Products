@@ -125,7 +125,7 @@ public class CreateInvoiceController {
         emailBody.append(System.getProperty(Constants.LINE_BREAK));
         emailBody.append("Total: ").append(String.format(Locale.ROOT, "%.2f", invoice.getDeliveryFee() + totalPrice)).append("€");
         emailBody.append(System.getProperty(Constants.LINE_BREAK));
-        emailBody.append(String.format(Locale.ROOT, "Total w/o IVA: %-10.2fIVA: %.0f%%", invoice.getNoVATprice(), getIVA()*100));
+        emailBody.append(String.format(Locale.ROOT, "Total w/o IVA: €%-10.2fIVA: %.0f%%", invoice.getNoVATprice(), getIVA()*100));
         emailBody.append(System.getProperty(Constants.LINE_BREAK));
         emailBody.append("NIF: ").append(client.getNif());
 
