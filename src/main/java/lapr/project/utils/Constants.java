@@ -151,27 +151,5 @@ public final class Constants {
      * Duplication avoidance.
      */
     public static final String LINE_BREAK = "line.separator";
-    /**
-     * Settings list
-     */
-    public static final String CONFIG_PROP_LIST[] = 
-    {
-        "database.url",
-        "database.username",
-        "database.password",
-        "purchase.order.delivery.fee",
-        "client.credits.purchase.ratio",
-        "client.credits.delivery.fee.payment",
-        "charger.comm.dir",
-        "drone.max.payload",
-        "scooter.max.payload",
-        "invoice.iva",
-        "mail.username",
-        "mail.password",
-        "mail.smtp.host",
-        "mail.smtp.port",
-        "mail.smtp.auth",
-        "mail.smtp.starttls.enable",
-        "mail.smtp.ssl.trust"
-    };
+    
 }
