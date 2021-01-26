@@ -49,13 +49,14 @@ On the following days each member worked on his/her use-case and whenever there 
 
 Then, we started by elaborating the Use-Case diagram, which can be seen ahead:
 ### Use-Cases Diagram for this current Project: ###
-!!!!!FALTA USE CASE!!!!!
+![Use-Case](./Documentation/Requirements_Engineering/UseCase.jpg)
+
 
 With these Use-Cases in mind we have put effort into elaborating the Software Engineering diagrams.
 
 We have elaborated the Domain Model that we would follow while developping our Project,  which can be seen ahead:
 ### Domain-Model for this current Project: ###
-!!!!!!FALTA MODELO DE DOMINIO!!!!!!
+![Domain-Model](./Documentation/Engineering_Analysis/Domain_Model.jpg)
 
 ### SSDs Diagrams ###
 Then we have elaborated some of the relevant SSDs diagrams.\
@@ -111,7 +112,7 @@ Finally, when it comes to Software Engineering, we have elaborated the Relationa
 This Relational Model is the one that we have followed when it comes to the elaboration of the Tables in the data-base creation.
 
 ### Conclusion ###
-With this report we could conclude that we have learned a lot during this LAPR3 course. We have worked a lot with all the knowledge acquired during ESINF, BDDAD and FSIAP classes.
+With this report we could conclude that we have learned a lot during this LAPR3 course. We have worked a lot with all the knowledge acquired during ARQCP, ESINF, BDDAD and FSIAP classes.
 During this project, we encountered several difficulties but we solved most of them.
 However, we think that we have achieved some of the what was asked. That said, we also realized how difficult, mainly due to the period we are going through. We also realized that sometimes working in groups can be quite challenging, since each has their own way of understanding things and your own pace.
 All in all, we can say that with the elaboration of this project we have increased our knowledge both in terms of Java® programming as also in terms of Oracle SQL®. We also augmented our portfolio by gaining the basic knowledge about a Test Driven Development way of work.
