@@ -1,10 +1,8 @@
 package lapr.project.controller;
 
 import lapr.project.data.*;
-import lapr.project.model.Pharmacy;
-import lapr.project.model.Product;
-import lapr.project.model.ProductCategory;
-import lapr.project.model.PurchaseOrder;
+import lapr.project.model.*;
+import lapr.project.utils.Graph;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -76,26 +74,29 @@ public class PurchaseItemsController {
         } else {
             basket.put(p, quantiyToAdd);
         }
-        //se nao houver stock retornar false
         return true;
     }
 
-    public PurchaseOrder purchaseItems(int idOrder, int idPharmacy, String email) {
+    //the graph received as parameter must be graphScooterEnergy
+    public PurchaseOrder purchaseItems(int idOrder, int idPharmacy, String email, Graph<Address, Path> graph) {
+        Pharmacy pharmacy = pharmacyDB.getPhamacyByID(idPharmacy);
 
         if (basket.isEmpty()) {
             return null;
         }
-        double totalWeight = 0;
 
-        for (Map.Entry<Product, Integer> p : basket.entrySet()) {
-            totalWeight = totalWeight + (p.getKey().getWeight() * p.getValue());
-        }
-        if (totalWeight > updateScooterController.getScooterMaxPayload()) {
+        if(!checkOrderWeight()) {
             return null;
         }
+
+        if(!checkForStock(pharmacy, graph)) {
+            return null;
+        }
+
         if (!po.newOrder(idOrder, idPharmacy, email)) {
             return null;
         }
+
         for (Map.Entry<Product, Integer> p : basket.entrySet()) {
             if (!pl.newProductLine(idOrder, p.getKey().getId(), p.getValue(), p.getKey().getPrice() * p.getValue())) {
                 return null;
@@ -105,4 +106,27 @@ public class PurchaseItemsController {
         PurchaseOrder purchaseOrder = new PurchaseOrder(idOrder, idPharmacy, email, LocalDate.now());
         return purchaseOrder;
     }
+
+    public boolean checkForStock(Pharmacy pharmacy, Graph<Address, Path> graph) {
+        NotifyClientController notifyClientController = new NotifyClientController();
+        for(Map.Entry<Product, Integer> p : basket.entrySet()) {
+            if(!notifyClientController.checkForStock(pharmacy, p.getKey(), p.getValue(), graph)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkOrderWeight() {
+        double totalWeight = 0;
+
+        for (Map.Entry<Product, Integer> p : basket.entrySet()) {
+            totalWeight = totalWeight + (p.getKey().getWeight() * p.getValue());
+        }
+        if (totalWeight > updateScooterController.getScooterMaxPayload()) {
+            return false;
+        }
+        return true;
+    }
+
 }

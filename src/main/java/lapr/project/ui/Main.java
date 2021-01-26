@@ -44,7 +44,8 @@ class Main {
         System.out.println(System.getProperties());
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
 
-        scenarioOneDelivery();
+        scenario1();
+        //scenarioOneDelivery();
 
         //scenario1();
         //parkingScenario();
@@ -234,9 +235,9 @@ class Main {
         System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(101));
         System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(113));*/
 
-        AddScooterController addScooterController = new AddScooterController();
+        /*AddScooterController addScooterController = new AddScooterController();
         Scooter scooter1 = new Scooter(0, 1, 20, 40, 50, 60, 10, 100, 1, 1);
-        System.out.println(addScooterController.addScooter(scooter1));
+        System.out.println(addScooterController.addScooter(scooter1));*/
     }
 
     public static void scenario1() {
@@ -265,7 +266,7 @@ class Main {
         System.out.println(purchaseItemsController.addToBasket(product1, 3));
         System.out.println(purchaseItemsController.addToBasket(product2, 2));
         System.out.println(purchaseItemsController.addToBasket(product2, 1));
-        PurchaseOrder purchaseOrder = purchaseItemsController.purchaseItems(6, 1, "client1@gmail.com");
+        PurchaseOrder purchaseOrder = purchaseItemsController.purchaseItems(1, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
         System.out.println(purchaseOrder);
 
         CreateInvoiceController createInvoiceController = new CreateInvoiceController();
