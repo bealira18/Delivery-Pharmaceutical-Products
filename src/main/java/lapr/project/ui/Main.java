@@ -21,7 +21,6 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lapr.project.utils.GraphAlgorithms;
 import lapr.project.utils.PathAlgorithms;
 
 class Main {
@@ -44,11 +43,10 @@ class Main {
         System.out.println(System.getProperties());
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
 
-        setUpProperties();
-        scenario1();
-	   scenarioOneDelivery();
-        scenarioMultipleDeliveries();
-
+//        setUpProperties();
+//        scenario1();
+//	   scenarioOneDelivery();
+//        scenarioMultipleDeliveries();
         //scenario1();
         //parkingScenario();
         //Initial Database Setup
@@ -303,7 +301,7 @@ class Main {
         // Receber a lista de produtos? Não sei.
         List<Product> mexeTeAndre = new ArrayList<>();
         // Delete this after arranging proper data.
-        mexeTeAndre.add(new Product(1, "", 0.0, sCont.getScooterMaxPayload() / 1000, 1));
+        mexeTeAndre.add(new Product(1, "", 0.0, 1, 1));
         // Above
         List<Address> la = geoCont.getAddresses();
         List<Path> lp = geoCont.getPaths(la);
@@ -505,10 +503,11 @@ class Main {
 
         Courier c = cDB.getCourier("courier3@gmail.com");
         Scooter s = cdCont.getHighestBatteryScooter(1);
+        s.setFrontalArea(1.1);
         Drone d = cdCont.getHighestBatteryDrone(1);
         // Delete this after arranging proper data.
         List<Product> mexeTeAndre = new ArrayList<>();
-        mexeTeAndre.add(new Product(1, "", 0.0, sCont.getScooterMaxPayload() / 1000, 1));
+        mexeTeAndre.add(new Product(1, "", 0.0, 1, 1));
         // Above
         List<Address> la = geoCont.getAddresses();
         List<Path> lp = geoCont.getPaths(la);

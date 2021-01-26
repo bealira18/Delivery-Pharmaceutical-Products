@@ -317,7 +317,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Path Structure :");
         expResult.add("");
         expResult.add("casa da musica -> conservatorio");
-        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Kinetic Coefficient = 0.000 (unitless).");
         expResult.add("Path Wind Angle = 90.00 Degrees.");
         expResult.add("Path Wind Speed = 12.00m/s.");
         expResult.add("Road Slope Angle = -0.33 Degrees.");
@@ -325,7 +325,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Energy = 13.49W.h.");
         expResult.add("");
         expResult.add("conservatorio -> trindade");
-        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Kinetic Coefficient = 0.000 (unitless).");
         expResult.add("Path Wind Angle = 90.00 Degrees.");
         expResult.add("Path Wind Speed = 12.00m/s.");
         expResult.add("Road Slope Angle = 0.33 Degrees.");
@@ -387,7 +387,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Path Structure :");
         expResult.add("");
         expResult.add("casa da musica -> conservatorio");
-        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Kinetic Coefficient = 0.000 (unitless).");
         expResult.add("Path Wind Angle = 90.00 Degrees.");
         expResult.add("Path Wind Speed = 12.00m/s.");
         expResult.add("Road Slope Angle = -0.33 Degrees.");
@@ -395,7 +395,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Energy = 10.06W.h.");
         expResult.add("");
         expResult.add("conservatorio -> trindade");
-        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Kinetic Coefficient = 0.000 (unitless).");
         expResult.add("Path Wind Angle = 90.00 Degrees.");
         expResult.add("Path Wind Speed = 12.00m/s.");
         expResult.add("Road Slope Angle = 0.33 Degrees.");
@@ -1292,7 +1292,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Path Structure :");
         expResult.add("");
         expResult.add("casa da musica -> conservatorio");
-        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Kinetic Coefficient = 0.000 (unitless).");
         expResult.add("Path Wind Angle = 90.00 Degrees.");
         expResult.add("Path Wind Speed = 12.00m/s.");
         expResult.add("Road Slope Angle = -0.33 Degrees.");
@@ -1300,7 +1300,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Energy = 9.84W.h.");
         expResult.add("");
         expResult.add("conservatorio -> trindade");
-        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Kinetic Coefficient = 0.000 (unitless).");
         expResult.add("Path Wind Angle = 90.00 Degrees.");
         expResult.add("Path Wind Speed = 12.00m/s.");
         expResult.add("Road Slope Angle = 0.33 Degrees.");
@@ -1412,7 +1412,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Path Structure :");
         expResult.add("");
         expResult.add("casa da musica -> conservatorio");
-        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Kinetic Coefficient = 0.000 (unitless).");
         expResult.add("Path Wind Angle = 90.00 Degrees.");
         expResult.add("Path Wind Speed = 12.00m/s.");
         expResult.add("Road Slope Angle = -0.33 Degrees.");
@@ -1420,7 +1420,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Energy = 13.49W.h.");
         expResult.add("");
         expResult.add("conservatorio -> trindade");
-        expResult.add("Path Kinetic Coefficient = 0.00 (unitless).");
+        expResult.add("Path Kinetic Coefficient = 0.000 (unitless).");
         expResult.add("Path Wind Angle = 90.00 Degrees.");
         expResult.add("Path Wind Speed = 12.00m/s.");
         expResult.add("Road Slope Angle = 0.33 Degrees.");

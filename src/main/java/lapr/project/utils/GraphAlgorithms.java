@@ -127,7 +127,7 @@ public class GraphAlgorithms {
 
                 bw.newLine();
                 bw.write(p.getAddress1().getDescription() + " -> " + p.getAddress2().getDescription() + "\n");
-                bw.write(P_KIN_CO + String.format(Locale.ROOT, "%.2f", p.getKineticCoeficient()) + UNITLESS_NEWLINE);
+                bw.write(P_KIN_CO + String.format(Locale.ROOT, "%.3f", p.getKineticCoeficient()) + UNITLESS_NEWLINE);
                 bw.write(P_WIN_A + String.format(Locale.ROOT, "%.2f", p.getWindAngle()) + D_NEWLINE);
                 bw.write(P_WIN_S + String.format(Locale.ROOT, "%.2f", p.getWindSpeed()) + M_S_NEWLINE);
                 bw.write(R_SLO_A + String.format(Locale.ROOT, "%.2f", roadSlope) + D_NEWLINE);
@@ -183,7 +183,7 @@ public class GraphAlgorithms {
 
                 bw2.newLine();
                 bw2.write(p2.getAddress1().getDescription() + " -> " + p2.getAddress2().getDescription() + "\n");
-                bw2.write(P_KIN_CO + String.format(Locale.ROOT, "%.2f", p2.getKineticCoeficient()) + UNITLESS_NEWLINE);
+                bw2.write(P_KIN_CO + String.format(Locale.ROOT, "%.3f", p2.getKineticCoeficient()) + UNITLESS_NEWLINE);
                 bw2.write(P_WIN_A + String.format(Locale.ROOT, "%.2f", p2.getWindAngle()) + D_NEWLINE);
                 bw2.write(P_WIN_S + String.format(Locale.ROOT, "%.2f", p2.getWindSpeed()) + M_S_NEWLINE);
                 bw2.write(R_SLO_A + String.format(Locale.ROOT, "%.2f", roadSlope) + D_NEWLINE);
@@ -233,7 +233,7 @@ public class GraphAlgorithms {
 
                 bw3.newLine();
                 bw3.write(p.getAddress1().getDescription() + " -> " + p.getAddress2().getDescription() + "\n");
-                bw3.write(P_KIN_CO + String.format(Locale.ROOT, "%.2f", p.getKineticCoeficient()) + UNITLESS_NEWLINE);
+                bw3.write(P_KIN_CO + String.format(Locale.ROOT, "%.3f", p.getKineticCoeficient()) + UNITLESS_NEWLINE);
                 bw3.write(P_WIN_A + String.format(Locale.ROOT, "%.2f", p.getWindAngle()) + D_NEWLINE);
                 bw3.write(P_WIN_S + String.format(Locale.ROOT, "%.2f", p.getWindSpeed()) + M_S_NEWLINE);
                 bw3.write(R_SLO_A + String.format(Locale.ROOT, "%.2f", roadSlope) + D_NEWLINE);
