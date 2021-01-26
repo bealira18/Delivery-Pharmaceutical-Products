@@ -227,6 +227,7 @@ INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_stat
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (10, 4, null, 1);
 
 -- ## table PurchaseOrder ##
+
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (101, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (102, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (103, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
@@ -234,6 +235,9 @@ INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VA
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (111, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (112, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (113, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
+
+INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (201, 1, 'client1@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
+INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (202, 1, 'client2@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
 
 -- ## table Delivery ##
 INSERT INTO delivery(id_order, id_vehicle, email_courier, id_delivery_status) VALUES (101, 101, 'couriermen0652@gmail.com', 1);
@@ -243,3 +247,6 @@ INSERT INTO delivery(id_order, id_vehicle, email_courier, id_delivery_status) VA
 INSERT INTO delivery(id_order, id_vehicle, id_delivery_status) VALUES (111, 111, 1);
 INSERT INTO delivery(id_order, id_vehicle, id_delivery_status) VALUES (112, 112, 1);
 INSERT INTO delivery(id_order, id_vehicle, id_delivery_status) VALUES (113, 113, 1);
+
+INSERT INTO delivery(id_order, id_delivery_status, delivery_run) VALUES (201, 1, 2);
+INSERT INTO delivery(id_order, id_delivery_status, delivery_run) VALUES (202, 1, 2);

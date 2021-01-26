@@ -47,9 +47,9 @@ class Main {
         //scenarioPurchaseOrderNoCredits();
         //scenarioPurchaseOrderEnoughCreditsBackOrder();
         //scenarioPurchaseOrderOverMaxWeight();
-	    scenarioOneDelivery();
+	    //scenarioOneDelivery();
         //scenarioMultipleDeliveries();
-        //scenarioQrCode();
+        scenarioQrCode();
 
         //scenario1();
         //parkingScenario();
@@ -573,17 +573,25 @@ class Main {
         CreateDeliveryController cdCont = new CreateDeliveryController();
         CourierDB cDB = new CourierDB();
         AddressDB aDB = new AddressDB();
+        ClientDB clientDB = new ClientDB();
+
+        List<PurchaseOrder> purchaseOrderList = cdCont.getPurchaseOrdersFromDeliveryRun(2);
+        List<ProductLine> productLineList = cdCont.getProductLinesFromDeliveryRun(purchaseOrderList);
+        List<Product> mexeTeAndre = cdCont.getProductsFromDeliveryRun(productLineList);
+
         List<Address> clientAddresses = new ArrayList<>();
-        clientAddresses.add(new Address("feup", 41.1775, 8.598056, 111));
-        clientAddresses.add(new Address("parque de serralves", 41.159722, 8.659722, 60));
+
+        for(PurchaseOrder purchaseOrder : purchaseOrderList) {
+            Client client = clientDB.getClientByEmail(purchaseOrder.getClientEmail());
+            Address clientAddress = client.getAddress();
+            clientAddresses.add(clientAddress);
+        }
 
         Courier c = cDB.getCourier("courier3@gmail.com");
         Scooter s = cdCont.getHighestBatteryScooter(1);
         s.setFrontalArea(1.1);
         Drone d = cdCont.getHighestBatteryDrone(1);
-        // Delete this after arranging proper data.
-        List<Product> mexeTeAndre = new ArrayList<>();
-        mexeTeAndre.add(new Product(1, "", 0.0, 1, 1));
+
         // Above
         List<Address> la = geoCont.getAddresses();
         List<Path> lp = geoCont.getPaths(la);
