@@ -2,8 +2,6 @@ package lapr.project.model;
 
 public class Courier extends RegisteredUser {
 
-    private static int maximumPayload = 0;
-
     private String name;
     private int nif;
     private long socialSecurity;
@@ -45,11 +43,6 @@ public class Courier extends RegisteredUser {
         return weight;
     }
 
-    public static int getMaximumPayload() {
-
-        return maximumPayload;
-    }
-
     public void setName(String name) {
 
         this.name = name;
@@ -73,14 +66,6 @@ public class Courier extends RegisteredUser {
     public void setWeight(double weight) {
 
         this.weight = weight;
-    }
-
-    public static void setMaximumPayload(int maximumPayload) {
-
-        if (maximumPayload < 0) {
-            throw new IllegalArgumentException("Invalid Numeric Value (Negative Maximum Payload)");
-        }
-        Courier.maximumPayload = maximumPayload;
     }
 
     @Override
