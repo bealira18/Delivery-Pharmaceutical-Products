@@ -54,7 +54,7 @@ class NotifyClientControllerTest {
         when(stockDB.checkIfIsEnoughStock(pharmacy1.getId(), product1.getId(), productQuantity1)).thenReturn(0);
         when(stockDB.getOthersPharmacyAddressWithProductStock(pharmacy1.getId(), product1.getId(), productQuantity1)).thenReturn(addressList);
         when(addressDB.getAddressPharmacyById(pharmacy1.getId())).thenReturn(a);
-        when(GraphAlgorithms.getNearestPharmacy(true, graph, a, addressList)).thenReturn(b);
+        //when(GraphAlgorithms.getNearestPharmacy(true, graph, a, addressList)).thenReturn(b);
         when(pharmacyDB.getPhamacyByAddress(b)).thenReturn(pharmacy2);
 
         when(stockDB.backOrder(pharmacy1.getId(), pharmacy2.getId(), product1.getId(), productQuantity1)).thenReturn(Boolean.TRUE);
