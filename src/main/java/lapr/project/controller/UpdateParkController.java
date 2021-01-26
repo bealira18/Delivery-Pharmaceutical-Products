@@ -24,7 +24,6 @@ public class UpdateParkController {
         if (sp == null || sp.getLimit() < nr) {
             return false;
         }
-        sp.setNumChargingStations(nr);
 
         return spDB.updateChargingStations(sp);
     }

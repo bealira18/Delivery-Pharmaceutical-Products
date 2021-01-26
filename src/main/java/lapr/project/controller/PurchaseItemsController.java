@@ -84,33 +84,30 @@ public class PurchaseItemsController {
         if (basket.isEmpty()) {
             return null;
         }
-
-        if(!checkOrderWeight()) {
+        if (!checkOrderWeight()) {
             return null;
         }
-
-        if(!checkForStock(pharmacy, graph)) {
+        if (!checkForStock(pharmacy, graph)) {
             return null;
         }
-
         if (!po.newOrder(idOrder, idPharmacy, email)) {
             return null;
         }
-
         for (Map.Entry<Product, Integer> p : basket.entrySet()) {
             if (!pl.newProductLine(idOrder, p.getKey().getId(), p.getValue(), p.getKey().getPrice() * p.getValue())) {
                 return null;
             }
         }
         s.updateProductStockAfterSale(idOrder);
-        PurchaseOrder purchaseOrder = new PurchaseOrder(idOrder, idPharmacy, email, LocalDate.now());
-        return purchaseOrder;
+
+        return new PurchaseOrder(idOrder, idPharmacy, email, LocalDate.now());
     }
 
     public boolean checkForStock(Pharmacy pharmacy, Graph<Address, Path> graph) {
+
         NotifyClientController notifyClientController = new NotifyClientController();
-        for(Map.Entry<Product, Integer> p : basket.entrySet()) {
-            if(!notifyClientController.checkForStock(pharmacy, p.getKey(), p.getValue(), graph)) {
+        for (Map.Entry<Product, Integer> p : basket.entrySet()) {
+            if (!notifyClientController.checkForStock(pharmacy, p.getKey(), p.getValue(), graph)) {
                 return false;
             }
         }
@@ -123,10 +120,6 @@ public class PurchaseItemsController {
         for (Map.Entry<Product, Integer> p : basket.entrySet()) {
             totalWeight = totalWeight + (p.getKey().getWeight() * p.getValue());
         }
-        if (totalWeight > updateScooterController.getScooterMaxPayload()) {
-            return false;
-        }
-        return true;
+        return totalWeight <= updateScooterController.getScooterMaxPayload();
     }
-
 }
