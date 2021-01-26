@@ -38,8 +38,8 @@ INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'estadio do bessa', 0.01, 80, 2);
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('estadio do bessa', 'parque de serralves', 0.012, 97, 7);
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('parque de serralves', 'casa da musica', 0.01, 50, 6);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'pavilhao rosa mota', 0.03, 30, 5);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('pavilhao rosa mota', 'casa da musica', 0.03, 210, 5);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'pavilhao rosa mota', 0.99, 30, 5);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('pavilhao rosa mota', 'casa da musica', 0.99, 210, 5);
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'trindade', 0.011, 140, 6);
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('trindade', 'conservatorio', 0.011, 320, 6);
 INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'pavilhao rosa mota', 0.01, 140, 6);
@@ -80,11 +80,14 @@ INSERT INTO creditCard(credit_card, validity_date, ccv) VALUES(1111111111111102,
 -- ## table Client ##
 INSERT INTO client(email, name, nif, credit_card, address) VALUES('client1@gmail.com', 'client1', 333333301, 1111111111111101, 'feup');
 INSERT INTO client(email, name, nif, credit_card, address) VALUES('client2@gmail.com', 'client2', 333333302, 1111111111111101, 'parque de serralves');
-INSERT INTO client(email, name, nif, credit_card, address) VALUES('client3@gmail.com', 'client3', 333333303, 1111111111111102, 'torre dos clerigos');
+INSERT INTO client(email, name, nif, credit_card, address) VALUES('client3@gmail.com', 'client3', 333333303, 1111111111111102, 'se do porto');
 
 -- ## table Park ##
-INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (1, 10, 1, 'scooter','casa da musica', 5000);
-INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (1, 10, 1, 'drone','casa da musica', 5000);
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (1, 10, 5, 'scooter','casa da musica', 5000);
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (1, 10, 5, 'drone','casa da musica', 5000);
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (2, 10, 5, 'scooter','gaia shopping', 5000);
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (2, 10, 5, 'drone','gaia shopping', 5000);
+
 
 -- ## table ProductCategory ##
 INSERT INTO productCategory(name) VALUES ('Medicamentos');
@@ -184,10 +187,10 @@ INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_stat
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (3, 1, null, 0);
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (4, 1, null, 0);
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (5, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (6, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (7, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (8, 1, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (9, 1, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (6, 1, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (7, 1, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (8, 1, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (9, 1, null, 1);
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (10, 1, null, 1);
 
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (1, 2, null, 0);
@@ -195,13 +198,36 @@ INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_stat
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (3, 2, null, 0);
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (4, 2, null, 0);
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (5, 2, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (6, 2, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (7, 2, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (8, 2, null, 0);
-INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (9, 2, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (6, 2, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (7, 2, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (8, 2, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (9, 2, null, 1);
 INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (10, 2, null, 1);
 
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (1, 3, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (2, 3, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (3, 3, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (4, 3, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (5, 3, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (6, 3, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (7, 3, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (8, 3, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (9, 3, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (10, 3, null, 1);
+
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (1, 4, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (2, 4, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (3, 4, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (4, 4, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (5, 4, null, 0);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (6, 4, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (7, 4, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (8, 4, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (9, 4, null, 1);
+INSERT INTO parkingSpace(id_parking_space, id_park, id_vehicle, is_charging_station) VALUES (10, 4, null, 1);
+
 -- ## table PurchaseOrder ##
+
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (101, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (102, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (103, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
@@ -209,6 +235,9 @@ INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VA
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (111, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (112, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
 INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (113, 1, 'client3@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
+
+INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (201, 1, 'client1@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
+INSERT INTO purchaseOrder(id_order, id_pharmacy, email_client, emission_date) VALUES (202, 1, 'client2@gmail.com', TO_DATE('2025-06-16','yyyy-mm-dd'));
 
 -- ## table Delivery ##
 INSERT INTO delivery(id_order, id_vehicle, email_courier, id_delivery_status) VALUES (101, 101, 'couriermen0652@gmail.com', 1);
@@ -218,3 +247,6 @@ INSERT INTO delivery(id_order, id_vehicle, email_courier, id_delivery_status) VA
 INSERT INTO delivery(id_order, id_vehicle, id_delivery_status) VALUES (111, 111, 1);
 INSERT INTO delivery(id_order, id_vehicle, id_delivery_status) VALUES (112, 112, 1);
 INSERT INTO delivery(id_order, id_vehicle, id_delivery_status) VALUES (113, 113, 1);
+
+INSERT INTO delivery(id_order, id_delivery_status, delivery_run) VALUES (201, 1, 2);
+INSERT INTO delivery(id_order, id_delivery_status, delivery_run) VALUES (202, 1, 2);

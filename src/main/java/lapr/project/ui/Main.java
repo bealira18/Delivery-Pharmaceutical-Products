@@ -48,6 +48,9 @@ class Main {
         //scenarioPurchaseOrderNoCredits();
         //scenarioPurchaseOrderEnoughCreditsBackOrder();
         //scenarioPurchaseOrderOverMaxWeight();
+	    //scenarioOneDelivery();
+        //scenarioMultipleDeliveries();
+        scenarioQrCode();
 //	    scenarioOneDelivery();
 //        scenarioMultipleDeliveries();
 //
@@ -292,10 +295,6 @@ class Main {
         System.out.println("Sending Invoice By Email");
         createInvoiceController.sendInvoiceByEmail(invoice);
 
-        /*List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
-        purchaseOrderList.add(purchaseOrder);
-        CreateDeliveryController createDeliveryController = new CreateDeliveryController();
-        createDeliveryController.createDeliveries(purchaseOrderList, 1);*/
     }
 
     public static void scenarioPurchaseOrderEnoughCreditsBackOrder() {
@@ -308,7 +307,6 @@ class Main {
 
         PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
         Product product1 = new Product(1, "Ben-u-ron", 2.40, 0.1, 1);
-        Product product2 = new Product(2, "Ibuprofeno", 4.70, 0.2, 1);
         System.out.println("Adding products to cart");
         int idOrder = 2;
         System.out.println("Adding product: " + product1.toString() + " Quantity: 10");
@@ -328,6 +326,12 @@ class Main {
         Invoice invoice = createInvoiceController.createInvoice(idOrder, purchaseOrder2);
         System.out.println("Sending Invoice By Email");
         createInvoiceController.sendInvoiceByEmail(invoice);
+
+        List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
+        purchaseOrderList.add(purchaseOrder2);
+        CreateDeliveryController createDeliveryController = new CreateDeliveryController();
+        System.out.println("Creating delivery Run 1");
+        createDeliveryController.createDeliveries(purchaseOrderList, 1);
     }
 
     public static void scenarioPurchaseOrderOverMaxWeight() {
@@ -368,16 +372,19 @@ class Main {
         UpdateScooterController sCont = new UpdateScooterController();
         CreateDeliveryController cdCont = new CreateDeliveryController();
         CourierDB cDB = new CourierDB();
+        ClientDB clientDB = new ClientDB();
         AddressDB aDB = new AddressDB();
 
-        Address clientAddress = new Address("se do porto", 41.143056, 8.611111, 72);
-        Courier c = cDB.getCourier("courier3@gmail.com");
+        List<PurchaseOrder> purchaseOrderList = cdCont.getPurchaseOrdersFromDeliveryRun(1);
+        List<ProductLine> productLineList = cdCont.getProductLinesFromDeliveryRun(purchaseOrderList);
+        List<Product> mexeTeAndre = cdCont.getProductsFromDeliveryRun(productLineList);
+
+        Client client = clientDB.getClientByEmail(purchaseOrderList.get(0).getClientEmail());
+        Address clientAddress = client.getAddress();
+        Courier c = cDB.getCourier("courier1@gmail.com");
         Scooter s = cdCont.getHighestBatteryScooter(1);
         Drone d = cdCont.getHighestBatteryDrone(1);
-        // Receber a lista de produtos? Não sei.
-        List<Product> mexeTeAndre = new ArrayList<>();
-        // Delete this after arranging proper data.
-        mexeTeAndre.add(new Product(1, "", 0.0, 1, 1));
+
         // Above
         List<Address> la = geoCont.getAddresses();
         List<Path> lp = geoCont.getPaths(la);
@@ -573,16 +580,24 @@ class Main {
         CreateDeliveryController cdCont = new CreateDeliveryController();
         CourierDB cDB = new CourierDB();
         AddressDB aDB = new AddressDB();
+        ClientDB clientDB = new ClientDB();
+
+        List<PurchaseOrder> purchaseOrderList = cdCont.getPurchaseOrdersFromDeliveryRun(2);
+        List<ProductLine> productLineList = cdCont.getProductLinesFromDeliveryRun(purchaseOrderList);
+        List<Product> mexeTeAndre = cdCont.getProductsFromDeliveryRun(productLineList);
+
         List<Address> clientAddresses = new ArrayList<>();
-        clientAddresses.add(new Address("feup", 41.1775, 8.598056, 111));
-        clientAddresses.add(new Address("parque de serralves", 41.159722, 8.659722, 60));
+
+        for(PurchaseOrder purchaseOrder : purchaseOrderList) {
+            Client client = clientDB.getClientByEmail(purchaseOrder.getClientEmail());
+            Address clientAddress = client.getAddress();
+            clientAddresses.add(clientAddress);
+        }
 
         Courier c = cDB.getCourier("courier3@gmail.com");
         Scooter s = cdCont.getHighestBatteryScooter(1);
         Drone d = cdCont.getHighestBatteryDrone(1);
-        // Delete this after arranging proper data.
-        List<Product> mexeTeAndre = new ArrayList<>();
-        mexeTeAndre.add(new Product(1, "", 0.0, 1, 1));
+
         // Above
         List<Address> la = geoCont.getAddresses();
         List<Path> lp = geoCont.getPaths(la);
@@ -697,6 +712,17 @@ class Main {
 
     }
 
+    public static void scenarioQrCode() {
+        AddScooterController addScooterController = new AddScooterController();
+        AddDroneController addDroneController = new AddDroneController();
+
+        Scooter scooter = new Scooter(11, 2, 16, 1.1, 1.5, 1, 500, 500, 8.9, 1);
+        Drone drone = new Drone(12, 1, 4.5, 0.65, 0.47, 1, 500, 500, 21.9, 0.5, 7, 1);
+
+        System.out.println("Adding Scooter: id:"+scooter.getIdVehicle());
+        System.out.println(addScooterController.addScooter(scooter));
+        System.out.println("Adding Drone: id:"+drone.getIdVehicle());
+        System.out.println(addDroneController.addDrone(drone));
     public static void testScenarioLand7_1() {
 
         double totalEnergy = 0;
