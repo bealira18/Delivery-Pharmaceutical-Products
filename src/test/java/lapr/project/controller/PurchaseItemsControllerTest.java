@@ -30,7 +30,7 @@ class PurchaseItemsControllerTest {
     }
 
     @BeforeAll
-    public static void setUp() throws SQLException {
+    public static void setUp() {
 
         auxListPharmacies = new ArrayList<>();
         auxListPharmacies.add(new Pharmacy(1, "TestPharma", new Address("TestAddress", 0, 0, 0)));
@@ -126,9 +126,9 @@ class PurchaseItemsControllerTest {
     }
 
     @Test
-    void purchaseItemsTest() throws SQLException {
+    void purchaseItemsTest() {
         PurchaseOrder expResult = null;
-        PurchaseOrder result=controller.purchaseItems(1,1, "testEmail@gmail.com");
+        PurchaseOrder result=controller.purchaseItems(1,1, "testEmail@gmail.com", null);
         assertEquals(expResult,result);
     }
 }
