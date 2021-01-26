@@ -111,6 +111,12 @@ Finally, when it comes to Software Engineering, we have elaborated the Relationa
 
 This Relational Model is the one that we have followed when it comes to the elaboration of the Tables in the data-base creation.
 
+### Visual Representation of the Graph ###
+
+![Graph-Representation](./Documentation/BDDAD/zz_paths1.0.jpg)
+
+This representation includes addresses and paths.
+
 ### Conclusion ###
 With this report we could conclude that we have learned a lot during this LAPR3 course. We have worked a lot with all the knowledge acquired during ARQCP, ESINF, BDDAD and FSIAP classes.
 During this project, we encountered several difficulties but we solved most of them.
