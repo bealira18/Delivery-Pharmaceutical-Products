@@ -46,7 +46,8 @@ class Main {
 
         setUpProperties();
         scenario1();
-        //scenarioOneDelivery();
+	   scenarioOneDelivery();
+        scenarioMultipleDeliveries();
 
         //scenario1();
         //parkingScenario();
@@ -287,7 +288,6 @@ class Main {
     //We decide the address to visit and the pharmacy we go from. Serves as template for multiple scenarios, just have to adjust values to trigger them.
     public static void scenarioOneDelivery() {
 
-        Address clientAddress = new Address("feup", 41.1775, 8.598056, 111);
         GraphController gCont = new GraphController();
         GeographicalController geoCont = new GeographicalController();
         UpdateDroneController dCont = new UpdateDroneController();
@@ -296,15 +296,17 @@ class Main {
         CourierDB cDB = new CourierDB();
         AddressDB aDB = new AddressDB();
 
+        Address clientAddress = new Address("feup", 41.1775, 8.598056, 111);
         Courier c = cDB.getCourier("courier3@gmail.com");
         Scooter s = cdCont.getHighestBatteryScooter(1);
+        Drone d = cdCont.getHighestBatteryDrone(1);
+        // Receber a lista de produtos? Não sei.
+        List<Product> mexeTeAndre = new ArrayList<>();
         // Delete this after arranging proper data.
         s.setWeight(15);
         s.setAerodynamicCoeficient(1.1);
         s.setFrontalArea(1.5);
-        List<Product> mexeTeAndre = new ArrayList<>();
         mexeTeAndre.add(new Product(1, "", 0.0, sCont.getScooterMaxPayload() / 1000, 1));
-        Drone d = cdCont.getHighestBatteryDrone(1);
         d.setAerodynamicCoeficient(0.6);
         d.setWidth(0.5);
         // Above
@@ -491,6 +493,98 @@ class Main {
             System.out.println("Load weight exceeds Drone's max payload.");
         }
         System.out.println("Single Delivery Scenario Ended.");
+    }
+
+    public static void scenarioMultipleDeliveries() {
+
+        GraphController gCont = new GraphController();
+        GeographicalController geoCont = new GeographicalController();
+        UpdateDroneController dCont = new UpdateDroneController();
+        UpdateScooterController sCont = new UpdateScooterController();
+        CreateDeliveryController cdCont = new CreateDeliveryController();
+        CourierDB cDB = new CourierDB();
+        AddressDB aDB = new AddressDB();
+        List<Address> clientAddresses = new ArrayList<>();
+        clientAddresses.add(new Address("feup", 41.1775, 8.598056, 111));
+        clientAddresses.add(new Address("parque de serralves", 41.159722, 8.659722, 60));
+
+        Courier c = cDB.getCourier("courier3@gmail.com");
+        Scooter s = cdCont.getHighestBatteryScooter(1);
+        Drone d = cdCont.getHighestBatteryDrone(1);
+        // Delete this after arranging proper data.
+        s.setWeight(15);
+        s.setAerodynamicCoeficient(1.1);
+        s.setFrontalArea(1.5);
+        List<Product> mexeTeAndre = new ArrayList<>();
+        mexeTeAndre.add(new Product(1, "", 0.0, sCont.getScooterMaxPayload() / 1000, 1));
+        d.setAerodynamicCoeficient(0.6);
+        d.setWidth(0.5);
+        // Above
+        List<Address> la = geoCont.getAddresses();
+        List<Path> lp = geoCont.getPaths(la);
+        gCont.fillGraphDrone(la, lp);
+        gCont.fillGraphDroneEnergy(la, lp);
+        gCont.fillGraphScooter(la, lp);
+        gCont.fillGraphScooterEnergy(la, lp);
+
+        Address pharmacyAddress = aDB.getAddressPharmacyById(1);
+        double sMaxPayload = sCont.getScooterMaxPayload();
+        double dMaxPayload = dCont.getDroneMaxPayload();
+        double productWeight = mexeTeAndre.stream().mapToDouble(Product::getWeight).sum();
+
+        if (sMaxPayload >= productWeight) {
+
+            LinkedList<Address> shortPathDistanceScooter = new LinkedList<>();
+            LinkedList<Address> shortPathEnergyScooter = new LinkedList<>();
+
+            double distance = gCont.getShortestPathThroughNodes(true, pharmacyAddress, pharmacyAddress, clientAddresses, shortPathDistanceScooter);
+            gCont.getShortestPathThroughNodesEnergy(true, pharmacyAddress, pharmacyAddress, clientAddresses, shortPathEnergyScooter);
+            double energy = PathAlgorithms.calcScooterTotalEnergy(gCont.getGraphScooterEnergy(), shortPathEnergyScooter, c, s, mexeTeAndre);
+
+            if (shortPathDistanceScooter.isEmpty()) {
+                System.out.println("Scooter cannot travel from the pharmacy to the target clients.");
+
+            } else {
+
+                if (energy > s.getCurrentBattery()) {
+                    System.out.println("Scooter does not have the necessary energy to traverse the given path.");
+
+                } else {
+                    gCont.writePathToFile("MultipleDeliveryScenarioScooterDistance.csv", shortPathDistanceScooter, distance / 1000, PathAlgorithms.calcScooterTotalEnergy(gCont.getGraphScooterEnergy(), shortPathDistanceScooter, c, s, mexeTeAndre), c, s, mexeTeAndre);
+                    gCont.writePathToFile("MultipleDeliveryScenarioScooterEnergy.csv", shortPathEnergyScooter, PathAlgorithms.calcTotalDistance(shortPathEnergyScooter) / 1000, energy, c, s, mexeTeAndre);
+                    System.out.println("Scooter can traverse from the original pharmacy to the target clients and return. Paths exported to 'MultipleDeliveryScenarioScooterEnergy/Distance.csv'");
+                }
+            }
+        } else {
+            System.out.println("Load weight exceeds Scooter's max payload.");
+        }
+        if (dMaxPayload >= productWeight) {
+
+            LinkedList<Address> shortPathDistanceDrone = new LinkedList<>();
+            LinkedList<Address> shortPathEnergyDrone = new LinkedList<>();
+
+            double distance = gCont.getShortestPathThroughNodes(false, pharmacyAddress, pharmacyAddress, clientAddresses, shortPathDistanceDrone);
+            gCont.getShortestPathThroughNodes(false, pharmacyAddress, pharmacyAddress, clientAddresses, shortPathEnergyDrone);
+            double energy = PathAlgorithms.calcDroneTotalEnergy(gCont.getGraphDroneEnergy(), shortPathEnergyDrone, d, mexeTeAndre);
+
+            if (shortPathDistanceDrone.isEmpty()) {
+                System.out.println("Drone cannot travel from the pharmacy to the target clients.");
+
+            } else {
+
+                if (energy > d.getCurrentBattery()) {
+                    System.out.println("Drone does not have the necessary energy to traverse the given path.");
+
+                } else {
+                    gCont.writePathToFile("MultipleDeliveryScenarioDroneDistance.csv", shortPathDistanceDrone, distance / 1000, PathAlgorithms.calcDroneTotalEnergy(gCont.getGraphDroneEnergy(), shortPathDistanceDrone, d, mexeTeAndre), d, mexeTeAndre);
+                    gCont.writePathToFile("MultipleDeliveryScenarioDroneEnergy.csv", shortPathEnergyDrone, PathAlgorithms.calcTotalDistance(shortPathEnergyDrone) / 1000, energy, d, mexeTeAndre);
+                    System.out.println("Drone can traverse from the original pharmacy to the target clients and return. Paths exported to 'MultipleDeliveryScenarioDroneEnergy/Distance.csv'");
+                }
+            }
+        } else {
+            System.out.println("Load weight exceeds Drone's max payload.");
+        }
+        System.out.println("Multiple Delivery Scenario Ended.");
     }
 
     //A simulation of parking... yeah...
