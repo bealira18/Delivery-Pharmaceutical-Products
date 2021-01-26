@@ -312,6 +312,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Projected Path :");
         expResult.add("Total Distance = 1.91km.");
         expResult.add("Total Energy Consumption = 37.83W.h.");
+        expResult.add("Time of Traversal = 85s.");
         expResult.add("");
         expResult.add("Path Structure :");
         expResult.add("");
@@ -381,6 +382,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Projected Path :");
         expResult.add("Total Distance = 1.91km.");
         expResult.add("Total Energy Consumption = 31.07W.h.");
+        expResult.add("Time of Traversal = 214s.");
         expResult.add("");
         expResult.add("Path Structure :");
         expResult.add("");
@@ -1285,6 +1287,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Projected Path :");
         expResult.add("Total Distance = 1.91km.");
         expResult.add("Total Energy Consumption = 31.23W.h.");
+        expResult.add("Time of Traversal = 214s.");
         expResult.add("");
         expResult.add("Path Structure :");
         expResult.add("");
@@ -1404,6 +1407,7 @@ public class GraphAlgorithmsTest {
         expResult.add("Projected Path :");
         expResult.add("Total Distance = 1.91km.");
         expResult.add("Total Energy Consumption = 38.60W.h.");
+        expResult.add("Time of Traversal = 85s.");
         expResult.add("");
         expResult.add("Path Structure :");
         expResult.add("");

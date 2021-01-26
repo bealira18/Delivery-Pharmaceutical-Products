@@ -53,7 +53,9 @@ public class PathAlgorithms {
         double groundDrag = GRAVITATIONAL_ACCELERATION * (AVG_COURIER_WEIGHT + AVG_SCOOTER_WEIGHT) * p.getKineticCoeficient() * Math.cos(roadSlope);
         double totalForce = slopeDrag + aeroDrag + groundDrag;
 
-        return totalForce * AVG_SCOOTER_SPEED * calcTime(distance, AVG_SCOOTER_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
+        double totalEnergy = totalForce * AVG_SCOOTER_SPEED * calcTime(distance, AVG_SCOOTER_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
+
+        return totalEnergy < 0 ? 0 : totalEnergy;
     }
 
     public static double calcScooterEnergy(Path p, Courier c, List<Product> lp) {
@@ -71,7 +73,9 @@ public class PathAlgorithms {
         double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient() * Math.cos(roadSlope);
         double totalForce = slopeDrag + aeroDrag + groundDrag;
 
-        return totalForce * AVG_SCOOTER_SPEED * calcTime(distance, AVG_SCOOTER_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
+        double totalEnergy = totalForce * AVG_SCOOTER_SPEED * calcTime(distance, AVG_SCOOTER_SPEED) * JOULE_TO_WATTHOUR_CONVERTER;
+
+        return totalEnergy < 0 ? 0 : totalEnergy;
     }
 
     public static double calcScooterEnergy(Path p, Courier c, Scooter s, List<Product> lp) {
@@ -89,7 +93,9 @@ public class PathAlgorithms {
         double groundDrag = GRAVITATIONAL_ACCELERATION * totalWeight * p.getKineticCoeficient() * Math.cos(roadSlope);
         double totalForce = slopeDrag + aeroDrag + groundDrag;
 
-        return totalForce * s.getAverageSpeed() * calcTime(distance, s.getAverageSpeed()) * JOULE_TO_WATTHOUR_CONVERTER;
+        double totalEnergy = totalForce * s.getAverageSpeed() * calcTime(distance, s.getAverageSpeed()) * JOULE_TO_WATTHOUR_CONVERTER;
+
+        return totalEnergy < 0 ? 0 : totalEnergy;
     }
 
     public static double calcDroneEnergy(Path p) {
@@ -105,7 +111,9 @@ public class PathAlgorithms {
         double tPower = horizontalPower + liftPower;
         double time = calcTime(distance, AVG_DRONE_H_SPEED);
 
-        return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
+        double totalEnergy = tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
+
+        return totalEnergy < 0 ? 0 : totalEnergy;
     }
 
     public static double calcDroneEnergy(Path p, List<Product> lp) {
@@ -122,7 +130,9 @@ public class PathAlgorithms {
         double tPower = horizontalPower + liftPower;
         double time = calcTime(distance, AVG_DRONE_H_SPEED);
 
-        return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
+        double totalEnergy = tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
+
+        return totalEnergy < 0 ? 0 : totalEnergy;
     }
 
     public static double calcDroneEnergy(Path p, Drone d, List<Product> lp) {
@@ -139,7 +149,9 @@ public class PathAlgorithms {
         double tPower = horizontalPower + liftPower;
         double time = calcTime(distance, d.getAverageSpeed());
 
-        return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
+        double totalEnergy = tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
+
+        return totalEnergy < 0 ? 0 : totalEnergy;
     }
 
     public static double calcTotalDistance(LinkedList<Address> la) {

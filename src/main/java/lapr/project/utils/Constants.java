@@ -110,6 +110,10 @@ public final class Constants {
     /**
      * Duplication avoidance.
      */
+    public static final String S_STRING = "Scooter";
+    /**
+     * Duplication avoidance.
+     */
     public static final String P_PATH = "Projected Path :\n";
     /**
      * Duplication avoidance.
@@ -151,5 +155,12 @@ public final class Constants {
      * Duplication avoidance.
      */
     public static final String LINE_BREAK = "line.separator";
-    
+    /**
+     * Duplication avoidance.
+     */
+    public static final String T_OF_TR = "Time of Traversal = ";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String SEC_NEWLINE = "s.\n";
 }

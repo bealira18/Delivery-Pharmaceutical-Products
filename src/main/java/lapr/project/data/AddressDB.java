@@ -145,7 +145,7 @@ public class AddressDB extends DataHandler {
             try (CallableStatement callStmt4 = con4.prepareCall("{ ? = call getAddressPharmacyById(?) }")) {
 
                 callStmt4.registerOutParameter(1, OracleTypes.CURSOR);
-                callStmt4.setInt(1, idPharmacy);
+                callStmt4.setInt(2, idPharmacy);
                 callStmt4.execute();
 
                 try (ResultSet rs3 = (ResultSet) callStmt4.getObject(1)) {

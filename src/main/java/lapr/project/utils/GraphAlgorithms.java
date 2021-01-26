@@ -100,7 +100,7 @@ public class GraphAlgorithms {
                 bw.write("Drone Frontal Area = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_FRONTAL) + M2_NEWLINE);
                 bw.write("Drone Width = " + String.format(Locale.ROOT, "%.2f", AVG_DRONE_WIDTH) + "m.\n");
             }
-            if ("Scooter".equalsIgnoreCase(vehicle)) {
+            if (S_STRING.equalsIgnoreCase(vehicle)) {
                 bw.write("Scooter Speed = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_SPEED) + M_S_NEWLINE);
                 bw.write("Scooter Weight (excluding load) = " + String.format(Locale.ROOT, "%.2f", AVG_SCOOTER_WEIGHT) + KG_NEWLINE);
                 bw.write("Courier Weight = " + String.format(Locale.ROOT, "%.2f", AVG_COURIER_WEIGHT) + KG_NEWLINE);
@@ -111,6 +111,12 @@ public class GraphAlgorithms {
             bw.write(P_PATH);
             bw.write(T_DIST + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
             bw.write(T_E_CONS + String.format(Locale.ROOT, "%.2f", energy) + WH_NEWLINE);
+            if (D_STRING.equalsIgnoreCase(vehicle)) {
+                bw.write(T_OF_TR + String.format(Locale.ROOT, "%.0f", distance * 1000 / AVG_DRONE_H_SPEED) + SEC_NEWLINE);
+            }
+            if (S_STRING.equalsIgnoreCase(vehicle)) {
+                bw.write(T_OF_TR + String.format(Locale.ROOT, "%.0f", distance * 1000 / AVG_SCOOTER_SPEED) + SEC_NEWLINE);
+            }
             bw.newLine();
             bw.write(P_STR);
 
@@ -130,7 +136,7 @@ public class GraphAlgorithms {
                     totalEnergy += PathAlgorithms.calcDroneEnergy(p);
                     bw.write(ENERGY + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcDroneEnergy(p)) + WH_NEWLINE);
                 }
-                if ("Scooter".equalsIgnoreCase(vehicle)) {
+                if (S_STRING.equalsIgnoreCase(vehicle)) {
                     bw.write(ENERGY + String.format(Locale.ROOT, "%.2f", PathAlgorithms.calcScooterEnergy(p)) + WH_NEWLINE);
                 }
             }
@@ -166,6 +172,7 @@ public class GraphAlgorithms {
             bw2.write(P_PATH);
             bw2.write(T_DIST + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
             bw2.write(T_E_CONS + String.format(Locale.ROOT, "%.2f", energy) + WH_NEWLINE);
+            bw2.write(T_OF_TR + String.format(Locale.ROOT, "%.0f", distance * 1000 / s.getAverageSpeed()) + SEC_NEWLINE);
             bw2.newLine();
             bw2.write(P_STR);
 
@@ -214,6 +221,7 @@ public class GraphAlgorithms {
             bw3.write(P_PATH);
             bw3.write(T_DIST + String.format(Locale.ROOT, "%.2f", distance) + KM_NEWLINE);
             bw3.write(T_E_CONS + String.format(Locale.ROOT, "%.2f", energy) + WH_NEWLINE);
+            bw3.write(T_OF_TR + String.format(Locale.ROOT, "%.0f", distance * 1000 / d.getAverageSpeed()) + SEC_NEWLINE);
             bw3.newLine();
             bw3.write(P_STR);
 
