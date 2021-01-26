@@ -302,6 +302,10 @@ public class VertexTest {
         Edge<String, Integer> edge2 = new Edge<>(null, 3, instance, instance3);
         instance.addAdjVert("vAdj3", edge2);
         assertFalse(instance.equals(other), "instance should not be equal to other");
+
+        Vertex<String, Integer> v1 = new Vertex<>(3, "vOne");
+        Vertex<String, Integer> vAux = new Vertex<>(v1);
+        v1.addAdjVert("vTwo", edge2);
     }
 
     /**
