@@ -44,8 +44,8 @@ On the following days each member worked on his/her use-case and whenever there 
 
 ### Plannning Poker example
 
-![Planning-Poker](./Documentation/Planning_Poker/Planning_Poker_1.jpg)
-![Planning-Poker](./Documentation/Planning_Poker/Planning_Poker_2.jpg)
+![Planning-Poker](./Documentation/Planning_Poker/Planning_Poker_1.png)
+![Planning-Poker](./Documentation/Planning_Poker/Planning_Poker_2.png)
 
 Then, we started by elaborating the Use-Case diagram, which can be seen ahead:
 ### Use-Cases Diagram for this current Project: ###
