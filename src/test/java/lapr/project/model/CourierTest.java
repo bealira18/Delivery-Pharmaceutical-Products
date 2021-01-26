@@ -74,18 +74,6 @@ public class CourierTest {
     }
 
     /**
-     * Test of getMaximumPayload method, of class Courier.
-     */
-    @Test
-    public void testGetMaximumPayload() {
-
-        System.out.println("getMaximumPayload");
-        int expResult = Courier.getMaximumPayload();
-        int result = Courier.getMaximumPayload();
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of setName method, of class Courier.
      */
     @Test
@@ -153,30 +141,6 @@ public class CourierTest {
         instance.setWeight(weight);
         double result = instance.getWeight();
         assertEquals(weight, result, 0.0);
-    }
-
-    /**
-     * Test of setMaximumPayload method, of class Courier.
-     */
-    @Test
-    public void testSetMaximumPayload() {
-
-        System.out.println("setMaximumPayload");
-        int maximumPayload = 1;
-        Courier.setMaximumPayload(maximumPayload);
-        int result = Courier.getMaximumPayload();
-        assertEquals(maximumPayload, result);
-
-        maximumPayload = 0;
-        Courier.setMaximumPayload(maximumPayload);
-        result = Courier.getMaximumPayload();
-        assertEquals(maximumPayload, result);
-
-        final int maximumPayload2 = -1;
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
-            Courier.setMaximumPayload(maximumPayload2);
-        });
-        assertEquals("Invalid Numeric Value (Negative Maximum Payload)", ex.getMessage());
     }
 
     /**
