@@ -4,8 +4,6 @@ import lapr.project.controller.*;
 import lapr.project.data.*;
 import lapr.project.model.*;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

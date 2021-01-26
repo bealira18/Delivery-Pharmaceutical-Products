@@ -120,6 +120,6 @@ public class PurchaseItemsController {
         for (Map.Entry<Product, Integer> p : basket.entrySet()) {
             totalWeight = totalWeight + (p.getKey().getWeight() * p.getValue());
         }
-        return !(totalWeight > updateScooterController.getScooterMaxPayload());
+        return totalWeight <= updateScooterController.getScooterMaxPayload();
     }
 }
