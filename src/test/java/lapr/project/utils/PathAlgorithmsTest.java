@@ -111,6 +111,14 @@ public class PathAlgorithmsTest {
         expResult = 0;
         result = PathAlgorithms.calcScooterEnergy(p, c, lp);
         assertEquals(expResult, result, 0);
+
+        a1 = new Address("Test1", 45, 45, 80);
+        a2 = new Address("Test2", 45, 45.01, -120);
+        p = new Path(a1, a2, 0, 90, 12);
+
+        expResult = 0;
+        result = PathAlgorithms.calcScooterEnergy(p, c, lp);
+        assertEquals(expResult, result, 0);
     }
 
     /**
@@ -364,6 +372,14 @@ public class PathAlgorithmsTest {
         expResult = 0;
         result = PathAlgorithms.calcScooterEnergy(p, c, s, lp);
         assertEquals(expResult, result, 0);
+
+        a1 = new Address("Test1", 45, 45, 80);
+        a2 = new Address("Test2", 45, 45.01, -120);
+        p = new Path(a1, a2, 0, 90, 12);
+
+        expResult = 0;
+        result = PathAlgorithms.calcScooterEnergy(p, c, s, lp);
+        assertEquals(expResult, result, 0);
     }
 
     /**
@@ -571,6 +587,14 @@ public class PathAlgorithmsTest {
         a1 = new Address("Test1", 45, 45, 0);
         a2 = new Address("Test2", 45, 45, 0);
         p = new Path(a1, a2, 0.7, 90, 12);
+
+        expResult = 0;
+        result = PathAlgorithms.calcScooterEnergy(p);
+        assertEquals(expResult, result, 0);
+
+        a1 = new Address("Test1", 45, 45, 80);
+        a2 = new Address("Test2", 45, 45.01, -120);
+        p = new Path(a1, a2, 0, 90, 12);
 
         expResult = 0;
         result = PathAlgorithms.calcScooterEnergy(p);

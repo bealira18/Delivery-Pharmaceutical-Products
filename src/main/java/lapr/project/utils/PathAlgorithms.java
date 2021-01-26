@@ -111,9 +111,7 @@ public class PathAlgorithms {
         double tPower = horizontalPower + liftPower;
         double time = calcTime(distance, AVG_DRONE_H_SPEED);
 
-        double totalEnergy = tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
-
-        return totalEnergy < 0 ? 0 : totalEnergy;
+        return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
     public static double calcDroneEnergy(Path p, List<Product> lp) {
@@ -130,9 +128,7 @@ public class PathAlgorithms {
         double tPower = horizontalPower + liftPower;
         double time = calcTime(distance, AVG_DRONE_H_SPEED);
 
-        double totalEnergy = tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
-
-        return totalEnergy < 0 ? 0 : totalEnergy;
+        return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
     public static double calcDroneEnergy(Path p, Drone d, List<Product> lp) {
@@ -149,9 +145,7 @@ public class PathAlgorithms {
         double tPower = horizontalPower + liftPower;
         double time = calcTime(distance, d.getAverageSpeed());
 
-        double totalEnergy = tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
-
-        return totalEnergy < 0 ? 0 : totalEnergy;
+        return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
     public static double calcTotalDistance(LinkedList<Address> la) {

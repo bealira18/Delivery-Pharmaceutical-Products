@@ -269,7 +269,7 @@ class Main {
         createInvoiceController.sendInvoiceByEmail(invoice);
     }
 
-    //We decide the address to visit and the pharmacy we go from.
+    //We decide the address to visit and the pharmacy we go from. Serves as template for multiple scenarios, just have to adjust values to trigger them.
     public static void scenarioOneDelivery() {
 
         Address clientAddress = new Address("feup", 41.1775, 8.598056, 111);
