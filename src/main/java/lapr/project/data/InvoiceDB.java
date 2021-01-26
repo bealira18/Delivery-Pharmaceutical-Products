@@ -12,20 +12,21 @@ public class InvoiceDB extends DataHandler {
 
     public boolean addInvoice(Invoice i) {
 
-        return addInvoice(i.getOrderId(), i.getPharmacyId(), i.getClientEmail(), i.getDeliveryFee(), i.getTotalPrice());
+        return addInvoice(i.getOrderId(), i.getPharmacyId(), i.getClientEmail(), i.getDeliveryFee(), i.getTotalPrice(), i.getNoVATprice());
     }
 
-    private boolean addInvoice(int orderId, int pharmacyId, String clientEmail, double deliveryFee, double totalPrice) {
+    private boolean addInvoice(int orderId, int pharmacyId, String clientEmail, double deliveryFee, double totalPrice, double noVATprice) {
 
         try (Connection con = getConnection()) {
 
-            try (CallableStatement callStmt = con.prepareCall("{ call createInvoice(?,?,?,?,?) }")) {
+            try (CallableStatement callStmt = con.prepareCall("{ call createInvoice(?,?,?,?,?,?) }")) {
 
                 callStmt.setInt(1, orderId);
                 callStmt.setInt(2, pharmacyId);
                 callStmt.setString(3, clientEmail);
                 callStmt.setDouble(4, deliveryFee);
                 callStmt.setDouble(5, totalPrice);
+                callStmt.setDouble(6, noVATprice);
 
                 callStmt.execute();
                 return true;

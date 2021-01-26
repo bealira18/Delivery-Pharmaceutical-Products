@@ -56,7 +56,7 @@ public class CreateDeliveryController {
         return droneDB.getHighestBatteryDrone(pharmacyId);
     }
 
-    public List<PurchaseOrder> getDeliveryRunProducts(int deliveryRun) {
+    public List<PurchaseOrder> getPurchaseOrdersFromDeliveryRun(int deliveryRun) {
         List<PurchaseOrder> purchaseOrderList;
 
         purchaseOrderList = deliveryDB.getPurchaseOrdersByDeliveryRun(deliveryRun);

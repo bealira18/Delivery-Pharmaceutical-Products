@@ -45,7 +45,7 @@ class Main {
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
 
         setUpProperties();
-        scenario1();
+        scenarioPurchaseOrderNoCredits();
 	    //scenarioOneDelivery();
         //scenarioMultipleDeliveries();
 
@@ -256,13 +256,42 @@ class Main {
         updateDeliveryFeeController.updateDeliveryFee(2.9);
     }
 
-    public static void scenario1() {
+    public static void scenarioPurchaseOrderNoCredits() {
+        System.out.println("filling graph");
+        GeographicalController geographicalController = new GeographicalController();
+        List<Address> addressList = geographicalController.getAddresses();
+        List<Path> pathList = geographicalController.getPaths(addressList);
+        GraphController graphController = new GraphController();
+        graphController.fillGraphScooterEnergy(addressList, pathList);
+
+        PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
+        System.out.println("\n\nPurchaseItemsController");
+        Product product1 = new Product(1, "Ben-u-ron", 2.40, 0.1, 1);
+        Product product2 = new Product(2, "Ibuprofeno", 4.70, 0.2, 1);
+        int idOrder = 1;
+        System.out.println(purchaseItemsController.addToBasket(product1, 3));
+        System.out.println(purchaseItemsController.addToBasket(product2, 2));
+        System.out.println(purchaseItemsController.addToBasket(product2, 4));
+        PurchaseOrder purchaseOrder = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
+        System.out.println(purchaseOrder);
+        if(purchaseOrder == null) return;
+
+        CreateInvoiceController createInvoiceController = new CreateInvoiceController();
+        Invoice invoice = createInvoiceController.createInvoice(idOrder, purchaseOrder);
+        createInvoiceController.sendInvoiceByEmail(invoice);
+
+        /*List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
+        purchaseOrderList.add(purchaseOrder);
+        CreateDeliveryController createDeliveryController = new CreateDeliveryController();
+        createDeliveryController.createDeliveries(purchaseOrderList, 1);*/
+    }
+
+    public static void scenarioPurchaseOrderEnoughCredits() {
         System.out.println("filling graph");
         GeographicalController geographicalController = new GeographicalController();
         System.out.println("\n\nGeographicalController");
         List<Address> addressList = geographicalController.getAddresses();
         List<Path> pathList = geographicalController.getPaths(addressList);
-        List<Address> pharmaciesAddress = geographicalController.getPharmacyAddresses();
         GraphController graphController = new GraphController();
         graphController.fillGraphDrone(addressList, pathList);
         graphController.fillGraphScooter(addressList, pathList);
@@ -273,13 +302,12 @@ class Main {
         System.out.println("\n\nPurchaseItemsController");
         Product product1 = new Product(1, "Ben-u-ron", 2.40, 0.1, 1);
         Product product2 = new Product(2, "Ibuprofeno", 4.70, 0.2, 1);
-        Product product3 = new Product(6, "Fio Dentario Colgate", 3.49, 0.05, 2);
         int idOrder = 2;
-        System.out.println(purchaseItemsController.addToBasket(product1, 1));
-        //System.out.println(purchaseItemsController.addToBasket(product2, 2));
-        //System.out.println(purchaseItemsController.addToBasket(product2, 1));
+        purchaseItemsController.addToBasket(product1, 10);
+        System.out.println(purchaseItemsController.addToBasket(product2, 2));
         PurchaseOrder purchaseOrder = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
         System.out.println(purchaseOrder);
+        if(purchaseOrder == null) return;
 
         CreateInvoiceController createInvoiceController = new CreateInvoiceController();
         Invoice invoice = createInvoiceController.createInvoice(idOrder, purchaseOrder);
