@@ -44,7 +44,9 @@ class Main {
         System.out.println(System.getProperties());
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
 
-//        scenarioOneDelivery();
+        setUpProperties();
+        scenario1();
+	   scenarioOneDelivery();
         scenarioMultipleDeliveries();
 
         //scenario1();
@@ -240,12 +242,21 @@ class Main {
         System.out.println(addScooterController.addScooter(scooter1));*/
     }
 
-    public static void scenario1() {
+    public static void setUpProperties() {
         UpdateScooterController updateScooterController = new UpdateScooterController();
+        UpdateDroneController updateDroneController = new UpdateDroneController();
         ManageCreditsController manageCreditsController = new ManageCreditsController();
+        CreateInvoiceController createInvoiceController = new CreateInvoiceController();
+        UpdateDeliveryFeeController updateDeliveryFeeController = new UpdateDeliveryFeeController();
         manageCreditsController.setCreditConversionRatio(0.2);
         manageCreditsController.setCreditValueDeliveryFee(5);
-        updateScooterController.updateScooterMaxPayload(5);
+        updateScooterController.updateScooterMaxPayload(3);
+        updateDroneController.updateDroneMaxPayload(1);
+        createInvoiceController.updateIVA(0.23);
+        updateDeliveryFeeController.updateDeliveryFee(2.9);
+    }
+
+    public static void scenario1() {
         System.out.println("filling graph");
         GeographicalController geographicalController = new GeographicalController();
         System.out.println("\n\nGeographicalController");
