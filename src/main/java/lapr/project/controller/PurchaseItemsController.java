@@ -18,6 +18,7 @@ public class PurchaseItemsController {
     private final ProductLineDB pl;
     private final StockDB s;
     private final UpdateScooterController updateScooterController;
+    private final NotifyClientController notifyClientController;
     private Map<ProductCategory, List<Product>> mapProducts;
     private final Map<Product, Integer> basket;
 
@@ -29,11 +30,12 @@ public class PurchaseItemsController {
         po = new PurchaseOrderDB();
         pl = new ProductLineDB();
         s = new StockDB();
+        notifyClientController = new NotifyClientController();
         updateScooterController = new UpdateScooterController();
     }
 
     public PurchaseItemsController(PharmacyDB pharmacyDB, ProductDB productDB, PurchaseOrderDB po,
-            ProductLineDB pl, StockDB s, UpdateScooterController usc) {
+            ProductLineDB pl, StockDB s, NotifyClientController notifyClientController, UpdateScooterController usc) {
 
         this.pharmacyDB = pharmacyDB;
         this.productDB = productDB;
@@ -41,6 +43,7 @@ public class PurchaseItemsController {
         this.po = po;
         this.pl = pl;
         this.s = s;
+        this.notifyClientController = notifyClientController;
         this.updateScooterController = usc;
     }
 
@@ -105,7 +108,6 @@ public class PurchaseItemsController {
 
     public boolean checkForStock(Pharmacy pharmacy, Graph<Address, Path> graph) {
 
-        NotifyClientController notifyClientController = new NotifyClientController();
         for (Map.Entry<Product, Integer> p : basket.entrySet()) {
             if (!notifyClientController.checkForStock(pharmacy, p.getKey(), p.getValue(), graph)) {
                 return false;
