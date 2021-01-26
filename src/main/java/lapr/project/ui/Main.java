@@ -34,14 +34,14 @@ class Main {
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
 
         setUpProperties();
-//        scenarioPurchaseOrderNoCredits();
-//        scenarioPurchaseOrderEnoughCreditsBackOrder();
-//        scenarioPurchaseOrderOverMaxWeight();
-//        scenarioOneDelivery();
-//        scenarioMultipleDeliveries();
-//        scenarioQrCode();
-//        parkingScenario();
-//        testScenarioLand7_1();
+        //scenarioPurchaseOrderNoCredits();
+        //scenarioPurchaseOrderEnoughCreditsBackOrder();
+        //scenarioPurchaseOrderOverMaxWeight();
+        //scenarioOneDelivery();
+        //scenarioMultipleDeliveries();
+        //scenarioQrCode();
+        //parkingScenario();
+        //testScenarioLand7_1();
 
         //Initial Database Setup
         //DataHandler dh = new DataHandler();
@@ -111,7 +111,7 @@ class Main {
         int idOrder = 2;
         System.out.println("Adding product: " + product1.toString() + " Quantity: 10");
         System.out.println(purchaseItemsController.addToBasket(product1, 10));
-        PurchaseOrder purchaseOrder2 = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
+        PurchaseOrder purchaseOrder2 = purchaseItemsController.purchaseItems(idOrder, 1, "client3@gmail.com", graphController.getGraphScooterEnergy());
         System.out.println(purchaseOrder2);
         if (purchaseOrder2 == null) {
             System.out.println("Error during purchase.");
