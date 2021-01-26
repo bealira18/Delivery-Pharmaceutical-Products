@@ -558,6 +558,7 @@ class Main {
         System.out.println(addScooterController.addScooter(scooter));
         System.out.println("Adding Drone: id:"+drone.getIdVehicle());
         System.out.println(addDroneController.addDrone(drone));
+    }
     public static void testScenarioLand7_1() {
 
         double totalEnergy = 0;
