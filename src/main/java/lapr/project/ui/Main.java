@@ -22,6 +22,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lapr.project.utils.PathAlgorithms;
+import lapr.project.utils.Utils;
 
 class Main {
 
@@ -51,6 +52,7 @@ class Main {
         //scenarioMultipleDeliveries();
         //scenarioQrCode();
         parkingScenario();
+//        testScenarioLand7_1();
 
         //Initial Database Setup
         //DataHandler dh = new DataHandler();
@@ -85,14 +87,14 @@ class Main {
         Product product2 = new Product(2, "Ibuprofeno", 4.70, 0.2, 1);
         System.out.println("Adding products to cart");
         int idOrder = 1;
-        System.out.println("Adding product: "+product1.toString()+" Quantity: 3");
+        System.out.println("Adding product: " + product1.toString() + " Quantity: 3");
         System.out.println(purchaseItemsController.addToBasket(product1, 3));
-        System.out.println("Adding product: "+product2.toString()+" Quantity: 6");
+        System.out.println("Adding product: " + product2.toString() + " Quantity: 6");
         System.out.println(purchaseItemsController.addToBasket(product2, 2));
         System.out.println(purchaseItemsController.addToBasket(product2, 4));
         PurchaseOrder purchaseOrder1 = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
         System.out.println(purchaseOrder1);
-        if(purchaseOrder1 == null) {
+        if (purchaseOrder1 == null) {
             System.out.println("Error during purchase.");
             return;
         }
@@ -118,11 +120,13 @@ class Main {
         Product product1 = new Product(1, "Ben-u-ron", 2.40, 0.1, 1);
         System.out.println("Adding products to cart");
         int idOrder = 2;
-        System.out.println("Adding product: "+product1.toString()+" Quantity: 10");
+        System.out.println("Adding product: " + product1.toString() + " Quantity: 10");
         System.out.println(purchaseItemsController.addToBasket(product1, 10));
-        PurchaseOrder purchaseOrder2 = purchaseItemsController.purchaseItems(idOrder, 1, "client3@gmail.com", graphController.getGraphScooterEnergy());
+        System.out.println("Adding product: " + product2.toString() + " Quantity: 2");
+        System.out.println(purchaseItemsController.addToBasket(product2, 2));
+        PurchaseOrder purchaseOrder2 = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
         System.out.println(purchaseOrder2);
-        if(purchaseOrder2 == null) {
+        if (purchaseOrder2 == null) {
             System.out.println("Error during purchase.");
             return;
         }
@@ -153,11 +157,11 @@ class Main {
         Product product5 = new Product(1, "Escova de Dentes Deluxe Edition", 15.99, 0.80, 2);
         System.out.println("Adding products to cart");
         int idOrder = 3;
-        System.out.println("Adding product: "+product5.toString()+" Quantity: 10");
+        System.out.println("Adding product: " + product5.toString() + " Quantity: 10");
         System.out.println(purchaseItemsController.addToBasket(product5, 10));
         PurchaseOrder purchaseOrder2 = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
         System.out.println(purchaseOrder2);
-        if(purchaseOrder2 == null) {
+        if (purchaseOrder2 == null) {
             System.out.println("Basket over max weight. Order cancelled.");
             return;
         }
@@ -264,7 +268,7 @@ class Main {
                                     gCont.writePathToFile("SingleDeliveryScenarioScooterDistanceToPharmacyToCharge.csv", shortPathDistanceScooterClientToPharmacy, distanceToPharmacy / 1000, PathAlgorithms.calcScooterTotalEnergy(gCont.getGraphScooterEnergy(), shortPathDistanceScooterClientToPharmacy, c, s, mexeTeAndre), c, s, mexeTeAndre);
                                     System.out.println("Scooter can traverse to a pharmacy in order to charge. Paths exported to 'SingleDeliveryScenarioScooterEnergy/DistanceToPharmacyToCharge.csv'");
 
-                                    //INSERT HERE THE CHARGING SCENARIO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    System.out.println("Charging Scooter at Pharmacy at Address : " + nearestPharmacy.getDescription());
                                     LinkedList<Address> shortPathDistanceScooterPharmacyToPharmacy = new LinkedList<>();
                                     LinkedList<Address> shortPathEnergyScooterPharmacyToPharmacy = new LinkedList<>();
 
@@ -349,7 +353,7 @@ class Main {
                                     gCont.writePathToFile("SingleDeliveryScenarioDroneDistanceToPharmacyToCharge.csv", shortPathDistanceDroneClientToPharmacy, distanceToPharmacy / 1000, PathAlgorithms.calcDroneTotalEnergy(gCont.getGraphDroneEnergy(), shortPathDistanceDroneClientToPharmacy, d, mexeTeAndre), d, mexeTeAndre);
                                     System.out.println("Drone can traverse to a pharmacy in order to charge. Paths exported to 'SingleDeliveryScenarioDroneEnergy/DistanceToPharmacyToCharge.csv'");
 
-                                    //INSERT HERE THE CHARGING SCENARIO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    System.out.println("Charging Drone at Pharmacy at Address : " + nearestPharmacy.getDescription());
                                     LinkedList<Address> shortPathDistanceDronePharmacyToPharmacy = new LinkedList<>();
                                     LinkedList<Address> shortPathEnergyDronePharmacyToPharmacy = new LinkedList<>();
 
@@ -414,7 +418,6 @@ class Main {
 
         Courier c = cDB.getCourier("courier3@gmail.com");
         Scooter s = cdCont.getHighestBatteryScooter(1);
-        s.setFrontalArea(1.1);
         Drone d = cdCont.getHighestBatteryDrone(1);
 
         // Above
@@ -555,5 +558,49 @@ class Main {
         System.out.println(addScooterController.addScooter(scooter));
         System.out.println("Adding Drone: id:"+drone.getIdVehicle());
         System.out.println(addDroneController.addDrone(drone));
+    public static void testScenarioLand7_1() {
+
+        double totalEnergy = 0;
+
+        Scooter s = new Scooter(1, 1, 50, 1.1, 0.3, 0, 3000, 3000, 8.33, 1);
+        Courier c = new Courier("", "", "", 1, 1L, 1, 80);
+        List<Product> lpro = new ArrayList<>();
+        StringBuilder q = new StringBuilder();
+
+        q.append("Test Scenario Land 7.1.\n");
+        q.append("Scooter Weight = 50kg.\n");
+        q.append("Courier Weight = 80kg.\n");
+        q.append("Scooter Average Speed = 30km/h.\n");
+        q.append("Scooter Frontal Area = 0.3m2.\n");
+        q.append("Aerodynamic Coefficient = 1.1 (unitless).\n");
+        q.append("\n");
+
+        Address x = new Address("Aqui", 12, 12, 100);
+        Address y = new Address("Ali", 12, 12.0919, 103);
+        Address z = new Address("Além", 12, 12.0459, 103);
+
+        Path p1 = new Path(x, y, 0.5, 20, 3.06);
+        Path p2 = new Path(y, z, 0.5, 20, 3.06);
+
+        q.append(x + " -> " + y + " -> " + z + "\n");
+        q.append("As this is an encapsulated test scenario, the following values remain true for the entirety of the course.\n");
+        q.append("Road Rolling Resistance Coefficient = 0.5 (unitless).\n");
+        q.append("Wind Angle = 20 Degrees.\n");
+        q.append("Wind Speed = 11km/h.\n");
+
+        totalEnergy += PathAlgorithms.calcScooterEnergy(p1, c, s, lpro);
+        totalEnergy += PathAlgorithms.calcScooterEnergy(p2, c, s, lpro);
+
+        if (totalEnergy <= s.getMaxBattery()) {
+            q.append("The Scooter can perform the traversal needed.\n");
+
+        } else {
+            q.append("The Scooter cannot perform the traversal needed.\n");
+        }
+        q.append("Energy Required = " + String.format("%.2f", totalEnergy) + "Wh.\n");
+        q.append("Available Energy = " + String.format("%.2f", s.getMaxBattery()) + "Wh.\n");
+
+        System.out.println("Data exported to 'TestScenarioLand7.1.txt'");
+        Utils.writeFile(q.toString(), "TestScenarioLand7.1.txt");
     }
 }
