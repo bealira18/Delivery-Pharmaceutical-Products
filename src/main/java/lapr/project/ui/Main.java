@@ -237,7 +237,7 @@ class Main {
         System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(101));
         System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(113));*/
 
-        /*AddScooterController addScooterController = new AddScooterController();
+ /*AddScooterController addScooterController = new AddScooterController();
         Scooter scooter1 = new Scooter(0, 1, 20, 40, 50, 60, 10, 100, 1, 1);
         System.out.println(addScooterController.addScooter(scooter1));*/
     }
@@ -304,12 +304,7 @@ class Main {
         // Receber a lista de produtos? Não sei.
         List<Product> mexeTeAndre = new ArrayList<>();
         // Delete this after arranging proper data.
-        s.setWeight(15);
-        s.setAerodynamicCoeficient(1.1);
-        s.setFrontalArea(1.5);
         mexeTeAndre.add(new Product(1, "", 0.0, sCont.getScooterMaxPayload() / 1000, 1));
-        d.setAerodynamicCoeficient(0.6);
-        d.setWidth(0.5);
         // Above
         List<Address> la = geoCont.getAddresses();
         List<Path> lp = geoCont.getPaths(la);
@@ -513,13 +508,8 @@ class Main {
         Scooter s = cdCont.getHighestBatteryScooter(1);
         Drone d = cdCont.getHighestBatteryDrone(1);
         // Delete this after arranging proper data.
-        s.setWeight(15);
-        s.setAerodynamicCoeficient(1.1);
-        s.setFrontalArea(1.5);
         List<Product> mexeTeAndre = new ArrayList<>();
         mexeTeAndre.add(new Product(1, "", 0.0, sCont.getScooterMaxPayload() / 1000, 1));
-        d.setAerodynamicCoeficient(0.6);
-        d.setWidth(0.5);
         // Above
         List<Address> la = geoCont.getAddresses();
         List<Path> lp = geoCont.getPaths(la);
