@@ -241,9 +241,11 @@ CREATE TABLE invoice (
     id_order        INTEGER                               CONSTRAINT nnInvoiceIdOrder              NOT NULL,
     id_pharmacy     INTEGER                               CONSTRAINT nnInvoiceIdPharmacy           NOT NULL,
     email_client    VARCHAR2(255)                         CONSTRAINT nnInvoiceEmailClient          NOT NULL,
-    delivery_fee    INTEGER,
-    total_price     NUMERIC(9,2)                          CONSTRAINT nnInvoiceTotalPrice           NOT NULL,
-                                                          CONSTRAINT ckInvoiceTotalPriceNotZero    CHECK(total_price>=0)
+    delivery_fee    NUMERIC(5,2)                          CONSTRAINT nnInvoiceDeliveryFee          NOT NULL,
+    total_price     NUMERIC(9,2)                          CONSTRAINT nnInvoiceTotalPrice           NOT NULL
+                                                          CONSTRAINT ckInvoiceTotalPriceNotZero    CHECK(total_price>=0),
+    no_VAT_price    NUMERIC(9,2)                          CONSTRAINT nnInvoiceNoVATprice           NOT NULL
+                                                          CONSTRAINT ckInvoiceNoVATprice           CHECK(no_VAT_price>=0)
 );
 
 CREATE TABLE backOrder (

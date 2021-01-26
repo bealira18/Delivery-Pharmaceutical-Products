@@ -98,7 +98,7 @@ public class StockDB extends DataHandler {
 
             try (CallableStatement callStmt3 = con3.prepareCall("{ ? = call getOthersPharmacyAddressWithProductStock(?,?,?) }")) {
 
-                callStmt3.registerOutParameter(1, OracleTypes.INTEGER);
+                callStmt3.registerOutParameter(1, OracleTypes.CURSOR);
                 callStmt3.setInt(2, idPharmacy);
                 callStmt3.setInt(3, idProduct);
                 callStmt3.setInt(4, productQuantity);
@@ -131,7 +131,7 @@ public class StockDB extends DataHandler {
 
         try (Connection con4 = getConnection()) {
 
-            try (CallableStatement callStmt4 = con4.prepareCall("{ call backOrder(?,?,?,?) }")) {
+            try (CallableStatement callStmt4 = con4.prepareCall("{ call performBackOrder(?,?,?,?) }")) {
 
                 callStmt4.setInt(1, idPharmacy1);
                 callStmt4.setInt(2, idPharmacy2);

@@ -1,10 +1,13 @@
-CREATE OR REPLACE FUNCTION getOthersPharmacyAddressWithProductStock(idPharmacy IN INTEGER, idProduct IN INTEGER, productQuantity IN INTEGER)
+CREATE OR REPLACE FUNCTION getOthersPharmacyAddressWithProductStock(
+    idPharmacy IN INTEGER, 
+    idProduct IN INTEGER, 
+    productQuantity IN INTEGER)
 RETURN SYS_REFCURSOR
 IS
-    address SYS_REFCURSOR;
+    matching_address SYS_REFCURSOR;
 
 BEGIN
-    OPEN address FOR
+    OPEN matching_address FOR
 
         SELECT * FROM ADDRESS
         WHERE address IN (SELECT address FROM pharmacy
@@ -14,5 +17,5 @@ BEGIN
                                                 AND id_pharmacy != idPharmacy)
         );
 
-    RETURN  address;
+    RETURN  matching_address;
 END;

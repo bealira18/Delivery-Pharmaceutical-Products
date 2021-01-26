@@ -120,6 +120,8 @@ INSERT INTO stock(id_pharmacy, id_product, quantity) VALUES (1, 5, 10);
 INSERT INTO stock(id_pharmacy, id_product, quantity) VALUES (1, 9, 10);
 INSERT INTO stock(id_pharmacy, id_product, quantity) VALUES (1, 11, 10);
 INSERT INTO stock(id_pharmacy, id_product, quantity) VALUES (1, 12, 10);
+INSERT INTO stock(id_pharmacy, id_product, quantity) VALUES (2, 1, 5);
+INSERT INTO stock(id_pharmacy, id_product, quantity) VALUES (2, 2, 5);
 
 -- ## table VehicleStatus ##
 INSERT INTO vehicleStatus(id_vehicle_status, name) VALUES (1, 'available');
