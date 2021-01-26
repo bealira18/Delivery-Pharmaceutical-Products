@@ -198,8 +198,8 @@ public class DroneDB extends DataHandler {
                         double currentBattery = rs4.getDouble(7);
                         double maxBattery = rs4.getDouble(8);
                         double averageSpeed = rs4.getDouble(9);
-                        double width = rs4.getDouble(10);
-                        double averageVerticalSpeed = rs4.getDouble(11);
+                        double width = rs4.getDouble(12);
+                        double averageVerticalSpeed = rs4.getDouble(13);
 
                         return new Drone(idDrone, idPharmacy, weight, aerodynamicCoefficient, frontalArea, motor, currentBattery,
                                 maxBattery, averageSpeed, width, averageVerticalSpeed, 1);
