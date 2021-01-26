@@ -159,7 +159,7 @@ class NotifyClientControllerTest {
      *
      * @throws java.lang.Exception
      */
-    @Test
+   /* @Test
     public void testcheckIfIsEnoughStockOthersPharmacy() throws Exception {
 
         System.out.println("checkIfIsEnoughStockOthersPharmacy");
@@ -187,7 +187,7 @@ class NotifyClientControllerTest {
         AddressDB addressDB = mock(AddressDB.class);
 
 
-    }
+    }*/
 
 
     /**
