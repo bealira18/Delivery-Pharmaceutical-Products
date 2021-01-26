@@ -62,6 +62,11 @@ public class UpdateParkControllerTest {
         expResult = false;
         result = controller2.updateNrChargingStations(1, 2);
         assertEquals(expResult, result);
+
+        when(pDB.getParkById(1)).thenReturn(null);
+        expResult = false;
+        result = controller2.updateNrChargingStations(1,1);
+        assertEquals(expResult, result);
     }
 
     @Test
