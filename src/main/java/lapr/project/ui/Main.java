@@ -118,6 +118,7 @@ class Main {
 
         PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
         Product product1 = new Product(1, "Ben-u-ron", 2.40, 0.1, 1);
+        Product product2 = new Product(2, "Ibuprofeno", 4.70, 0.2, 1);
         System.out.println("Adding products to cart");
         int idOrder = 2;
         System.out.println("Adding product: " + product1.toString() + " Quantity: 10");
