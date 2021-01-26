@@ -79,7 +79,9 @@ public class Edge<V, E> implements Comparable {
 
     public V[] getEndpoints() {
 
-        V oElem = null, dElem = null, typeElem = null;
+        V oElem = null;
+        V dElem = null;
+        V typeElem = null;
 
         if (this.vOrig != null) {
             oElem = vOrig.getElement();
@@ -114,7 +116,7 @@ public class Edge<V, E> implements Comparable {
         if (otherObj == null || this.getClass() != otherObj.getClass()) {
             return false;
         }
-        
+
         @SuppressWarnings("unchecked")
         Edge<V, E> otherEdge = (Edge<V, E>) otherObj;
         // if endpoints vertices are not equal

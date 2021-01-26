@@ -163,18 +163,39 @@ public class EdgeTest {
     public void testEquals() {
         System.out.println("equals");
 
-        Edge<String, String> instance = new Edge<>();
-        
-        Vertex<String, String> vertex1 = new Vertex<>(1, "Vertex1");
-        
+        Edge<String, String> instance = new Edge<>();      
+        Vertex<String, String> vertex1 = new Vertex<>(1, "Vertex1");    
         Edge<String, String> otherEdge = new Edge<>("edge1", 1.0, vertex1, vertex1);
-
         assertFalse(instance.equals(null), "should not be equal to null");
         assertFalse(instance.equals(new String()), "should not be equal to dif type");
         assertTrue(instance.equals(instance), "should be equal to itself");
         assertTrue(instance.equals(instance.clone()), "should be equal to a clone");
-
         assertFalse(instance.equals(otherEdge), "should not be equal to otherEdge");
+        
+        Vertex<Integer, Integer> v1 = new Vertex<>(1, 1);
+        Vertex<Integer, Integer> v2 = new Vertex<>(1, 1);
+        Edge<Integer, Integer> e1 = new Edge<>(1, 1, v1, v2);
+        Edge<Integer, Integer> e2 = new Edge<>(1, 1, null, v2);
+        Edge<Integer, Integer> e3 = new Edge<>(1, 1, v1, null);
+        
+        assertFalse(e1.equals(new Edge<>(1, 1, null, v2)));
+        assertFalse(e1.equals(new Edge<>(1, 1, v1, null)));
+        assertFalse(e1.equals(new Edge<>(1, 0, v1, v2)));
+        assertFalse(e1.equals(new Edge<>(0, 1, v1, v2)));
+        
+        assertFalse(e2.equals(new Edge<>(1, 1, v1, v2)));
+        assertFalse(e2.equals(new Edge<>(1, 1, v1, null)));
+        assertFalse(e2.equals(new Edge<>(1, 0, v1, v2)));
+        assertFalse(e2.equals(new Edge<>(0, 1, v1, v2)));
+        
+        assertFalse(e3.equals(new Edge<>(1, 1, null, v2)));
+        assertFalse(e3.equals(new Edge<>(1, 1, v1, v2)));
+        assertFalse(e3.equals(new Edge<>(1, 0, v1, v2)));
+        assertFalse(e3.equals(new Edge<>(0, 1, v1, v2)));
+        
+        assertTrue(e1.equals(new Edge<>(1, 1, v1, v2)));
+        assertTrue(e2.equals(new Edge<>(1, 1, null, v2)));
+        assertTrue(e3.equals(new Edge<>(1, 1, v1, null)));
     }
 
     /**
