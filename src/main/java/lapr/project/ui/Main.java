@@ -367,7 +367,7 @@ class Main {
         CourierDB cDB = new CourierDB();
         AddressDB aDB = new AddressDB();
 
-        Address clientAddress = new Address("feup", 41.1775, 8.598056, 111);
+        Address clientAddress = new Address("se do porto", 41.143056, 8.611111, 72);
         Courier c = cDB.getCourier("courier3@gmail.com");
         Scooter s = cdCont.getHighestBatteryScooter(1);
         Drone d = cdCont.getHighestBatteryDrone(1);
@@ -449,7 +449,7 @@ class Main {
                                     LinkedList<Address> shortPathEnergyScooterPharmacyToPharmacy = new LinkedList<>();
 
                                     double distanceToOrigPharmacy = gCont.getShortestPath(true, nearestPharmacy, pharmacyAddress, shortPathDistanceScooterPharmacyToPharmacy);
-                                    gCont.getShortestPath(true, clientAddress, nearestPharmacy, shortPathEnergyScooterPharmacyToPharmacy);
+                                    gCont.getShortestPath(true, nearestPharmacy, pharmacyAddress, shortPathEnergyScooterPharmacyToPharmacy);
                                     double energyToOrigPharmacy = PathAlgorithms.calcScooterTotalEnergy(gCont.getGraphScooterEnergy(), shortPathEnergyScooterPharmacyToPharmacy, c, s, mexeTeAndre);
 
                                     if (energyToOrigPharmacy > s.getCurrentBattery()) {
@@ -458,7 +458,7 @@ class Main {
                                     } else {
                                         gCont.writePathToFile("SingleDeliveryScenarioScooterEnergyBackToPharmacy.csv", shortPathEnergyScooterPharmacyToPharmacy, PathAlgorithms.calcTotalDistance(shortPathEnergyScooterPharmacyToPharmacy) / 1000, energyToOrigPharmacy, c, s, mexeTeAndre);
                                         gCont.writePathToFile("SingleDeliveryScenarioScooterDistanceBackToPharmacy.csv", shortPathDistanceScooterPharmacyToPharmacy, distanceToOrigPharmacy / 1000, PathAlgorithms.calcScooterTotalEnergy(gCont.getGraphScooterEnergy(), shortPathDistanceScooterPharmacyToPharmacy, c, s, mexeTeAndre), c, s, mexeTeAndre);
-                                        System.out.println("Scooter can traverse from the pharmacy it has charge in to the original pharmacy. Paths exported to 'SingleDeliveryScenarioScooterEnergy/DistancePharmacyToPharmacy.csv'");
+                                        System.out.println("Scooter can traverse from the pharmacy it has charge in to the original pharmacy. Paths exported to 'SingleDeliveryScenarioScooterEnergy/DistanceBackToPharmacy.csv'");
                                     }
                                 }
                             }
@@ -534,7 +534,7 @@ class Main {
                                     LinkedList<Address> shortPathEnergyDronePharmacyToPharmacy = new LinkedList<>();
 
                                     double distanceToOrigPharmacy = gCont.getShortestPath(false, nearestPharmacy, pharmacyAddress, shortPathDistanceDronePharmacyToPharmacy);
-                                    gCont.getShortestPath(false, clientAddress, nearestPharmacy, shortPathEnergyDronePharmacyToPharmacy);
+                                    gCont.getShortestPath(false, nearestPharmacy, pharmacyAddress, shortPathEnergyDronePharmacyToPharmacy);
                                     double energyToOrigPharmacy = PathAlgorithms.calcDroneTotalEnergy(gCont.getGraphDroneEnergy(), shortPathEnergyDronePharmacyToPharmacy, d, mexeTeAndre);
 
                                     if (energyToOrigPharmacy > d.getCurrentBattery()) {
