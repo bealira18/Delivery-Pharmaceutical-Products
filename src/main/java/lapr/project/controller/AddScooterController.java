@@ -23,15 +23,11 @@ public class AddScooterController {
         this.scooterDB = scooterDB;
         this.parkDB = parkDB;
     }
-
-    public void qrController(Scooter s) throws IOException, WriterException {
-        scooterDB.generateQRCodeImage(s.toString(),200,200,"./qrScooter"+s.getIdVehicle()+".png");
-    }
     
     public boolean addScooter(Scooter scooter) {
 
         if (parkDB.getNumberOfScootersInPharmacy(scooter.getIdPharmacy()) < parkDB.getLimitVehiclesPark(scooter.getIdPharmacy(), "scooter")) {
-            return scooterDB.addScooter(scooter);
+            return scooterDB.addScooter(scooter,200,200);
         }
         return false;
     }

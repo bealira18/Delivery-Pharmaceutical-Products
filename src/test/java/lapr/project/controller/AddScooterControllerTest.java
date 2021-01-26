@@ -27,7 +27,7 @@ class AddScooterControllerTest {
         ScooterDB scooterDB = mock(ScooterDB.class);
         ParkDB parkDB = mock(ParkDB.class);
 
-        when(scooterDB.addScooter(scooter1)).thenReturn(Boolean.TRUE);
+        when(scooterDB.addScooter(scooter1,200,200)).thenReturn(Boolean.TRUE);
         when(parkDB.getNumberOfScootersInPharmacy(scooter1.getIdPharmacy())).thenReturn(0);
         when(parkDB.getLimitVehiclesPark(scooter1.getIdPharmacy(), "scooter")).thenReturn(1);
 
@@ -60,7 +60,7 @@ class AddScooterControllerTest {
         result = controller1.addScooter(scooter1);
         assertEquals(false, result);
 
-        when(scooterDB.addScooter(scooter1)).thenReturn(Boolean.FALSE);
+        when(scooterDB.addScooter(scooter1,200,200)).thenReturn(Boolean.FALSE);
         when(parkDB.getNumberOfScootersInPharmacy(scooter1.getIdPharmacy())).thenReturn(0);
 
         result = controller1.addScooter(scooter1);

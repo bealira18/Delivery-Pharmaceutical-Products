@@ -9,6 +9,9 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -23,11 +26,20 @@ import java.util.logging.Logger;
 
 public class ScooterDB extends DataHandler {
 
-    public boolean addScooter(Scooter scooter) {
+    public boolean addScooter(Scooter scooter, int width, int height) {
+
+        String path="./qrScooter"+scooter.getIdVehicle()+".png";
+
+        try{
+            generateQRCodeImage(scooter.toString(),width,height,path);
+        } catch (WriterException | IOException ex){
+            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
 
         return addScooter(scooter.getIdVehicle(), scooter.getIdPharmacy(), scooter.getWeight(), scooter.getAerodynamicCoeficient(),
                 scooter.getFrontalArea(), scooter.getMotor(), scooter.getCurrentBattery(), scooter.getMaxBattery(),
-                scooter.getAverageSpeed(), scooter.getScooterStatusId());
+                scooter.getAverageSpeed(), scooter.getScooterStatusId(), path);
     }
 
     public Scooter getIdScooter(int idScooter) {
@@ -125,11 +137,12 @@ public class ScooterDB extends DataHandler {
     }
 
     private boolean addScooter(int idScooter, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
-                               double motor, double currentBattery, double maxBattery, double averageSpeed, int scooterStatusId) {
+                               double motor, double currentBattery, double maxBattery, double averageSpeed, int scooterStatusId,
+                                String path) {
 
         try (Connection con3 = getConnection()) {
 
-            try (CallableStatement callStmt3 = con3.prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?,?) }")) {
+            try (CallableStatement callStmt3 = con3.prepareCall("{ call addScooter(?,?,?,?,?,?,?,?,?,?,?) }")) {
 
                 callStmt3.setInt(1, idScooter);
                 callStmt3.setInt(2, idPharmacy);
@@ -142,10 +155,14 @@ public class ScooterDB extends DataHandler {
                 callStmt3.setDouble(9, averageSpeed);
                 callStmt3.setInt(10, scooterStatusId);
 
+                File imgFile=new File(path);
+                FileInputStream fin=new FileInputStream(imgFile);
+                callStmt3.setBinaryStream(11,fin,imgFile.length());
+
                 callStmt3.execute();
                 return true;
             }
-        } catch (NullPointerException | SQLException ex) {
+        } catch (NullPointerException | SQLException | FileNotFoundException ex) {
             Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
 
