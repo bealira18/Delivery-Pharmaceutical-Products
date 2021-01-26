@@ -33,30 +33,30 @@ INSERT INTO address(address, latitude, longitude, altitude) VALUES('gaia shoppin
 INSERT INTO address(address, latitude, longitude, altitude) VALUES('ponte da arrabida', 41.147222, 8.64, 66);
 
 -- ## table Path ##
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'conservatorio', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'casa da musica', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'estadio do bessa', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('estadio do bessa', 'parque de serralves', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('parque de serralves', 'casa da musica', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'pavilhao rosa mota', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('pavilhao rosa mota', 'casa da musica', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'trindade', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('trindade', 'conservatorio', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('pavilhao rosa mota', 'torre dos clerigos', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('torre dos clerigos', 'pavilhao rosa mota', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'torre dos clerigos', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('torre dos clerigos', 'conservatorio', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('torre dos clerigos', 'se do porto', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('se do porto', 'el corte ingles', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('trindade', 'isep', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('isep', 'feup', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('feup', 'trindade', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('el corte ingles', 'gaia shopping', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('gaia shopping', 'el corte ingles', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('gaia shopping', 'ponte da arrabida', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('ponte da arrabida', 'gaia shopping', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'ponte da arrabida', 0, 90, 12);
-INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('ponte da arrabida', 'casa da musica', 0, 90, 12);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'conservatorio', 1.05, 48, 5);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'casa da musica', 1.05, 228, 5);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'estadio do bessa', 0.82, 80, 2);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('estadio do bessa', 'parque de serralves', 0.96, 97, 7);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('parque de serralves', 'casa da musica', 1, 50, 6);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'pavilhao rosa mota', 0.95, 30, 5);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('pavilhao rosa mota', 'casa da musica', 0.95, 210, 5);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'trindade', 0.8, 140, 6);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('trindade', 'conservatorio', 0.8, 320, 6);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('pavilhao rosa mota', 'torre dos clerigos', 0.99, 90, 7);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('torre dos clerigos', 'pavilhao rosa mota', 0.99, 270, 7);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('conservatorio', 'torre dos clerigos', 0.82, 37, 9);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('torre dos clerigos', 'conservatorio', 0.82, 217, 9);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('torre dos clerigos', 'se do porto', 0.91, 79, 7);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('se do porto', 'el corte ingles', 0.83, 110, 8);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('trindade', 'isep', 0.94, 190, 6);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('isep', 'feup', 0.98, 180, 7);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('feup', 'trindade', 0.99, 290, 8);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('el corte ingles', 'gaia shopping', 0.84, 210, 6);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('gaia shopping', 'el corte ingles', 0.84, 30, 6);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('gaia shopping', 'ponte da arrabida', 1.05, 190, 10);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('ponte da arrabida', 'gaia shopping', 1.05, 10, 10);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('casa da musica', 'ponte da arrabida', 1.1, 80, 7);
+INSERT INTO path(address1, address2, kinetic_coefficient, wind_angle, wind_speed) VALUES ('ponte da arrabida', 'casa da musica', 1.1, 260, 7);
 
 -- ## table Pharmacy ##
 INSERT INTO pharmacy(name, address) VALUES ('farmacia da boavista', 'casa da musica');
@@ -135,24 +135,24 @@ INSERT INTO deliveryStatus(id_delivery_status, name) VALUES (4, 'delivered');
 INSERT INTO deliveryStatus(id_delivery_status, name) VALUES (5, 'cancelled');
 
 -- ## table Vehicle ##
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(1, 1, 250, 0, 1, 1, 500, 500, 8.9, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(2, 1, 270, 0, 1, 1, 500, 500, 8.9, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(3, 1, 330, 0, 1, 1, 500, 500, 8.9, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(4, 1, 200, 0, 1, 1, 500, 500, 8.9, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(5, 1, 290, 0, 1, 1, 500, 500, 8.9, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(6, 1, 8, 0, 1, 1, 500, 500, 20, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(7, 1, 10, 0, 1, 1, 500, 500, 20, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(8, 1, 8, 0, 1, 1, 500, 500, 20, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(9, 1, 10, 0, 1, 1, 500, 500, 20, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(10, 1, 13, 0, 1, 1, 500, 500, 20, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(1, 1, 16, 1.1, 1.5, 1, 500, 500, 8.9, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(2, 1, 13, 1.11, 1.5, 1, 500, 500, 8.7, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(3, 1, 14, 1.09, 1.4, 1, 500, 500, 8.3, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(4, 1, 17, 1.05, 1.45, 1, 500, 500, 9.1, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(5, 1, 16.5, 1.07, 1.3, 1, 500, 500, 8, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(6, 1, 4, 0.6, 0.4, 1, 500, 500, 22.9, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(7, 1, 5, 0.7, 0.5, 1, 500, 500, 22.2, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(8, 1, 4.5, 0.65, 0.47, 1, 500, 500, 21.9, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(9, 1, 3.8, 0.55, 0.51, 1, 500, 500, 23, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(10, 1, 4.1, 0.58, 0.46, 1, 500, 500, 21, null);
 
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(101, 1, 330, 0, 1, 1, 500, 500, 8.9, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(102, 1, 200, 0, 1, 1, 500, 500, 8.9, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(103, 1, 290, 0, 1, 1, 500, 500, 8.9, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(101, 1, 15, 1.1, 1.5, 1, 500, 500, 8.9, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(102, 1, 13, 1.11, 1.4, 1, 500, 500, 8.9, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(103, 1, 14, 1.07, 1.45, 1, 500, 500, 8.9, null);
 
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(111, 1, 8, 0, 1, 1, 500, 500, 20, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(112, 1, 10, 0, 1, 1, 500, 500, 20, null);
-INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(113, 1, 13, 0, 1, 1, 500, 500, 20, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(111, 1, 4, 0.6, 0.47, 1, 500, 500, 20, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(112, 1, 5, 0.55, 0.5, 1, 500, 500, 20, null);
+INSERT INTO vehicle(id_vehicle, id_pharmacy, weight, aerodynamic_coefficient, frontal_area, motor, current_battery, max_battery, average_speed, qrCode) VALUES(113, 1, 4.5, 0.5, 0.51, 1, 500, 500, 20, null);
 
 -- ## table Scooter ##
 INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(1, 1);
@@ -167,10 +167,10 @@ INSERT INTO scooter(id_scooter, id_vehicle_status) VALUES(103, 1);
 
 -- ## table Drone ##
 INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(6, 0.5, 9, 1);
-INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(7, 0.5, 9, 1);
-INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(8, 0.5, 9, 1);
-INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(9, 0.5, 9, 1);
-INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(10, 0.5, 9, 1);
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(7, 0.5, 8, 1);
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(8, 0.4, 8.5, 1);
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(9, 0.6, 8.7, 1);
+INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(10, 0.5, 8.3, 1);
 
 INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(111, 0.5, 9, 1);
 INSERT INTO drone(id_drone, width, average_vertical_speed, id_vehicle_status) VALUES(112, 0.5, 9, 1);
