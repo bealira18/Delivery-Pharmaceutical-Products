@@ -44,6 +44,8 @@ public class VehicleParkingController {
             throw new IllegalArgumentException("Unexpected number of arguments");
         }
 
+        sc.close();
+
         //Check if the vehicle ID is real and what type it is
         String vehicleType = vDB.typeOfVehicleByID(Integer.parseInt(arrBuffer[1]));
         List<String> nameNemail = vDB.getEmailNameFromParkedVehicleResponsible(Integer.parseInt(arrBuffer[1]));
@@ -51,8 +53,9 @@ public class VehicleParkingController {
 
         date = LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(arrBuffer[0])), ZoneId.of("Z"));
 
-        eS.sendEmail(nameNemail.get(1), "Notificação de estacionamento", buildStatusEmail(nameNemail.get(0), date,
+        eS.sendEmail(nameNemail.get(0), "Notificação de estacionamento", buildStatusEmail(nameNemail.get(1), date,
                 Integer.parseInt(arrBuffer[1]), vehicleType, Float.parseFloat(arrBuffer[2])).toString());
+
     }
 
     public void writeChargerRequest(Vehicle vehicle, boolean isReal) {
@@ -66,7 +69,7 @@ public class VehicleParkingController {
         String buffer = writeChargerInfo(vehicle, timestamp, isReal);
 
         Utils.writeFile(buffer, fileName);
-        Utils.writeFile(" ", fileName + ".flag");
+        Utils.writeFile("flag", fileName + ".flag");
     }
 
     public static String writeChargerInfo(Vehicle vehicle, long timestamp, boolean isReal) {

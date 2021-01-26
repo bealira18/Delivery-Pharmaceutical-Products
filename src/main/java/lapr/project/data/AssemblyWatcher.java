@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lapr.project.data;
 
 import java.io.IOException;
@@ -19,20 +14,18 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lapr.project.controller.VehicleParkingController;
+import static lapr.project.utils.Constants.CRG_COM_DIR;
 
-/**
- *
- * @author Ricardo
- */
 public class AssemblyWatcher implements Runnable {
 
     private WatchService asmWatchService;
 
     public AssemblyWatcher() {
+
         try {
             asmWatchService = FileSystems.getDefault().newWatchService();
 
-            Path path = Paths.get(System.getProperty("charger.comm.dir"));
+            Path path = Paths.get(System.getProperty(CRG_COM_DIR));
 
             path.register(asmWatchService, StandardWatchEventKinds.ENTRY_CREATE);
         } catch (IOException ex) {
@@ -49,13 +42,13 @@ public class AssemblyWatcher implements Runnable {
         try {
             while ((key = asmWatchService.take()) != null) {
                 for (WatchEvent<?> event : key.pollEvents()) {
-                    
+
                     matcher = pattern.matcher(event.context().toString());
-                    
+
                     if (matcher.find()) {
                         new VehicleParkingController().interpretChargerInfo(event.context().toString().replace(".flag", ""));
-                        Files.delete(FileSystems.getDefault().getPath(System.getProperty("charger.comm.dir") + event.context().toString()));
-                        Files.delete(FileSystems.getDefault().getPath(System.getProperty("charger.comm.dir") + event.context().toString().replace(".flag", "")));
+                        Files.delete(FileSystems.getDefault().getPath(System.getProperty(CRG_COM_DIR) + event.context().toString()));
+                        Files.delete(FileSystems.getDefault().getPath(System.getProperty(CRG_COM_DIR) + event.context().toString().replace(".flag", "")));
                     }
 
                 }
@@ -66,5 +59,4 @@ public class AssemblyWatcher implements Runnable {
             Thread.currentThread().interrupt();
         }
     }
-
 }
