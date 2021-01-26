@@ -233,6 +233,10 @@ class Main {
  /*VehicleDB vehicleDB = new VehicleDB();
         System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(101));
         System.out.println(vehicleDB.getEmailNameFromParkedVehicleResponsible(113));*/
+
+        AddScooterController addScooterController = new AddScooterController();
+        Scooter scooter1 = new Scooter(0, 1, 20, 40, 50, 60, 10, 100, 1, 1);
+        System.out.println(addScooterController.addScooter(scooter1));
     }
 
     public static void scenario1() {

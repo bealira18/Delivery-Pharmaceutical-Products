@@ -125,4 +125,36 @@ public class PharmacyDB extends DataHandler {
             closeAll();
         }
     }
+
+    public Pharmacy getPhamacyByAddress(Address pharmacyAddress) {
+
+        try (Connection con4 = getConnection()) {
+
+            try (CallableStatement callStmt4 = con4.prepareCall("{ ? = call getPharmacyByAddress(?) }")) {
+
+                callStmt4.registerOutParameter(1, OracleTypes.CURSOR);
+                callStmt4.setString(2, pharmacyAddress.getDescription());
+
+                callStmt4.execute();
+
+                try (ResultSet rs4 = (ResultSet) callStmt4.getObject(1)) {
+
+                    if (rs4.next()) {
+                        int pID = rs4.getInt(1);
+                        String pName = rs4.getString(2);
+                        String pAddress = rs4.getString(3);
+
+                        return new Pharmacy(pID, pName, pharmacyAddress);
+                    }
+                }
+            }
+        } catch (NullPointerException | SQLException ex) {
+            Logger.getLogger(PharmacyDB.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IllegalArgumentException("No Pharmacy with Address:" + pharmacyAddress);
+
+        } finally {
+            closeAll();
+        }
+        return null;
+    }
 }
