@@ -59,6 +59,8 @@ public class CreateInvoiceController {
             deliveryFee = updateDeliveryFeeController.getDeliveryFee();
         }
 
+        manageCreditsController.addCreditsAfterPurchase(po.getClientEmail(), totalPrice);
+
         double priceWithoutIVA = (totalPrice + deliveryFee) / iva;
 
         Invoice invoice = new Invoice(idInvoice, po.getId(), po.getPharmacyId(), po.getClientEmail(), deliveryFee, totalPrice, priceWithoutIVA);
