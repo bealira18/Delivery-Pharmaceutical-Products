@@ -109,13 +109,10 @@ class Main {
 
         PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
         Product product1 = new Product(1, "Ben-u-ron", 2.40, 0.1, 1);
-        Product product2 = new Product(2, "Ibuprofeno", 4.70, 0.2, 1);
         System.out.println("Adding products to cart");
         int idOrder = 2;
         System.out.println("Adding product: " + product1.toString() + " Quantity: 10");
         System.out.println(purchaseItemsController.addToBasket(product1, 10));
-        System.out.println("Adding product: " + product2.toString() + " Quantity: 2");
-        System.out.println(purchaseItemsController.addToBasket(product2, 2));
         PurchaseOrder purchaseOrder2 = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
         System.out.println(purchaseOrder2);
         if (purchaseOrder2 == null) {
