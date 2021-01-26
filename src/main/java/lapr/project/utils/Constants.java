@@ -163,4 +163,8 @@ public final class Constants {
      * Duplication avoidance.
      */
     public static final String SEC_NEWLINE = "s.\n";
+    /**
+     * Duplication avoidance.
+     */
+    public static final String CRG_COM_DIR = "charger.comm.dir";
 }

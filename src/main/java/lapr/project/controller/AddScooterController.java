@@ -1,11 +1,8 @@
 package lapr.project.controller;
 
-import com.google.zxing.WriterException;
 import lapr.project.data.ScooterDB;
 import lapr.project.data.ParkDB;
 import lapr.project.model.Scooter;
-
-import java.io.IOException;
 
 public class AddScooterController {
 
@@ -23,11 +20,11 @@ public class AddScooterController {
         this.scooterDB = scooterDB;
         this.parkDB = parkDB;
     }
-    
+
     public boolean addScooter(Scooter scooter) {
 
         if (parkDB.getNumberOfScootersInPharmacy(scooter.getIdPharmacy()) < parkDB.getLimitVehiclesPark(scooter.getIdPharmacy(), "scooter")) {
-            return scooterDB.addScooter(scooter,200,200);
+            return scooterDB.addScooter(scooter, 200, 200);
         }
         return false;
     }

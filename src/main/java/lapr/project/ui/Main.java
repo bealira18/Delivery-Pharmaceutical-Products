@@ -4,20 +4,11 @@ import lapr.project.controller.*;
 import lapr.project.data.*;
 import lapr.project.model.*;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +26,7 @@ class Main {
      *
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) {
         //load database properties
 
         SettingsHandler sH = new SettingsHandler();
@@ -45,13 +36,13 @@ class Main {
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
 
         setUpProperties();
-        //scenarioPurchaseOrderNoCredits();
-        //scenarioPurchaseOrderEnoughCreditsBackOrder();
-        //scenarioPurchaseOrderOverMaxWeight();
-	    //scenarioOneDelivery();
-        //scenarioMultipleDeliveries();
-        //scenarioQrCode();
-        parkingScenario();
+//        scenarioPurchaseOrderNoCredits();
+//        scenarioPurchaseOrderEnoughCreditsBackOrder();
+//        scenarioPurchaseOrderOverMaxWeight();
+//        scenarioOneDelivery();
+//        scenarioMultipleDeliveries();
+//        scenarioQrCode();
+//        parkingScenario();
 //        testScenarioLand7_1();
 
         //Initial Database Setup
@@ -411,7 +402,7 @@ class Main {
 
         List<Address> clientAddresses = new ArrayList<>();
 
-        for(PurchaseOrder purchaseOrder : purchaseOrderList) {
+        for (PurchaseOrder purchaseOrder : purchaseOrderList) {
             Client client = clientDB.getClientByEmail(purchaseOrder.getClientEmail());
             Address clientAddress = client.getAddress();
             clientAddresses.add(clientAddress);
@@ -494,7 +485,7 @@ class Main {
         cdCont.deliveryRunAssociateCourier(c.getEmail(), deliveryRun);
 
         System.out.println("Notifying client");
-        for(PurchaseOrder purchaseOrder : purchaseOrderList) {
+        for (PurchaseOrder purchaseOrder : purchaseOrderList) {
             notifyClientController.notifyClientDeliveryRunStarts(purchaseOrder);
         }
         System.out.println("Multiple Delivery Scenario Ended.");
@@ -555,11 +546,12 @@ class Main {
         Scooter scooter = new Scooter(11, 2, 16, 1.1, 1.5, 1, 500, 500, 8.9, 1);
         Drone drone = new Drone(12, 1, 4.5, 0.65, 0.47, 1, 500, 500, 21.9, 0.5, 7, 1);
 
-        System.out.println("Adding Scooter: id:"+scooter.getIdVehicle());
+        System.out.println("Adding Scooter: id:" + scooter.getIdVehicle());
         System.out.println(addScooterController.addScooter(scooter));
-        System.out.println("Adding Drone: id:"+drone.getIdVehicle());
+        System.out.println("Adding Drone: id:" + drone.getIdVehicle());
         System.out.println(addDroneController.addDrone(drone));
     }
+
     public static void testScenarioLand7_1() {
 
         double totalEnergy = 0;
