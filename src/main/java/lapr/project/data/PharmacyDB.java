@@ -142,7 +142,6 @@ public class PharmacyDB extends DataHandler {
                     if (rs4.next()) {
                         int pID = rs4.getInt(1);
                         String pName = rs4.getString(2);
-                        String pAddress = rs4.getString(3);
 
                         return new Pharmacy(pID, pName, pharmacyAddress);
                     }
