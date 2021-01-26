@@ -24,7 +24,7 @@ public class AddDroneController {
     public boolean addDrone(Drone drone) {
 
         if (parkDB.getNumberOfDronesInPharmacy(drone.getIdPharmacy()) < parkDB.getLimitVehiclesPark(drone.getIdPharmacy(), "drone")) {
-            return droneDB.addDrone(drone);
+            return droneDB.addDrone(drone,200,200);
         }
         return false;
     }

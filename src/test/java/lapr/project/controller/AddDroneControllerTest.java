@@ -27,7 +27,7 @@ class AddDroneControllerTest {
         DroneDB droneDB = mock(DroneDB.class);
         ParkDB parkDB = mock(ParkDB.class);
 
-        when(droneDB.addDrone(drone1)).thenReturn(Boolean.TRUE);
+        when(droneDB.addDrone(drone1,200,200)).thenReturn(Boolean.TRUE);
         when(parkDB.getNumberOfDronesInPharmacy(drone1.getIdPharmacy())).thenReturn(0);
         when(parkDB.getLimitVehiclesPark(drone1.getIdPharmacy(),"drone")).thenReturn(1);
 
@@ -54,7 +54,7 @@ class AddDroneControllerTest {
         ParkDB parkDB = mock(ParkDB.class);
 
         when(parkDB.getNumberOfDronesInPharmacy(drone1.getIdPharmacy())).thenReturn(1);
-        when(droneDB.addDrone(drone1)).thenReturn(Boolean.FALSE);
+        when(droneDB.addDrone(drone1,200,200)).thenReturn(Boolean.FALSE);
 
         AddDroneController controller1 = new AddDroneController(droneDB, parkDB);
 
