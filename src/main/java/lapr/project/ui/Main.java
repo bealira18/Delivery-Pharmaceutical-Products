@@ -44,9 +44,10 @@ class Main {
         sH.saveSettings(SettingsHandler.SETTINGS_FILE);
 
         setUpProperties();
-        scenarioPurchaseOrderNoCredits();
-        //scenario ultrapassada max payload
-	    //scenarioOneDelivery();
+        //scenarioPurchaseOrderNoCredits();
+        //scenarioPurchaseOrderEnoughCreditsBackOrder();
+        //scenarioPurchaseOrderOverMaxWeight();
+	    scenarioOneDelivery();
         //scenarioMultipleDeliveries();
 
         //scenario1();
@@ -265,19 +266,27 @@ class Main {
         graphController.fillGraphScooterEnergy(addressList, pathList);
 
         PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
-        System.out.println("\n\nPurchaseItemsController");
         Product product1 = new Product(1, "Ben-u-ron", 2.40, 0.1, 1);
         Product product2 = new Product(2, "Ibuprofeno", 4.70, 0.2, 1);
+        System.out.println("Adding products to cart");
         int idOrder = 1;
+        System.out.println("Adding product: "+product1.toString()+" Quantity: 3");
         System.out.println(purchaseItemsController.addToBasket(product1, 3));
+        System.out.println("Adding product: "+product2.toString()+" Quantity: 6");
         System.out.println(purchaseItemsController.addToBasket(product2, 2));
         System.out.println(purchaseItemsController.addToBasket(product2, 4));
-        PurchaseOrder purchaseOrder = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
-        System.out.println(purchaseOrder);
-        if(purchaseOrder == null) return;
+        PurchaseOrder purchaseOrder1 = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
+        System.out.println(purchaseOrder1);
+        if(purchaseOrder1 == null) {
+            System.out.println("Error during purchase.");
+            return;
+        }
 
         CreateInvoiceController createInvoiceController = new CreateInvoiceController();
-        Invoice invoice = createInvoiceController.createInvoice(idOrder, purchaseOrder);
+        System.out.println("Creating Invoice");
+        System.out.println("Updating Credits.");
+        Invoice invoice = createInvoiceController.createInvoice(idOrder, purchaseOrder1);
+        System.out.println("Sending Invoice By Email");
         createInvoiceController.sendInvoiceByEmail(invoice);
 
         /*List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
@@ -286,31 +295,64 @@ class Main {
         createDeliveryController.createDeliveries(purchaseOrderList, 1);*/
     }
 
-    public static void scenarioPurchaseOrderEnoughCredits() {
+    public static void scenarioPurchaseOrderEnoughCreditsBackOrder() {
         System.out.println("filling graph");
         GeographicalController geographicalController = new GeographicalController();
-        System.out.println("\n\nGeographicalController");
         List<Address> addressList = geographicalController.getAddresses();
         List<Path> pathList = geographicalController.getPaths(addressList);
         GraphController graphController = new GraphController();
-        graphController.fillGraphDrone(addressList, pathList);
-        graphController.fillGraphScooter(addressList, pathList);
-        graphController.fillGraphDroneEnergy(addressList, pathList);
         graphController.fillGraphScooterEnergy(addressList, pathList);
 
         PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
-        System.out.println("\n\nPurchaseItemsController");
         Product product1 = new Product(1, "Ben-u-ron", 2.40, 0.1, 1);
         Product product2 = new Product(2, "Ibuprofeno", 4.70, 0.2, 1);
+        System.out.println("Adding products to cart");
         int idOrder = 2;
-        purchaseItemsController.addToBasket(product1, 10);
+        System.out.println("Adding product: "+product1.toString()+" Quantity: 10");
+        System.out.println(purchaseItemsController.addToBasket(product1, 10));
+        System.out.println("Adding product: "+product2.toString()+" Quantity: 2");
         System.out.println(purchaseItemsController.addToBasket(product2, 2));
-        PurchaseOrder purchaseOrder = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
-        System.out.println(purchaseOrder);
-        if(purchaseOrder == null) return;
+        PurchaseOrder purchaseOrder2 = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
+        System.out.println(purchaseOrder2);
+        if(purchaseOrder2 == null) {
+            System.out.println("Error during purchase.");
+            return;
+        }
 
         CreateInvoiceController createInvoiceController = new CreateInvoiceController();
-        Invoice invoice = createInvoiceController.createInvoice(idOrder, purchaseOrder);
+        System.out.println("Creating Invoice");
+        System.out.println("Updating Credits.");
+        Invoice invoice = createInvoiceController.createInvoice(idOrder, purchaseOrder2);
+        System.out.println("Sending Invoice By Email");
+        createInvoiceController.sendInvoiceByEmail(invoice);
+    }
+
+    public static void scenarioPurchaseOrderOverMaxWeight() {
+        System.out.println("filling graph");
+        GeographicalController geographicalController = new GeographicalController();
+        List<Address> addressList = geographicalController.getAddresses();
+        List<Path> pathList = geographicalController.getPaths(addressList);
+        GraphController graphController = new GraphController();
+        graphController.fillGraphScooterEnergy(addressList, pathList);
+
+        PurchaseItemsController purchaseItemsController = new PurchaseItemsController();
+        Product product5 = new Product(1, "Escova de Dentes Deluxe Edition", 15.99, 0.80, 2);
+        System.out.println("Adding products to cart");
+        int idOrder = 3;
+        System.out.println("Adding product: "+product5.toString()+" Quantity: 10");
+        System.out.println(purchaseItemsController.addToBasket(product5, 10));
+        PurchaseOrder purchaseOrder2 = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
+        System.out.println(purchaseOrder2);
+        if(purchaseOrder2 == null) {
+            System.out.println("Basket over max weight. Order cancelled.");
+            return;
+        }
+
+        System.out.println("Updating Credits.");
+        CreateInvoiceController createInvoiceController = new CreateInvoiceController();
+        System.out.println("Creating Invoice");
+        Invoice invoice = createInvoiceController.createInvoice(idOrder, purchaseOrder2);
+        System.out.println("Sending Invoice By Email");
         createInvoiceController.sendInvoiceByEmail(invoice);
     }
 

@@ -149,7 +149,7 @@ public class ProductTest {
     public void testToString() {
         System.out.println("toString");
         Product instance = new Product(42, "SARS-CoV2 Vaccine POGGERS", 1337.42, 548.54, 446);
-        String expResult = "Product{id=42, name=SARS-CoV2 Vaccine POGGERS, price=1337.42, weight=548.54, categoryId=446}";
+        String expResult = "{name=SARS-CoV2 Vaccine POGGERS, price=1337.42€, weight=548.54kg}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }
