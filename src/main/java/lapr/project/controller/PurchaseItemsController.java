@@ -124,4 +124,10 @@ public class PurchaseItemsController {
         }
         return totalWeight <= updateScooterController.getScooterMaxPayload();
     }
+    
+    public boolean clearBasket()
+    {
+        basket.clear();
+        return basket.isEmpty();
+    }
 }
