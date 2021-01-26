@@ -1,8 +1,19 @@
 package lapr.project.data;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import lapr.project.model.Drone;
 import oracle.jdbc.OracleTypes;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,11 +25,20 @@ import java.util.logging.Logger;
 
 public class DroneDB extends DataHandler {
 
-    public boolean addDrone(Drone drone) {
+    public boolean addDrone(Drone drone, int width, int height) {
+
+        String path="./qrDrone"+drone.getIdVehicle()+".png";
+
+        try{
+            generateQRCodeImage(drone.toString(),width,height,path);
+        } catch (WriterException | IOException ex){
+            Logger.getLogger(ScooterDB.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
 
         return addDrone(drone.getIdVehicle(), drone.getIdPharmacy(), drone.getWeight(), drone.getAerodynamicCoeficient(),
                 drone.getFrontalArea(), drone.getMotor(), drone.getCurrentBattery(), drone.getMaxBattery(), drone.getAverageSpeed(),
-                drone.getWidth(), drone.getAverageVerticalSpeed(), drone.getDroneStatusId());
+                drone.getWidth(), drone.getAverageVerticalSpeed(), drone.getDroneStatusId(), path);
     }
 
     public Drone getIdDrone(int idDrone) {
@@ -120,11 +140,11 @@ public class DroneDB extends DataHandler {
 
     private boolean addDrone(int idDrone, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
             double motor, double currentBattery, double maxBattery, double averageSpeed, double width, double averageVerticalSpeed,
-            int droneStatusId) {
+            int droneStatusId, String path) {
 
         try (Connection con3 = getConnection()) {
 
-            try (CallableStatement callStmt3 = con3.prepareCall("{ call addDrone(?,?,?,?,?,?,?,?,?,?,?,?) }")) {
+            try (CallableStatement callStmt3 = con3.prepareCall("{ call addDrone(?,?,?,?,?,?,?,?,?,?,?,?,?) }")) {
 
                 callStmt3.setInt(1, idDrone);
                 callStmt3.setInt(2, idPharmacy);
@@ -139,10 +159,14 @@ public class DroneDB extends DataHandler {
                 callStmt3.setDouble(11, averageVerticalSpeed);
                 callStmt3.setInt(12, droneStatusId);
 
+                File imgFile=new File(path);
+                FileInputStream fin=new FileInputStream(imgFile);
+                callStmt3.setBinaryStream(13,fin,imgFile.length());
+
                 callStmt3.execute();
                 return true;
             }
-        } catch (NullPointerException | SQLException ex) {
+        } catch (NullPointerException | SQLException | FileNotFoundException ex) {
             Logger.getLogger(DroneDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
 
@@ -189,4 +213,14 @@ public class DroneDB extends DataHandler {
         }
         return null;
     }
+
+    public void generateQRCodeImage(String text, int width, int height, String filePath) throws WriterException, IOException {
+
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
+
+        Path path = FileSystems.getDefault().getPath(filePath);
+        MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
+    }
+
 }
