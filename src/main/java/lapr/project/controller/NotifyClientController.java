@@ -41,10 +41,12 @@ public class NotifyClientController {
         this.addressDB = addressDB;
     }
 
-    public Boolean checkForStock(Pharmacy pharmacy, Product product, int productQuantity,
-            Graph<Address, Path> graph) {
+    public Boolean checkForStock(Pharmacy pharmacy, Product product, int productQuantity, Graph<Address, Path> graph) {
 
-        return (checkIfIsEnoughStock(pharmacy, product, productQuantity) == 0 || checkIfIsEnoughStockOthersPharmacy(pharmacy, product, productQuantity, graph));
+        int missingProduct = checkIfIsEnoughStock(pharmacy, product, productQuantity);
+        if (missingProduct == 0) return true;
+
+        return checkIfIsEnoughStockOthersPharmacy(pharmacy, product, missingProduct, graph);
     }
 
     //se retornar 0 é porque ainda tem stock, qualquer valor maior que 0 representa a quantidade de produto em falta na farmácia
