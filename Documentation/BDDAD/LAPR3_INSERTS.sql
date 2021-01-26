@@ -83,10 +83,10 @@ INSERT INTO client(email, name, nif, credit_card, address) VALUES('client2@gmail
 INSERT INTO client(email, name, nif, credit_card, address) VALUES('client3@gmail.com', 'client3', 333333303, 1111111111111102, 'se do porto');
 
 -- ## table Park ##
-INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (1, 10, 5, 'scooter','casa da musica', 5000);
-INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (1, 10, 5, 'drone','casa da musica', 5000);
-INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (2, 10, 5, 'scooter','gaia shopping', 5000);
-INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (2, 10, 5, 'drone','gaia shopping', 5000);
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (1, 10, 5, 'scooter','casa da musica', 1300);
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (1, 10, 5, 'drone','casa da musica', 1300);
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (2, 10, 5, 'scooter','gaia shopping', 1300);
+INSERT INTO park(id_pharmacy, limit, num_charging_stations, category, address, max_charging_potency) VALUES (2, 10, 5, 'drone','gaia shopping', 1300);
 
 
 -- ## table ProductCategory ##
