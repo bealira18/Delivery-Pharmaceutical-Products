@@ -124,6 +124,12 @@ public class DeliveryDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Getts thee client email from his purchased order
+     *
+     * @param idOrder order id
+     * @return the the order's client email
+     */
     public String getClientEmailFromOrder(int idOrder) {
 
         try (Connection con2 = getConnection()) {
@@ -220,12 +226,30 @@ public class DeliveryDB extends DataHandler {
         }
     }
 
+    /**
+     * Adds a delivery to the system
+     *
+     * @param d delivery to add
+     * @return true if it adds or false otherwise
+     */
     private boolean addDelivery(Delivery d) {
 
         return addDelivery(d.getOrderId(), d.getVehicleId(), d.getCourierEmail(), d.getDeliveryStatusId(), d.getDeliveryStart(),
                 d.getDeliveryEnd(), d.getDeliveryRun());
     }
 
+    /**
+     * Calls the data base to add a Delivery
+     *
+     * @param orderId order id
+     * @param vehicleId vehicle id
+     * @param courierEmail courier email
+     * @param deliveryStatusId id of the delivery status
+     * @param deliveryStart the date of the delivery start
+     * @param deliveryEnd the date of the delivery end
+     * @param deliveryRun the time it takes to end
+     * @return true if it adds or false if any exeption appears
+     */
     private boolean addDelivery(int orderId, int vehicleId, String courierEmail, int deliveryStatusId,
                                 LocalDate deliveryStart, LocalDate deliveryEnd, int deliveryRun) {
 

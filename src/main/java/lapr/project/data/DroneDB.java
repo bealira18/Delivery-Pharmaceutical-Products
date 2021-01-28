@@ -41,6 +41,12 @@ public class DroneDB extends DataHandler {
                 drone.getWidth(), drone.getAverageVerticalSpeed(), drone.getDroneStatusId(), path);
     }
 
+    /**
+     * Calls the data base to get the drone info related to a drone id
+     *
+     * @param idDrone drone id
+     * @return returns the drone with the requested id
+     */
     public Drone getIdDrone(int idDrone) {
 
         try (Connection con = getConnection()) {
@@ -73,6 +79,13 @@ public class DroneDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Calls the data base to update a drone
+     *
+     * @param idd drone id
+     * @param d drone
+     * @return true if it updates or false otherwise
+     */
     public boolean updateDrone(int idd, Drone d) {
 
         Drone drone = getIdDrone(idd);
@@ -109,6 +122,12 @@ public class DroneDB extends DataHandler {
         }
     }
 
+    /**
+     * Get all the drones that are available
+     *
+     * @param orderId order id
+     * @return the drones available
+     */
     public List<Drone> getAllAvailableDrones(int orderId) {
 
         ArrayList<Drone> drones = new ArrayList<>();
@@ -138,6 +157,24 @@ public class DroneDB extends DataHandler {
         return drones;
     }
 
+    /**
+     * Calls the data base to add a Drone
+     *
+     * @param idDrone drone id
+     * @param idPharmacy pharmacy id
+     * @param weight weight
+     * @param aerodynamicCoeficient aerodynamic coeficient
+     * @param frontalArea frontal area
+     * @param motor motor
+     * @param currentBattery current battery
+     * @param maxBattery max battery
+     * @param averageSpeed avarage speed
+     * @param width width
+     * @param averageVerticalSpeed average vertical speed
+     * @param droneStatusId drone status id
+     * @param path path
+     * @return true if it adds or false if any exeption appears
+     */
     private boolean addDrone(int idDrone, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
             double motor, double currentBattery, double maxBattery, double averageSpeed, double width, double averageVerticalSpeed,
             int droneStatusId, String path) {

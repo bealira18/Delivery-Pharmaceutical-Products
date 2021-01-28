@@ -8,6 +8,12 @@ import java.util.logging.Logger;
 
 public class DeliveryStatusDB extends DataHandler {
 
+    /**
+     * Calls the data base to update the delivery status of a delivery
+     *
+     * @param idOrder order id
+     * @return true if it updates or false otherwise
+     */
     public boolean updateDeliveryStatusInDelivery(int idOrder) {
 
         try (Connection con = getConnection()) {

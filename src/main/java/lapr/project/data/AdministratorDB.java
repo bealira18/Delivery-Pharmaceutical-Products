@@ -10,12 +10,28 @@ import java.util.logging.Logger;
 
 public class AdministratorDB extends DataHandler {
 
+    /**
+     * Adds an administrator to the system
+     *
+     * @param administrator addministrator to add
+     * @return true if it adds or false otherwise
+     */
     public boolean addAdministrator(Administrator administrator) {
 
         return addAdministrator(administrator.getEmail(), administrator.getPharmacyId(), administrator.getName(),
                 administrator.getNif(), administrator.getSocialSecurity());
     }
 
+    /**
+     * Calls the data base to add an Addministrator
+     *
+     * @param email addmin email
+     * @param idPharmacy admin pharmacy's responsability
+     * @param name addmin name
+     * @param nif addmin nif
+     * @param socialSecurity addmin social security number
+     * @return true if it adds or false if any exeption appears
+     */
     private boolean addAdministrator(String email, int idPharmacy, String name, int nif, long socialSecurity) {
 
         try (Connection con = getConnection()) {
