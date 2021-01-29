@@ -2,7 +2,7 @@ CREATE OR REPLACE PROCEDURE updateVehicleStatus(
     p_idVehicle IN INTEGER,
     p_status IN VARCHAR2)
 IS
-    id_vehicle_status INTEGER;
+    int_id_vehicle_status INTEGER;
     vehicle_type VARCHAR2(255);
 BEGIN
     SELECT id_vehicle_status INTO id_vehicle_status
@@ -13,13 +13,13 @@ BEGIN
     
     IF (vehicle_type = 'scooter') THEN
     
-        UPDATE scooter SET id_vehicle_status = id_vehicle_status
+        UPDATE scooter SET id_vehicle_status = int_id_vehicle_status
         WHERE id_scooter = p_idVehicle;
     END IF;
     
     IF (vehicle_type = 'drone') THEN
     
-        UPDATE drone SET id_vehicle_status = id_vehicle_status
+        UPDATE drone SET id_vehicle_status = int_id_vehicle_status
         WHERE id_drone = p_idVehicle;
     END IF;
 

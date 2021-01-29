@@ -3,6 +3,7 @@ CREATE OR REPLACE PROCEDURE updateDeliveryStatusInDelivery(
 IS
     idDeliveryStatus INTEGER;
     str_name VARCHAR2(255);
+    int_id_vehicle INTEGER;
 
 BEGIN
 
@@ -14,5 +15,13 @@ BEGIN
 
     UPDATE delivery SET id_delivery_status = idDeliveryStatus, delivery_start = sysdate
     WHERE id_order = p_idOrder;
+    
+    SELECT id_vehicle INTO int_id_vehicle
+    FROM delivery
+    WHERE id_order = p_idOrder;
+    
+    IF int_id_vehicle IS NOT NULl THEN
+        updateVehicleStatus(int_id_vehicle, 'occupied');
+    END IF;
 
 END;
