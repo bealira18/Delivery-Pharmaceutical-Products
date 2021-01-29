@@ -22,25 +22,25 @@ Nuno Bettencourt - NMB
 In this report we started by stating the initial problem presented to us, which consists in constructing a Java application that supports the delivery of pharmaceutical products.
 The application doesn't need an interface but we must follow a Test Driven Development approach by using the Jenkins® and SonarQube® servers.
 Prior to the coding development we have focused our work in the engineering software artifacts that would be relevant when coding.
-All our work was distributed among the five members of the group and we have tried to follow an equally distribution, which wasn’t perfect.
-In this report we pretend to give a briefly description of our work and what our application is capable of doing.
+All our work was distributed amongst the five members of the group and we have tried to follow an equal distribution, however imperfect it may have been.
+In this report we aim to give a brief description of our work and what our application is capable of doing.
 
 ### Theorical Introduction ###
-The Project presented to us required us to elaborate a product that supports the delivery of pharmaceutical products. This service should allow managing users, electric scooters, drones, parks, products, orders and deliveries.
-Dispite our application do not have an UI to interact with. It should run through tests. Data should be passed through external files and inserted into the Data-Base, then we should be able to manage the inserted information and work from there. 
+The Project presented to us required us to elaborate a product that supports the delivery of pharmaceutical products. This service should allow the management users, electric scooters, drones, parks, products, orders and deliveries.
+Despite our application not having an UI to interact with, it was solicited of us that it should be run through tests. Data should be passed through external files and inserted into the Data-Base, then we should be able to manage the inserted information and work from there. 
 That being said, those same tests should check if we were getting the expected result when accessing the Data-Base.
 
 
 ### Work Organization, Planning and Methodology ###
-The methodology followed by our group is based on the Scrum®, so, all our work was developed in a certain way, starting by planning who and what, each member of the group was going to do.
+The methodology followed by our group is based on the Scrum®, so all our work was developed in a certain way, starting by planning who and what each member of the group was going to do.
 One of the core parts in our team is the cooperation, since without that it would be near impossible to work as a team. Each and every member was there to discuss ideas and give the requested assistance, provided everyone was doing its part of the work.
 As expected, this project relied on transparency and adaptation of every single member of the group, since there was a constant analysis of what was done and how it was done. The communication and the inter-help were always present in the group, since this is a group work and not various single works.
 In order to help out with the organization of the Project we have used the Jira Software.
 
 Firstly we have identified the user-stories that we found out to be present and elaborated the Use-Cases Diagram presented ahead.
 After that, and following a Scrum metodology, we have given an estimation value so we could know how long it would take each use-case.
-Each use-case was assigned to a member of the team, however the cooperation was emphasised due to the fact that a certain member could be better than another one on a certain task.
-On the following days each member worked on his/her use-case and whenever there was some free-time, we were at our disposal to help out othe members.
+Each use-case was assigned to a member of the team, however the cooperation was emphasized due to the fact that a certain member could be better than another one on a certain task.
+On the following days each member worked on his/her use-case and whenever there was some free-time, we were at our disposal to help out other members.
 
 ### Plannning Poker example
 
@@ -120,7 +120,7 @@ This representation includes addresses and paths.
 ### Conclusion ###
 With this report we could conclude that we have learned a lot during this LAPR3 course. We have worked a lot with all the knowledge acquired during ARQCP, ESINF, BDDAD and FSIAP classes.
 During this project, we encountered several difficulties but we solved most of them.
-However, we think that we have achieved some of the what was asked. That said, we also realized how difficult, mainly due to the period we are going through. We also realized that sometimes working in groups can be quite challenging, since each has their own way of understanding things and your own pace.
+However, we think that we have achieved some of the what was asked. That said, we also realized how difficult the project showed itself to be, mainly due to the period we are going through. We also realized that sometimes working in groups can be quite challenging, since each has their own way of understanding things and their own pace.
 All in all, we can say that with the elaboration of this project we have increased our knowledge both in terms of Java® programming as also in terms of Oracle SQL®. We also augmented our portfolio by gaining the basic knowledge about a Test Driven Development way of work.
 
 

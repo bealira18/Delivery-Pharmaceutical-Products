@@ -10,12 +10,29 @@ import lapr.project.model.Product;
 import lapr.project.model.Scooter;
 import static lapr.project.utils.Constants.*;
 
+/**
+ * This class contains a myriad of algorithms pertaining to the calculation of
+ * distance, energy and time of traversal of given paths.
+ *
+ * @author lapr3-2020-g052
+ */
 public class PathAlgorithms {
 
+    /**
+     * Private constructor to hide the implicit public one.
+     */
     private PathAlgorithms() {
 
     }
 
+    /**
+     * Method responsible for calculating the distance (in meters) between two
+     * addresses received as parameter.
+     *
+     * @param a1 address #1.
+     * @param a2 address #2.
+     * @return the distance between two addresses (in meters).
+     */
     public static double calcDistance(Address a1, Address a2) {
 
         double lat1 = a1.getLatitude();
@@ -39,6 +56,15 @@ public class PathAlgorithms {
         return Math.sqrt(distance);
     }
 
+    /**
+     * Method responsible for calculating the amount of energy (in W.h) that it
+     * takes for a Scooter (with default characteristics) to traverse a given
+     * path received as parameter. The attributes of the courier driving the
+     * scooter are also by default.
+     *
+     * @param p path to traverse.
+     * @return the energy (in W.h) to traverse the path.
+     */
     public static double calcScooterEnergy(Path p) {
 
         double distance = calcDistance(p.getAddress1(), p.getAddress2());
@@ -58,6 +84,17 @@ public class PathAlgorithms {
         return totalEnergy < 0 ? 0 : totalEnergy;
     }
 
+    /**
+     * Method responsible for calculating the amount of energy (in W.h) that it
+     * takes for a Scooter (with default characteristics) to traverse a given
+     * path received as parameter. It also receives as parameter the courier
+     * that will drive the scooter and the list of products that it will carry.
+     *
+     * @param p path to traverse.
+     * @param c courier.
+     * @param lp list of products.
+     * @return the energy (in W.h) to traverse the path.
+     */
     public static double calcScooterEnergy(Path p, Courier c, List<Product> lp) {
 
         double distance = calcDistance(p.getAddress1(), p.getAddress2());
@@ -78,6 +115,18 @@ public class PathAlgorithms {
         return totalEnergy < 0 ? 0 : totalEnergy;
     }
 
+    /**
+     * Method responsible for calculating the amount of energy (in W.h) that it
+     * takes for a Scooter, received as parameter, to traverse a given path
+     * received as parameter. It also receives as parameter the courier that
+     * will drive the scooter and the list of products that it will carry.
+     *
+     * @param p path to traverse.
+     * @param c courier.
+     * @param s scooter.
+     * @param lp list of products.
+     * @return the energy (in W.h) to traverse the path.
+     */
     public static double calcScooterEnergy(Path p, Courier c, Scooter s, List<Product> lp) {
 
         double distance = calcDistance(p.getAddress1(), p.getAddress2());
@@ -98,6 +147,14 @@ public class PathAlgorithms {
         return totalEnergy < 0 ? 0 : totalEnergy;
     }
 
+    /**
+     * Method responsible for calculating the amount of energy (in W.h) that it
+     * takes for a Drone (with default characteristics) to traverse a given path
+     * received as parameter.
+     *
+     * @param p path to traverse.
+     * @return the energy (in W.h) to traverse the path.
+     */
     public static double calcDroneEnergy(Path p) {
 
         double distance = calcDistance(p.getAddress1(), p.getAddress2());
@@ -114,6 +171,16 @@ public class PathAlgorithms {
         return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
+    /**
+     * Method responsible for calculating the amount of energy (in W.h) that it
+     * takes for a Drone (with default characteristics) to traverse a given path
+     * received as parameter. It also receives as parameter the list of products
+     * to carry.
+     *
+     * @param p path to traverse.
+     * @param lp list of products.
+     * @return the energy (in W.h) to traverse the path.
+     */
     public static double calcDroneEnergy(Path p, List<Product> lp) {
 
         double distance = calcDistance(p.getAddress1(), p.getAddress2());
@@ -131,6 +198,17 @@ public class PathAlgorithms {
         return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
+    /**
+     * Method responsible for calculating the amount of energy (in W.h) that it
+     * takes for a Drone, received as parameter, to traverse a given path
+     * received as parameter. It also receives as parameter the list of products
+     * to carry.
+     *
+     * @param p path to traverse.
+     * @param d drone.
+     * @param lp list of products.
+     * @return the energy (in W.h) to traverse the path.
+     */
     public static double calcDroneEnergy(Path p, Drone d, List<Product> lp) {
 
         double distance = calcDistance(p.getAddress1(), p.getAddress2());
@@ -148,6 +226,13 @@ public class PathAlgorithms {
         return tPower * time * JOULE_TO_WATTHOUR_CONVERTER;
     }
 
+    /**
+     * Method responsible for calculating the total distance (in meters) of a
+     * complete voyage.
+     *
+     * @param la list of addresses (by order of traversal).
+     * @return the total distance (in meters) to traverse the voyage.
+     */
     public static double calcTotalDistance(LinkedList<Address> la) {
 
         double totalDistance = 0.0d;
@@ -159,6 +244,17 @@ public class PathAlgorithms {
         return totalDistance;
     }
 
+    /**
+     * Method responsible for calculating the total energy required (in W.h) for
+     * a Scooter (with default characteristics) to traverse a given voyage,
+     * received as parameter.
+     *
+     * @param g adjancent matrix graph containing the paths.
+     * @param la list of addresses (by order of traversal).
+     * @param c courier.
+     * @param lp list of products.
+     * @return the energy (in W.h) to traverse the voyage.
+     */
     public static double calcScooterTotalEnergy(Graph<Address, Path> g, LinkedList<Address> la, Courier c, List<Product> lp) {
 
         double totalEnergy = 0.0d;
@@ -171,6 +267,18 @@ public class PathAlgorithms {
         return totalEnergy;
     }
 
+    /**
+     * Method responsible for calculating the total energy required (in W.h) for
+     * a Scooter, received as parameter, to traverse a given voyage also
+     * received as parameter.
+     *
+     * @param g adjancent matrix graph containing the paths.
+     * @param la list of addresses (by order of traversal).
+     * @param c courier.
+     * @param s scooter.
+     * @param lp list of products.
+     * @return the energy (in W.h) to traverse the voyage.
+     */
     public static double calcScooterTotalEnergy(Graph<Address, Path> g, LinkedList<Address> la, Courier c, Scooter s, List<Product> lp) {
 
         double totalEnergy = 0.0d;
@@ -183,6 +291,17 @@ public class PathAlgorithms {
         return totalEnergy;
     }
 
+    /**
+     * Method responsible for calculating the total energy required (in W.h) for
+     * a Drone (with default characteristics) to traverse a given voyage,
+     * received as parameter. It also handles the calculation of the energy
+     * required for the vertical stretches of the voyage.
+     *
+     * @param g adjancent matrix graph containing the paths.
+     * @param la list of addresses (by order of traversal).
+     * @param lp list of products.
+     * @return the energy (in W.h) to traverse the voyage.
+     */
     public static double calcDroneTotalEnergy(Graph<Address, Path> g, LinkedList<Address> la, List<Product> lp) {
 
         if (la.isEmpty()) {
@@ -203,6 +322,18 @@ public class PathAlgorithms {
         return totalEnergy;
     }
 
+    /**
+     * Method responsible for calculating the total energy required (in W.h) for
+     * a Drone, received as parameter, to traverse a given voyage also received
+     * as parameter. It also handles the calculation of the energy required for
+     * the vertical stretches of the voyage.
+     *
+     * @param g adjancent matrix graph containing the paths.
+     * @param la list of addresses (by order of traversal).
+     * @param d drone.
+     * @param lp list of products.
+     * @return the energy (in W.h) to traverse the voyage.
+     */
     public static double calcDroneTotalEnergy(Graph<Address, Path> g, LinkedList<Address> la, Drone d, List<Product> lp) {
 
         if (la.isEmpty()) {
@@ -223,11 +354,28 @@ public class PathAlgorithms {
         return totalEnergy;
     }
 
+    /**
+     * Method responsible for calculating the time (in seconds) to traverse a
+     * given distance, received as parameter by dividing it by the speed (in
+     * m/s) it'll be traversed in.
+     *
+     * @param distance distance (in meters).
+     * @param speed speed (in m/s).
+     * @return the time (in seconds) to traverse the given distance.
+     */
     public static int calcTime(double distance, double speed) {
 
         return (int) (distance / speed);
     }
 
+    /**
+     * Method responsible for calculating relative velocity (in m/s).
+     *
+     * @param windSpeed the wind speed (in m/s).
+     * @param windDegrees the wind direction (in Degrees).
+     * @param speed the speed (in m/s).
+     * @return the relative velocity (in m/s).
+     */
     public static double getRelativeSpeed(double windSpeed, double windDegrees, double speed) {
 
         double relativeWind = windSpeed * Math.cos(Math.toRadians(windDegrees));

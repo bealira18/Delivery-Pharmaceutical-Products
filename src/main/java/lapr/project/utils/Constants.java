@@ -1,7 +1,16 @@
 package lapr.project.utils;
 
+/**
+ * Class responsible for containing the constants used in multiple areas of the
+ * project, in order to avoid duplication.
+ *
+ * @author lapr3-2020-g052
+ */
 public final class Constants {
 
+    /**
+     * Private constructor to hide the implicit public one.
+     */
     private Constants() {
 
     }

@@ -19,12 +19,34 @@ import lapr.project.model.Product;
 import lapr.project.model.Scooter;
 import static lapr.project.utils.Constants.*;
 
+/**
+ * Class responsible for the handling and obtaining of graph information. As
+ * such, it contains a myriad of algorithms to manipulate, calculate, create and
+ * write information pertaining to graphs. More specifically, adjacent matrix
+ * graphs.
+ *
+ * @author lapr3-2020-g052
+ */
 public class GraphAlgorithms {
 
+    /**
+     * Private constructor to hide the implicit public one.
+     */
     private GraphAlgorithms() {
 
     }
 
+    /**
+     * Method responsible for filling the graph, received as parameter with the
+     * addresses (vertexes) contained in the list of addresses received as
+     * parameter and their respective paths (edges) contained in the list of
+     * paths received as parameter. The weights of the edges contained in this
+     * particular graph are denoted by distance.
+     *
+     * @param g the graph to be filled.
+     * @param la list of addresses (vertexes).
+     * @param lp list of paths (edges).
+     */
     public static void fillGraph(Graph<Address, Path> g, List<Address> la, List<Path> lp) {
 
         if (la != null) {
@@ -39,6 +61,18 @@ public class GraphAlgorithms {
         }
     }
 
+    /**
+     * Method responsible for filling the graph, received as parameter with the
+     * addresses (vertexes) contained in the list of addresses received as
+     * parameter and their respective paths (edges) contained in the list of
+     * paths received as parameter. The weights of the edges contained in this
+     * particular graph are denoted by energy.
+     *
+     * @param scooterOrDrone if it's for a scooter (true), or drone (false).
+     * @param g the graph to be filled.
+     * @param la list of addresses (vertexes).
+     * @param lp list of paths (edges).
+     */
     public static void fillGraphEnergy(boolean scooterOrDrone, Graph<Address, Path> g, List<Address> la, List<Path> lp) {
 
         if (la != null) {
@@ -53,7 +87,21 @@ public class GraphAlgorithms {
         }
     }
 
-    //shortest-path between vOrig and vDest
+    /**
+     * Method responsible for obtaining the shortest path between two vertexes,
+     * received as parameters, within a given graph, also received as parameter.
+     * The resulting shortest path will be contained within the LinkedList
+     * received as parameter.
+     *
+     * @param <V> vertex.
+     * @param <E> edge.
+     * @param g graph.
+     * @param vOrig origin vertex.
+     * @param vDest destination vertex.
+     * @param shortPath shortest path LinkedList.
+     * @return the accumulated weight of the edges belonging to the shortest
+     * path.
+     */
     public static <V, E> double shortestPath(Graph<V, E> g, V vOrig, V vDest, LinkedList<V> shortPath) {
 
         if (!g.validVertex(vOrig) || !g.validVertex(vDest)) {
@@ -80,6 +128,24 @@ public class GraphAlgorithms {
         return 0;
     }
 
+    /**
+     * Method responsible for exporting all relevant information pertaining to a
+     * given voyage to a file, whose name is received as parameter. All
+     * information in this particular iteration of the method, which is
+     * overloaded, is default information regarding the vehicle used and
+     * extraneous information such as the courier information (which is also by
+     * default).
+     *
+     * @param fileName the file's name.
+     * @param g the graph.
+     * @param la the path to be exported.
+     * @param distance the distance of the voyage.
+     * @param energy the energy required for the voyage.
+     * @param vehicle the type of vehicle (in this project's current
+     * implementation, only 'Scooter' and 'Drone' are implemented).
+     * @return true, if the information has been exported successfully,
+     * otherwise returns false.
+     */
     public static boolean writePathToFile(String fileName, Graph<Address, Path> g, LinkedList<Address> la,
             double distance, double energy, String vehicle) {
 
@@ -151,6 +217,23 @@ public class GraphAlgorithms {
         return true;
     }
 
+    /**
+     * Method responsible for exporting all relevant information pertaining to a
+     * given voyage, traversed by a scooter driven by a courier carrying a list
+     * of products, all received as parameters, to a file, whose name is
+     * received as parameter.
+     *
+     * @param fileName the file's name.
+     * @param g the graph.
+     * @param la the path to be exported.
+     * @param distance the distance of the voyage.
+     * @param energy the energy required for the voyage.
+     * @param c the courier.
+     * @param s the scooter.
+     * @param lPro the list of products.
+     * @return true, if the information has been exported successfully,
+     * otherwise returns false.
+     */
     public static boolean writePathToFile(String fileName, Graph<Address, Path> g, LinkedList<Address> la,
             double distance, double energy, Courier c, Scooter s, List<Product> lPro) {
 
@@ -197,6 +280,21 @@ public class GraphAlgorithms {
         return true;
     }
 
+    /**
+     * Method responsible for exporting all relevant information pertaining to a
+     * given voyage, traversed by a drone carrying a list of products, all
+     * received as parameters, to a file, whose name is received as parameter.
+     *
+     * @param fileName the file's name.
+     * @param g the graph.
+     * @param la the path to be exported.
+     * @param distance the distance of the voyage.
+     * @param energy the energy required for the voyage.
+     * @param d the drone.
+     * @param lPro the list of products.
+     * @return true, if the information has been exported successfully,
+     * otherwise returns false.
+     */
     public static boolean writePathToFile(String fileName, Graph<Address, Path> g, LinkedList<Address> la,
             double distance, double energy, Drone d, List<Product> lPro) {
 
@@ -250,6 +348,21 @@ public class GraphAlgorithms {
         return true;
     }
 
+    /**
+     * Method responsible for obtaining the shortest path between two vertexes,
+     * received as parameters, within a given graph, also received as parameter,
+     * while obligatorily passing through a predetermined set of nodes, also
+     * received as parameter. The resulting shortest path will be contained
+     * within the LinkedList received as parameter.
+     *
+     * @param g the graph.
+     * @param lNodes the list of nodes to be passed through.
+     * @param path shortest path LinkedList.
+     * @param aOrig the origin vertex.
+     * @param aDest the destination vertex.
+     * @return the accumulated weight of the edges belonging to the shortest
+     * path.
+     */
     public static double getShortestPathThroughNodes(Graph<Address, Path> g, List<Address> lNodes,
             LinkedList<Address> path, Address aOrig, Address aDest) {
 
@@ -294,6 +407,16 @@ public class GraphAlgorithms {
         return minLength;
     }
 
+    /**
+     * Method responsible for generating all possible combinations (i.e.
+     * permutations) between a set of nodes.
+     *
+     * @param n the number of nodes.
+     * @param lNodes the list of nodes.
+     * @param combos the list to be filled with all permutations.
+     * @param aOrig the origin vertex.
+     * @param aDest the destination vertex.
+     */
     public static void generateCombinations(int n, List<Address> lNodes,
             List<LinkedList<Address>> combos, Address aOrig, Address aDest) {
 
@@ -321,6 +444,12 @@ public class GraphAlgorithms {
         }
     }
 
+    /**
+     * Method responsible for merging two linked lists.
+     *
+     * @param lOrig the original linked list.
+     * @param lAddon the linked list to be added to the original linked list.
+     */
     public static void mergeLinkedLists(LinkedList<Address> lOrig, LinkedList<Address> lAddon) {
 
         if (lOrig.isEmpty()) {
@@ -334,6 +463,22 @@ public class GraphAlgorithms {
         lOrig.addAll(lAddon);
     }
 
+    /**
+     * Method responsible for obtaining, in this case, the nearest pharmacy
+     * address to a given address (in this particular case, a client's address,
+     * but could be any address). Assuming the graph, received as parameter, is
+     * directed, it can calculate the nearest pharmacy in two ways. From the
+     * pharmacy to the client, and from the client to the pharmacy, depending on
+     * the needs of the user.
+     *
+     * @param inverted true if the goal is to locate the nearest pharmacy by
+     * checking the distance from the pharmacy to the client, false if
+     * otherwise.
+     * @param g the graph.
+     * @param aDest the destination vertex.
+     * @param la the list of pharmacy addresses.
+     * @return the address of the nearest pharmacy.
+     */
     public static Address getNearestPharmacy(boolean inverted, Graph<Address, Path> g, Address aDest, List<Address> la) {
 
         if (la.isEmpty() || g == null || !g.validVertex(aDest)) {
@@ -369,8 +514,8 @@ public class GraphAlgorithms {
      * vertices of a graph g with nonnegative edge weights This implementation
      * uses Dijkstra's algorithm
      *
-     * @param <V>
-     * @param <E>
+     * @param <V> vertex.
+     * @param <E> edge.
      * @param g Graph instance
      * @param vOrig Vertex that will be the source of the path
      * @param visited set of discovered vertices
@@ -417,8 +562,8 @@ public class GraphAlgorithms {
      * Extracts from pathKeys the minimum path between voInf and vdInf The path
      * is constructed from the end to the beginning
      *
-     * @param <V>
-     * @param <E>
+     * @param <V> vertex.
+     * @param <E> edge.
      * @param g Graph instance
      * @param vOrig information of the Vertex origin
      * @param vDest information of the Vertex destination
@@ -438,6 +583,16 @@ public class GraphAlgorithms {
         }
     }
 
+    /**
+     * Method responsible for adding all paths contained in a list of paths
+     * received as parameter to the graph, also received as parameter. This
+     * particular iteration of the algorithm weighs the paths (i.e. edges) in
+     * distance.
+     *
+     * @param g the graph for the paths to be added onto.
+     * @param la the list of addresses whose paths contains.
+     * @param lp the list of paths.
+     */
     private static void addPathsToGraph(Graph<Address, Path> g, List<Address> la, List<Path> lp) {
 
         Address a1 = null;
@@ -460,6 +615,18 @@ public class GraphAlgorithms {
         }
     }
 
+    /**
+     * Method responsible for adding all paths contained in a list of paths
+     * received as parameter to the graph, also received as parameter. This
+     * particular iteration of the algorithm weighs the paths (i.e. edges) in
+     * energy.
+     *
+     * @param scooterOrDrone true, if it's for a scooter graph, false if it's
+     * for a drone graph.
+     * @param g the graph for the paths to be added onto.
+     * @param la the list of addresses whose paths contains.
+     * @param lp the list of paths.
+     */
     private static void addPathsToGraphEnergy(boolean scooterOrDrone, Graph<Address, Path> g, List<Address> la, List<Path> lp) {
 
         Address a1 = null;
