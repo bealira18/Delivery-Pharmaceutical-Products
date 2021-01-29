@@ -14,11 +14,23 @@ import java.util.logging.Logger;
 
 public class CourierDB extends DataHandler {
 
+    /**
+     * Calls the data base to add a courier
+     *
+     * @param c courier
+     * @return true if it adds the courier or false otherwise
+     */
     public boolean addCourier(Courier c) {
 
         return addCourier(c.getEmail(), c.getName(), c.getNif(), c.getSocialSecurity(), c.getPharmacyId(), c.getWeight());
     }
 
+    /**
+     * Calls the data base to get a courier
+     *
+     * @param email email
+     * @return a courier
+     */
     public Courier getCourier(String email) {
 
         try (Connection con = getConnection()) {
@@ -54,6 +66,12 @@ public class CourierDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Calls the data base to get all the available couriers
+     *
+     * @param orderId order id
+     * @return a list of couriers
+     */
     public List<Courier> getAllAvailableCouriers(int orderId) {
 
         ArrayList<Courier> couriers = new ArrayList<>();
@@ -83,6 +101,13 @@ public class CourierDB extends DataHandler {
         return couriers;
     }
 
+    /**
+     * Calls the data base to update the courier
+     *
+     * @param email email
+     * @param c courier
+     * @return true if it updates the courier or false if some exception appears
+     */
     public boolean updateCourier(String email, Courier c) {
 
         try (Connection con2 = getConnection()) {
@@ -110,6 +135,17 @@ public class CourierDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to add a Courier
+     *
+     * @param email email
+     * @param name name
+     * @param nif nif
+     * @param socialSecurity social security
+     * @param pharmacyId pharmacy id
+     * @param weight weight
+     * @return true if it adds or false if some exception appears
+     */
     private boolean addCourier(String email, String name, int nif, long socialSecurity, int pharmacyId, double weight) {
 
         try (Connection con3 = getConnection()) {

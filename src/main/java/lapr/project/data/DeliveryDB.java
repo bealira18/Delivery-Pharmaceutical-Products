@@ -17,6 +17,12 @@ import java.util.logging.Logger;
 
 public class DeliveryDB extends DataHandler {
 
+    /**
+     * Adds deliverys to the delivery list
+     *
+     * @param deliveryList delivery list
+     * @return true if it adds the delivery, false otherwise
+     */
     public boolean addDeliveries(List<Delivery> deliveryList) {
 
         boolean check = true;
@@ -30,6 +36,13 @@ public class DeliveryDB extends DataHandler {
         return check;
     }
 
+    /**
+     * Calls the data base to create a new delivery
+     *
+     * @param idOrder order id
+     * @param deliveryRun the time taken by the delivery
+     * @return true if it creates a delivery and false if some exception appears
+     */
     public boolean createNewDelivery(int idOrder, int deliveryRun) {
 
         try (Connection con4 = getConnection()) {
@@ -50,8 +63,12 @@ public class DeliveryDB extends DataHandler {
         }
     }
 
-
-
+    /**
+     * Getts the next available scooter
+     *
+     * @param pharmacyId pharmacy id
+     * @return a delivery that have already ended and has scooter free
+     */
     public Delivery getNextAvailableScooter(int pharmacyId) {
 
         try (Connection con = getConnection()) {
@@ -88,6 +105,12 @@ public class DeliveryDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Getts the next available courier
+     *
+     * @param idPharmacy pharmacy id
+     * @return a delivery that have already ended and has a courier free
+     */
     public Delivery getNextAvailableCourier(int idPharmacy) {
 
         try (Connection con1 = getConnection()) {
@@ -151,6 +174,12 @@ public class DeliveryDB extends DataHandler {
         }
     }
 
+    /**
+     * Getts the Order correspondent to the delivery run
+     *
+     * @param idDeliveryRun delivery run id
+     * @return list of orders correspondent to the delivery run
+     */
     public List<PurchaseOrder> getPurchaseOrdersByDeliveryRun(int idDeliveryRun) {
 
         List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
@@ -186,6 +215,13 @@ public class DeliveryDB extends DataHandler {
         return purchaseOrderList;
     }
 
+    /**
+     * Updates the vehicle associated to the delivery run
+     *
+     * @param idVehicle vehicle id
+     * @param deliveryRun delivery run
+     * @return true if it updates the vehicle id in the delivery run or false if some execption appears
+     */
     public boolean deliveryRunAssociateVehicle(int idVehicle, int deliveryRun) {
 
         try (Connection con5 = getConnection()) {
@@ -206,6 +242,13 @@ public class DeliveryDB extends DataHandler {
         }
     }
 
+    /**
+     * Updates the courier associated to the delivery run
+     *
+     * @param emailCourier courier email
+     * @param deliveryRun delivery run
+     * @return true if it updates the courier email in the delivery run or false if some execption appears
+     */
     public boolean deliveryRunAssociateCourier(String emailCourier, int deliveryRun) {
 
         try (Connection con6 = getConnection()) {

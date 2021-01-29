@@ -16,6 +16,22 @@ import java.util.logging.Logger;
 
 public class ClientDB extends DataHandler {
 
+    /**
+     * Calls the data base to add a client
+     *
+     * @param email email
+     * @param password password
+     * @param name name
+     * @param nif nif
+     * @param creditCard credit card
+     * @param expirationDate expiration Date
+     * @param ccv ccv
+     * @param address address
+     * @param latitude latitude
+     * @param longitude longitude
+     * @param altitude altitude
+     * @return true if it adds or false if some exception appears
+     */
     public boolean addClient(String email, String password, String name, int nif, long creditCard, LocalDate expirationDate,
             short ccv, String address, double latitude, double longitude, double altitude) {
 
@@ -48,6 +64,12 @@ public class ClientDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to get the client info with his email
+     *
+     * @param emailClient email client
+     * @return the client info
+     */
     public Client getClientByEmail(String emailClient) {
 
         try (Connection con1 = getConnection()) {
@@ -88,6 +110,12 @@ public class ClientDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to update the lient credits
+     *
+     * @param email email
+     * @param creditsEarned credits earned
+     */
     public void updateCredits(String email, int creditsEarned) {
 
         try (Connection con2 = getConnection()) {
@@ -108,6 +136,13 @@ public class ClientDB extends DataHandler {
         }
     }
 
+    /**
+     * Uses the credits
+     *
+     * @param email email
+     * @param idInvoice invoice id
+     * @return true if it uses the credits, false if some exception appears
+     */
     public boolean useCredits(String email, int idInvoice) {
 
         try (Connection con3 = getConnection()) {
@@ -129,6 +164,12 @@ public class ClientDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to get some client credits
+     *
+     * @param email email
+     * @return the number os credits
+     */
     public int getCreditsByClientEmail(String email) {
 
         try (Connection con4 = getConnection()) {
@@ -150,6 +191,13 @@ public class ClientDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to update the client credits
+     *
+     * @param email email
+     * @param newCreditsAmount new credits amount
+     * @return true if it updates the client credites or false if some exeption appears
+     */
     public boolean updateCreditsClient(String email, int newCreditsAmount) {
 
         try (Connection con5 = getConnection()) {
