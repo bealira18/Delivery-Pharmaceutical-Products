@@ -18,7 +18,7 @@ public class ParkTest {
         Address a = new Address("Test", 1, 1, 1);
         Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
         int expResult = 1;
-        int result = instance.getScooterParkId();
+        int result = instance.getParkId();
         assertEquals(expResult, result);
     }
 
@@ -102,8 +102,8 @@ public class ParkTest {
         int scooterParkId = 2;
         Address a = new Address("Test", 1, 1, 1);
         Park instance = new Park(1, 1, 1, 1, "Test", a, 500);
-        instance.setScooterParkId(scooterParkId);
-        int result = instance.getScooterParkId();
+        instance.setParkId(scooterParkId);
+        int result = instance.getParkId();
         assertEquals(scooterParkId, result);
     }
 

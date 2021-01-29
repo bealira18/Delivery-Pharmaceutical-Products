@@ -38,12 +38,12 @@ public class ParkingSpaceTest {
      * Test of getScooterId method, of class ParkingSpace.
      */
     @Test
-    public void testGetScooterId() {
+    public void testGetVehicleId() {
 
         System.out.println("getScooterId");
         ParkingSpace instance = new ParkingSpace(1, 1, 1, true);
         int expResult = 1;
-        int result = instance.getScooterId();
+        int result = instance.getVehicleId();
         assertEquals(expResult, result);
     }
 
@@ -92,13 +92,13 @@ public class ParkingSpaceTest {
      * Test of setScooterId method, of class ParkingSpace.
      */
     @Test
-    public void testSetScooterId() {
+    public void testSetVehicleId() {
 
         System.out.println("setScooterId");
         int scooterId = 2;
         ParkingSpace instance = new ParkingSpace(1, 1, 1, true);
-        instance.setScooterId(scooterId);
-        int result = instance.getScooterId();
+        instance.setVehicleId(scooterId);
+        int result = instance.getVehicleId();
         assertEquals(scooterId, result);
     }
 
@@ -124,7 +124,7 @@ public class ParkingSpaceTest {
 
         System.out.println("toString");
         ParkingSpace instance = new ParkingSpace(1, 1, 1, true);
-        String expResult = "ParkingSpace{parkingSpaceId=1, parkId=1, scooterId=1, isChargingStation=true}";
+        String expResult = "ParkingSpace{parkingSpaceId=1, parkId=1, vehicleId=1, isChargingStation=true}";
         String result = instance.toString();
         assertEquals(expResult, result);
     }

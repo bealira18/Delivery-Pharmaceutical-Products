@@ -5,7 +5,7 @@ IS
     int_id_vehicle_status INTEGER;
     vehicle_type VARCHAR2(255);
 BEGIN
-    SELECT id_vehicle_status INTO id_vehicle_status
+    SELECT id_vehicle_status INTO int_id_vehicle_status
     FROM vehicleStatus
     WHERE name = p_status;
 

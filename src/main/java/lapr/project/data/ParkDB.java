@@ -124,7 +124,7 @@ public class ParkDB extends DataHandler {
 
     public boolean updateChargingStations(Park park) {
 
-        Park p = getParkById(park.getScooterParkId());
+        Park p = getParkById(park.getParkId());
         if (p == null) {
             return false;
         }
@@ -135,7 +135,7 @@ public class ParkDB extends DataHandler {
 
             try (CallableStatement callStmt4 = con4.prepareCall("{ call updateNrChargingStations(?,?) }")) {
 
-                callStmt4.setInt(1, park.getScooterParkId());
+                callStmt4.setInt(1, park.getParkId());
                 callStmt4.setInt(2, park.getNumChargingStations());
 
                 callStmt4.execute();
