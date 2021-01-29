@@ -47,7 +47,7 @@ public class Administrator extends RegisteredUser {
     }
 
     /**
-     * Retrieves the pharmacy ID field of this Administrator object.
+     * Retrieves the pharmacy ID field of this administrator object.
      * @return int containing the pharmacy ID.
      */
     public int getPharmacyId() {
@@ -65,7 +65,7 @@ public class Administrator extends RegisteredUser {
     }
 
     /**
-     * Retrieves the NIF field of this Administrator object.
+     * Retrieves the NIF field of this administrator object.
      * @return int containing the NIF.
      */
     public int getNif() {
@@ -74,7 +74,7 @@ public class Administrator extends RegisteredUser {
     }
 
     /**
-     * Retrieves the Social Security field of this Administrator object.
+     * Retrieves the Social Security field of this administrator object.
      * @return long containing the Social Security number.
      */
     public long getSocialSecurity() {
@@ -83,7 +83,7 @@ public class Administrator extends RegisteredUser {
     }
 
     /**
-     * Sets a new pharmacy ID for this Administrator object.
+     * Sets a new pharmacy ID for this administrator object.
      * @param pharmacyId new pharmacy ID.
      */
     public void setPharmacyId(int pharmacyId) {
@@ -101,7 +101,7 @@ public class Administrator extends RegisteredUser {
     }
 
     /**
-     * Sets a new NIF for this Administrator object.
+     * Sets a new NIF for this administrator object.
      * @param nif new NIF.
      */
     public void setNif(int nif) {
@@ -110,7 +110,7 @@ public class Administrator extends RegisteredUser {
     }
 
     /**
-     * Sets a new Social Security Number for this Administrator object.
+     * Sets a new Social Security Number for this administrator object.
      * @param socialSecurity new social security number.
      */
     public void setSocialSecurity(long socialSecurity) {
@@ -120,13 +120,17 @@ public class Administrator extends RegisteredUser {
     
     /**
      * Administrator String format.
-     * @return string with this Administrator information.
+     * @return string with this administrator information.
      */
     @Override
     public String toString() {
         return "Administrator{" + "pharmacyId=" + pharmacyId + ", name=" + name + ", nif=" + nif + ", socialSecurity=" + socialSecurity + '}';
     }
-
+    
+    /**
+     * Returns the hash code for this Administrator object.
+     * @return hash code for the object.
+     */
     @Override
     public int hashCode() {
 
@@ -134,7 +138,13 @@ public class Administrator extends RegisteredUser {
         hash = 53 * hash + this.nif;
         return hash;
     }
-
+    
+    /**
+     * Compares a Administrator object to another object and checks if they are
+     * equal.
+     * @param obj the object to compare to.
+     * @return true if equal, false if not.
+     */
     @Override
     public boolean equals(Object obj) {
 
