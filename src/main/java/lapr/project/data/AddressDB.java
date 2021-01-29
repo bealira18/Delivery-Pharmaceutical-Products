@@ -13,11 +13,22 @@ import oracle.jdbc.OracleTypes;
 
 public class AddressDB extends DataHandler {
 
+    /**
+     * Adds the address to the system
+     *
+     * @param a address
+     * @return true if it adds the address or false otherwise
+     */
     public boolean addAddress(Address a) {
 
         return addAddress(a.getDescription(), a.getLatitude(), a.getLongitude(), a.getAltitude());
     }
 
+    /**
+     * Getts the list of addresses
+     *
+     * @return a list of addresses
+     */
     public List<Address> getAddresses() {
 
         List<Address> la = new ArrayList<>();
@@ -52,6 +63,12 @@ public class AddressDB extends DataHandler {
         }
     }
 
+    /**
+     * Getts the address by address
+     *
+     * @param address address
+     * @return the address
+     */
     public Address getAddressByAd(String address) {
 
         try (Connection con1 = getConnection()) {
@@ -83,6 +100,12 @@ public class AddressDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Verifies if the address exists
+     *
+     * @param addressName address name
+     * @return true if the address exists or false otherwise
+     */
     public boolean doesAddressExist(String addressName) {
 
         try (Connection con2 = getConnection()) {
@@ -104,6 +127,11 @@ public class AddressDB extends DataHandler {
         }
     }
 
+    /**
+     * Getts the list of the pharmacys addresses
+     *
+     * @return a list of addresses
+     */
     public List<Address> getPharmacyAddresses() {
 
         List<Address> la = new ArrayList<>();
@@ -138,6 +166,12 @@ public class AddressDB extends DataHandler {
         }
     }
 
+    /**
+     * Getts the address from a pharmacy
+     *
+     * @param idPharmacy pharmacy id
+     * @return the address of a pharmacy
+     */
     public Address getAddressPharmacyById(int idPharmacy) {
 
         try (Connection con4 = getConnection()) {
@@ -170,6 +204,15 @@ public class AddressDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Adds the address to the system
+     *
+     * @param description description
+     * @param latitude latitude
+     * @param longitude longitude
+     * @param altitude altitude
+     * @return true if it adds, or false if some exeption appears
+     */
     private boolean addAddress(String description, double latitude, double longitude, double altitude) {
 
         try (Connection con5 = getConnection()) {

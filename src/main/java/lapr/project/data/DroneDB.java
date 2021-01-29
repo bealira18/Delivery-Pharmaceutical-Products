@@ -25,6 +25,14 @@ import java.util.logging.Logger;
 
 public class DroneDB extends DataHandler {
 
+    /**
+     * Adds the drone with the QR Code
+     *
+     * @param drone drone
+     * @param width width
+     * @param height height
+     * @return true if it adds or false if any exeption appears
+     */
     public boolean addDrone(Drone drone, int width, int height) {
 
         String path="./qrDrone"+drone.getIdVehicle()+".png";
@@ -212,6 +220,12 @@ public class DroneDB extends DataHandler {
         }
     }
 
+    /**
+     * Getts the drone with the highest battery in a pharmacy
+     *
+     * @param pharmacyId pharmacy id
+     * @return a drone with the highest battery
+     */
     public Drone getHighestBatteryDrone(int pharmacyId) {
 
         try (Connection con4 = getConnection()) {
@@ -251,6 +265,16 @@ public class DroneDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Generates the QR code image to a drone
+     *
+     * @param text text
+     * @param width width
+     * @param height height
+     * @param filePath file path
+     * @throws WriterException writer exception
+     * @throws IOException IO exception
+     */
     public void generateQRCodeImage(String text, int width, int height, String filePath) throws WriterException, IOException {
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
