@@ -6,11 +6,18 @@ import lapr.project.model.RegisteredUser;
 public class AuthFacade {
 
     private final RegisteredUserDB ruDB;
-
+    
+    /**
+     * Creates the Authorization facade, creating a instance of Registered User DB.
+     */
     public AuthFacade() {
         ruDB = new RegisteredUserDB();
     }
-
+    
+    /**
+     * Creates the Authorization facade.
+     * @param db Registered User Database.
+     */
     public AuthFacade(RegisteredUserDB db) {
         ruDB = db;
     }

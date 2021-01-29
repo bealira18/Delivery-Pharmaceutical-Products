@@ -16,10 +16,23 @@ import java.util.regex.Pattern;
 import lapr.project.controller.VehicleParkingController;
 import static lapr.project.utils.Constants.CRG_COM_DIR;
 
+/**
+ * This class implements a system meant to run as a daemon, watching incoming files
+ * from the parking system on a specified directory.
+ * 
+ * @author lapr3-2020-g052
+ */
 public class AssemblyWatcher implements Runnable {
 
+    /**
+     * WatchService Object, responsible for the directory watch
+     */
     private WatchService asmWatchService;
 
+    /**
+     * Sets up the Watch service and registers the directory stored on the config
+     * file.
+     */
     public AssemblyWatcher() {
 
         try {
@@ -32,7 +45,13 @@ public class AssemblyWatcher implements Runnable {
             ex.printStackTrace();
         }
     }
-
+    
+    /**
+     * The daemon routine. On the start, it builds the regex pattern to identify
+     * only the files pertinent to this operation. Then, as long as the thread is
+     * alive, it will watch for any file being created on the directory and interpret
+     * it if it matches the regex pattern.
+     */
     @Override
     public void run() {
 

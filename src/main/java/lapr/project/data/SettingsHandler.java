@@ -8,12 +8,20 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Handles the loading and saving of the programs settings file.
+ * 
+ * @author lapr3-2020-g052
+ */
 public class SettingsHandler {
 
+    /**
+     * The path for the systems settings file.
+     */
     public static final String SETTINGS_FILE = "target/classes/application.properties";
     
     /**
-     * Settings list
+     * Settings list.
      */
     private static final String CONFIG_PROP_LIST[] = 
     {
@@ -36,6 +44,11 @@ public class SettingsHandler {
         "mail.smtp.ssl.trust"
     };
 
+    /**
+     * Loads the settings from a external file.
+     * 
+     * @param filePath Path to the settings file.
+     */
     public void loadSettings(String filePath) {
 
         try {
@@ -50,6 +63,13 @@ public class SettingsHandler {
         }
     }
 
+    /**
+     * Saves all settings contained on the CONFIG_PROP_LIST onto a file.
+     * 
+     * @param filePath Path where the file with the configs will be saved on.
+     * 
+     * @return True on success, False on failure (IOException).
+     */
     public boolean saveSettings(String filePath) {
 
         try {

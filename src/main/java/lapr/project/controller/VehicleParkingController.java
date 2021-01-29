@@ -17,23 +17,51 @@ import lapr.project.model.Vehicle;
 import lapr.project.utils.Constants;
 import lapr.project.utils.Utils;
 
+/**
+ * VehicleParkingController handles and processes most of the interaction with 
+ * the parking system of a pharmacy. This class is mostly for simulation purposes
+ * as we have no on-site deployments.
+ * @author lapr3-2020-g052
+ */
 public class VehicleParkingController {
 
+    /**
+     * Vehicle Database Instance.
+     */
     public final VehicleDB vDB;
+
+    /**
+     * Email Service instance.
+     */
     public final EmailService eS;
 
+    /**
+     * Creates a object of the Vehicle Parking Controller class.
+     * @param vDB Vehicle Database Instance.
+     * @param eS Mail Service Instance.
+     */
     public VehicleParkingController(VehicleDB vDB, EmailService eS) {
 
         this.vDB = vDB;
         this.eS = eS;
     }
 
+    /**
+     * Creates the Vehicle of the vehicle Parking Controller class, creating the
+     * needed instances to function.
+     */
     public VehicleParkingController() {
 
         this.vDB = new VehicleDB();
         this.eS = new EmailService();
     }
 
+    /**
+     * Processes the information of a file incoming from a parking system in C
+     * and analyses it's content and notifies the proper person of it's status
+     * @param fileName File name that contains the pertinent information.
+     * @throws FileNotFoundException
+     */
     public void interpretChargerInfo(String fileName) throws FileNotFoundException {
 
         Scanner sc = new Scanner(new File(System.getProperty("charger.comm.dir") + fileName));
@@ -58,6 +86,12 @@ public class VehicleParkingController {
 
     }
 
+    /**
+     * A class that simulates the parking of a vehicle, generating a file to be
+     * handled by the parking system.
+     * @param vehicle Vehicle Object, containing the information needed to pass to the parking system.
+     * @param isReal Whether or not the request is supposed to be a well parked vehicle or not.
+     */
     public void writeChargerRequest(Vehicle vehicle, boolean isReal) {
 
         LocalDateTime date = LocalDateTime.now();
@@ -69,9 +103,18 @@ public class VehicleParkingController {
         String buffer = writeChargerInfo(vehicle, timestamp, isReal);
 
         Utils.writeFile(buffer, fileName);
+        //Ordinarily, the file would go empty, but this function requires content on it, so a "flag" string placeholder is sent.
         Utils.writeFile("flag", fileName + ".flag");
     }
 
+    /**
+     * Static Charger Information String Template.
+     * @param vehicle Vehicle Object, containing the vehicle information
+     * @param timestamp Epoch Timestamp for time purposes
+     * @param isReal Wether this request is meant to be a well parked vehicle or not.
+     * 
+     * @return Formatted String ready to be written to file.
+     */
     public static String writeChargerInfo(Vehicle vehicle, long timestamp, boolean isReal) {
 
         String buffer = String.format(Locale.ROOT, "%d;%d", timestamp, vehicle.getIdVehicle());
@@ -83,6 +126,16 @@ public class VehicleParkingController {
         return buffer;
     }
 
+    /**
+     * Static Status Email Template.
+     * @param name Name of the person who's receiving the email
+     * @param date Date that the parking took place at.
+     * @param vehicleID Vehicle unique ID.
+     * @param vehicleType Type of vehicle.
+     * @param timeToFull Time needed (in hours) until the vehicle reaches maximum charge.
+     * 
+     * @return StringBuilder Object with the proper information for the body of the email.
+     */
     public static StringBuilder buildStatusEmail(String name, LocalDateTime date, int vehicleID, String vehicleType,
             float timeToFull) {
 
