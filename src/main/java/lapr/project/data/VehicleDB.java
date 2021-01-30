@@ -13,6 +13,12 @@ import oracle.jdbc.OracleTypes;
 
 public class VehicleDB extends DataHandler {
 
+    /**
+     * Calls the data base to get the vehicle type with id
+     *
+     * @param vehicleID vehicle id
+     * @return the type of that vehicle
+     */
     public String typeOfVehicleByID(int vehicleID) {
 
         try (Connection con = getConnection()) {
@@ -33,6 +39,12 @@ public class VehicleDB extends DataHandler {
         throw new IllegalArgumentException("Could not find a vehicle matching this id");
     }
 
+    /**
+     * Calls the data base to get the responsibles of parked vehicles
+     *
+     * @param vehicleID vehicle id
+     * @return list with the emails of responsibles of parked vehicles
+     */
     public List<String> getEmailNameFromParkedVehicleResponsible(int vehicleID) {
 
         List<String> emailName = new ArrayList<>();

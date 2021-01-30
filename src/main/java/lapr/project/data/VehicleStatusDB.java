@@ -8,6 +8,13 @@ import java.util.logging.Logger;
 
 public class VehicleStatusDB extends DataHandler {
 
+    /**
+     * Calls the data base to update the vehicle status
+     *
+     * @param idVehicle vehicle id
+     * @param status vehicle status
+     * @return true if updates the vehicle status, false otherwise
+     */
     public boolean updateVehicleStatus(int idVehicle, String status) {
 
         try (Connection con2 = getConnection()) {

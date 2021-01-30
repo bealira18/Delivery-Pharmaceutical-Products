@@ -15,16 +15,35 @@ import java.util.logging.Logger;
 
 public class StockDB extends DataHandler {
 
+    /**
+     * Calls the data base to add a product in the pharmacy catalog
+     *
+     * @param stock stock
+     * @return true if it adds or false otherwise
+     */
     public boolean addProductToPharmacyCatalog(Stock stock) {
 
         return addProductToPharmacyCatalog(stock.getPharmacyId(), stock.getProductId());
     }
 
+    /**
+     * Calls the data base to remove a product from the pharmacy catalog
+     *
+     * @param stock stock
+     * @return true if it removes or false otherwise
+     */
     public boolean removeProductFromPharmacyCatalog(Stock stock) {
 
         return removeProductFromPharmacyCatalog(stock.getPharmacyId(), stock.getProductId());
     }
 
+    /**
+     * Calls the data base to check if a product exists in the catalog
+     *
+     * @param idPharmacy pharmacy id
+     * @param idProduct product id
+     * @return true if it exists or false otherwise
+     */
     public boolean checkIfProductExistsInCatalog(int idPharmacy, int idProduct) {
 
         try (Connection con = getConnection()) {
@@ -47,6 +66,12 @@ public class StockDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to update product stock after sale
+     *
+     * @param idOrder order id
+     * @return true if it removes or false otherwise
+     */
     public boolean updateProductStockAfterSale(int idOrder) {
 
         try (Connection con1 = getConnection()) {
@@ -67,6 +92,14 @@ public class StockDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to check if is enough stock
+     *
+     * @param idPharmacy pharmacy id
+     * @param idProduct product id
+     * @param productQuantity product quantity
+     * @return number of products in that stock or -1 if doesn't have stock
+     */
     public int checkIfIsEnoughStock(int idPharmacy, int idProduct, int productQuantity) {
 
         try (Connection con2 = getConnection()) {
@@ -90,6 +123,14 @@ public class StockDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to get others pharmacy address with product stock
+     *
+     * @param idPharmacy pharmacy id
+     * @param idProduct product id
+     * @param productQuantity product quantity
+     * @return the list of addresses of pharmacies that have enough stock
+     */
     public List<Address> getOthersPharmacyAddressWithProductStock(int idPharmacy, int idProduct, int productQuantity) {
 
         List<Address> listAddress = new ArrayList<>();
@@ -150,6 +191,13 @@ public class StockDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to add a product in the pharmacy catalog
+     *
+     * @param idPharmacy pharmacy id
+     * @param idProduct product id
+     * @return true if it adds or false otherwise
+     */
     private boolean addProductToPharmacyCatalog(int idPharmacy, int idProduct) {
 
         try (Connection con5 = getConnection()) {
@@ -171,6 +219,13 @@ public class StockDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to remove a product in the pharmacy catalog
+     *
+     * @param idPharmacy pharmacy id
+     * @param idProduct product id
+     * @return true if it removes or false otherwise
+     */
     private boolean removeProductFromPharmacyCatalog(int idPharmacy, int idProduct) {
 
         try (Connection con6 = getConnection()) {
