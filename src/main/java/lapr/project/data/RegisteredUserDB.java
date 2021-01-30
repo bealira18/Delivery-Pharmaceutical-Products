@@ -9,8 +9,20 @@ import java.util.logging.Logger;
 import lapr.project.model.RegisteredUser;
 import oracle.jdbc.OracleTypes;
 
+/**
+ * Handles database interactions related to RegisteredUser.
+ * 
+ * @author lapr3-2020-g052
+ */
 public class RegisteredUserDB extends DataHandler {
 
+    /**
+     * Finds a user that matches a given email and password.
+     * @param email the users email.
+     * @param password the users password.
+     * @return RegisteredUser with the user matching those values or throws
+     * IllegalArgumentException if none is found.
+     */
     public RegisteredUser findUser(String email, String password) {
 
         try (Connection con = getConnection()) {
