@@ -1,5 +1,9 @@
 package lapr.project.model;
 
+/**
+ * This class serves as a container for a parking space information.
+ * @author lapr3-2020-g052
+ */
 public class ParkingSpace {
 
     private int parkingSpaceId;

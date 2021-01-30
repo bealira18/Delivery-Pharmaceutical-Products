@@ -1,5 +1,9 @@
 package lapr.project.model;
 
+/**
+ * This class serves as a container for the vehicle satus information.
+ * @author lapr3-2020-g052
+ */
 public class VehicleStatus {
 
     private int vehicleStatusId;

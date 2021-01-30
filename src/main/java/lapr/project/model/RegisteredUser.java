@@ -2,6 +2,10 @@ package lapr.project.model;
 
 import java.util.Objects;
 
+/**
+ * This class serves as a container for a registered user information.
+ * @author lapr3-2020-g052
+ */
 public class RegisteredUser {
 
     private final String email;

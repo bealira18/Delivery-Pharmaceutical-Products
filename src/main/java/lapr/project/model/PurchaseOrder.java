@@ -2,6 +2,10 @@ package lapr.project.model;
 
 import java.time.LocalDate;
 
+/**
+ * This class serves as a container for a purchase order information.
+ * @author lapr3-2020-g052
+ */
 public class PurchaseOrder {
 
     private int purchaseOrderId;

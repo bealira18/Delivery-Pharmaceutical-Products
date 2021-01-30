@@ -1,5 +1,9 @@
 package lapr.project.model;
 
+/**
+ * This class serves as a container for a vehicle information.
+ * @author lapr3-2020-g052
+ */
 public class Vehicle {
 
     private int idVehicle;
