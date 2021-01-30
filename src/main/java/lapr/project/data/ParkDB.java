@@ -12,12 +12,25 @@ import java.util.logging.Logger;
 
 public class ParkDB extends DataHandler {
 
+    /**
+     * Adds a park to the system
+     *
+     * @param p park
+     * @return true if it adds or false otherwise
+     */
     public boolean addPark(Park p) {
 
         return addPark(p.getPharmacyId(), p.getLimit(), p.getNumChargingStations(),
                 p.getCategory(), p.getAddress().getDescription(), p.getMaxChargingPotency());
     }
 
+    /**
+     * Calls the data base to get the limit of vehicles at some pharmacy park
+     *
+     * @param idPharmacy pharmacy id
+     * @param vehicleType vehicle type
+     * @return the limit of vehicles in the park
+     */
     public int getLimitVehiclesPark(int idPharmacy, String vehicleType) {
 
         try (Connection con = getConnection()) {
@@ -41,6 +54,12 @@ public class ParkDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to get the number of scooters in a pharmacy
+     *
+     * @param idPharmacy pharmacy id
+     * @return the number of scooters in the pharmacy
+     */
     public int getNumberOfScootersInPharmacy(int idPharmacy) {
 
         try (Connection con1 = getConnection()) {
@@ -62,6 +81,12 @@ public class ParkDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to get the number of drones in a pharmacy
+     *
+     * @param idPharmacy pharmacy id
+     * @return the number of drones in the pharmacy
+     */
     public int getNumberOfDronesInPharmacy(int idPharmacy) {
 
         try (Connection con2 = getConnection()) {
@@ -83,6 +108,12 @@ public class ParkDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to get the park information from it id
+     *
+     * @param id park id
+     * @return the park info
+     */
     public Park getParkById(int id) {
 
         try (Connection con3 = getConnection()) {
@@ -122,6 +153,12 @@ public class ParkDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Calls the data base to update the charging stations
+     *
+     * @param park park
+     * @return true if it updates or false if some exception appears
+     */
     public boolean updateChargingStations(Park park) {
 
         Park p = getParkById(park.getParkId());
@@ -150,6 +187,17 @@ public class ParkDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to add a park
+     *
+     * @param pharmacyId pharmacy id
+     * @param limit limit
+     * @param numChargingStations number of charging stations
+     * @param category category
+     * @param address address
+     * @param maxChargingPotency maximum of chargin potency
+     * @return true if it adds a park or false if some exception appears
+     */
     private boolean addPark(int pharmacyId, int limit, int numChargingStations, String category, String address,
             double maxChargingPotency) {
 
@@ -176,6 +224,13 @@ public class ParkDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to update the park charging potency
+     *
+     * @param idPark park id
+     * @param maxChargingPotency maximum of charging potency
+     * @return true if it updates or false if some exception appears
+     */
     public boolean updateParkChargingPotency(int idPark, double maxChargingPotency) {
 
         try (Connection con6 = getConnection()) {

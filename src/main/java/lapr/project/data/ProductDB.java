@@ -17,6 +17,11 @@ import oracle.jdbc.OracleTypes;
 
 public class ProductDB extends DataHandler {
 
+    /**
+     * Calls the data base to get the products
+     *
+     * @return a list with all the products
+     */
     public List<Product> getProducts() {
 
         List<Product> listProd = new ArrayList<>();
@@ -51,11 +56,26 @@ public class ProductDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to add a product
+     *
+     * @param product product
+     * @return true if it adds or false otherwise
+     */
     public boolean addProduct(Product product) {
 
         return addProduct(product.getName(), product.getPrice(), product.getWeight(), product.getCategoryId());
     }
 
+    /**
+     * Calls the data base to add a product
+     *
+     * @param name name
+     * @param price price
+     * @param weight weight
+     * @param category category
+     * @return true if it adds the product or false i some exception appears
+     */
     public boolean addProduct(String name, double price, double weight, int category) {
 
         try (Connection con1 = getConnection()) {
@@ -79,6 +99,12 @@ public class ProductDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to get a product
+     *
+     * @param id product id
+     * @return a product
+     */
     public Product getProduct(int id) {
 
         try (Connection con2 = getConnection()) {
@@ -113,6 +139,13 @@ public class ProductDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Calls the data base to update a product
+     *
+     * @param id product id
+     * @param p product
+     * @return true if it updates or false if an exception appears
+     */
     public boolean updateProduct(int id, Product p) {
 
         Product a = getProduct(id);
@@ -141,6 +174,12 @@ public class ProductDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to get the products from a pharmacy
+     *
+     * @param idPharmacy pharmacy id
+     * @return a map with the product category corresponding to it product list
+     */
     public Map<ProductCategory, List<Product>> getProductsFromPharmacy(int idPharmacy) {
 
         HashMap<ProductCategory, List<Product>> mapProducts = new HashMap<>();

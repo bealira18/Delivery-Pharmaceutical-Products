@@ -12,12 +12,27 @@ import oracle.jdbc.OracleTypes;
 
 public class PharmacyDB extends DataHandler {
 
+    /**
+     * Adds a pharmacy to the system
+     *
+     * @param a address
+     * @param p pharmacy
+     * @param limitScooterPark limit of the scooter park
+     * @param limitDronePark limit of the drone park
+     * @return return true if it adds or false otherwise
+     */
     public boolean addPharmacy(Address a, Pharmacy p, int limitScooterPark, int limitDronePark) {
 
         return addPharmacy(a.getDescription(), a.getLatitude(), a.getLongitude(), a.getAltitude(),
                 p.getName(), limitScooterPark, limitDronePark);
     }
 
+    /**
+     * Calls the data base to get a pharmacy by the id
+     *
+     * @param pharmacyID pharmacy id
+     * @return the pharmacy
+     */
     public Pharmacy getPhamacyByID(int pharmacyID) {
 
         try (Connection con = getConnection()) {
@@ -50,6 +65,11 @@ public class PharmacyDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Getts all the pharmacys
+     *
+     * @return return a list with all the pharmacys
+     */
     public List<Pharmacy> getAllPharmacies() {
 
         ArrayList<Pharmacy> pharmacies = new ArrayList<>();
@@ -74,6 +94,13 @@ public class PharmacyDB extends DataHandler {
         return pharmacies;
     }
 
+    /**
+     * Calls the data base to update the pharmacys
+     *
+     * @param id pharmacy id
+     * @param name name
+     * @return true if it updates or false if some exception appears
+     */
     public boolean updatePharmacy(int id, String name) {
 
         Pharmacy a = getPhamacyByID(id);
@@ -99,6 +126,18 @@ public class PharmacyDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to add a pharmacy
+     *
+     * @param address address
+     * @param lat latitude
+     * @param lon longitude
+     * @param alt altitude
+     * @param name name
+     * @param limitScooterPark limit of the scooter park
+     * @param limitDronePark limit of the drone park
+     * @return true if it adds or false if some exception appears
+     */
     private boolean addPharmacy(String address, double lat, double lon, double alt, String name,
             int limitScooterPark, int limitDronePark) {
 
@@ -126,6 +165,12 @@ public class PharmacyDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to get a pharmacy by address
+     *
+     * @param pharmacyAddress pharmacy address
+     * @return the pharmacy
+     */
     public Pharmacy getPhamacyByAddress(Address pharmacyAddress) {
 
         try (Connection con4 = getConnection()) {

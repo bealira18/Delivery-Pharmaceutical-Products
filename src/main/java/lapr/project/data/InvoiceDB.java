@@ -10,11 +10,28 @@ import java.util.logging.Logger;
 
 public class InvoiceDB extends DataHandler {
 
+    /**
+     * Adds the invoice to the system
+     *
+     * @param i invoice
+     * @return true if it adds or false otherwise
+     */
     public boolean addInvoice(Invoice i) {
 
         return addInvoice(i.getOrderId(), i.getPharmacyId(), i.getClientEmail(), i.getDeliveryFee(), i.getTotalPrice(), i.getNoVATprice());
     }
 
+    /**
+     * Calls the data base to add an invoice
+     *
+     * @param orderId order id
+     * @param pharmacyId pharmacy id
+     * @param clientEmail client email
+     * @param deliveryFee delivery fee
+     * @param totalPrice total price
+     * @param noVATprice no VAT price
+     * @return true if it adds the invoice or falseif some exception appears
+     */
     private boolean addInvoice(int orderId, int pharmacyId, String clientEmail, double deliveryFee, double totalPrice, double noVATprice) {
 
         try (Connection con = getConnection()) {

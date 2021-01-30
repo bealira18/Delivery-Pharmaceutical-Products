@@ -15,23 +15,48 @@ import oracle.jdbc.OracleTypes;
 
 public class PathDB extends DataHandler {
 
+    /**
+     * Adds a path to the system
+     *
+     * @param p path
+     * @return true if it adds, false otherwise
+     */
     public boolean addPath(Path p) {
 
         return addPath(p.getAddress1().getDescription(), p.getAddress2().getDescription(),
                 p.getKineticCoeficient(), p.getWindAngle(), p.getWindSpeed());
     }
 
+    /**
+     * Updates the path
+     *
+     * @param p path
+     * @return true if it updates, false otherwise
+     */
     public boolean updatePath(Path p) {
 
         return updatePath(p.getAddress1().getDescription(), p.getAddress2().getDescription(),
                 p.getKineticCoeficient(), p.getWindAngle(), p.getWindSpeed());
     }
 
+    /**
+     * Removes a path from the system
+     *
+     * @param a1 one address
+     * @param a2 another address
+     * @return true if it removes, false otherwise
+     */
     public boolean removePath(Address a1, Address a2) {
 
         return removePath(a1.getDescription(), a2.getDescription());
     }
 
+    /**
+     * Calls the data base to get the paths
+     *
+     * @param la list of addresses
+     * @return list of paths from those addresses
+     */
     public List<Path> getPaths(List<Address> la) {
 
         List<Path> lp = new ArrayList<>();
@@ -81,6 +106,16 @@ public class PathDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to add a Path
+     *
+     * @param address1 one address
+     * @param address2 another address
+     * @param kineticCoefficient kinectic coefficient
+     * @param windAngle wind angle
+     * @param windSpeed wind speed
+     * @return true if it adds, false if some exception appears
+     */
     private boolean addPath(String address1, String address2, double kineticCoefficient, double windAngle, double windSpeed) {
 
         try (Connection con1 = getConnection()) {
@@ -105,6 +140,16 @@ public class PathDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to update the path
+     *
+     * @param address1 one address
+     * @param address2 another address
+     * @param kineticCoefficient kinectic coefficient
+     * @param windAngle wind angle
+     * @param windSpeed wind speed
+     * @return true if it updates or false if  some exception appears
+     */
     private boolean updatePath(String address1, String address2, double kineticCoefficient, double windAngle, double windSpeed) {
 
         try (Connection con2 = getConnection()) {
@@ -129,6 +174,13 @@ public class PathDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to remove a path
+     *
+     * @param aDesc1 one address description
+     * @param aDesc2 another address description
+     * @return true if it removes or false if some exception appears
+     */
     private boolean removePath(String aDesc1, String aDesc2) {
 
         try (Connection con3 = getConnection()) {
