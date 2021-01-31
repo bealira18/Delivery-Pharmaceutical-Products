@@ -24,8 +24,21 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Handles database interactions related to Scooter.
+ *
+ * @author lapr3-2020-g052
+ */
 public class ScooterDB extends DataHandler {
 
+    /**
+     * Adds the scooter with the QR Code
+     *
+     * @param scooter drone
+     * @param width width
+     * @param height height
+     * @return true if it adds or false if any exeption appears
+     */
     public boolean addScooter(Scooter scooter, int width, int height) {
 
         String path="./qrScooter"+scooter.getIdVehicle()+".png";
@@ -42,6 +55,12 @@ public class ScooterDB extends DataHandler {
                 scooter.getAverageSpeed(), scooter.getScooterStatusId(), path);
     }
 
+    /**
+     * Calls the data base to get the scooter by an id
+     *
+     * @param idScooter scooter id
+     * @return returns the scooter with the requested id
+     */
     public Scooter getIdScooter(int idScooter) {
 
         try (Connection con = getConnection()) {
@@ -73,6 +92,12 @@ public class ScooterDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Get all the scooters that are available
+     *
+     * @param orderId order id
+     * @return available scooters
+     */
     public List<Scooter> getAllAvailableScooters(int orderId) {
 
         ArrayList<Scooter> scooters = new ArrayList<>();
@@ -102,6 +127,13 @@ public class ScooterDB extends DataHandler {
         return scooters;
     }
 
+    /**
+     * Calls the data base to update a drone
+     *
+     * @param ids scooter id
+     * @param s scooter
+     * @return true if it updates or false otherwise
+     */
     public boolean updateScooter(int ids, Scooter s) {
 
         Scooter a = getIdScooter(ids);
@@ -136,6 +168,22 @@ public class ScooterDB extends DataHandler {
         }
     }
 
+    /**
+     * Calls the data base to add a scooter
+     *
+     * @param idScooter scooter id
+     * @param idPharmacy pharmacy id
+     * @param weight weight
+     * @param aerodynamicCoeficient aerodynamic coeficient
+     * @param frontalArea frontal area
+     * @param motor motor
+     * @param currentBattery current battery
+     * @param maxBattery max battery
+     * @param averageSpeed avarage speed
+     * @param scooterStatusId scooter status id
+     * @param path path
+     * @return true if it adds or false if any exeption appears
+     */
     private boolean addScooter(int idScooter, int idPharmacy, double weight, double aerodynamicCoeficient, double frontalArea,
                                double motor, double currentBattery, double maxBattery, double averageSpeed, int scooterStatusId,
                                 String path) {
@@ -171,6 +219,12 @@ public class ScooterDB extends DataHandler {
         }
     }
 
+    /**
+     * Getts the scooter with the highest battery in a pharmacy
+     *
+     * @param pharmacyId pharmacy id
+     * @return scooter with the highest battery
+     */
     public Scooter getHighestBatteryScooter(int pharmacyId) {
 
         try (Connection con4 = getConnection()) {
@@ -208,6 +262,16 @@ public class ScooterDB extends DataHandler {
         return null;
     }
 
+    /**
+     * Generates the QR code image for a scooter
+     *
+     * @param text text
+     * @param width width
+     * @param height height
+     * @param filePath file path
+     * @throws WriterException writer exception
+     * @throws IOException IO exception
+     */
     public void generateQRCodeImage(String text, int width, int height, String filePath) throws WriterException, IOException {
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
