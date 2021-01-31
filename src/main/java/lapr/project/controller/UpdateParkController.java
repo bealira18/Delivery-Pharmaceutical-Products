@@ -49,6 +49,12 @@ public class UpdateParkController {
         return spDB.updateChargingStations(sp);
     }
 
+    /**
+     * Updates the maximum charging potency of a park
+     * @param parkId park id
+     * @param chargingPotency new charging potency
+     * @return true if updated, false if database failure
+     */
     public boolean updateParkChargingPotency(int parkId, double chargingPotency) {
         return spDB.updateParkChargingPotency(parkId, chargingPotency);
     }
