@@ -60,7 +60,7 @@ public class UpdateScooterController {
 
     /**
      * Retrieves the maximum payload value for scooter transportation.
-     * @return double containing the Scooter maximum paayload.
+     * @return double containing the scooter maximum paayload.
      */
     public double getScooterMaxPayload() {
 
