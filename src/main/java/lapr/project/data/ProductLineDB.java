@@ -12,8 +12,21 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Handles database interactions related to ProductLine.
+ *
+ * @author lapr3-2020-g052
+ */
 public class ProductLineDB extends DataHandler {
 
+    /**
+     * Adds a product line related to a purchase order
+     * @param idOrder purchase order id
+     * @param idProduct product id
+     * @param quantity product quantity
+     * @param price product price * quantity
+     * @return true if added, false otherwise
+     */
     public boolean newProductLine(int idOrder, int idProduct, int quantity, double price) {
 
         try (Connection con = getConnection()) {
@@ -37,6 +50,11 @@ public class ProductLineDB extends DataHandler {
         }
     }
 
+    /**
+     * Gets all product lines from an order
+     * @param idOrder purchase order id
+     * @return all product lines from order
+     */
     public List<ProductLine> getProductLinesFromOrder(int idOrder) {
         List<ProductLine> productLineList = new ArrayList<>();
 
