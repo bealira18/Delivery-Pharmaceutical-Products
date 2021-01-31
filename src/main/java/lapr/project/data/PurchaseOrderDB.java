@@ -6,8 +6,20 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Handles database interactions related to PurchaseOrder.
+ *
+ * @author lapr3-2020-g052
+ */
 public class PurchaseOrderDB extends DataHandler {
 
+    /**
+     * Adds a purchase order to the database
+     * @param idOrder purchase order id
+     * @param idPharmacy pharmacy id
+     * @param email client email
+     * @return true if added, false otherwise
+     */
     public boolean newOrder(int idOrder, int idPharmacy, String email) {
 
         try (Connection con = getConnection()) {
