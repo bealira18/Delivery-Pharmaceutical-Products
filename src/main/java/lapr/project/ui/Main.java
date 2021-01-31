@@ -81,7 +81,7 @@ class Main {
         System.out.println("Adding product: " + product2.toString() + " Quantity: 6");
         System.out.println(purchaseItemsController.addToBasket(product2, 2));
         System.out.println(purchaseItemsController.addToBasket(product2, 4));
-        PurchaseOrder purchaseOrder1 = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
+        PurchaseOrder purchaseOrder1 = purchaseItemsController.purchaseItems(idOrder, 1, "client3@gmail.com", graphController.getGraphScooterEnergy());
         System.out.println(purchaseOrder1);
         if (purchaseOrder1 == null) {
             System.out.println("Error during purchase.");
@@ -146,7 +146,7 @@ class Main {
         int idOrder = 3;
         System.out.println("Adding product: " + product5.toString() + " Quantity: 10");
         System.out.println(purchaseItemsController.addToBasket(product5, 10));
-        PurchaseOrder purchaseOrder2 = purchaseItemsController.purchaseItems(idOrder, 1, "client1@gmail.com", graphController.getGraphScooterEnergy());
+        PurchaseOrder purchaseOrder2 = purchaseItemsController.purchaseItems(idOrder, 1, "client3@gmail.com", graphController.getGraphScooterEnergy());
         System.out.println(purchaseOrder2);
         if (purchaseOrder2 == null) {
             System.out.println("Basket over max weight. Order cancelled.");
